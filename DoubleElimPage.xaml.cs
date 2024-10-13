@@ -12,90 +12,106 @@ public partial class DoubleElimPage : ContentPage
     private void FillGridWithPlayers()
     {
         List<string> players = [
-            "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D", "A", "B", "C", "D"
+            "A", "B", "C", "D", 
+            "A", "B", "C", "D", 
+            "A", "B", "C", "D", 
+            "A", "B", "C", "D"
         ];
-        int numPlayers = players.Count;
+        var numberOfPlayers = players.Count;
         
-        // Add the rows and columns
+        // Add the rows
         GridDoubleElim.RowDefinitions.Clear();
-        int numRows = 2 * numPlayers;
-        for (int i = 0; i < numRows; i++)
+        // To ensure the columns after the first have the names centered,
+        // an extra row in between names is used.
+        // |name--|
+        // |      |--name
+        // |name--|
+        var numberOfRows = 2 * numberOfPlayers;
+        for (var row = 0; row < numberOfRows; row++)
         {
-            GridDoubleElim.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
+            GridDoubleElim.RowDefinitions.Add(
+                new RowDefinition { Height = GridLength.Star });
         }
         
+        // Add the columns
         GridDoubleElim.ColumnDefinitions.Clear();
-        int numColumns = 2 * (int)Math.Log(numPlayers, 2) + 1;
-        for (int i = 0; i < numColumns; i++)
-        {
-            GridDoubleElim.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
-        }
-        
-        // Fill first column with players
-        for (int i = 0; i < numPlayers; i++)
-        {
-            // TODO autoscale?
-            var playerLabel = new Label
-            {
-                Text = players[i], 
-                HorizontalOptions = LayoutOptions.Center, 
-                VerticalOptions = LayoutOptions.Center
-            };
-            // To ensure the columns after this have the names centered
-            // an extra row in between names is used which is why it is i * 2.
-            // |name--|
-            // |      |--name
-            // |name--|
-            GridDoubleElim.Add(playerLabel, 0, (i * 2));
-        }
-
-        // Fill the winner columns
-        // Only fill every other column since the columns in between have the lines connecting players
+        // To ensure the columns in between the names have the lines connecting players,
+        // an extra column in between is used.
         //          v--------- column with lines 
         // |  0  |  1  |  2  |
         // | name --|
         // |        |-- name |
         // | name --|
-        int currentRowCount = numPlayers;
-        for (int col = 2; col < numColumns; col += 2) 
+        // The extra column is for the winner's name
+        var numberOfColumns = (2 * (int)Math.Log(numberOfPlayers, 2)) + 1;
+        for (var i = 0; i < numberOfColumns; i++)
         {
-            int numNamesForNextRow = (int)Math.Ceiling(currentRowCount / 2.0);
-            for (int i = 0; i < numNamesForNextRow; i++)
+            GridDoubleElim.ColumnDefinitions.Add(
+                new ColumnDefinition { Width = GridLength.Star });
+        }
+        
+        // Fill the first column with players
+        for (var currentPlayerNumber = 0; currentPlayerNumber < numberOfPlayers; currentPlayerNumber++)
+        {
+            // TODO autoscale text?
+            var playerLabel = new Label
             {
-                // TODO autoscale?
-                var winnerLabel = new Label
-                {
-                    Text = "TBD", 
-                    HorizontalOptions = LayoutOptions.Center, 
-                    VerticalOptions = LayoutOptions.Center
-                };
-                
-                int rowPosition = (int)Math.Pow(2, (col / 2)) - 1 + (i * (int)Math.Pow(2, (col / 2) + 1));
-                
-                // (col % 2) is to ensure centering
-                GridDoubleElim.Add(winnerLabel, col, rowPosition + (col % 2));
-            }
-            currentRowCount = numNamesForNextRow;
+                Text = players[currentPlayerNumber], 
+                HorizontalOptions = LayoutOptions.Center, 
+                VerticalOptions = LayoutOptions.Center
+            };
+
+            GridDoubleElim.Add(
+                playerLabel, 
+                0,
+                (currentPlayerNumber * 2));
         }
 
-        // Fill every other column with the lines
-        currentRowCount = numPlayers / 2;
-        for (int col = 1; col < numColumns; col += 2)
+        // Fill the winner columns and add the lines in between names
+        var currentRowCount = numberOfPlayers / 2;
+        var winnerColumnsCount = numberOfColumns / 2;
+        for (var col = 0; col < winnerColumnsCount; col++)
         {
-            for (int row = 0; row < currentRowCount; row++)
+            var currentColumn = (2 * col) + 1;
+            
+            var rowOffsetForLines = (int)Math.Pow(2, col) - 1;
+            var rowSpanForLines = (int)Math.Pow(2, col + 1) + 1;
+            
+            var rowOffsetForWinnerNames = (int)Math.Pow(2, col + 1) - 1;
+            var spaceBetweenWinnerNames = (int)Math.Pow(2, (col + 2));
+            
+            for (var row = 0; row < currentRowCount; row++)
             {
-                var rowPosition =  (int)Math.Pow(2, ((col - 1) / 2)) - 1 + (row * (int)(Math.Pow(2, ((col + 1) / 2) + 1)));
-                var rowSpan = (int)Math.Pow(2, ((col + 1) / 2)) + 1;
-                var matchDrawable = new DoubleElimDrawable(new Label().TextColor, rowSpan);
+                // Add lines between names in the previous column and the next column to the current column
+                var rowPositionForLines = rowOffsetForLines + (row * spaceBetweenWinnerNames);
+                var matchDrawable = new DoubleElimDrawable(new Label().TextColor, rowSpanForLines);
                 var graphicsView = new GraphicsView
                 {
                     Drawable = matchDrawable,
                     HorizontalOptions = LayoutOptions.Center, 
                     VerticalOptions = LayoutOptions.Center
                 };
-                GridDoubleElim.AddWithSpan(graphicsView, rowPosition, col, rowSpan, 1);
+                GridDoubleElim.AddWithSpan(
+                    graphicsView, 
+                    rowPositionForLines, 
+                    currentColumn,
+                    rowSpanForLines, 
+                    1);
+                
+                // Add the winner's name to the next column
+                var rowPositionForWinnerNames = rowOffsetForWinnerNames + (row * spaceBetweenWinnerNames);
+                // TODO autoscale text?
+                var winnerLabel = new Label
+                {
+                    Text = "TBD", 
+                    HorizontalOptions = LayoutOptions.Center, 
+                    VerticalOptions = LayoutOptions.Center
+                };
+                GridDoubleElim.Add(
+                    winnerLabel, 
+                    currentColumn + 1, 
+                    rowPositionForWinnerNames);
             }
-
             currentRowCount /= 2;
         }
     }
