@@ -4,12 +4,16 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:CS341Project"
-    Shell.FlyoutBehavior="Disabled"
+    FlyoutBehavior="Disabled"
     Title="CS341Project">
 
+    <Shell.TitleView>
+        <Label Text="Home"
+               FontSize="41"/>
+    </Shell.TitleView>
+    
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:DoubleElimPage}"
+        ContentTemplate="{DataTemplate local:SeedingShell}"
         Route="MainPage" />
 
 </Shell>

@@ -1,12 +1,14 @@
 ﻿namespace CS341Project;
 
+/// <summary>
+/// A page that displays a double elimination bracket.
+/// </summary>
 public partial class DoubleElimPage : ContentPage
 {
     public DoubleElimPage()
     {
         InitializeComponent();
         FillGridWithPlayers();
-        
     }
     
     private void FillGridWithPlayers()

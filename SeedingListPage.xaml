@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:CS341Project"
+             xmlns:models="clr-namespace:CS341Project.Models"
+             x:Class="CS341Project.SeedingListPage"
+             x:DataType="local:SeedingListPage">
+    <ContentPage.Content>
+        <ScrollView>
+            <CollectionView
+                x:Name="SeedingListView"
+                IsGrouped="True"
+                ItemsSource="{Binding SeedingList}">
+                
+                <CollectionView.GroupHeaderTemplate>
+                    <DataTemplate x:DataType="models:PlayerTierGroup">
+                        <Label Text="{Binding Tier  }"
+                               FontAttributes="Bold" 
+                               FontSize="31">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="ToggleGroup" />
+                            </Label.GestureRecognizers>
+                            </Label>
+                    </DataTemplate>
+                </CollectionView.GroupHeaderTemplate>
+                
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Player">
+                        <Label 
+                            Text="{Binding FormattedPlayer}" 
+                            FontSize="21"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
