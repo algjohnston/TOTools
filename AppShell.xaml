@@ -13,7 +13,7 @@
     </Shell.TitleView>
     
     <ShellContent
-        ContentTemplate="{DataTemplate local:SeedingShell}"
+        ContentTemplate="{DataTemplate local:MatchSchedulerPage}"
         Route="MainPage" />
 
 </Shell>
