@@ -1,6 +1,7 @@
 ﻿namespace CS341Project.Models;
 
 /// <summary>
+/// Alexander Johnston
 /// An expandable group of players sharing the same tier.
 /// </summary>
 /// <param name="tier">The tier of the player group.</param>

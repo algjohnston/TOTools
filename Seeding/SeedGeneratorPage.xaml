@@ -2,7 +2,7 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CS341Project.SeedGeneratorPage">
+             x:Class="CS341Project.Seeding.SeedGeneratorPage">
     <ContentPage.Content>
 
         <Grid ColumnDefinitions="*"
@@ -23,7 +23,8 @@
             <Button Text="Submit"
                     Grid.Row="1"
                     HorizontalOptions="Center"
-                    VerticalOptions="Center" />
+                    VerticalOptions="Center"
+                    Clicked="SubmitButton_OnClicked"/>
 
         </Grid>
 

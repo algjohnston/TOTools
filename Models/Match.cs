@@ -1,6 +1,7 @@
 ﻿namespace CS341Project.Models;
 
 /// <summary>
+/// Alexander Johnston
 /// Represents a match between two players with a time estimate
 /// on how long the match could take.
 /// </summary>

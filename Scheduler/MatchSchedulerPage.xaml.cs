@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CS341Project.Models;
 
-namespace CS341Project;
+namespace CS341Project.Scheduler;
 
 /// <summary>
 /// A page that displays a potential match schedule

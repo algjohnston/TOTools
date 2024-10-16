@@ -2,10 +2,10 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CS341Project.MatchSchedulerPage"
+             x:Class="CS341Project.Scheduler.MatchSchedulerPage"
              x:DataType="local:MatchSchedulerPage"
-             xmlns:local="clr-namespace:CS341Project"
-             xmlns:models="clr-namespace:CS341Project.Models">
+             xmlns:models="clr-namespace:CS341Project.Models"
+             xmlns:local="clr-namespace:CS341Project.Scheduler">
     <ContentPage.Content>
 
         <Grid
@@ -24,8 +24,7 @@
 
             <ScrollView
                 Grid.Row="1"
-                Grid.ColumnSpan="2"
-                VerticalOptions="FillAndExpand">
+                Grid.ColumnSpan="2">
                 <CollectionView
                     x:Name="MatchList"
                     ItemsSource="{Binding Matches}">

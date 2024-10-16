@@ -1,6 +1,7 @@
 ﻿namespace CS341Project.Models;
 
 /// <summary>
+/// Alexander Johnston
 /// Represents a player in the tournaments.
 /// </summary>
 /// <param name="name">The name of the player.</param>
