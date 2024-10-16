@@ -7,17 +7,17 @@
 	<ContentPage.Content>
 
 		<StackLayout HorizontalOptions="Center"
-			         VerticalOptions="CenterAndExpand">
+			     VerticalOptions="CenterAndExpand">
 
 			<Label Text="Event Map"
-				   FontAttributes="Bold"
-                   FontSize="32"
-                   HorizontalOptions="Center" />
+			       FontAttributes="Bold"
+                               FontSize="32"
+                               HorizontalOptions="Center" />
 
             <Image Source="wi_map.png"
                    Aspect="AspectFit"
                    HorizontalOptions="Center"
-				   VerticalOptions="FillAndExpand" />
+		   VerticalOptions="FillAndExpand" />
 
 		</StackLayout>
 	</ContentPage.Content>
