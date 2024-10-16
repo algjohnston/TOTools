@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        x:Class="CS341Project.HomePage">
+    <Grid ColumnDefinitions="*"
+          RowDefinitions="80, *, *, *, *"
+          Margin="20">
+    
+        <Button x:Name="LogOutButton"
+            Text="Log Out"    
+            Grid.Row="0"
+            Margin="10"
+            HorizontalOptions="End"
+            VerticalOptions="Start"
+            Clicked="OnLogOutButtonClicked"/>
+        
+        <Button x:Name="SeedingButton" 
+            Text="Seeding"
+            Margin="10"
+            Grid.Row="1"
+            Clicked="OnSeedingButtonClicked"/>
+        
+        <Button x:Name="SchedulerButton" 
+            Text="Scheduler"
+            Margin="10" 
+            Grid.Row="2"
+            Clicked="OnSchedulerButtonClicked"/>
+        
+        <Button x:Name="EventMapButton" 
+            Text="Event Map" 
+            Margin="10"
+            Grid.Row="3"
+            Clicked="OnEventMapButtonClicked"/>
+
+        <Button x:Name="ThumbnailGeneratorButton" 
+            Text="Thumbnail Generator" 
+            Margin="10" 
+            Grid.Row="4"
+            Clicked="OnThumbnailGeneratorButtonClicked"/>
+    </Grid>
+</ContentPage>

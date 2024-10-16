@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        x:Class="CS341Project.Thumb_Gen.ThumbGenManualPage">
+
+    <Grid ColumnDefinitions="*"
+          RowDefinitions="60, 60, 60, 60"
+          Margin="20">
+
+        <Entry x:Name="VodTitleTextBox" 
+            Margin="10"
+            Grid.Row="0"
+            Placeholder="Enter VOD Title"/>
+
+        <Button 
+            x:Name="SelectTemplateButton" 
+            Text="Select Template"
+            Margin="10" 
+            Grid.Row="1"
+            Clicked="OnSelectTemplateButtonClicked"/>
+
+        <Button x:Name="OutputFolderButton" 
+            Text="Select Output Folder" 
+            Margin="10" 
+            Grid.Row="2"
+            Clicked="OnOutputFolderButtonClicked"/>
+
+        <Button x:Name="SubmitButton" 
+            Text="Submit" 
+            Margin="10" 
+            Grid.Row="3"
+            Clicked="OnSubmitButtonClicked"/>
+    </Grid>
+</ContentPage>

@@ -62,4 +62,17 @@
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <MauiXaml Update="HomePage.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="HomePage.xaml.cs">
+        <SubType>Code</SubType>
+        <DependentUpon>HomePage.xaml</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>
