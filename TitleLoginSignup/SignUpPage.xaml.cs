@@ -1,4 +1,4 @@
-namespace CS341Project.TitleLoginSignup;
+namespace CS341Project.SignUp;
 
 public partial class SignUpPage : ContentPage {
 
@@ -9,8 +9,7 @@ public partial class SignUpPage : ContentPage {
 
     private void OnOkButtonClicked(object? sender, EventArgs e)
     {
-        throw new NotImplementedException();
+        Navigation.PopAsync();
     }
-
     
 }

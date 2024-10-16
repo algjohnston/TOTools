@@ -1,4 +1,4 @@
-﻿namespace CS341Project;
+﻿namespace CS341Project.Seeding;
 
 /// <summary>
 /// A page that displays a double elimination bracket.

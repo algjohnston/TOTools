@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-        x:Class="CS341Project.HomePage">
+        x:Class="CS341Project.HomePage"
+        Title="Home Page">
     <Grid ColumnDefinitions="*"
           RowDefinitions="80, *, *, *, *"
           Margin="20">
@@ -18,24 +19,33 @@
             Text="Seeding"
             Margin="10"
             Grid.Row="1"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
             Clicked="OnSeedingButtonClicked"/>
         
         <Button x:Name="SchedulerButton" 
             Text="Scheduler"
             Margin="10" 
             Grid.Row="2"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
             Clicked="OnSchedulerButtonClicked"/>
         
         <Button x:Name="EventMapButton" 
             Text="Event Map" 
             Margin="10"
             Grid.Row="3"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
             Clicked="OnEventMapButtonClicked"/>
 
         <Button x:Name="ThumbnailGeneratorButton" 
             Text="Thumbnail Generator" 
             Margin="10" 
             Grid.Row="4"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+
             Clicked="OnThumbnailGeneratorButtonClicked"/>
     </Grid>
 </ContentPage>

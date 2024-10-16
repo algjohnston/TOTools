@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using CS341Project.Models;
 
-namespace CS341Project;
+namespace CS341Project.Seeding;
 
 /// <summary>
 /// A page of people who have competed in tournaments in the past.
