@@ -11,8 +11,7 @@ public partial class HomePage : ContentPage {
 
     private void OnLogOutButtonClicked(object? sender, EventArgs e)
     {
-        // throw new NotImplementedException();
-        Navigation.PushAsync(new SignUpPage()); //goes to sign up page for now
+		Navigation.PushAsync(new TitleLoginSignup.TitlePage());
     }
 
     private void OnSeedingButtonClicked(object? sender, EventArgs e)

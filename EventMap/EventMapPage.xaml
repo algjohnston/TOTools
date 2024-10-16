@@ -7,20 +7,19 @@
 	<ContentPage.Content>
 
 		<ScrollView>
-			<VerticalStackLayout
-				Padding="30,0"
-            			Spacing="25">
+			<VerticalStackLayout Padding="30,0"
+            			         Spacing="25">
 				<Label
 				    Text="Event Map"
 				    Style="{StaticResource Headline}"
 				    TextColor="White"
 				    HorizontalTextAlignment="Center"
-			            FontAttributes="Bold" />
+			        FontAttributes="Bold" />
 				
 				<Image
 				    Source="wi_map.png"
 				    HeightRequest="185"
-		                    Aspect="AspectFit"
+		            Aspect="AspectFit"
 				    SemanticProperties.Description="Temporary Stand-in Map"
 				    HorizontalOptions="Center" />
 			</VerticalStackLayout>
