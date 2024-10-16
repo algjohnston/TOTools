@@ -6,23 +6,29 @@
           RowDefinitions="80, *, *, *, *"
           Margin="20">
 
-    <Label Text="Email" 
-           Grid.Column="0"
-           
-           Margin="10"/>
+        <Label Text="Email"
+               Grid.Column="0"
+               Margin="10"/>
 
-    <Entry x:Name="EmailTextField"
-           Grid.Column="0"
-           Margin="10"
-           HorizontalOptions="FillAndExpand"
-           VerticalOptions="Start"/>
-        
+        <Frame Grid.Column="0"
+               Margin="10"
+               BorderColor="Gray"
+               CornerRadius="5"
+               Padding="5"
+               HasShadow="False">
+            <Entry x:Name="EmailTextField"
+                   Placeholder="Enter your email"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="Center"/>
+        </Frame>
 
-    <Button x:Name="OkButton"
-           Grid.Column="0"
-           Margin="10"
-           HorizontalOptions="FillAndExpand"
-           Clicked="OnOkButtonClicked"/>
+        <Button x:Name="OkButton"
+                Text="OK"
+                Grid.Column="0"
+                Margin="10"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Start"
+                Clicked="OnOkButtonClicked"/>
 
     </Grid>
 </ContentPage>
