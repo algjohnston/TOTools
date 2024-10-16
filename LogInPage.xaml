@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:local="clr-namespace:CS341Project"
+			 x:Class="CS341Project.TitleLoginSignup.LogInPage">
+	<ContentPage.Content>
+		<Grid ColumnDefinitions="Auto, *, *"
+			  RowDefinitions="*, *, *, *"
+			  Margin="20">
+			<Label Text="Log In"
+				   Style="{StaticResource Headline}"
+				   FontSize="40"
+				   HorizontalTextAlignment="Center"
+				   FontAttributes="Bold" />
+
+			<Label Text="Username: "
+				   FontSize="Large"
+				   Grid.Row="1"
+				   HorizontalTextAlignment="Start"
+				   HeightRequest="80" />
+
+			<Entry x:Name="UsernameEntry" 
+				   FontSize="Large"
+				   Grid.Row="1"
+				   BackgroundColor="White"
+				   Grid.Column="1"
+				   HorizontalTextAlignment="Start"
+				   HeightRequest="80"/>
+
+			<Label Text="Password: "
+				   FontSize="Large"
+				   Grid.Row="2"
+				   HorizontalTextAlignment="Start"
+                   HeightRequest="80" />
+
+			<Entry x:Name="PasswordEntry" 
+				   FontSize="Large"
+				   Grid.Row="2"
+				   BackgroundColor="White"
+				   Grid.Column="1"
+				   HorizontalTextAlignment="Start"
+				   HeightRequest="80"/>
+
+			<Button x:Name="Login"
+					Text="Log In"
+					FontSize="Large"
+					FontAttributes="Bold"
+					Grid.Row="3"
+					Grid.Column="1"
+					Margin="25"
+					HeightRequest="100"
+					WidthRequest="500" 
+					Clicked="OnLogInButtonClicked" />
+
+			<Button x:Name="Cancel"
+					Text="Cancel"
+					FontSize="Large"
+					FontAttributes="Bold"
+					Grid.Row="3"
+					Grid.Column="2"
+					Margin="25"
+					HeightRequest="100"
+					WidthRequest="500" 
+					Clicked="OnCancelButtonClicked" />
+		</Grid>
+
+	</ContentPage.Content>
+</ContentPage>
