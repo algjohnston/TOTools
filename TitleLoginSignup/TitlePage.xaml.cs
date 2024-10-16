@@ -1,4 +1,6 @@
-﻿namespace CS341Project.TitleLoginSignup;
+﻿using CS341Project.SignUp;
+
+namespace CS341Project.TitleLoginSignup;
 
 public partial class TitlePage : ContentPage
 {
@@ -9,12 +11,12 @@ public partial class TitlePage : ContentPage
 
 	private void OnLogInButtonClicked(object? sender, EventArgs e)
 	{
-		Navigation.PushAsync(new TitleLoginSignup.LogInPage());
+		Navigation.PushAsync(new LogInPage());
 	}
 
 	private void OnSignUpButtonClicked(object? sender, EventArgs e)
 	{
-		Navigation.PushAsync(new TitleLoginSignup.SignUpPage());
+		Navigation.PushAsync(new SignUpPage());
 	}
 
 	private void OnSkipButtonClicked(object? sender, EventArgs e)

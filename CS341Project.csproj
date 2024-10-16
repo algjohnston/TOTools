@@ -66,12 +66,26 @@
       <MauiXaml Update="HomePage.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
+      <MauiXaml Update="TitleLoginSignup\LogInPage.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+      <MauiXaml Update="TitleLoginSignup\SignUpPage.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
     </ItemGroup>
 
     <ItemGroup>
       <Compile Update="HomePage.xaml.cs">
         <SubType>Code</SubType>
         <DependentUpon>HomePage.xaml</DependentUpon>
+      </Compile>
+      <Compile Update="TitleLoginSignup\LogInPage.xaml.cs">
+        <SubType>Code</SubType>
+        <DependentUpon>LogInPage.xaml</DependentUpon>
+      </Compile>
+      <Compile Update="TitleLoginSignup\SignUpPage.xaml.cs">
+        <DependentUpon>SignUpPage.xaml</DependentUpon>
+        <SubType>Code</SubType>
       </Compile>
     </ItemGroup>
 
