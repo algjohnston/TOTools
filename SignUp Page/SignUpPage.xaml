@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        x:Class="CS341Project.SignUpPage">
+    <Grid ColumnDefinitions="*"
+          RowDefinitions="80, *, *, *, *"
+          Margin="20">
+
+    <Label Text="Email" 
+           Grid.Column="0"
+           
+           Margin="10"/>
+
+    <Entry x:Name="EmailTextField"
+           Grid.Column="0"
+           Margin="10"
+           HorizontalOptions="FillAndExpand"
+           VerticalOptions="Start"/>
+        
+
+    <Button x:Name="OkButton"
+           Grid.Column="0"
+           Margin="10"
+           HorizontalOptions="FillAndExpand"
+           Clicked="OnOkButtonClicked"/>
+
+    </Grid>
+</ContentPage>
