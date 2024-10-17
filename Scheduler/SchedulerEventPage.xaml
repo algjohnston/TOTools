@@ -9,7 +9,7 @@
     <ContentPage.Content>
 
         <Grid
-            ColumnDefinitions="*, auto, *"
+            ColumnDefinitions="*, auto"
             RowDefinitions="auto, *, auto, auto"
             Margin="16">
 
@@ -45,6 +45,7 @@
                                 </Label>
                                 
                                 <ImageButton Source="settings.svg"
+                                             Clicked="SettingsImageButton_OnClicked"
                                              Grid.Column="2"/>
                             </Grid>
                         </DataTemplate>

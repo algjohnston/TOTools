@@ -20,4 +20,9 @@ public partial class SchedulerEventPage : ContentPage
             Events.Add(new Event("D",  new DateTime(103)));
         }
     }
+
+    private void SettingsImageButton_OnClicked(object? sender, EventArgs e)
+    {
+        Navigation.PushAsync(new EventPopup());
+    }
 }
