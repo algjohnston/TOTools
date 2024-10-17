@@ -16,9 +16,10 @@
 		           Style="{StaticResource Headline}"
 		           FontSize="50"
 		           TextColor="Gold"
-		           HorizontalTextAlignment="Center"
 		           VerticalTextAlignment="Start"
-		           FontAttributes="Bold, Italic" />
+		           FontAttributes="Bold, Italic"
+		           HorizontalOptions="FillAndExpand"
+		           />
 
 			<Button x:Name="LogInButton"
 					Text="Log In"

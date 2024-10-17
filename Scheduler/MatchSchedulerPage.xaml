@@ -5,7 +5,8 @@
              x:Class="CS341Project.Scheduler.MatchSchedulerPage"
              x:DataType="local:MatchSchedulerPage"
              xmlns:models="clr-namespace:CS341Project.Models"
-             xmlns:local="clr-namespace:CS341Project.Scheduler">
+             xmlns:local="clr-namespace:CS341Project.Scheduler"
+             Title="Match Scheduler">
     <ContentPage.Content>
 
         <Grid

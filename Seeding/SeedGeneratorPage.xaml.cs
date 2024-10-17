@@ -11,4 +11,9 @@ public partial class SeedGeneratorPage : ContentPage
     {
         Navigation.PushAsync(new DoubleElimPage());
     }
+
+    private void ManualEntryButton_OnClicked(object? sender, EventArgs e)
+    {
+        // Waiting for SelectCompetitorsPage
+    }
 }

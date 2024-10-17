@@ -1,18 +1,10 @@
-namespace CS341Project.Thumb_Gen;
-using Microsoft.Win32;
-using System.Windows;
+namespace CS341Project.ThumbGen;
 
 public partial class ThumbGenPage : ContentPage {
 
     public ThumbGenPage ()
     {
         InitializeComponent();
-    }
-
-
-    private void OnBackButtonClicked(object? sender, EventArgs e)
-    {
-        throw new NotImplementedException();
     }
 
     private void OnManualEntryButtonClicked(object? sender, EventArgs e)
@@ -22,16 +14,16 @@ public partial class ThumbGenPage : ContentPage {
 
     private void OnSelectTemplateButtonClicked(object? sender, EventArgs e)
     {
-        throw new NotImplementedException();
+        
     }
 
     private void OnOutputFolderButtonClicked(object? sender, EventArgs e)
     {
-        throw new NotImplementedException();
+        
     }
 
     private void OnSubmitButtonClicked(object? sender, EventArgs e)
     {
-        throw new NotImplementedException();
+        Navigation.PopAsync();
     }
 }

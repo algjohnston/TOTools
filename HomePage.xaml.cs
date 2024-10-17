@@ -1,6 +1,6 @@
 using CS341Project.Scheduler;
 using CS341Project.Seeding;
-using CS341Project.TitleLoginSignup;
+using CS341Project.ThumbGen;
 
 namespace CS341Project;
 
@@ -23,6 +23,7 @@ public partial class HomePage : ContentPage {
     private void OnSchedulerButtonClicked(object? sender, EventArgs e)
     {
         Navigation.PushAsync(new MatchSchedulerPage());
+        // TODO waiting for SchedulerEventPage
     }
 
     private void OnEventMapButtonClicked(object? sender, EventArgs e)
@@ -32,7 +33,7 @@ public partial class HomePage : ContentPage {
 
     private void OnThumbnailGeneratorButtonClicked(object? sender, EventArgs e)
     {
-        Navigation.PushAsync(new Thumb_Gen.ThumbGenPage());
+        Navigation.PushAsync(new ThumbGenPage());
     }
     
 }
