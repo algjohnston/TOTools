@@ -9,7 +9,7 @@
     <ContentPage.Content>
 
         <Grid
-            ColumnDefinitions="*, auto"
+            ColumnDefinitions="*, auto, *"
             RowDefinitions="auto, *, auto, auto"
             Margin="16">
 
@@ -34,7 +34,7 @@
                         <DataTemplate x:DataType="models:Event">
                             <Grid
                                 RowDefinitions="*"
-                                ColumnDefinitions="*, auto">
+                                ColumnDefinitions="*, auto, auto">
                                 <Label Text="{Binding Link }"
                                        FontSize="31"
                                        Grid.Column="0">
@@ -43,6 +43,9 @@
                                        FontSize="31"
                                        Grid.Column="1">
                                 </Label>
+                                
+                                <ImageButton Source="settings.svg"
+                                             Grid.Column="2"/>
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

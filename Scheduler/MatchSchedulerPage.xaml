@@ -44,6 +44,7 @@
                                        FontSize="31"
                                        Grid.Column="1">
                                 </Label>
+                                
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
