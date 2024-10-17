@@ -1,3 +1,4 @@
+using CS341Project.EventMap;
 using CS341Project.Scheduler;
 using CS341Project.Seeding;
 using CS341Project.ThumbGen;
@@ -22,13 +23,12 @@ public partial class HomePage : ContentPage {
     
     private void OnSchedulerButtonClicked(object? sender, EventArgs e)
     {
-        Navigation.PushAsync(new MatchSchedulerPage());
-        // TODO waiting for SchedulerEventPage
+        Navigation.PushAsync(new SchedulerEventPage());
     }
 
     private void OnEventMapButtonClicked(object? sender, EventArgs e)
     {
-        Navigation.PushAsync(new EventMap.EventMapPage());
+        Navigation.PushAsync(new EventMapPage());
     }
 
     private void OnThumbnailGeneratorButtonClicked(object? sender, EventArgs e)
