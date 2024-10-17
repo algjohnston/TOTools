@@ -1,4 +1,6 @@
-﻿namespace CS341Project;
+﻿using CS341Project.TitleLoginSignup;
+
+namespace CS341Project;
 
 public partial class App : Application
 {
@@ -6,6 +8,6 @@ public partial class App : Application
     {
         InitializeComponent();
 
-        MainPage = new NavigationPage(new HomePage());
+        MainPage = new NavigationPage(new TitlePage());
     }
 }

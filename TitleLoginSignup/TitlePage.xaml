@@ -3,47 +3,48 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:local="clr-namespace:CS341Project"
+			 Shell.NavBarIsVisible="False"
 			 x:Class="CS341Project.TitleLoginSignup.TitlePage">
+	
+
 	<ContentPage.Content>
 	    <Grid ColumnDefinitions="*"
-              RowDefinitions="*, *, *"
-              Margin="80">
-			<Label Text="Title (TBD)"
-			       Style="{StaticResource Headline}"
-				   FontSize="50"
-			       TextColor="Gold"
-			       HorizontalTextAlignment="Center"
-			       FontAttributes="Bold, Italic" />
+              RowDefinitions="*, *, *, *"
+              Margin="20, 0, 20, 20">
+		    
+		    <Label Text="Title (TBD)"
+		           Style="{StaticResource Headline}"
+		           FontSize="50"
+		           TextColor="Gold"
+		           HorizontalTextAlignment="Center"
+		           VerticalTextAlignment="Start"
+		           FontAttributes="Bold, Italic" />
 
 			<Button x:Name="LogInButton"
 					Text="Log In"
 					FontSize="Large"
 					FontAttributes="Bold"
-					Grid.Row="0"
-					Margin="80"
-					HeightRequest="100"
-					WidthRequest="500"
+					Grid.Row="1"
+					HorizontalOptions="Center"
+					VerticalOptions="Center"
 					Clicked="OnLogInButtonClicked" />
 
 			<Button x:Name="SignUpButton"
 					Text="Sign Up"
 					FontSize="Large"
 					FontAttributes="Bold"
-					Grid.Row="1"
-					Margin="80"
-					HeightRequest="100"
-					WidthRequest="500"
+					Grid.Row="2"
+					HorizontalOptions="Center"
+					VerticalOptions="Center"
 					Clicked="OnSignUpButtonClicked" />
 
 			<Button x:Name="SkipButton"
 					Text="Skip"
 					FontSize="Large"
 					FontAttributes="Bold"
-					Grid.Row="2"
-					Margin="60"
-					HeightRequest="100"
-					WidthRequest="200"
+					Grid.Row="3"
 					HorizontalOptions="Start"
+					VerticalOptions="End"
 					Clicked="OnSkipButtonClicked" />
 
 		</Grid>
