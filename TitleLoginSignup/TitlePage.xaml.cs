@@ -1,4 +1,4 @@
-﻿using CS341Project.SignUp;
+﻿using CS341Project.EventMap;
 
 namespace CS341Project.TitleLoginSignup;
 
@@ -21,7 +21,7 @@ public partial class TitlePage : ContentPage
 
 	private void OnSkipButtonClicked(object? sender, EventArgs e)
 	{
-		Navigation.PushAsync(new EventMap.EventMapPage());
+		Navigation.PushAsync(new EventMapPage());
 	}
 
 }

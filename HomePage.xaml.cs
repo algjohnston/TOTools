@@ -1,6 +1,6 @@
 using CS341Project.Scheduler;
 using CS341Project.Seeding;
-using CS341Project.SignUp;
+using CS341Project.TitleLoginSignup;
 
 namespace CS341Project;
 
@@ -12,7 +12,7 @@ public partial class HomePage : ContentPage {
     
     private void OnLogOutButtonClicked(object? sender, EventArgs e)
     {
-        Navigation.PushAsync(new SignUpPage()); //goes to sign up page for now
+        Navigation.PopAsync();
     }
 
     private void OnSeedingButtonClicked(object? sender, EventArgs e)

@@ -4,26 +4,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:CS341Project"
              x:Class="CS341Project.EventMap.EventMapPage">
-	<ContentPage.Content>
+    <ContentPage.Content>
 
-		<ScrollView>
-			<VerticalStackLayout Padding="30,0"
-            			         Spacing="25">
-				<Label
-				    Text="Event Map"
-				    Style="{StaticResource Headline}"
-				    TextColor="White"
-				    HorizontalTextAlignment="Center"
-			        FontAttributes="Bold" />
-				
-				<Image
-				    Source="wi_map.png"
-				    HeightRequest="185"
-		            Aspect="AspectFit"
-				    SemanticProperties.Description="Temporary Stand-in Map"
-				    HorizontalOptions="Center" />
-			</VerticalStackLayout>
-		</ScrollView>
-		
-	</ContentPage.Content>
+        <Grid ColumnDefinitions="*"
+              RowDefinitions="auto, *"
+              Margin="20">
+
+            <Label
+                Text="Event Map"
+                Style="{StaticResource Headline}"
+                TextColor="White"
+                HorizontalTextAlignment="Center"
+                FontAttributes="Bold" />
+
+            <Image
+                Grid.Row="1"
+                Source="wi_map.png"
+                Aspect="AspectFit"
+                SemanticProperties.Description="Temporary Stand-in Map" />
+        </Grid>
+
+    </ContentPage.Content>
 </ContentPage>
