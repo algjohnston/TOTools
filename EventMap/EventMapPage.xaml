@@ -7,7 +7,7 @@
     <ContentPage.Content>
 
         <Grid ColumnDefinitions="*"
-              RowDefinitions="auto, *"
+              RowDefinitions="auto, *, auto"
               Margin="20">
 
             <Label
@@ -22,6 +22,10 @@
                 Source="wi_map.png"
                 Aspect="AspectFit"
                 SemanticProperties.Description="Temporary Stand-in Map" />
+            
+            <Button Text="View All Events"
+                    Clicked="ViewAllButton_OnClicked"
+                    Grid.Row="2"/>
         </Grid>
 
     </ContentPage.Content>

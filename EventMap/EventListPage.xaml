@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:CS341Project.Models"
+             xmlns:eventMap="clr-namespace:CS341Project.EventMap"
+             x:Class="CS341Project.EventMap.EventListPage"
+             Title="Events" 
+             x:DataType="eventMap:EventBusinessLogic">
+    <ContentPage.Content>
+        <Grid Padding="20">
+            <CollectionView x:Name="EventCollectionView"
+                            ItemsSource="{Binding Events}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Event">
+                        <StackLayout Padding="10" Margin="5">
+                            <Label Text="{Binding EventName}"
+                                   FontSize="20"
+                                   FontAttributes="Bold" />
+                            <Label Text="{Binding Location}"
+                                   FontSize="16" />
+                            <Label Text="{Binding FormattedStartDateTime}"
+                                   FontSize="14" />
+                            <Label Text="{Binding FormattedEndDateTime}"
+                                   FontSize="14" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

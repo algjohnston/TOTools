@@ -1,4 +1,4 @@
-namespace CS341Project.TitleLoginSignup;
+namespace CS341Project.AppEntry;
 
 public partial class SignUpPage : ContentPage {
 

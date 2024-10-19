@@ -1,4 +1,4 @@
-﻿namespace CS341Project.TitleLoginSignup;
+﻿namespace CS341Project.AppEntry;
 
 public partial class LogInPage : ContentPage
 {
@@ -14,7 +14,7 @@ public partial class LogInPage : ContentPage
 
 	private void OnCancelButtonClicked(object? sender, EventArgs e)
 	{
-		Navigation.PushAsync(new TitleLoginSignup.TitlePage());
+		Navigation.PushAsync(new TitlePage());
 	}
 
 }

@@ -1,4 +1,4 @@
-﻿using CS341Project.TitleLoginSignup;
+﻿using CS341Project.AppEntry;
 
 namespace CS341Project;
 

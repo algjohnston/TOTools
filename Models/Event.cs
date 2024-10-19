@@ -7,18 +7,21 @@
 /// <param name="eventId">The unique id of the event.</param>
 /// <param name="eventName">The name of the event.</param>
 /// <param name="location">The location of the event.</param>
-/// <param name="startDateAndTime"></param>
-/// <param name="endDateAndTime"></param>
+/// <param name="startDateTime"></param>
+/// <param name="endDateTime"></param>
 public class Event(
     long eventId,
     string eventName,
     string location,
-    DateTime startDateAndTime,
-    DateTime endDateAndTime)
+    DateTime startDateTime,
+    DateTime endDateTime)
 {
     public long EventId { get; } = eventId;
     public string EventName { get; } = eventName;
     public string Location { get; } = location;
-    public DateTime StartDateAndTime { get; } = startDateAndTime;
-    public DateTime EndDateAndTime { get; } = endDateAndTime;
+    public DateTime StartDateTime { get; } = startDateTime;
+    public DateTime EndDateTime { get; } = endDateTime;
+    
+    public string FormattedStartDateTime => StartDateTime.ToString("g");
+    public string FormattedEndDateTime => EndDateTime.ToString("g");
 }
