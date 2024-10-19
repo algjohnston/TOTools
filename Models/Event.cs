@@ -4,10 +4,21 @@
 /// Alexander Johnston
 /// Represents a tournament event.
 /// </summary>
-/// <param name="link">A link to startgg that has the event data.</param>
-/// <param name="startTime">The time the event start.</param>
-public class Event(string link, DateTime startTime)
+/// <param name="eventId">The unique id of the event.</param>
+/// <param name="eventName">The name of the event.</param>
+/// <param name="location">The location of the event.</param>
+/// <param name="startDateAndTime"></param>
+/// <param name="endDateAndTime"></param>
+public class Event(
+    long eventId,
+    string eventName,
+    string location,
+    DateTime startDateAndTime,
+    DateTime endDateAndTime)
 {
-    public string Link { get; } = link;
-    public string StartTime { get; } = startTime.ToShortTimeString();
+    public long EventId { get; } = eventId;
+    public string EventName { get; } = eventName;
+    public string Location { get; } = location;
+    public DateTime StartDateAndTime { get; } = startDateAndTime;
+    public DateTime EndDateAndTime { get; } = endDateAndTime;
 }

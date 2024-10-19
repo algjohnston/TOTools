@@ -3,6 +3,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:seeding="clr-namespace:CS341Project.Seeding"
+             x:DataType="seeding:SelectCompetitorsPage"
              x:Class="CS341Project.Seeding.SelectCompetitorsPage"
              Title="Select Competitors">
     
@@ -15,7 +16,7 @@
                             HorizontalOptions="FillAndExpand">
                 
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="seeding:SelectCompetitorsPage">
+                    <DataTemplate >
                         <StackLayout Padding="10">
                             <Label Text="{Binding .}"
                                    FontSize="18"

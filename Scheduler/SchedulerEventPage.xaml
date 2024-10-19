@@ -31,7 +31,7 @@
                     ItemsSource="{Binding Events}">
 
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="models:Event">
+                        <DataTemplate x:DataType="models:EventLink">
                             <Grid
                                 RowDefinitions="*"
                                 ColumnDefinitions="*, auto, auto">
