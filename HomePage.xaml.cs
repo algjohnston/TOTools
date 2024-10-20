@@ -18,6 +18,7 @@ public partial class HomePage : ContentPage {
 
     private void OnSeedingButtonClicked(object? sender, EventArgs e)
     {
+        
         Navigation.PushAsync(new SeedingShell());
     }
     

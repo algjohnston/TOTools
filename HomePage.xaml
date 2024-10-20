@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
         x:Class="CS341Project.HomePage"
         Title="Home Page">
+    
     <Grid ColumnDefinitions="*"
           RowDefinitions="80, *, *, *, *"
           Margin="20">

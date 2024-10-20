@@ -5,8 +5,8 @@
        xmlns:seeding="clr-namespace:CS341Project.Seeding"
        x:Class="CS341Project.Seeding.SeedingShell"
        Title="Seeding">
-    
-    <TabBar Shell.NavBarIsVisible="False">
+
+    <TabBar >
 
         <Tab>
 
