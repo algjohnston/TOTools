@@ -1,5 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
-using CS341Project.AppEntry;
+﻿using CS341Project.AppEntry;
+using Microsoft.Maui.Controls;
 
 namespace CS341Project;
 
@@ -9,17 +9,6 @@ public partial class App : Application
     {
         InitializeComponent();
         MainPage = new NavigationPage(new TitlePage());
-        
-        // The BackPressedMessage is only sent by the SeedingShell and
-        // is only used when the SeedingShell's navigation stack is empty 
-        WeakReferenceMessenger.Default.Register<BackPressedMessage>(
-            MainPage,
-            (r, message) =>
-            {
-                    MainPage.Navigation.PopAsync();
-            });
-        
-
     }
     
 }
