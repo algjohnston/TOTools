@@ -83,6 +83,9 @@
       <MauiXaml Update="TitleLoginSignup\SignUpPage.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
+      <MauiXaml Update="Seeding\SeedingTabbedPage.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
     </ItemGroup>
 
     <ItemGroup>
@@ -96,6 +99,10 @@
       </Compile>
       <Compile Update="TitleLoginSignup\SignUpPage.xaml.cs">
         <DependentUpon>SignUpPage.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Seeding\SeedingTabbedPage.xaml.cs">
+        <DependentUpon>SeedingTabbedPage.xaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
     </ItemGroup>

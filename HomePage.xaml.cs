@@ -19,7 +19,7 @@ public partial class HomePage : ContentPage {
     private void OnSeedingButtonClicked(object? sender, EventArgs e)
     {
         
-        Navigation.PushAsync(new SeedingShell());
+        Navigation.PushAsync(new SeedingTabbedPage());
     }
     
     private void OnSchedulerButtonClicked(object? sender, EventArgs e)
