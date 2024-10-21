@@ -1,5 +1,4 @@
 ﻿using CS341Project.AppEntry;
-using Microsoft.Maui.Controls;
 
 namespace CS341Project;
 

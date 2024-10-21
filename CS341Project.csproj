@@ -70,6 +70,7 @@
         <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
         <PackageReference Include="Npgsql" Version="8.0.5" />
+        <PackageReference Include="StrawberryShake.Maui" Version="15.0.0-p.10" />
     </ItemGroup>
 
     <ItemGroup>

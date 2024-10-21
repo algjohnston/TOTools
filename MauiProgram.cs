@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using StrawberryShake;
 
 namespace CS341Project;
 
@@ -10,10 +11,20 @@ public static class MauiProgram
         builder
             .UseMauiApp<App>()
             .ConfigureFonts(fonts =>
-                {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+            {
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+            });
+
+        // For interacting with start.gg
+        builder.Services
+            .AddGraphQLClient(ExecutionStrategy.CacheAndNetwork)
+            .ConfigureHttpClient(
+                client =>
+                    client.BaseAddress = new Uri(
+                        "https://api.start.gg/gql/alpha"
+                    )
+            );
 
 #if DEBUG
         builder.Logging.AddDebug();

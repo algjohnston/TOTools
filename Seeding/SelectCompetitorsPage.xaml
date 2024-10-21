@@ -10,6 +10,8 @@
     <ContentPage.Content>
         <Grid Padding="20" RowSpacing="20" ColumnDefinitions="*" RowDefinitions="Auto, Auto, Auto">
             
+            <Label Text="{Binding GetNumberOfCompetitors}"/>
+            
             <CollectionView Grid.Row="0" 
                             ItemsSource="{Binding Competitors}"
                             VerticalOptions="FillAndExpand"

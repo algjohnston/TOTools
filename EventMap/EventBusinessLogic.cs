@@ -7,7 +7,7 @@ namespace CS341Project.EventMap;
 /// Alexander Johnston
 /// The business logic for the scheduler
 /// </summary>
-public class EventBusinessLogic()
+public class EventBusinessLogic
 {
     private readonly IDatasource<Event> datasource = new EventDatasource();
     public ObservableCollection<Event> Events => datasource.SelectAll();

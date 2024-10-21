@@ -6,6 +6,6 @@
              x:Class="CS341Project.Seeding.SeedingTabbedPage">
     
     <seeding:SeedingListPage/>
-    <seeding:DoubleElimPage/>
+    <seeding:SeedGeneratorPage/>
     
 </TabbedPage>
