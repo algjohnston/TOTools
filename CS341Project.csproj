@@ -74,25 +74,18 @@
     </ItemGroup>
 
     <ItemGroup>
-      <MauiXaml Update="HomePage.xaml">
-        <SubType>Designer</SubType>
-      </MauiXaml>
       <MauiXaml Update="TitleLoginSignup\LogInPage.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
       <MauiXaml Update="TitleLoginSignup\SignUpPage.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
-      <MauiXaml Update="Seeding\SeedingTabbedPage.xaml">
+      <MauiXaml Update="AppEntry\HomePage.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="HomePage.xaml.cs">
-        <SubType>Code</SubType>
-        <DependentUpon>HomePage.xaml</DependentUpon>
-      </Compile>
       <Compile Update="TitleLoginSignup\LogInPage.xaml.cs">
         <SubType>Code</SubType>
         <DependentUpon>LogInPage.xaml</DependentUpon>
@@ -101,10 +94,22 @@
         <DependentUpon>SignUpPage.xaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
-      <Compile Update="Seeding\SeedingTabbedPage.xaml.cs">
-        <DependentUpon>SeedingTabbedPage.xaml</DependentUpon>
+      <Compile Update="AppEntry\HomePage.xaml.cs">
         <SubType>Code</SubType>
+        <DependentUpon>HomePage.xaml</DependentUpon>
       </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <GraphQL Update="StartGGAPI\GetNumberOfEntrants.graphql">
+        <Generator>MSBuild:GenerateGraphQLCode</Generator>
+      </GraphQL>
+      <GraphQL Update="schema.graphql">
+        <Generator>MSBuild:GenerateGraphQLCode</Generator>
+      </GraphQL>
+      <GraphQL Update="schema.extensions.graphql">
+        <Generator>MSBuild:GenerateGraphQLCode</Generator>
+      </GraphQL>
     </ItemGroup>
 
 </Project>

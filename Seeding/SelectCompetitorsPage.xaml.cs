@@ -23,6 +23,6 @@ public partial class SelectCompetitorsPage : ContentPage
 
 	private void OnSubmitClicked(object sender, EventArgs e)
 	{
-		Navigation.PushAsync(new DoubleElimPage());
+		Shell.Current.GoToAsync("double_elim_page");
 	}
 }

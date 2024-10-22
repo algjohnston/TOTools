@@ -15,19 +15,20 @@ public partial class SeedingListPage : ContentPage
     {
         InitializeComponent();
         BindingContext = this;
+        Shell.SetTabBarIsVisible(Shell.Current, true);
         SeedingList.Add(new PlayerTierGroup(
-            "Tier 1",
+            "Tier S",
             [
-                new Player("A", "R0"),
-                new Player("B", "R1"),
-                new Player("C", "R2")
+                new Player("A", "R0", Tier.A),
+                new Player("B", "R1", Tier.A),
+                new Player("C", "R2", Tier.A)
             ]));
         SeedingList.Add(new PlayerTierGroup(
-            "Tier 2",
+            "Tier A",
             [
-                new Player("D", "R3"),
-                new Player("E", "R2"),
-                new Player("F", "R1")
+                new Player("D", "R3", Tier.A),
+                new Player("E", "R2", Tier.A),
+                new Player("F", "R1", Tier.A)
             ]));
     }
 
@@ -46,7 +47,7 @@ public partial class SeedingListPage : ContentPage
         // Needed to get the list to refresh
         // since the ObservableCollection does not listen for changes in elements
         // (even PropertyChanged events sent by the elements do not trigger a change
-        //  and there is no way to manually link the events or trigger a refesh) 
+        //  and there is no way to manually link the events or trigger a refresh) 
         SeedingListView.ItemsSource = null;
         SeedingListView.ItemsSource = SeedingList;
     }

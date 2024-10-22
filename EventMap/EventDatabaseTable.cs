@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using CS341Project.Database;
 using CS341Project.Models;
 using Npgsql;
 
@@ -8,7 +9,7 @@ namespace CS341Project.EventMap;
 /// Alexander Johnston
 /// The data source for Events.
 /// </summary>
-public class EventDatasource : IDatasource<Event>
+public class EventDatabaseTable : IDatabaseTable<Event>
 {
     private const string EventTableName = "events";
     private const string EventIdColumn = "id";
@@ -19,7 +20,7 @@ public class EventDatasource : IDatasource<Event>
 
     private readonly ObservableCollection<Event> events = [];
 
-    public EventDatasource()
+    public EventDatabaseTable()
     {
         const string createTableStatement =
             "CREATE TABLE " +
@@ -36,9 +37,8 @@ public class EventDatasource : IDatasource<Event>
 
     public void Delete(long id)
     {
-        using var connection = DatabaseUtil.GetDatabaseConnection();
         using var command = new NpgsqlCommand();
-        command.Connection = connection;
+        command.Connection = DatabaseUtil.GetDatabaseConnection();
         command.CommandText = $"DELETE FROM {EventTableName} WHERE {EventIdColumn} = @id";
         command.Parameters.AddWithValue("id", id);
         var numDeleted = command.ExecuteNonQuery();
@@ -50,9 +50,8 @@ public class EventDatasource : IDatasource<Event>
 
     public void Update(Event toUpdate)
     {
-        using var connection = DatabaseUtil.GetDatabaseConnection();
         using var command = new NpgsqlCommand();
-        command.Connection = connection;
+        command.Connection = DatabaseUtil.GetDatabaseConnection();
         command.CommandText =
             $"UPDATE {EventTableName} " +
             $"SET {EventIdColumn} = @id, " +
@@ -76,9 +75,8 @@ public class EventDatasource : IDatasource<Event>
 
     public void Insert(Event toInsert)
     {
-        using var connection = DatabaseUtil.GetDatabaseConnection();
         using var command = new NpgsqlCommand();
-        command.Connection = connection;
+        command.Connection = DatabaseUtil.GetDatabaseConnection();
         command.CommandText =
             $"INSERT INTO {EventTableName} (" +
             $"{EventIdColumn}, {EventNameColumn}, {EventLocationColumn}, {EventStartDateTimeColumn}, {EventEndDateTimeColumn}" +
@@ -103,10 +101,9 @@ public class EventDatasource : IDatasource<Event>
     public ObservableCollection<Event> SelectAll()
     {
         events.Clear();
-        using var connection = DatabaseUtil.GetDatabaseConnection();
         using var command = new NpgsqlCommand(
             $"SELECT {EventIdColumn}, {EventNameColumn}, {EventLocationColumn}, {EventStartDateTimeColumn}, {EventEndDateTimeColumn} FROM {EventTableName}",
-            connection
+            DatabaseUtil.GetDatabaseConnection()
         );
         using var reader = command.ExecuteReader();
         while (reader.Read())
