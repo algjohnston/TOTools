@@ -4,12 +4,22 @@
 /// Alexander Johnston
 /// Represents a player in the tournaments.
 /// </summary>
-/// <param name="name">The name of the player.</param>
+/// <param name="tag">The tag (aka gamertag) of the player.</param>
 /// <param name="region">The region the player resides.</param>
-public class Player(string name, string region)
+/// <param name="tier">The tier the player is in
+/// <param name="ranking> ranking of player within tier
+public class Player(long id, string tag, string region, string tier, int ranking)
 {
-    public string Name { get; } = name;
-    public string Region { get; } = region;
+
+    public long PlayerId { get; } = id;
     
-    public string FormattedPlayer => $"{Name}: {Region}";
+    public string PlayerTag { get; } = tag;
+
+    public string PlayerRegion { get; } = region;
+
+    public string PlayerTier { get; } = tier;
+
+    public int PlayerRanking { get; } = ranking;
+    
+    public string FormattedPlayer => $"{PlayerId} : {PlayerTag}: {PlayerRegion} : {PlayerTier} : {PlayerRanking}";
 }
