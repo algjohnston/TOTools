@@ -6,10 +6,14 @@ public partial class SelectCompetitorsPage : ContentPage
 {
 
 	public ObservableCollection<string> Competitors { get; } = [];
+	
+	public string GetNumberOfCompetitors => "Number of Competitors: ???";
+	
 	public SelectCompetitorsPage()
 	{
 		InitializeComponent();
 		BindingContext = this;
+		
 		Competitors.Add("Player 1");
 		Competitors.Add("Player 2");
 		Competitors.Add("Player 3");
@@ -19,6 +23,6 @@ public partial class SelectCompetitorsPage : ContentPage
 
 	private void OnSubmitClicked(object sender, EventArgs e)
 	{
-		Navigation.PushAsync(new DoubleElimPage());
+		Shell.Current.GoToAsync("double_elim_page");
 	}
 }

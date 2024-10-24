@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using CS341Project.Database;
 using CS341Project.Models;
 using Npgsql;
 
@@ -8,7 +9,7 @@ namespace CS341Project.Seeding;
 /// Caden Rohan
 /// The data source for Players
 /// </summary>
-public class PlayerTable : IDatasource<Player>
+public class PlayerTable : IDatabaseTable<Player>
 {
     private const string PlayerTableName = "players";
     private const string PlayerIdColumn = "id";
@@ -116,7 +117,7 @@ public class PlayerTable : IDatasource<Player>
             var region = reader.GetString(2);
             var tier = reader.GetString(3);
             var ranking = reader.GetInt32(4);
-            Player playerToAdd = new(id, tag, region, tier, ranking);
+            Player playerToAdd = new(id, tag, region, TierHelper.ConvertToTier(tier), ranking);
             players.Add(playerToAdd);
         }
 

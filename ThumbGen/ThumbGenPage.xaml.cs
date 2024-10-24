@@ -9,7 +9,7 @@ public partial class ThumbGenPage : ContentPage {
 
     private void OnManualEntryButtonClicked(object? sender, EventArgs e)
     {
-        Navigation.PushAsync(new ThumbGenManualPage());
+        Shell.Current.GoToAsync("thumb_gen_manual_page");
     }
 
     private void OnSelectTemplateButtonClicked(object? sender, EventArgs e)
@@ -24,6 +24,6 @@ public partial class ThumbGenPage : ContentPage {
 
     private void OnSubmitButtonClicked(object? sender, EventArgs e)
     {
-        Navigation.PopAsync();
+        Shell.Current.GoToAsync("..");
     }
 }

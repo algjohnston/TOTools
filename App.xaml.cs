@@ -1,13 +1,12 @@
-﻿using CS341Project.AppEntry;
-
-namespace CS341Project;
+﻿namespace CS341Project;
 
 public partial class App : Application
 {
     public App()
     {
         InitializeComponent();
-
-        MainPage = new NavigationPage(new TitlePage());
+        MainPage = new AppShell();
+        Shell.Current.GoToAsync("//title_page");
     }
+    
 }

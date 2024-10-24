@@ -1,6 +1,6 @@
 ﻿using Npgsql;
 
-namespace CS341Project;
+namespace CS341Project.Database;
 
 /// <summary>
 /// Alexander Johnston

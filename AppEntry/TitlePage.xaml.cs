@@ -11,17 +11,17 @@ public partial class TitlePage : ContentPage
 
 	private void OnLogInButtonClicked(object? sender, EventArgs e)
 	{
-		Navigation.PushAsync(new LogInPage());
+		Shell.Current.GoToAsync("login_page");
 	}
 
 	private void OnSignUpButtonClicked(object? sender, EventArgs e)
 	{
-		Navigation.PushAsync(new SignUpPage());
+		Shell.Current.GoToAsync("sign_up_page");
 	}
 
 	private void OnSkipButtonClicked(object? sender, EventArgs e)
 	{
-		Navigation.PushAsync(new EventMapPage());
+		Shell.Current.GoToAsync("event_map_page");
 	}
 
 }

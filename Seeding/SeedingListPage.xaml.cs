@@ -15,19 +15,20 @@ public partial class SeedingListPage : ContentPage
     {
         InitializeComponent();
         BindingContext = this;
+        Shell.SetTabBarIsVisible(Shell.Current, true);
         SeedingList.Add(new PlayerTierGroup(
-            "Tier 1",
+            "Tier S",
             [
-                new Player(1, "Candle", "Madison", "S", 1),
-                new Player(3, "Comet", "MKE", "S", 2),
-                new Player(3, "Skuniar", "Norcen", "S", 3)
+                new Player(1, "Candle", "Madison", Tier.S, 1),
+                new Player(3, "Comet", "MKE", Tier.S, 2),
+                new Player(3, "Skuniar", "Norcen", Tier.S, 3)
             ]));
         SeedingList.Add(new PlayerTierGroup(
-            "Tier 2",
+            "Tier A",
             [
-                new Player(1, "CRB", "Norcen", "A", 1),
-                new Player(2, "Arico", "Norcen", "A", 2),
-                new Player(3, "Spencer", "MKE", "A", 3)
+                new Player(1, "CRB", "Norcen", Tier.A, 1),
+                new Player(2, "Arico", "Norcen", Tier.A, 2),
+                new Player(3, "Spencer", "MKE", Tier.A, 3)
             ]));
     }
 

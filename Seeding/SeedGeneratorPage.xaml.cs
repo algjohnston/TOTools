@@ -9,11 +9,11 @@ public partial class SeedGeneratorPage : ContentPage
 
     private void SubmitButton_OnClicked(object? sender, EventArgs e)
     {
-        Navigation.PushAsync(new DoubleElimPage());
+        Shell.Current.GoToAsync("double_elim_page");
     }
 
     private void ManualEntryButton_OnClicked(object? sender, EventArgs e)
     {
-        Navigation.PushAsync(new SelectCompetitorsPage());
+        Shell.Current.GoToAsync("select_competitors_page");
     }
 }

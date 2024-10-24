@@ -1,13 +1,13 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace CS341Project;
+namespace CS341Project.Database;
 
 /// <summary>
 /// Alexander Johnston
 /// An interface for databases.
 /// </summary>
 /// <typeparam name="T">The type to be stored in this database.</typeparam>
-public interface IDatasource<T>
+public interface IDatabaseTable<T>
 {
     /// <summary>
     /// Deletes the record from this database with the given id.

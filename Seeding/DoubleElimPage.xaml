@@ -6,11 +6,10 @@
              x:Class="CS341Project.Seeding.DoubleElimPage"
              Title="Tournament Bracket">
     <ContentPage.Content>
-        
-            <Grid x:Name="GridDoubleElim"
-                  HorizontalOptions="FillAndExpand"  
-                  VerticalOptions="FillAndExpand"
-                  />
-        
+
+        <Grid x:Name="GridDoubleElim"
+              HorizontalOptions="FillAndExpand"
+              VerticalOptions="FillAndExpand" />
+
     </ContentPage.Content>
 </ContentPage>

@@ -5,7 +5,8 @@
              xmlns:models="clr-namespace:CS341Project.Models"
              xmlns:seeding="clr-namespace:CS341Project.Seeding"
              x:Class="CS341Project.Seeding.SeedingListPage"
-             x:DataType="seeding:SeedingListPage">
+             x:DataType="seeding:SeedingListPage"
+             Title="Seeding List">
     <ContentPage.Content>
         <ScrollView>
             <CollectionView
