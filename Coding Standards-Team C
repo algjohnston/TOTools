@@ -52,4 +52,21 @@
     *  public bool AreBooleanMethods {
            return true;
        }
-
+12. Any and all abbreviations should be obvious.
+    *  doubleElim()
+13. Avoid variable type-specific names.
+    *  getTag()  NOT  getString()
+14. If methods and classes have 5 or more parameters, list them on seperate lines.
+    *  public class Event(
+           long event,
+           string eventName,
+           string location,
+           ...
+           ...)
+       {
+15. EventHandlers for UI pages should all be named with "On" preceding the statement.
+    *  OnLoginButtonClicked() {
+           ...
+       }
+16. Non-mutated, read-only properties should not have a setter
+    *  public string PlayerName { get; }
