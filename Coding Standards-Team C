@@ -1,0 +1,26 @@
+﻿1. Classes that represent individual tables will end with the word "Table"
+    * ITable
+    * PlayerTable
+2. All content pages will end with the word "Page"
+    * HomePage
+    * LogInPage
+3. All Popups will end with the word "Popup"
+    * EventPopup
+4. All indents will be 4 spaces
+    *   hahahaha    look at these spaces    yippee
+    * if (isSilly)
+      {
+          return;
+      }
+5. All single-line comments in C# will appear to the right of whatever they are commenting on
+    * private const string PlayerRankingColumn = "ranking"; // needs a better name
+6. All multi-line comments in C# will appear above whatever they are commenting on
+    * // To ensure the columns in between the names have the lines connecting players,
+      // an extra column in between is used.
+      //          v--------- column with lines 
+      // |  0  |  1  |  2  |
+      // | name --|
+      // |        |-- name |
+      // | name --|
+      // The extra column is for the winner's name
+      var numberOfColumns = (2 * (int)Math.Log(numberOfPlayers, 2)) + 1;

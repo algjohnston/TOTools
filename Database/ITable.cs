@@ -7,7 +7,7 @@ namespace CS341Project.Database;
 /// An interface for databases.
 /// </summary>
 /// <typeparam name="T">The type to be stored in this database.</typeparam>
-public interface IDatabaseTable<T>
+public interface ITable<T>
 {
     /// <summary>
     /// Deletes the record from this database with the given id.

@@ -10,7 +10,7 @@ namespace CS341Project.EventMap;
 /// </summary>
 public class EventBusinessLogic
 {
-    private readonly IDatabaseTable<Event> _databaseTable = new EventDatabaseTable();
-    public ObservableCollection<Event> Events => _databaseTable.SelectAll();
+    private readonly ITable<Event> _table = new EventTable();
+    public ObservableCollection<Event> Events => _table.SelectAll();
     
 }

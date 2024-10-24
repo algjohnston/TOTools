@@ -9,7 +9,7 @@ namespace CS341Project.Seeding;
 /// Caden Rohan
 /// The data source for Players
 /// </summary>
-public class PlayerTable : IDatabaseTable<Player>
+public class PlayerTable : ITable<Player>
 {
     private const string PlayerTableName = "players";
     private const string PlayerIdColumn = "id";

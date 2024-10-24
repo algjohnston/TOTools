@@ -35,8 +35,7 @@ public partial class DoubleElimPage : ContentPage
                 new RowDefinition { Height = GridLength.Star });
         }
         
-        // Add the columns
-        GridDoubleElim.ColumnDefinitions.Clear();
+        GridDoubleElim.ColumnDefinitions.Clear(); // Add the columns
         // To ensure the columns in between the names have the lines connecting players,
         // an extra column in between is used.
         //          v--------- column with lines 

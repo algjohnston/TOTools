@@ -9,7 +9,7 @@ namespace CS341Project.EventMap;
 /// Alexander Johnston
 /// The data source for Events.
 /// </summary>
-public class EventDatabaseTable : IDatabaseTable<Event>
+public class EventTable : ITable<Event>
 {
     private const string EventTableName = "events";
     private const string EventIdColumn = "id";
@@ -20,7 +20,7 @@ public class EventDatabaseTable : IDatabaseTable<Event>
 
     private readonly ObservableCollection<Event> events = [];
 
-    public EventDatabaseTable()
+    public EventTable()
     {
         const string createTableStatement =
             "CREATE TABLE " +
