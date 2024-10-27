@@ -12,7 +12,7 @@ namespace CS341Project.Seeding;
 public class PlayerTable : ITable<Player>
 {
     private const string PlayerTableName = "players";
-    private const string PlayerIdColumn = "id";
+    private const string PlayerIdColumn = "player_id";
     private const string PlayerTagColumn = "tag";
     private const string PlayerRegionColumn = "region";
     private const string PlayerTierColumn = "tier";

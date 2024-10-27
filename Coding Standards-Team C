@@ -25,48 +25,84 @@
       // | name --|
       // The extra column is for the winner's name
       var numberOfColumns = (2 * (int)Math.Log(numberOfPlayers, 2)) + 1;
-7. All lines of text should be at most or equal to 120 characters (not including comments).
-    *  asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfaasdlineendshere
+7. All lines of text should be at most 120 characters (not including comments).
+    * aasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfaasdlineendshere
 8. Assignment statements should all be a maximum of one statement/assignment per line.
-    *  int x = 4; 
-       int y = 3;
-       int z = 7;
+    * int x = 4; 
+      int y = 3;
+      int z = 7;
 9. Initialization of any "container" types (List, Collections, etc.) with more than one element will be formatted with 
    each element on a new line after the bracket as follows: 
-    *  public ObservableCollection<string> StartTime { get; } = [
-           "Player 1 Time", 
-           "Player 2 Time", 
-           "Player 3 Time", 
-           "Player 4 Time", 
-           "Player 5 Time",
-           "Player 6 Time",
-           "Player 7 Time", 
-           "Player 8 Time"
-       ];
+    * public ObservableCollection<string> StartTime { get; } = [
+          "Player 1 Time", 
+          "Player 2 Time", 
+          "Player 3 Time", 
+          "Player 4 Time", 
+          "Player 5 Time",
+          "Player 6 Time",
+          "Player 7 Time", 
+          "Player 8 Time"
+      ];
 10. Any planned additions or deletions will be marked with a //TODO comment.
-    *  //TODO
+    * //TODO
 11. Boolean methods should all be named with "Is" or "Are" preceding the statement.
-    *  public bool IsBooleanMethod {
-           return true;
-       }
-    *  public bool AreBooleanMethods {
-           return true;
-       }
+    * public bool IsBooleanMethod {
+          return true;
+      }
+    * public bool AreBooleanMethods {
+          return true;
+      }
 12. Any and all abbreviations should be obvious.
-    *  doubleElim()
+    * doubleElim()
 13. Avoid variable type-specific names.
-    *  getTag()  NOT  getString()
-14. If methods and classes have 5 or more parameters, list them on seperate lines.
-    *  public class Event(
-           long event,
-           string eventName,
-           string location,
-           ...
-           ...)
-       {
+    * getTag()  NOT  getString()
+14. If methods and classes have 5 or more parameters, list them on separate lines.
+    * public class Event(
+          long event,
+          string eventName,
+          string location,
+          ...
+          ...)
+      {
 15. EventHandlers for UI pages should all be named with "On" preceding the statement.
-    *  OnLoginButtonClicked() {
-           ...
-       }
+    * OnLoginButtonClicked() {
+          ...
+      }
 16. Non-mutated, read-only properties should not have a setter
-    *  public string PlayerName { get; }
+    * public string PlayerName { get; }
+17. All SQL table names will be in lowercase letters with a _ between words if the table name is multiple words.
+    * good_players
+18. All SQL table column names will be in lowercase letters with a _ between words if the column name is multiple words.
+    * player_id
+19. All SQL keywords will be in all capital letters.
+    * SELECT
+20. Any SQL commands with values supplied by the user 
+    must be substituted into the command using "NpgsqlCommand" with ""AddWithValue".
+    * using var command = new NpgsqlCommand();
+      command.Connection = DatabaseUtil.GetDatabaseConnection();
+      command.CommandText =
+        $"INSERT INTO {EventTableName} (" +
+        $"{EventIdColumn}, {EventNameColumn}, {EventLocationColumn}, {EventStartDateTimeColumn}, {EventEndDateTimeColumn}" +
+        $") VALUES " +
+        $"(@name, @location, @start_datetime, @end_datetime)";
+      command.Parameters.AddWithValue("name", toInsert.EventName);
+      command.Parameters.AddWithValue("location", toInsert.Location);
+      command.Parameters.AddWithValue("start_datetime", toInsert.StartDateTime);
+      command.Parameters.AddWithValue("end_datetime", toInsert.EndDateTime);
+      command.ExecuteNonQuery();
+      SelectAll();
+21. All stored time values must use TIMESTAMPTZ
+    * const string createTableStatement =
+          "CREATE TABLE " +
+          "IF NOT EXISTS " +
+          $"{EventTableName} (" +
+          $"{EventIdColumn} BIGSERIAL PRIMARY KEY, " +
+          $"{EventNameColumn} TEXT, " +
+          $"{EventLocationColumn} TEXT, " +
+          $"{EventStartDateTimeColumn} TIMESTAMPTZ, " +
+          $"{EventEndDateTimeColumn} TIMESTAMPTZ" +
+          ")";
+22. All SQL table and column names that would naturally include a space shall have the spaces replaced with an _
+    * player_id
+23. Any SQL table columns that represent an id shall not be named "id"
+    * player_id

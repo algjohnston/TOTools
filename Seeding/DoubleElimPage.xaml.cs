@@ -51,8 +51,9 @@ public partial class DoubleElimPage : ContentPage
                 new ColumnDefinition { Width = GridLength.Star });
         }
         
-        // Fill the first column with players
-        for (var currentPlayerNumber = 0; currentPlayerNumber < numberOfPlayers; currentPlayerNumber++)
+        
+        for (
+            var currentPlayerNumber = 0; currentPlayerNumber < numberOfPlayers; currentPlayerNumber++) // Fill the first column with players
         {
             // TODO autoscale text?
             var playerLabel = new Label
