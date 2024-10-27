@@ -40,7 +40,7 @@
                                        FontSize="31"
                                        Grid.Column="0">
                                 </Label>
-                                <Label Text="{Binding EstimatedTime  }"
+                                <Label Text="{Binding MatchTime  }"
                                        FontSize="31"
                                        Grid.Column="1">
                                 </Label>

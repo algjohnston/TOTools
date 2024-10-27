@@ -12,7 +12,7 @@ namespace CS341Project.EventMap;
 public class EventTable : ITable<Event>
 {
     private const string EventTableName = "events";
-    private const string EventIdColumn = "event_id";
+    private const string EventIdColumn = "id";
     private const string EventNameColumn = "name";
     private const string EventLocationColumn = "location";
     private const string EventStartDateTimeColumn = "start_date_time";

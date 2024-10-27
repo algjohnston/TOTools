@@ -15,7 +15,7 @@ public partial class EventMapPage : ContentPage
 		// since crash messages are not propagated anywhere I can find. 
 		try
 		{
-			Shell.Current.GoToAsync($"event_list_page");
+			Navigation.PushAsync(new EventListPage());
 		}
 		catch (Exception exception)
 		{

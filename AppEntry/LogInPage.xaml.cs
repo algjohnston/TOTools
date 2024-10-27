@@ -9,12 +9,12 @@ public partial class LogInPage : ContentPage
 
 	private void OnLogInButtonClicked(object? sender, EventArgs e)
 	{
-		Shell.Current.GoToAsync("home_page");
+		Navigation.PushAsync(new HomePage());
 	}
 
 	private void OnCancelButtonClicked(object? sender, EventArgs e)
 	{
-		Shell.Current.GoToAsync("title_page");
+		Navigation.PushAsync(new TitlePage());
 	}
 
 }

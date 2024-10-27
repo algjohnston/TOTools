@@ -18,6 +18,6 @@ public partial class ThumbGenManualPage : ContentPage
 
     private void OnSubmitButtonClicked(object sender, EventArgs e)
     {
-        Shell.Current.GoToAsync("..");
+        Navigation.PopAsync();
     }
 }

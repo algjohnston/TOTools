@@ -1,3 +1,8 @@
+using CS341Project.EventMap;
+using CS341Project.Scheduler;
+using CS341Project.Seeding;
+using CS341Project.ThumbGen;
+
 namespace CS341Project.AppEntry;
 
 public partial class HomePage : ContentPage {
@@ -8,27 +13,27 @@ public partial class HomePage : ContentPage {
     
     private void OnLogOutButtonClicked(object? sender, EventArgs e)
     {
-        Shell.Current.GoToAsync("..");
+        Navigation.PopAsync();
     }
 
     private void OnSeedingButtonClicked(object? sender, EventArgs e)
     {
-        Shell.Current.GoToAsync("SeedGeneratorPage");
+        Navigation.PushAsync(new SeedingTabbedPage());
     }
     
     private void OnSchedulerButtonClicked(object? sender, EventArgs e)
     {
-        Shell.Current.GoToAsync("scheduler_event_page");
+        Navigation.PushAsync(new SchedulerEventPage());
     }
 
     private void OnEventMapButtonClicked(object? sender, EventArgs e)
     {
-        Shell.Current.GoToAsync("event_map_page");
+        Navigation.PushAsync(new EventMapPage());
     }
 
     private void OnThumbnailGeneratorButtonClicked(object? sender, EventArgs e)
     {
-        Shell.Current.GoToAsync("thumbnail_gen_page");
+        Navigation.PushAsync(new ThumbGenPage());
     }
     
 }

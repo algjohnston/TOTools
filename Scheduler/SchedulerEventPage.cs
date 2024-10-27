@@ -23,6 +23,6 @@ public partial class SchedulerEventPage : ContentPage
 
     private void SettingsImageButton_OnClicked(object? sender, EventArgs e)
     {
-        Shell.Current.GoToAsync("event_pop_up");
+        Navigation.PushAsync(new EventPopup());
     }
 }

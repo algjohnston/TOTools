@@ -7,7 +7,7 @@
 /// </summary>
 /// <param name="player1">The first player.</param>
 /// <param name="player2">The second player.</param>
-/// <param name="timeInseconds">how long the match took to complete
+/// <param name="timeInSeconds">how long the match took to complete
 /// The estimated time, in seconds,
 /// of the match between the two given players.
 /// </param>

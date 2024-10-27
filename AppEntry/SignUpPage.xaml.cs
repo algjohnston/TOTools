@@ -8,7 +8,7 @@ public partial class SignUpPage : ContentPage {
     
     private void OnOkButtonClicked(object? sender, EventArgs e)
     {
-        Shell.Current.GoToAsync("..");
+        Navigation.PopAsync();
     }
     
 }
