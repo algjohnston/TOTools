@@ -7,12 +7,12 @@ public partial class SeedGeneratorPage : ContentPage
         InitializeComponent();
     }
 
-    private void SubmitButton_OnClicked(object? sender, EventArgs e)
+    private void OnSubmitButtonClicked(object? sender, EventArgs e)
     {
         Navigation.PushAsync(new DoubleElimPage());
     }
 
-    private void ManualEntryButton_OnClicked(object? sender, EventArgs e)
+    private void OnManualEntryButtonClicked(object? sender, EventArgs e)
     {
         Navigation.PushAsync(new SelectCompetitorsPage());
     }

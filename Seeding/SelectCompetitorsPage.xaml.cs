@@ -7,8 +7,6 @@ public partial class SelectCompetitorsPage : ContentPage
 
 	public ObservableCollection<string> Competitors { get; } = [];
 	
-	public string GetNumberOfCompetitors => "Number of Competitors: ???";
-	
 	public SelectCompetitorsPage()
 	{
 		InitializeComponent();

@@ -8,12 +8,12 @@
              Title="Events" 
              x:DataType="eventMap:EventBusinessLogic">
     <ContentPage.Content>
-        <Grid Padding="20">
+        <Grid Padding="16">
             <CollectionView x:Name="EventCollectionView"
                             ItemsSource="{Binding Events}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:Event">
-                        <StackLayout Padding="10" Margin="5">
+                        <StackLayout Margin="0,8,0,8">
                             <Label Text="{Binding EventName}"
                                    FontSize="20"
                                    FontAttributes="Bold" />

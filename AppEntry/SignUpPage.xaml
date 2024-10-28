@@ -1,45 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-        x:Class="CS341Project.AppEntry.SignUpPage"
-        Title="Sign Up">
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CS341Project.AppEntry.SignUpPage"
+             Title="Sign Up">
     <Grid ColumnDefinitions="*, *"
           RowDefinitions="*, *, *, *"
-          Margin="20">
+          Margin="16">
 
-        <Label Text="Email"
+        <Label Text="Email:"
                Grid.Column="0"
                Grid.Row="0"
-               VerticalOptions="Center"
-               Margin="10"/>
-        
-            <Entry x:Name="EmailTextField"
-                   Grid.Row="0"
-                   Grid.Column="1"
-                   Placeholder="Enter your email"
-                   HorizontalOptions="Start"
-                   VerticalOptions="Center"/>
-        
-        <Label Text="Password"
+               VerticalOptions="Center" />
+
+        <Entry x:Name="EmailEntry"
+               Grid.Row="0"
+               Grid.Column="1"
+               Placeholder="Enter your email"
+               HorizontalOptions="Start"
+               VerticalOptions="Center" />
+
+        <Label Text="Password:"
                Grid.Column="0"
                Grid.Row="1"
-               VerticalOptions="Center"
-               Margin="10"/>
-        
-            <Entry x:Name="PasswordTextField"
-                   Grid.Row="1"
-                   Grid.Column="1"
-                   Placeholder="Enter a password"
-                   HorizontalOptions="Start"
-                   VerticalOptions="Center"/>
-        
-        <Label Text="Confirm Password"
+               VerticalOptions="Center" />
+
+        <Entry x:Name="PasswordEntry"
+               Grid.Row="1"
+               Grid.Column="1"
+               Placeholder="Enter a password"
+               HorizontalOptions="Start"
+               VerticalOptions="Center" />
+
+        <Label Text="Confirm Password:"
                Grid.Column="0"
                Grid.Row="2"
-               VerticalOptions="Center"
-               Margin="10"/>
+               VerticalOptions="Center"/>
 
         <!-- Saving for later since it looks inconsistent with the log in page -->
+        <!-- TODO frames around entries? -->
         <!-- <Frame Grid.Column="1" -->
         <!--        Grid.Row="2" -->
         <!--        Margin="10" -->
@@ -47,23 +46,23 @@
         <!--        CornerRadius="5" -->
         <!--        Padding="5" -->
         <!--        HasShadow="False"> -->
-               <Entry x:Name="PasswordConfirmationTextField"
-                      Grid.Row="2"
-                      Grid.Column="1"
-                      Placeholder="Enter the same password"
-                      HorizontalOptions="Start"
-                      VerticalOptions="Center"/>
+        <Entry x:Name="PasswordConfirmationEntry"
+               Grid.Row="2"
+               Grid.Column="1"
+               Placeholder="Enter the same password"
+               HorizontalOptions="Start"
+               VerticalOptions="Center" />
         <!-- </Frame> -->
 
-        <Button x:Name="OkButton"
+        <Button x:Name="SubmitButton"
                 Text="Submit"
                 Grid.Column="0"
                 Grid.Row="3"
-                Margin="10"
+                FontAttributes="Bold"
                 HorizontalOptions="Start"
                 VerticalOptions="End"
-                Clicked="OnOkButtonClicked"/>
+                Clicked="OnSubmitButtonClicked" />
 
     </Grid>
-    
+
 </ContentPage>

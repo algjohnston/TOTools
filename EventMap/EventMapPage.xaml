@@ -2,30 +2,25 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:CS341Project"
-             x:Class="CS341Project.EventMap.EventMapPage">
+             x:Class="CS341Project.EventMap.EventMapPage"
+             Title="Event Map">
     <ContentPage.Content>
 
         <Grid ColumnDefinitions="*"
-              RowDefinitions="auto, *, auto"
-              Margin="20">
-
-            <Label
-                Text="Event Map"
-                Style="{StaticResource Headline}"
-                TextColor="White"
-                HorizontalTextAlignment="Center"
-                FontAttributes="Bold" />
-
+              RowDefinitions="*, auto"
+              Margin="16">
+            
             <Image
-                Grid.Row="1"
+                Grid.Row="0"
                 Source="wi_map.png"
                 Aspect="AspectFit"
                 SemanticProperties.Description="Temporary Stand-in Map" />
             
             <Button Text="View All Events"
-                    Clicked="ViewAllButton_OnClicked"
-                    Grid.Row="2"/>
+                    Clicked="OnViewAllEventsButtonClicked"
+                    Grid.Row="1"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"/>
         </Grid>
 
     </ContentPage.Content>

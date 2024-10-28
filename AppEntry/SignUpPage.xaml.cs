@@ -6,7 +6,7 @@ public partial class SignUpPage : ContentPage {
         InitializeComponent();
     }
     
-    private void OnOkButtonClicked(object? sender, EventArgs e)
+    private void OnSubmitButtonClicked(object? sender, EventArgs e)
     {
         Navigation.PopAsync();
     }

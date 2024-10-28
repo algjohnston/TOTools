@@ -5,11 +5,12 @@
              xmlns:models="clr-namespace:CS341Project.Models"
              xmlns:scheduler="clr-namespace:CS341Project.Scheduler"
              x:DataType="scheduler:SchedulerEventPage"
-             x:Class="CS341Project.Scheduler.SchedulerEventPage">
+             x:Class="CS341Project.Scheduler.SchedulerEventPage"
+             Title="Event Scheduler">
     <ContentPage.Content>
 
         <Grid
-            ColumnDefinitions="*, auto"
+            ColumnDefinitions="*, auto, auto"
             RowDefinitions="auto, *, auto, auto"
             Margin="16">
 
@@ -23,9 +24,13 @@
                    Grid.Column="1"
                    Grid.Row="0" />
 
+            <ImageButton Source="settings.svg"
+                         Clicked="OnSettingsImageButtonClicked"
+                         Grid.Column="2" />
+
             <ScrollView
                 Grid.Row="1"
-                Grid.ColumnSpan="2">
+                Grid.ColumnSpan="3">
                 <CollectionView
                     x:Name="MatchList"
                     ItemsSource="{Binding Events}">
@@ -43,10 +48,6 @@
                                        FontSize="31"
                                        Grid.Column="1">
                                 </Label>
-                                
-                                <ImageButton Source="settings.svg"
-                                             Clicked="SettingsImageButton_OnClicked"
-                                             Grid.Column="2"/>
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
@@ -55,17 +56,17 @@
 
             <ImageButton Source="plus.svg"
                          HorizontalOptions="Start"
-                         Grid.Row="2"/>
-            
+                         Grid.Row="2" />
+
             <Button Text="Submit"
                     Grid.Row="3"
-                    Grid.ColumnSpan="2"
+                    Grid.ColumnSpan="3"
+                    FontAttributes="Bold"
                     VerticalOptions="Center"
-                    HorizontalOptions="Center"
-                />
-            
-        </Grid>
+                    HorizontalOptions="Start"
+                    Clicked="SubmitButtonClicked" />
 
+        </Grid>
 
     </ContentPage.Content>
 </ContentPage>

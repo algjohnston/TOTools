@@ -2,14 +2,13 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			 xmlns:local="clr-namespace:CS341Project"
 			 x:Class="CS341Project.AppEntry.TitlePage">
 	
 
 	<ContentPage.Content>
 	    <Grid ColumnDefinitions="*"
               RowDefinitions="*, *, *, *"
-              Margin="20, 0, 20, 20">
+              Margin="16, 0, 16, 16">
 		    
 		    <Label Text="Title (TBD)"
 		           Style="{StaticResource Headline}"
@@ -22,7 +21,6 @@
 
 			<Button x:Name="LogInButton"
 					Text="Log In"
-					FontSize="Large"
 					FontAttributes="Bold"
 					Grid.Row="1"
 					HorizontalOptions="Center"
@@ -31,7 +29,6 @@
 
 			<Button x:Name="SignUpButton"
 					Text="Sign Up"
-					FontSize="Large"
 					FontAttributes="Bold"
 					Grid.Row="2"
 					HorizontalOptions="Center"
@@ -40,7 +37,6 @@
 
 			<Button x:Name="SkipButton"
 					Text="Skip"
-					FontSize="Large"
 					FontAttributes="Bold"
 					Grid.Row="3"
 					HorizontalOptions="Start"

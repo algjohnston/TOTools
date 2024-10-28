@@ -6,44 +6,44 @@
     
     <Grid ColumnDefinitions="*"
           RowDefinitions="80, *, *, *, *"
-          Margin="20">
+          Margin="16">
     
         <Button x:Name="LogOutButton"
             Text="Log Out"    
             Grid.Row="0"
-            Margin="10"
+            FontAttributes="Bold"
             HorizontalOptions="End"
             VerticalOptions="Start"
             Clicked="OnLogOutButtonClicked"/>
         
         <Button x:Name="SeedingButton" 
             Text="Seeding"
-            Margin="10"
             Grid.Row="1"
+            FontAttributes="Bold"
             HorizontalOptions="Center"
             VerticalOptions="Center"
             Clicked="OnSeedingButtonClicked"/>
         
         <Button x:Name="SchedulerButton" 
             Text="Scheduler"
-            Margin="10" 
             Grid.Row="2"
+            FontAttributes="Bold"
             HorizontalOptions="Center"
             VerticalOptions="Center"
             Clicked="OnSchedulerButtonClicked"/>
         
         <Button x:Name="EventMapButton" 
             Text="Event Map" 
-            Margin="10"
             Grid.Row="3"
+            FontAttributes="Bold"
             HorizontalOptions="Center"
             VerticalOptions="Center"
             Clicked="OnEventMapButtonClicked"/>
 
         <Button x:Name="ThumbnailGeneratorButton" 
             Text="Thumbnail Generator" 
-            Margin="10" 
             Grid.Row="4"
+            FontAttributes="Bold"
             HorizontalOptions="Center"
             VerticalOptions="Center"
 

@@ -1,34 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-        x:Class="CS341Project.ThumbGen.ThumbGenManualPage">
+        x:Class="CS341Project.ThumbGen.ThumbGenManualPage"
+        Title="Thumbnail Generator">
 
     <Grid ColumnDefinitions="*"
-          RowDefinitions="60, 60, 60, 60"
-          Margin="20">
+          RowDefinitions="*, *, *, *"
+          Margin="16">
 
-        <Entry x:Name="VodTitleTextBox" 
-            Margin="10"
+        <Entry x:Name="VodTitleEntry" 
             Grid.Row="0"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
             Placeholder="Enter VOD Title"/>
 
         <Button 
             x:Name="SelectTemplateButton" 
             Text="Select Template"
-            Margin="10" 
             Grid.Row="1"
+            FontAttributes="Bold"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
             Clicked="OnSelectTemplateButtonClicked"/>
 
         <Button x:Name="OutputFolderButton" 
             Text="Select Output Folder" 
-            Margin="10" 
             Grid.Row="2"
+            FontAttributes="Bold"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
             Clicked="OnOutputFolderButtonClicked"/>
 
         <Button x:Name="SubmitButton" 
             Text="Submit" 
-            Margin="10" 
             Grid.Row="3"
+            FontAttributes="Bold"
+            VerticalOptions="End"
+            HorizontalOptions="Start"
             Clicked="OnSubmitButtonClicked"/>
     </Grid>
 </ContentPage>

@@ -15,7 +15,6 @@ public partial class SeedingListPage : ContentPage
     {
         InitializeComponent();
         BindingContext = this;
-        Shell.SetTabBarIsVisible(Shell.Current, true);
         SeedingList.Add(new PlayerTierGroup(
             "Tier S",
             [
@@ -40,7 +39,7 @@ public partial class SeedingListPage : ContentPage
     /// the player group to be expanded or collapsed
     /// </param>
     /// <param name="e">Ignored</param>
-    private void ToggleGroup(object sender, EventArgs e)
+    private void OnToggleGroupClick(object sender, EventArgs e)
     {
         if (sender is not Label { BindingContext: PlayerTierGroup playerGroup }) return;
         playerGroup.ToggleExpanded();

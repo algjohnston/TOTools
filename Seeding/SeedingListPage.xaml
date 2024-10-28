@@ -20,7 +20,7 @@
                                FontAttributes="Bold" 
                                FontSize="31">
                             <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="ToggleGroup" />
+                                <TapGestureRecognizer Tapped="OnToggleGroupClick" />
                             </Label.GestureRecognizers>
                             </Label>
                     </DataTemplate>

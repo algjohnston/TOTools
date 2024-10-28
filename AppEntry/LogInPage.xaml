@@ -2,65 +2,52 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			 xmlns:local="clr-namespace:CS341Project"
-			 x:Class="CS341Project.AppEntry.LogInPage">
+			 x:Class="CS341Project.AppEntry.LogInPage"
+			 Title="Log in">
 	<ContentPage.Content>
-		<Grid ColumnDefinitions="auto, *, *"
-			  RowDefinitions="auto, *, *, *"
-			  Margin="20">
-			<Label Text="Log In"
-				   Style="{StaticResource Headline}"
-				   FontSize="40"
-				   HorizontalTextAlignment="Center"
-				   FontAttributes="Bold" />
-
+		<Grid ColumnDefinitions="auto, *"
+			  RowDefinitions="*, *, *"
+			  Margin="16">
+			
 			<Label Text="Username: "
-				   FontSize="Large"
-				   Grid.Row="1"
-				   HorizontalTextAlignment="Start"
+				   Grid.Row="0"
 				   HorizontalOptions="Center"
 				   VerticalOptions="Center" />
 
 			<Entry x:Name="UsernameEntry" 
-				   FontSize="Large"
-				   Grid.Row="1"
-				   BackgroundColor="White"
+				   Grid.Row="0"
 				   Grid.Column="1"
-				   HorizontalTextAlignment="Start"
+				   Placeholder="Enter your username"
+				   HorizontalOptions="Center"
 				   VerticalOptions="Center"/>
 
 			<Label Text="Password: "
-				   FontSize="Large"
-				   Grid.Row="2"
-				   HorizontalTextAlignment="Start"
+				   Grid.Row="1"
 				   HorizontalOptions="Center"
 				   VerticalOptions="Center" />
 
 			<Entry x:Name="PasswordEntry" 
-				   FontSize="Large"
-				   Grid.Row="2"
-				   BackgroundColor="White"
+				   Grid.Row="1"
 				   Grid.Column="1"
-				   HorizontalTextAlignment="Start"
+				   Placeholder="Enter your password"
+				   HorizontalOptions="Center"
 				   VerticalOptions="Center"/>
 
 			<Button x:Name="Login"
 					Text="Log In"
-					FontSize="Large"
 					FontAttributes="Bold"
 					Grid.Row="3"
 					Grid.Column="0"
-					HorizontalOptions="Center"
+					HorizontalOptions="Start"
 					VerticalOptions="End"
 					Clicked="OnLogInButtonClicked" />
 
 			<Button x:Name="Cancel"
 					Text="Cancel"
-					FontSize="Large"
 					FontAttributes="Bold"
 					Grid.Row="3"
-					Grid.Column="2"
-					HorizontalOptions="Center"
+					Grid.Column="1"
+					HorizontalOptions="End"
 					VerticalOptions="End"
 					Clicked="OnCancelButtonClicked" />
 		</Grid>

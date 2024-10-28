@@ -8,14 +8,16 @@
              Title="Select Competitors">
     
     <ContentPage.Content>
-        <Grid Padding="20" RowSpacing="20" ColumnDefinitions="*" RowDefinitions="Auto, Auto, Auto">
+        
+        <Grid Padding="16" 
+              RowSpacing="8" 
+              ColumnDefinitions="*" 
+              RowDefinitions="Auto, *, Auto">
             
-            <Label Text="{Binding GetNumberOfCompetitors}"/>
+            <Label Text="{Binding Competitors.Count}"/>
             
-            <CollectionView Grid.Row="0" 
-                            ItemsSource="{Binding Competitors}"
-                            VerticalOptions="FillAndExpand"
-                            HorizontalOptions="FillAndExpand">
+            <CollectionView Grid.Row="1" 
+                            ItemsSource="{Binding Competitors}">
                 
                 <CollectionView.ItemTemplate>
                     <DataTemplate >
@@ -26,12 +28,14 @@
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
+                
             </CollectionView>
             
             <Button Text="Submit"
                     x:Name="SubmitButton"
-                    Grid.Row="1"
-                    HorizontalOptions="Center"
+                    Grid.Row="2"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Start"
                     VerticalOptions="End"
                     Clicked="OnSubmitClicked"/>
             

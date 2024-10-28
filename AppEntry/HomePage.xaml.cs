@@ -13,6 +13,7 @@ public partial class HomePage : ContentPage {
     
     private void OnLogOutButtonClicked(object? sender, EventArgs e)
     {
+        Navigation.RemovePage(Navigation.NavigationStack[^2]);
         Navigation.PopAsync();
     }
 
