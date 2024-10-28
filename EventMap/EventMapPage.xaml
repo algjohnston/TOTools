@@ -6,15 +6,10 @@
              Title="Event Map">
     <ContentPage.Content>
 
-        <Grid ColumnDefinitions="*"
+        <Grid x:Name="EventMapGrid"
+              ColumnDefinitions="*"
               RowDefinitions="*, auto"
               Margin="16">
-            
-            <Image
-                Grid.Row="0"
-                Source="wi_map.png"
-                Aspect="AspectFit"
-                SemanticProperties.Description="Temporary Stand-in Map" />
             
             <Button Text="View All Events"
                     Clicked="OnViewAllEventsButtonClicked"

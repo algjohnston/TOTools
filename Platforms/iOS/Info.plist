@@ -28,5 +28,7 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app requires location access to show nearby locations. Your location data will not be stored or transmitted in any way.</string>
 </dict>
 </plist>
