@@ -7,15 +7,13 @@ public partial class EventMapPage : ContentPage
     public EventMapPage()
     {
         InitializeComponent();
-        
-        // Works on Windows 10, but not Android 14
-        var mapControl = new Mapsui.UI.Maui.MapControl();
-        mapControl.Map.Layers.Add(
+
+        // TODO only shows up the second time the screen is navigated to
+        MapControl.Map.Layers.Add(
             Mapsui.Tiling.OpenStreetMap.CreateTileLayer()
-            );
-        EventMapGrid.Add(mapControl, row:0);
+        );
     }
-    
+
     protected override async void OnAppearing()
     {
         base.OnAppearing();
@@ -23,7 +21,7 @@ public partial class EventMapPage : ContentPage
     }
 
 
-    public async Task<PermissionStatus> CheckAndRequestLocationPermission()
+    private async Task<PermissionStatus> CheckAndRequestLocationPermission()
     {
         PermissionStatus status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
 

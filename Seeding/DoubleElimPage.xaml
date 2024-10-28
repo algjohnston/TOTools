@@ -2,13 +2,24 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CS341Project.Seeding.DoubleElimPage"
-             Title="Tournament Bracket">
+             x:Class="CS341Project.Seeding.DoubleElimPage">
     <ContentPage.Content>
 
-        <Grid x:Name="GridDoubleElim"
-              HorizontalOptions="FillAndExpand"
-              VerticalOptions="FillAndExpand" />
+        <ScrollView Margin="16">
+            <StackLayout>
+
+                <Label Text="Winner's Bracket"
+                       Margin="0,0,0,16" />
+                <ContentView x:Name="WinnersBracket">
+                </ContentView>
+
+                <Label Text="Loser's Bracket"
+                       Margin="0,0,0,16" />
+                <ContentView x:Name="LosersBracket">
+                </ContentView>
+
+            </StackLayout>
+        </ScrollView>
 
     </ContentPage.Content>
 </ContentPage>
