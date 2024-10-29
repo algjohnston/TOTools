@@ -11,13 +11,13 @@
 /// The estimated time, in seconds,
 /// of the match between the two given players.
 /// </param>
-public class Match(long id, long player1, long player2, long timeInSeconds)
+public class Match(long id, string player1, string player2, long timeInSeconds)
 {
-    public long MatchId { get; }
+    public long MatchId { get; } = id;
     
-    public Player Player1 { get; }
+    public string Player1 { get; } = player1;
 
-    public Player Player2 { get; }
+    public string Player2 { get; } = player2;
 
     /// <summary>
     /// Provides the match time in mm:ss format
@@ -34,5 +34,5 @@ public class Match(long id, long player1, long player2, long timeInSeconds)
         }
     }
 
-    public string FormattedPlayers => $"{player1} vs. {player2}";
+    public string FormattedPlayers => $"{Player1} vs. {Player2}";
 }

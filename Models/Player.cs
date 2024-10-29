@@ -6,21 +6,19 @@
 /// </summary>
 /// <param name="tag">The tag (aka gamertag) of the player.</param>
 /// <param name="region">The region the player resides.</param>
-/// <param name="tier">The tier the player is in
-/// <param name="ranking> ranking of player within tier
-public class Player(long id, string tag, string region, Tier tier, int ranking)
+/// <param name="tier">The tier the player is in</param>
+/// <param name="ranking"> ranking of player within tier.</param>
+public class Player(string startggId, string tag, int region, Tier tier, int ranking)
 {
-
-    public long PlayerId { get; } = id;
+    public string StarttggId { get; } = startggId;
     
     public string PlayerTag { get; } = tag;
 
-    public string PlayerRegion { get; } = region;
+    public int PlayerRegion { get; } = region;
 
     public Tier PlayerTier { get; } = tier;
 
     public int PlayerRanking { get; } = ranking;
     
-    public string FormattedPlayer => $"{PlayerId} : {PlayerTag}: {PlayerRegion} : {PlayerTier} : {PlayerRanking}";
-    
+    public string FormattedPlayer => $"{StarttggId} : {PlayerTag}: {PlayerRegion} : {PlayerTier} : {PlayerRanking}";
 }

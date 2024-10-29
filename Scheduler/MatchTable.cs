@@ -16,6 +16,11 @@ public class MatchTable : ITable<Match>
     private const string Player1IdColumn = "player_1_id";
     private const string Player2IdColumn = "player_2_id";
     private const string MatchTimeColumn = "match_time";
+    
+    private const int MatchIdColumnNumber = 0;
+    private const int Player1IdColumnNumber = 1;
+    private const int Player2IdColumnNumber = 2;
+    private const int MatchTimeColumnNumber = 3;
 
     private readonly ObservableCollection<Match> matches = [];
 
@@ -26,8 +31,8 @@ public class MatchTable : ITable<Match>
             "IF NOT EXISTS " +
             $"{MatchTableName} (" +
             $"{MatchIdColumn} BIGSERIAL PRIMARY KEY, " +
-            $"{Player1IdColumn} BIGSERIAL " +
-            $"{Player2IdColumn} BIGSERIAL " +
+            $"{Player1IdColumn} TEXT " +
+            $"{Player2IdColumn} TEXT " +
             $"{MatchTimeColumn} BIGINT, " +
             ")";
         DatabaseUtil.CreateTable(createTableStatement);
@@ -107,11 +112,11 @@ public class MatchTable : ITable<Match>
         using var reader = command.ExecuteReader();
         while (reader.Read())
         {
-            var match_id = reader.GetInt64(0);
-            var player_1_id = reader.GetInt64(1);
-            var player_2_id = reader.GetInt64(2);
-            var match_time = reader.GetInt64(3);
-            Match matchToAdd = new(match_id, player_1_id, player_2_id, match_time);
+            var matchId = reader.GetInt64(MatchIdColumnNumber);
+            var player1Id = reader.GetString(Player1IdColumnNumber);
+            var player2Id = reader.GetString(Player2IdColumnNumber);
+            var matchTime = reader.GetInt64(MatchTimeColumnNumber);
+            Match matchToAdd = new(matchId, player1Id, player2Id, matchTime);
             matches.Add(matchToAdd);
         }
 

@@ -12,12 +12,13 @@ public enum Tier
 
 public static class TierHelper
 {
-    public static Tier ConvertToTier(string tierString) //chatgpt gave me this, I have no idea if it sucks or not
+    public static Tier ConvertToTier(int tierInt) //chatgpt gave me this, I have no idea if it sucks or not
     {
         // Try parsing the string as a Tier enum
-        if (Enum.TryParse<Tier>(tierString, out Tier result))
+        if (Enum.IsDefined(typeof(Tier), tierInt))
         {
-            return result; // If successful, return the enum value
+            return (Tier)tierInt;
+            // Proceed with enumValue
         }
 
         return Tier.F; // If no match is found, just return F by default

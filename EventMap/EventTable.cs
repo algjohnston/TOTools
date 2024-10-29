@@ -11,12 +11,18 @@ namespace CS341Project.EventMap;
 /// </summary>
 public class EventTable : ITable<Event>
 {
-    private const string EventTableName = "events";
-    private const string EventIdColumn = "id";
-    private const string EventNameColumn = "name";
-    private const string EventLocationColumn = "location";
-    private const string EventStartDateTimeColumn = "start_date_time";
-    private const string EventEndDateTimeColumn = "end_date_time";
+    private const string TableName = "events";
+    private const string IdColumn = "event_id";
+    private const string NameColumn = "name";
+    private const string LocationColumn = "location";
+    private const string StartDateTimeColumn = "start_date_time";
+    private const string EndDateTimeColumn = "end_date_time";
+    
+    private const int IdColumnNumber = 0;
+    private const int NameColumnNumber = 1;
+    private const int LocationColumnNumber = 2;
+    private const int StartDateTimeColumnNumber = 3;
+    private const int EndDateTimeColumnNumber = 4;
 
     private readonly ObservableCollection<Event> events = [];
 
@@ -25,12 +31,12 @@ public class EventTable : ITable<Event>
         const string createTableStatement =
             "CREATE TABLE " +
             "IF NOT EXISTS " +
-            $"{EventTableName} (" +
-            $"{EventIdColumn} BIGSERIAL PRIMARY KEY, " +
-            $"{EventNameColumn} TEXT, " +
-            $"{EventLocationColumn} TEXT, " +
-            $"{EventStartDateTimeColumn} TIMESTAMPTZ, " +
-            $"{EventEndDateTimeColumn} TIMESTAMPTZ" +
+            $"{TableName} (" +
+            $"{IdColumn} BIGSERIAL PRIMARY KEY, " +
+            $"{NameColumn} TEXT, " +
+            $"{LocationColumn} TEXT, " +
+            $"{StartDateTimeColumn} TIMESTAMPTZ, " +
+            $"{EndDateTimeColumn} TIMESTAMPTZ" +
             ")";
         DatabaseUtil.CreateTable(createTableStatement);
     }
@@ -39,7 +45,7 @@ public class EventTable : ITable<Event>
     {
         using var command = new NpgsqlCommand();
         command.Connection = DatabaseUtil.GetDatabaseConnection();
-        command.CommandText = $"DELETE FROM {EventTableName} WHERE {EventIdColumn} = @id";
+        command.CommandText = $"DELETE FROM {TableName} WHERE {IdColumn} = @id";
         command.Parameters.AddWithValue("id", id);
         var numDeleted = command.ExecuteNonQuery();
         if (numDeleted > 0)
@@ -53,13 +59,13 @@ public class EventTable : ITable<Event>
         using var command = new NpgsqlCommand();
         command.Connection = DatabaseUtil.GetDatabaseConnection();
         command.CommandText =
-            $"UPDATE {EventTableName} " +
-            $"SET {EventIdColumn} = @id, " +
-            $"{EventNameColumn} = @name, " +
-            $"{EventLocationColumn} = @location, " +
-            $"{EventStartDateTimeColumn} = @start_datetime, " +
-            $"{EventEndDateTimeColumn} = @end_datetime" +
-            $"WHERE {EventIdColumn} = @id;";
+            $"UPDATE {TableName} " +
+            $"SET {IdColumn} = @id, " +
+            $"{NameColumn} = @name, " +
+            $"{LocationColumn} = @location, " +
+            $"{StartDateTimeColumn} = @start_datetime, " +
+            $"{EndDateTimeColumn} = @end_datetime" +
+            $"WHERE {IdColumn} = @id;";
         command.Parameters.AddWithValue("id", toUpdate.EventId);
         command.Parameters.AddWithValue("name", toUpdate.EventName);
         command.Parameters.AddWithValue("location", toUpdate.Location);
@@ -78,10 +84,11 @@ public class EventTable : ITable<Event>
         using var command = new NpgsqlCommand();
         command.Connection = DatabaseUtil.GetDatabaseConnection();
         command.CommandText =
-            $"INSERT INTO {EventTableName} (" +
-            $"{EventIdColumn}, {EventNameColumn}, {EventLocationColumn}, {EventStartDateTimeColumn}, {EventEndDateTimeColumn}" +
+            $"INSERT INTO {TableName} (" +
+            $"{IdColumn}, {NameColumn}, {LocationColumn}, {StartDateTimeColumn}, {EndDateTimeColumn}" +
             $") VALUES " +
-            $"(@name, @location, @start_datetime, @end_datetime)";
+            $"(@id, @name, @location, @start_datetime, @end_datetime)";
+        command.Parameters.AddWithValue("id", toInsert.EventId);
         command.Parameters.AddWithValue("name", toInsert.EventName);
         command.Parameters.AddWithValue("location", toInsert.Location);
         command.Parameters.AddWithValue("start_datetime", toInsert.StartDateTime);
@@ -102,17 +109,17 @@ public class EventTable : ITable<Event>
     {
         events.Clear();
         using var command = new NpgsqlCommand(
-            $"SELECT {EventIdColumn}, {EventNameColumn}, {EventLocationColumn}, {EventStartDateTimeColumn}, {EventEndDateTimeColumn} FROM {EventTableName}",
+            $"SELECT {IdColumn}, {NameColumn}, {LocationColumn}, {StartDateTimeColumn}, {EndDateTimeColumn} FROM {TableName}",
             DatabaseUtil.GetDatabaseConnection()
         );
         using var reader = command.ExecuteReader();
         while (reader.Read())
         {
-            var id = reader.GetInt64(0);
-            var name = reader.GetString(1);
-            var location = reader.GetString(2);
-            var startDateTime = reader.GetDateTime(3);
-            var endDateTime = reader.GetDateTime(4);
+            var id = reader.GetInt64(IdColumnNumber);
+            var name = reader.GetString(NameColumnNumber);
+            var location = reader.GetString(LocationColumnNumber);
+            var startDateTime = reader.GetDateTime(StartDateTimeColumnNumber);
+            var endDateTime = reader.GetDateTime(EndDateTimeColumnNumber);
             Event eventToAdd = new(id, name, location, startDateTime, endDateTime);
             events.Add(eventToAdd);
         }

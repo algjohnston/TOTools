@@ -9,14 +9,20 @@ namespace CS341Project.Seeding;
 /// Caden Rohan
 /// The data source for Players
 /// </summary>
-public class PlayerTable : ITable<Player>
+public class PlayerTable
 {
     private const string PlayerTableName = "players";
-    private const string PlayerIdColumn = "player_id";
+    private const string StartggIdColumn = "startgg_id";
     private const string PlayerTagColumn = "tag";
     private const string PlayerRegionColumn = "region";
     private const string PlayerTierColumn = "tier";
     private const string PlayerRankingColumn = "ranking"; // needs a better name
+    
+    private const int StartggIdColumnNumber = 0;
+    private const int PlayerTagColumnNumber = 1;
+    private const int PlayerRegionColumnNumber = 2;
+    private const int PlayerTierColumnNumber = 3;
+    private const int PlayerRankingColumnNumber = 4; // needs a better name
 
     private readonly ObservableCollection<Player> players = [];
     
@@ -26,21 +32,21 @@ public class PlayerTable : ITable<Player>
             "CREATE TABLE " +
             "IF NOT EXISTS " +
             $"{PlayerTableName} (" +
-            $"{PlayerIdColumn} BIGSERIAL PRIMARY KEY, " +
+            $"{StartggIdColumn} TEXT PRIMARY KEY, " +
             $"{PlayerTagColumn} TEXT, " +
-            $"{PlayerRegionColumn} TEXT, " +
-            $"{PlayerTierColumn} TEXT, " +
+            $"{PlayerRegionColumn} INT, " + // TODO Maybe an int(enum)?
+            $"{PlayerTierColumn} INT, " + // TODO Maybe an int(enum)?
             $"{PlayerRankingColumn} INT" +
             ")";
         DatabaseUtil.CreateTable(createTableStatement);
     }
     
-    public void Delete(long id)
+    public void Delete(string id)
     {
         using var connection = DatabaseUtil.GetDatabaseConnection();
         using var command = new NpgsqlCommand();
         command.Connection = connection;
-        command.CommandText = $"DELETE FROM {PlayerTableName} WHERE {PlayerIdColumn} = @id";
+        command.CommandText = $"DELETE FROM {PlayerTableName} WHERE {StartggIdColumn} = @id";
         command.Parameters.AddWithValue("id", id);
         var numDeleted = command.ExecuteNonQuery();
         if (numDeleted > 0)
@@ -56,13 +62,13 @@ public class PlayerTable : ITable<Player>
         command.Connection = connection;
         command.CommandText =
             $"UPDATE {PlayerTableName} " +
-            $"SET {PlayerIdColumn} = @id, " +
+            $"SET {StartggIdColumn} = @startgg_id" +
             $"{PlayerTagColumn} = @tag, " +
             $"{PlayerRegionColumn} = @region, " +
             $"{PlayerTierColumn} = @tier, " +
             $"{PlayerRankingColumn} = @ranking" +
-            $"WHERE {PlayerIdColumn} = @id;";
-        command.Parameters.AddWithValue("id", toUpdate.PlayerId);
+            $"WHERE {StartggIdColumn} = @startgg_id;";
+        command.Parameters.AddWithValue("startgg_id", toUpdate.StarttggId);
         command.Parameters.AddWithValue("tag", toUpdate.PlayerTag);
         command.Parameters.AddWithValue("region", toUpdate.PlayerRegion);
         command.Parameters.AddWithValue("tier", toUpdate.PlayerTier);
@@ -82,9 +88,10 @@ public class PlayerTable : ITable<Player>
         command.Connection = connection;
         command.CommandText =
             $"INSERT INTO {PlayerTableName} (" +
-            $"{PlayerIdColumn}, {PlayerTagColumn}, {PlayerRegionColumn}, {PlayerTierColumn}, {PlayerRankingColumn}" +
+            $"{StartggIdColumn}, {PlayerTagColumn}, {PlayerRegionColumn}, {PlayerTierColumn}, {PlayerRankingColumn}" +
             $") VALUES " +
-            $"(@tag, @region, @tier, @ranking)";
+            $"(@start_gg_id, @tag, @region, @tier, @ranking)";
+        command.Parameters.AddWithValue("start_gg_id", toInsert.StarttggId);
         command.Parameters.AddWithValue("tag", toInsert.PlayerTag);
         command.Parameters.AddWithValue("region", toInsert.PlayerRegion);
         command.Parameters.AddWithValue("tier", toInsert.PlayerTier);
@@ -93,10 +100,10 @@ public class PlayerTable : ITable<Player>
         SelectAll();
     }
     
-    public Player? Select(long id)
+    public Player? Select(string id)
     {
         return players.SingleOrDefault(
-            x => x?.PlayerId.Equals(id) ?? false,
+            x => x?.StarttggId.Equals(id) ?? false,
             null
         );
     }
@@ -106,18 +113,18 @@ public class PlayerTable : ITable<Player>
         players.Clear();
         using var connection = DatabaseUtil.GetDatabaseConnection();
         using var command = new NpgsqlCommand(
-            $"SELECT {PlayerIdColumn}, {PlayerTagColumn}, {PlayerRegionColumn}, {PlayerTierColumn}, {PlayerRankingColumn} FROM {PlayerTableName}",
+            $"SELECT {StartggIdColumn}, {PlayerTagColumn}, {PlayerRegionColumn}, {PlayerTierColumn}, {PlayerRankingColumn} FROM {PlayerTableName}",
             connection
         );
         using var reader = command.ExecuteReader();
         while (reader.Read())
         {
-            var id = reader.GetInt64(0);
-            var tag = reader.GetString(1);
-            var region = reader.GetString(2);
-            var tier = reader.GetString(3);
-            var ranking = reader.GetInt32(4);
-            Player playerToAdd = new(id, tag, region, TierHelper.ConvertToTier(tier), ranking);
+            var startggId = reader.GetString(StartggIdColumnNumber);
+            var tag = reader.GetString(PlayerTagColumnNumber);
+            var region = reader.GetInt16(PlayerRegionColumnNumber);
+            var tier = reader.GetInt16(PlayerTierColumnNumber);
+            var ranking = reader.GetInt32(PlayerRankingColumnNumber);
+            Player playerToAdd = new(startggId, tag, region, TierHelper.ConvertToTier(tier), ranking);
             players.Add(playerToAdd);
         }
 
