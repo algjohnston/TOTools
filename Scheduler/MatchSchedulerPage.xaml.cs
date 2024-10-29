@@ -18,10 +18,10 @@ public partial class MatchSchedulerPage : ContentPage
         MatchList.BindingContext = this;
         for (var i = 0; i < 10; i++)
         {
-            Matches.Add(new Match(500, 1, 2, 600));
-            Matches.Add(new Match(501, 3, 3, 601));
-            Matches.Add(new Match(502, 5, 4, 602));
-            Matches.Add(new Match(503, 6, 7, 700));
+            Matches.Add(new Match(500, "1", "!", 600));
+            Matches.Add(new Match(501, "2", "1", 601));
+            Matches.Add(new Match(502, "2", "2", 602));
+            Matches.Add(new Match(503, "3", "#", 700));
         }
 
     }
