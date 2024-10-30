@@ -1,4 +1,4 @@
-﻿namespace CS341Project.Models;
+﻿namespace TOTools.Models;
 
 /// <summary>
 /// Alexander Johnston

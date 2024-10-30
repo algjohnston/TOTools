@@ -1,6 +1,6 @@
-﻿using CS341Project.EventMap;
+﻿using TOTools.EventMap;
 
-namespace CS341Project.AppEntry;
+namespace TOTools.AppEntry;
 
 public partial class TitlePage : ContentPage
 {

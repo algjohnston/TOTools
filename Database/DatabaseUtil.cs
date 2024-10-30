@@ -1,6 +1,6 @@
 ﻿using Npgsql;
 
-namespace CS341Project.Database;
+namespace TOTools.Database;
 
 /// <summary>
 /// Alexander Johnston
@@ -36,7 +36,7 @@ public static class DatabaseUtil
             Username = "main",
             Password = "P0TNUJ1YdhaTJ6B6Mxx-lg",
             Database = databaseName,
-            ApplicationName = "CS341Project",
+            ApplicationName = "TOTools",
             IncludeErrorDetail = true
         };
         return connStringBuilder.ConnectionString;

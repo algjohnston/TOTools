@@ -2,7 +2,7 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CS341Project.AppEntry.SignUpPage"
+             x:Class="TOTools.AppEntry.SignUpPage"
              Title="Sign Up">
     <Grid ColumnDefinitions="*, *"
           RowDefinitions="*, *, *, *"

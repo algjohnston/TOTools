@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace CS341Project;
+namespace TOTools;
 
 [Register("AppDelegate")]
 public class AppDelegate : MauiUIApplicationDelegate

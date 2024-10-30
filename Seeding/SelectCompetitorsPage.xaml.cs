@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace CS341Project.Seeding;
+namespace TOTools.Seeding;
 
 /// <summary>
 /// A page that allows the user to select a list of competitors to be used in bracket generation.

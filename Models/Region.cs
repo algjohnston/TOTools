@@ -1,4 +1,4 @@
-﻿namespace CS341Project.Models;
+﻿namespace TOTools.Models;
 
 /// <summary>
 /// A list of possible regions a player could be from.

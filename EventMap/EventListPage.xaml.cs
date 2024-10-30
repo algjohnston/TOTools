@@ -1,4 +1,4 @@
-﻿namespace CS341Project.EventMap;
+﻿namespace TOTools.EventMap;
 
 /// <summary>
 /// Alexander Johnston

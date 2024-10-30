@@ -2,9 +2,9 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:models="clr-namespace:CS341Project.Models"
-             xmlns:seeding="clr-namespace:CS341Project.Seeding"
-             x:Class="CS341Project.Seeding.SeedingListPage"
+             xmlns:models="clr-namespace:TOTools.Models"
+             xmlns:seeding="clr-namespace:TOTools.Seeding"
+             x:Class="TOTools.Seeding.SeedingListPage"
              x:DataType="seeding:SeedingListPage"
              Title="Seeding List">
     <ContentPage.Content>

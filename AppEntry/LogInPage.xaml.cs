@@ -1,4 +1,4 @@
-﻿namespace CS341Project.AppEntry;
+﻿namespace TOTools.AppEntry;
 
 public partial class LogInPage : ContentPage
 {

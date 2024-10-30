@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace CS341Project.Database;
+namespace TOTools.Database;
 
 /// <summary>
 /// Alexander Johnston

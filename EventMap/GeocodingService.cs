@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace CS341Project.EventMap;
+namespace TOTools.EventMap;
 
 public class GeocodingService
 {

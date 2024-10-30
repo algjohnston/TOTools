@@ -1,4 +1,4 @@
-namespace CS341Project.ThumbGen;
+namespace TOTools.ThumbGen;
 
 /// <summary>
 /// A page that takes a startgg link and extracts the parameters for the script generation.

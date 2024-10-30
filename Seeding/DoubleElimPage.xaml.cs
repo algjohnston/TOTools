@@ -1,4 +1,4 @@
-﻿namespace CS341Project.Seeding;
+﻿namespace TOTools.Seeding;
 
 /// <summary>
 /// A page that displays the winner's and loser's bracket of a double elimination tournament.

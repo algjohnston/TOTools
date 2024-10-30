@@ -1,9 +1,9 @@
 ﻿using System.Collections.ObjectModel;
-using CS341Project.Database;
-using CS341Project.Models;
 using Npgsql;
+using TOTools.Database;
+using TOTools.Models;
 
-namespace CS341Project.EventMap;
+namespace TOTools.EventMap;
 
 /// <summary>
 /// Alexander Johnston

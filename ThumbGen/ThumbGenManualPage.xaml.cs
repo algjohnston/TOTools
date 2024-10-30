@@ -1,4 +1,4 @@
-namespace CS341Project.ThumbGen;
+namespace TOTools.ThumbGen;
 
 /// <summary>
 /// A form to allow the user to specify the parameters for the thumbnail script generation.

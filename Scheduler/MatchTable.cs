@@ -1,9 +1,10 @@
 using System.Collections.ObjectModel;
-using CS341Project.Database;
 using CS341Project.Models;
 using Npgsql;
+using TOTools.Database;
+using TOTools.Models;
 
-namespace CS341Project.Scheduler;
+namespace TOTools.Scheduler;
 
 /// <summary>
 /// Caden Rohan
@@ -35,8 +36,8 @@ public class MatchTable : ITable<Match, long>
             $"{MatchIdColumn} BIGSERIAL PRIMARY KEY, " +
             $"{Player1IdColumn} TEXT, " +
             $"{Player2IdColumn} TEXT, " +
-            $"{MatchTimeColumn} BIGINT " +
-            $"{GameNameColumn} INT, " +
+            $"{MatchTimeColumn} BIGINT, " +
+            $"{GameNameColumn} INT " +
             ")";
         DatabaseUtil.CreateTable(createTableStatement);
     }
@@ -88,12 +89,13 @@ public class MatchTable : ITable<Match, long>
         command.Connection = connection;
         command.CommandText =
             $"INSERT INTO {MatchTableName} (" +
-            $"{MatchIdColumn}, {Player1IdColumn}, {Player2IdColumn}, {MatchTimeColumn}" +
+            $"{MatchIdColumn}, {Player1IdColumn}, {Player2IdColumn}, {MatchTimeColumn}, {GameNameColumn}" +
             $") VALUES " +
-            $"(@name, @location, @start_datetime, @end_datetime)";
+            $"(@name, @location, @start_datetime, @end_datetime, @game)";
         command.Parameters.AddWithValue("player_1_id", toInsert.Player1);
         command.Parameters.AddWithValue("player_2_id", toInsert.Player2);
         command.Parameters.AddWithValue("match_time", toInsert.MatchTime);
+        command.Parameters.AddWithValue("game", toInsert.GameName);
         command.ExecuteNonQuery();
         SelectAll();
     }
@@ -111,7 +113,7 @@ public class MatchTable : ITable<Match, long>
         matches.Clear();
         using var connection = DatabaseUtil.GetDatabaseConnection();
         using var command = new NpgsqlCommand(
-            $"SELECT {MatchIdColumn}, {Player1IdColumn}, {Player2IdColumn}, {MatchTimeColumn} FROM {MatchTableName}",
+            $"SELECT {MatchIdColumn}, {Player1IdColumn}, {Player2IdColumn}, {MatchTimeColumn}, {GameNameColumn} FROM {MatchTableName}",
             connection
         );
         using var reader = command.ExecuteReader();

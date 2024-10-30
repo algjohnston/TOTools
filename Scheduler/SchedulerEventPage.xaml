@@ -2,10 +2,10 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:models="clr-namespace:CS341Project.Models"
-             xmlns:scheduler="clr-namespace:CS341Project.Scheduler"
+             xmlns:models="clr-namespace:TOTools.Models"
+             xmlns:scheduler="clr-namespace:TOTools.Scheduler"
              x:DataType="scheduler:SchedulerEventPage"
-             x:Class="CS341Project.Scheduler.SchedulerEventPage"
+             x:Class="TOTools.Scheduler.SchedulerEventPage"
              Title="Event Scheduler">
     <ContentPage.Content>
 

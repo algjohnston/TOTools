@@ -2,7 +2,7 @@
 using Android.Content.PM;
 using Android.OS;
 
-namespace CS341Project;
+namespace TOTools;
 
 [Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true, LaunchMode = LaunchMode.SingleTop,
     ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode |

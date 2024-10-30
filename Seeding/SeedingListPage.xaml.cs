@@ -1,8 +1,8 @@
 ﻿using System.Collections.ObjectModel;
-using CS341Project.Models;
-using Region = CS341Project.Models.Region;
+using TOTools.Models;
+using Region = TOTools.Models.Region;
 
-namespace CS341Project.Seeding;
+namespace TOTools.Seeding;
 
 /// <summary>
 /// A page of players who have competed in past tournaments.

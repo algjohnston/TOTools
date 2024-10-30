@@ -8,7 +8,7 @@ using Mapsui.Widgets;
 using Mapsui.Widgets.ButtonWidgets;
 using Mapsui.Widgets.ScaleBar;
 
-namespace CS341Project.EventMap;
+namespace TOTools.EventMap;
 
 /**
  * A page with pins on a map, where each pin is an event.

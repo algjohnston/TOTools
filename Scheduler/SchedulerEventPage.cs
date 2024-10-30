@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using CS341Project.Models;
+using TOTools.Models;
 
-namespace CS341Project.Scheduler;
+namespace TOTools.Scheduler;
 
 /// <summary>
 /// A page with a list of events that are used to come up with a match schedule.

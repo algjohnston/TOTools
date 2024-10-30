@@ -1,8 +1,8 @@
 ﻿using System.Collections.ObjectModel;
-using CS341Project.Database;
-using CS341Project.Models;
+using TOTools.Database;
+using TOTools.Models;
 
-namespace CS341Project.Scheduler;
+namespace TOTools.Scheduler;
 
 /// <summary>
 /// Business logic for the scheduler

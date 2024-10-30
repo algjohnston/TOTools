@@ -1,8 +1,6 @@
-﻿using CS341Project.AppEntry;
-using CS341Project.Scheduler;
-using CS341Project.Seeding;
+﻿using TOTools.AppEntry;
 
-namespace CS341Project;
+namespace TOTools;
 
 public partial class App : Application
 {

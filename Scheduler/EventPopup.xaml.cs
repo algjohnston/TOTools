@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace CS341Project.Scheduler;
+namespace TOTools.Scheduler;
 
 /// <summary>
 /// A list of times that matches start.

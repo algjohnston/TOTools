@@ -1,4 +1,4 @@
-﻿namespace CS341Project.Seeding;
+﻿namespace TOTools.Seeding;
 
 /// <summary>
 /// A page that takes in a list of players and produces a double elimination bracket.

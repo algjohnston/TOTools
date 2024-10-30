@@ -1,4 +1,4 @@
-﻿namespace CS341Project.Seeding;
+﻿namespace TOTools.Seeding;
 
 /// <summary>
 /// Draws lines like so

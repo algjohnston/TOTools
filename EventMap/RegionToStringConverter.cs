@@ -1,5 +1,5 @@
 ﻿using System.Globalization;
-namespace CS341Project.EventMapMap;
+namespace TOTools.EventMapMap;
 
 public class RegionToStringConverter : IValueConverter
 {

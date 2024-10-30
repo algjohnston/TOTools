@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace CS341Project;
+namespace TOTools;
 
 public class Program
 {

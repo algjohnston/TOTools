@@ -2,7 +2,7 @@
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using StrawberryShake;
 
-namespace CS341Project;
+namespace TOTools;
 
 public static class MauiProgram
 {

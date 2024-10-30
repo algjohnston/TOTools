@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace CS341Project;
+namespace TOTools;
 
 [Application]
 public class MainApplication : MauiApplication

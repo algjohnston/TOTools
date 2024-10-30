@@ -1,8 +1,8 @@
 ﻿<maui:MauiWinUIApplication
-    x:Class="CS341Project.WinUI.App"
+    x:Class="TOTools.WinUI.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:maui="using:Microsoft.Maui"
-    xmlns:local="using:CS341Project.WinUI">
+    xmlns:local="using:TOTools.WinUI">
 
 </maui:MauiWinUIApplication>

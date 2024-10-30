@@ -1,4 +1,4 @@
-﻿namespace CS341Project.Models;
+﻿namespace TOTools.Models;
 
 /// <summary>
 /// A list of possible tiers a player could be in.
