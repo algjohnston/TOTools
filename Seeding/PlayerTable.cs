@@ -9,7 +9,7 @@ namespace CS341Project.Seeding;
 /// Caden Rohan
 /// The data source for Players.
 /// </summary>
-public class PlayerTable: ITable<Player, string>
+public class PlayerTable : ITable<Player, string>
 {
     private const string PlayerTableName = "players";
     private const string StartggIdColumn = "startgg_id";
@@ -17,7 +17,7 @@ public class PlayerTable: ITable<Player, string>
     private const string PlayerRegionColumn = "region";
     private const string PlayerTierColumn = "tier";
     private const string PlayerRankingColumn = "ranking"; // needs a better name
-    
+
     private const int StartggIdColumnNumber = 0;
     private const int PlayerTagColumnNumber = 1;
     private const int PlayerRegionColumnNumber = 2;
@@ -25,7 +25,7 @@ public class PlayerTable: ITable<Player, string>
     private const int PlayerRankingColumnNumber = 4; // needs a better name
 
     private readonly ObservableCollection<Player> players = [];
-    
+
     public PlayerTable()
     {
         const string createTableStatement =
@@ -40,7 +40,7 @@ public class PlayerTable: ITable<Player, string>
             ")";
         DatabaseUtil.CreateTable(createTableStatement);
     }
-    
+
     public void Delete(string id)
     {
         using var connection = DatabaseUtil.GetDatabaseConnection();
@@ -54,7 +54,7 @@ public class PlayerTable: ITable<Player, string>
             SelectAll();
         }
     }
-    
+
     public void Update(Player toUpdate)
     {
         using var connection = DatabaseUtil.GetDatabaseConnection();
@@ -80,7 +80,7 @@ public class PlayerTable: ITable<Player, string>
             SelectAll();
         }
     }
-    
+
     public void Insert(Player toInsert)
     {
         using var connection = DatabaseUtil.GetDatabaseConnection();
@@ -99,7 +99,7 @@ public class PlayerTable: ITable<Player, string>
         command.ExecuteNonQuery();
         SelectAll();
     }
-    
+
     public Player? Select(string id)
     {
         return players.SingleOrDefault(
@@ -107,7 +107,7 @@ public class PlayerTable: ITable<Player, string>
             null
         );
     }
-    
+
     public ObservableCollection<Player> SelectAll()
     {
         players.Clear();
@@ -121,13 +121,19 @@ public class PlayerTable: ITable<Player, string>
         {
             var startggId = reader.GetString(StartggIdColumnNumber);
             var tag = reader.GetString(PlayerTagColumnNumber);
-            var region = RegionHelper.ConvertToRegion(reader.GetInt16(PlayerRegionColumnNumber));
+            var region = reader.GetInt16(PlayerRegionColumnNumber);
             var tier = reader.GetInt16(PlayerTierColumnNumber);
             var ranking = reader.GetInt32(PlayerRankingColumnNumber);
-            Player playerToAdd = new(startggId, tag, region, TierHelper.ConvertToTier(tier), ranking);
+            Player playerToAdd = new(
+                startggId,
+                tag,
+                RegionHelper.ConvertToRegion(region),
+                TierHelper.ConvertToTier(tier),
+                ranking
+            );
             players.Add(playerToAdd);
         }
+
         return players;
     }
-    
 }

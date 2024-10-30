@@ -5,13 +5,13 @@
 /// </summary>
 public enum Region
 {
-    MILWAUKEE,
-    MADISON,
-    NORCEN,
-    WEST,
-    WHITEWATER,
-    OUT_OF_STATE,
-    UNKNOWN
+    Milwaukee,
+    Madison,
+    Norcen,
+    West,
+    Whitewater,
+    OutOfState,
+    Unknown
 }
 
 public static class RegionHelper
@@ -23,6 +23,6 @@ public static class RegionHelper
             return (Region)regionInt;
         }
 
-        return Region.UNKNOWN;
+        return Region.Unknown;
     }
 }

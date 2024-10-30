@@ -17,7 +17,7 @@
                             <Label Text="{Binding EventName}"
                                    FontSize="20"
                                    FontAttributes="Bold" />
-                            <Label Text="{Binding Region}"
+                            <Label Text="{Binding Location}"
                                    FontSize="16" />
                             <Label Text="{Binding FormattedStartDateTime}"
                                    FontSize="14" />

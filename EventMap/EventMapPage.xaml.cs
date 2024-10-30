@@ -7,7 +7,6 @@ using Mapsui.Styles;
 using Mapsui.Widgets;
 using Mapsui.Widgets.ButtonWidgets;
 using Mapsui.Widgets.ScaleBar;
-using NetTopologySuite.Geometries;
 
 namespace CS341Project.EventMap;
 
@@ -33,6 +32,8 @@ public partial class EventMapPage : ContentPage
                 VerticalAlignment = Mapsui.Widgets.VerticalAlignment.Top
             });
         map.Widgets.Add(new ZoomInOutWidget { Margin = new MRect(20, 40) });
+        
+        // Zoom to Madison, WI
         map.CRS = "EPSG:3857";
         var madisonWI = new MPoint(-89.401230, 43.073051);
         var sphericalMercatorCoordinate = SphericalMercator.FromLonLat(
@@ -41,16 +42,19 @@ public partial class EventMapPage : ContentPage
         ).ToMPoint();
         map.Navigator.CenterOnAndZoomTo(
             sphericalMercatorCoordinate,
-            resolution: 1000,
+            resolution: 1920,
             500, 
             Mapsui.Animations.Easing.CubicOut
         );
         
+        // Add pins
+        // TODO pin not showing
         var layer = new GenericCollectionLayer<List<IFeature>>
         {
             Style = SymbolStyles.CreatePinStyle()
         };
         map.Layers.Add(layer);
+        
         map.Info += (s, e) =>
         {
             if (e.MapInfo?.WorldPosition == null) return;

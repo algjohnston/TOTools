@@ -20,16 +20,16 @@ public partial class SeedingListPage : ContentPage
         SeedingList.Add(new PlayerTierGroup(
             "Tier S",
             [
-                new Player("a","Candle", Region.WEST, Tier.S, 1),
-                new Player("b","Comet", Region.WEST, Tier.S, 2),
-                new Player("c","Skuniar", Region.WEST, Tier.S, 3)
+                new Player("a","Candle", Region.West, Tier.S, 1),
+                new Player("b","Comet", Region.West, Tier.S, 2),
+                new Player("c","Skuniar", Region.West, Tier.S, 3)
             ]));
         SeedingList.Add(new PlayerTierGroup(
             "Tier A",
             [
-                new Player("a","CRB", Region.WEST, Tier.A, 1),
-                new Player("a","Arico", Region.WEST, Tier.A, 2),
-                new Player("a","Spencer", Region.WEST, Tier.A, 3)
+                new Player("a","CRB", Region.West, Tier.A, 1),
+                new Player("a","Arico", Region.West, Tier.A, 2),
+                new Player("a","Spencer", Region.West, Tier.A, 3)
             ]));
     }
 
