@@ -8,7 +8,7 @@
              Title="Events" 
              x:DataType="eventMap:EventBusinessLogic">
     <ContentPage.Content>
-        <Grid Padding="16">
+        <Grid Padding="16, 16, 16, 64">
             <CollectionView x:Name="EventCollectionView"
                             ItemsSource="{Binding Events}">
                 <CollectionView.ItemTemplate>

@@ -6,7 +6,7 @@
 
     <Grid ColumnDefinitions="*, *"
           RowDefinitions="*, *, *, *, *"
-          Margin="16">
+          Margin="16, 16, 16, 64">
         
         <Label Text="Event Link"
                Grid.Row="0"

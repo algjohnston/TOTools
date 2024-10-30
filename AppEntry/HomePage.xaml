@@ -1,52 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-        x:Class="CS341Project.AppEntry.HomePage"
-        Title="Home Page">
-    
-    <Grid ColumnDefinitions="*"
-          RowDefinitions="80, *, *, *, *"
-          Margin="16">
-    
-        <Button x:Name="LogOutButton"
-            Text="Log Out"    
-            Grid.Row="0"
-            FontAttributes="Bold"
-            HorizontalOptions="End"
-            VerticalOptions="Start"
-            Clicked="OnLogOutButtonClicked"/>
-        
-        <Button x:Name="SeedingButton" 
-            Text="Seeding"
-            Grid.Row="1"
-            FontAttributes="Bold"
-            HorizontalOptions="Center"
-            VerticalOptions="Center"
-            Clicked="OnSeedingButtonClicked"/>
-        
-        <Button x:Name="SchedulerButton" 
-            Text="Scheduler"
-            Grid.Row="2"
-            FontAttributes="Bold"
-            HorizontalOptions="Center"
-            VerticalOptions="Center"
-            Clicked="OnSchedulerButtonClicked"/>
-        
-        <Button x:Name="EventMapButton" 
-            Text="Event Map" 
-            Grid.Row="3"
-            FontAttributes="Bold"
-            HorizontalOptions="Center"
-            VerticalOptions="Center"
-            Clicked="OnEventMapButtonClicked"/>
 
-        <Button x:Name="ThumbnailGeneratorButton" 
-            Text="Thumbnail Generator" 
-            Grid.Row="4"
-            FontAttributes="Bold"
-            HorizontalOptions="Center"
-            VerticalOptions="Center"
+<TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CS341Project.AppEntry.HomePage"
+             xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
+             xmlns:eventMap="clr-namespace:CS341Project.EventMap"
+             xmlns:thumbGen="clr-namespace:CS341Project.ThumbGen"
+             xmlns:scheduler="clr-namespace:CS341Project.Scheduler"
+             xmlns:seeding="clr-namespace:CS341Project.Seeding"
+             android:TabbedPage.ToolbarPlacement="Bottom"
+             android:TabbedPage.IsSwipePagingEnabled="false">
+    <TabbedPage.Children>
+        <NavigationPage Title="Seeding">
+            <x:Arguments>
+                <seeding:SeedingTabbedPage/>
+            </x:Arguments>
+        </NavigationPage>
+        <NavigationPage Title="Scheduler">
+            <x:Arguments>
+                <scheduler:SchedulerEventPage/>
+            </x:Arguments>
+        </NavigationPage>        
 
-            Clicked="OnThumbnailGeneratorButtonClicked"/>
-    </Grid>
-</ContentPage>
+        <NavigationPage Title="Map">
+            <x:Arguments>
+                <eventMap:EventMapPage/>
+            </x:Arguments>
+        </NavigationPage>   
+        <NavigationPage Title="Thumb Gen">
+            <x:Arguments>
+                <thumbGen:ThumbGenPage/>
+            </x:Arguments>
+        </NavigationPage>
+    </TabbedPage.Children>
+</TabbedPage>
