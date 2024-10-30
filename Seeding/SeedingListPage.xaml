@@ -8,7 +8,8 @@
              x:DataType="seeding:SeedingListPage"
              Title="Seeding List">
     <ContentPage.Content>
-        <ScrollView>
+        <ScrollView
+            Margin="16, 16, 16, 64">
             <CollectionView
                 x:Name="SeedingListView"
                 IsGrouped="True"

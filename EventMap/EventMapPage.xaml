@@ -10,7 +10,7 @@
         <Grid x:Name="EventMapGrid"
               ColumnDefinitions="*"
               RowDefinitions="*, auto"
-              Margin="16">
+              Margin="16, 16, 16, 64">
             
             <maui:MapControl x:Name="MapControl"/>
             

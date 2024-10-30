@@ -13,6 +13,7 @@
             ColumnDefinitions="*, auto"
             RowDefinitions="auto, *"
             Margin="16">
+            
 
             <Label Text="Match"
                    FontSize="31"

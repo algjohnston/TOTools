@@ -6,7 +6,7 @@
 
     <Grid ColumnDefinitions="*"
           RowDefinitions="*, *, *, *"
-          Margin="16">
+          Margin="16, 16, 16, 64">
 
         <Entry x:Name="VodTitleEntry" 
             Grid.Row="0"

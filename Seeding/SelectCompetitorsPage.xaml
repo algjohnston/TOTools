@@ -9,7 +9,7 @@
     
     <ContentPage.Content>
         
-        <Grid Padding="16" 
+        <Grid Padding="16, 16, 16, 64" 
               RowSpacing="8" 
               ColumnDefinitions="*" 
               RowDefinitions="Auto, *, Auto">
