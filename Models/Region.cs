@@ -18,7 +18,7 @@ public static class RegionHelper
 {
     public static Region ConvertToRegion(int regionInt)
     {
-        if (Enum.IsDefined(typeof(Tier), regionInt))
+        if (Enum.IsDefined(typeof(Region), regionInt))
         {
             return (Region)regionInt;
         }

@@ -12,7 +12,7 @@
 /// How long the match took to complete, in seconds.
 /// This will be used to estimate future match times for the given players.
 /// /// </param>
-public class Match(long id, string player1, string player2, long timeInSeconds, string gameName)
+public class Match(long id, string player1, string player2, long? timeInSeconds, Game game)
 {
     public long MatchId { get; } = id;
     
@@ -35,7 +35,7 @@ public class Match(long id, string player1, string player2, long timeInSeconds, 
         }
     }
 
-    public string GameName { get; } = gameName;
+    public Game GameName { get; } = game;
 
-    public string FormattedPlayers => $"{Player1} vs. {Player2}";
+    public string FormattedMatch => $"{Player1} vs. {Player2} {GameName}";
 }

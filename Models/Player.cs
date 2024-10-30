@@ -25,8 +25,8 @@ public class Player(string startggId, string tag, Region region, Tier tier, int 
     
     public string FormattedPlayerForList => $"{PlayerTag}: {RegionHelper.ConvertToString(PlayerRegion)} : {PlayerTier}";
 
-    public int CompareTo(Player other)
+    public int CompareTo(Player? other)
     {
-        return PlayerRanking - other.PlayerRanking;
+        return (other == null) ? 1 : PlayerRanking - other.PlayerRanking ;
     }
 }

@@ -30,14 +30,14 @@
                 Grid.ColumnSpan="2">
                 <CollectionView
                     x:Name="MatchList"
-                    ItemsSource="{Binding Matches}">
+                    ItemsSource="{Binding currentMatches}">
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:Match">
                             <Grid
                                 RowDefinitions="*"
                                 ColumnDefinitions="*, auto">
-                                <Label Text="{Binding FormattedPlayers  }"
+                                <Label Text="{Binding FormattedMatch  }"
                                        FontSize="31"
                                        Grid.Column="0">
                                 </Label>

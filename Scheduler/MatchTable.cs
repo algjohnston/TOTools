@@ -36,7 +36,7 @@ public class MatchTable : ITable<Match, long>
             $"{Player1IdColumn} TEXT, " +
             $"{Player2IdColumn} TEXT, " +
             $"{MatchTimeColumn} BIGINT " +
-            $"{GameNameColumn} TEXT, " +
+            $"{GameNameColumn} INT, " +
             ")";
         DatabaseUtil.CreateTable(createTableStatement);
     }
@@ -121,8 +121,8 @@ public class MatchTable : ITable<Match, long>
             var player1Id = reader.GetString(Player1IdColumnNumber);
             var player2Id = reader.GetString(Player2IdColumnNumber);
             var matchTime = reader.GetInt64(MatchTimeColumnNumber);
-            var gameName = reader.GetString(GameNameColumnNumber);
-            Match matchToAdd = new(matchId, player1Id, player2Id, matchTime, gameName);
+            var gameName = reader.GetInt16(GameNameColumnNumber);
+            Match matchToAdd = new(matchId, player1Id, player2Id, matchTime, GameHelper.ConvertToGame(gameName));
             matches.Add(matchToAdd);
         }
 

@@ -13,8 +13,9 @@
       {
           return;
       }
-5. All single-line comments in C# will appear to the right of whatever they are commenting on
-    * private const string PlayerRankingColumn = "ranking"; // needs a better name
+5. All single-line comments in C# will appear above of whatever they are commenting on
+    // needs a better name
+    * private const string PlayerRankingColumn = "ranking"; 
 6. All multi-line comments in C# will appear above whatever they are commenting on
     * // To ensure the columns in between the names have the lines connecting players,
       // an extra column in between is used.

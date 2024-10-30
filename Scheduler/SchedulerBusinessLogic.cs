@@ -10,5 +10,9 @@ namespace CS341Project.Scheduler;
 public class SchedulerBusinessLogic
 {
     private readonly ITable<Match, long> _table = new MatchTable();
-    public ObservableCollection<Match> Matches => _table.SelectAll();
+        
+    // this has all matches played previously by any players in any game, used to estimate time
+    public ObservableCollection<Match> pastMatches => _table.SelectAll();
+    // This gets filled with matches from startgg that need to be played
+    public ObservableCollection<Match> currentMatches { get; }  = [];
 }
