@@ -31,9 +31,9 @@ public class MatchTable : ITable<Match, long>
             "IF NOT EXISTS " +
             $"{MatchTableName} (" +
             $"{MatchIdColumn} BIGSERIAL PRIMARY KEY, " +
-            $"{Player1IdColumn} TEXT " +
-            $"{Player2IdColumn} TEXT " +
-            $"{MatchTimeColumn} BIGINT, " +
+            $"{Player1IdColumn} TEXT, " +
+            $"{Player2IdColumn} TEXT, " +
+            $"{MatchTimeColumn} BIGINT " +
             ")";
         DatabaseUtil.CreateTable(createTableStatement);
     }

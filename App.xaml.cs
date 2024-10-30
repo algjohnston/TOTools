@@ -1,4 +1,6 @@
 ﻿using CS341Project.AppEntry;
+using CS341Project.Scheduler;
+using CS341Project.Seeding;
 
 namespace CS341Project;
 
@@ -7,6 +9,8 @@ public partial class App : Application
     public App()
     {
         InitializeComponent();
+        new MatchTable();
+        new PlayerTable();
 
         // TODO the try catch is for testing the rest of the functionality later
         // since crash messages are not propagated anywhere I can find. 
