@@ -6,9 +6,8 @@
 /// </summary>
 public partial class EventListPage : ContentPage
 {
-    private readonly EventBusinessLogic eventBusinessLogic = new();
     
-    public EventListPage()
+    public EventListPage(EventBusinessLogic eventBusinessLogic)
     {
         InitializeComponent();
         BindingContext = eventBusinessLogic;
