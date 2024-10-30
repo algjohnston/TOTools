@@ -18,7 +18,8 @@
                     Clicked="OnViewAllEventsButtonClicked"
                     Grid.Row="1"
                     FontAttributes="Bold"
-                    HorizontalOptions="Center"/>
+                    HorizontalOptions="Center"
+                    Margin="0, 16, 0, 0"/>
         </Grid>
 
     </ContentPage.Content>
