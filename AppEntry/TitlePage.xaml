@@ -10,7 +10,7 @@
               RowDefinitions="*, *, *, *"
               Margin="16, 0, 16, 16">
 		    
-		    <Label Text="Title (TBD)"
+		    <Label Text="TO Tools"
 		           Style="{StaticResource Headline}"
 		           FontSize="50"
 		           TextColor="Gold"

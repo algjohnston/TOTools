@@ -16,11 +16,13 @@ public class MatchTable : ITable<Match, long>
     private const string Player1IdColumn = "player_1_id";
     private const string Player2IdColumn = "player_2_id";
     private const string MatchTimeColumn = "match_time";
+    private const string GameNameColumn = "game_name";
     
     private const int MatchIdColumnNumber = 0;
     private const int Player1IdColumnNumber = 1;
     private const int Player2IdColumnNumber = 2;
     private const int MatchTimeColumnNumber = 3;
+    private const int GameNameColumnNumber = 4;
 
     private readonly ObservableCollection<Match> matches = [];
 
@@ -34,6 +36,7 @@ public class MatchTable : ITable<Match, long>
             $"{Player1IdColumn} TEXT, " +
             $"{Player2IdColumn} TEXT, " +
             $"{MatchTimeColumn} BIGINT " +
+            $"{GameNameColumn} TEXT, " +
             ")";
         DatabaseUtil.CreateTable(createTableStatement);
     }
@@ -63,11 +66,13 @@ public class MatchTable : ITable<Match, long>
             $"{Player1IdColumn} = @player_1_id, " +
             $"{Player2IdColumn} = @player_2_id, " +
             $"{MatchTimeColumn} = @match_time, " +
+            $"{GameNameColumn} = @game_name, " +
             $"WHERE {MatchIdColumn} = @match_id;";
         command.Parameters.AddWithValue("match_id", toUpdate.MatchId);
         command.Parameters.AddWithValue("player_1_id", toUpdate.Player1);
         command.Parameters.AddWithValue("player_2_id", toUpdate.Player2);
         command.Parameters.AddWithValue("match_time", toUpdate.MatchTime);
+        command.Parameters.AddWithValue("game_name", toUpdate.GameName);
 
         var numAffected = command.ExecuteNonQuery();
         if (numAffected > 0)
@@ -116,7 +121,8 @@ public class MatchTable : ITable<Match, long>
             var player1Id = reader.GetString(Player1IdColumnNumber);
             var player2Id = reader.GetString(Player2IdColumnNumber);
             var matchTime = reader.GetInt64(MatchTimeColumnNumber);
-            Match matchToAdd = new(matchId, player1Id, player2Id, matchTime);
+            var gameName = reader.GetString(GameNameColumnNumber);
+            Match matchToAdd = new(matchId, player1Id, player2Id, matchTime, gameName);
             matches.Add(matchToAdd);
         }
 
