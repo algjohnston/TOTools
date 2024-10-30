@@ -1,5 +1,5 @@
 ﻿using System.Globalization;
-namespace CS341Project.EventMap;
+namespace CS341Project.EventMapMap;
 
 public class RegionToStringConverter : IValueConverter
 {
@@ -11,8 +11,8 @@ public class RegionToStringConverter : IValueConverter
             {
                 Models.Region.Milwaukee => "Milwaukee",
                 Models.Region.Madison => "Madison",
-                Models.Region.Norcen => "North Central",
-                Models.Region.West => "Western",
+                Models.Region.Norcen => "Norcen",
+                Models.Region.West => "West",
                 Models.Region.Whitewater => "Whitewater",
                 Models.Region.OutOfState => "Out of State",
                 _ => "Unknown Region",

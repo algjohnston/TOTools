@@ -23,7 +23,7 @@ public class Player(string startggId, string tag, Region region, Tier tier, int 
     
     public string FormattedPlayer => $"{StarttggId} : {PlayerTag}: {PlayerRegion} : {PlayerTier} : {PlayerRanking}";
     
-    public string FormattedPlayerForList => $"{PlayerTag}: {PlayerRegion} : {PlayerTier}";
+    public string FormattedPlayerForList => $"{PlayerTag}: {RegionHelper.ConvertToString(PlayerRegion)} : {PlayerTier}";
 
     public int CompareTo(Player other)
     {
