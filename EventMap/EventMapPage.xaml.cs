@@ -1,14 +1,15 @@
-using BruTile.Wms;
-
 namespace CS341Project.EventMap;
 
+/**
+ * A page with pins on a map, where each pin is an event.
+ */
 public partial class EventMapPage : ContentPage
 {
     public EventMapPage()
     {
         InitializeComponent();
 
-        // TODO only shows up the second time the screen is navigated to
+        // TODO sometimes does not load 
         MapControl.Map.Layers.Add(
             Mapsui.Tiling.OpenStreetMap.CreateTileLayer()
         );
@@ -52,10 +53,8 @@ public partial class EventMapPage : ContentPage
                 "OK"
             );
         }
-
-        status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
-
-        return status;
+        
+        return await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
     }
 
     private void OnViewAllEventsButtonClicked(object? sender, EventArgs e)

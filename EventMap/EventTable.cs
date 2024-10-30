@@ -9,7 +9,7 @@ namespace CS341Project.EventMap;
 /// Alexander Johnston
 /// The data source for Events.
 /// </summary>
-public class EventTable : ITable<Event>
+public class EventTable : ITable<Event, long>
 {
     private const string TableName = "events";
     private const string IdColumn = "event_id";
@@ -20,7 +20,7 @@ public class EventTable : ITable<Event>
     
     private const int IdColumnNumber = 0;
     private const int NameColumnNumber = 1;
-    private const int LocationColumnNumber = 2;
+    private const int RegionColumnNumber = 2;
     private const int StartDateTimeColumnNumber = 3;
     private const int EndDateTimeColumnNumber = 4;
 
@@ -68,7 +68,7 @@ public class EventTable : ITable<Event>
             $"WHERE {IdColumn} = @id;";
         command.Parameters.AddWithValue("id", toUpdate.EventId);
         command.Parameters.AddWithValue("name", toUpdate.EventName);
-        command.Parameters.AddWithValue("location", toUpdate.Location);
+        command.Parameters.AddWithValue("location", toUpdate.Region);
         command.Parameters.AddWithValue("start_datetime", toUpdate.StartDateTime);
         command.Parameters.AddWithValue("end_datetime", toUpdate.EndDateTime);
 
@@ -90,7 +90,7 @@ public class EventTable : ITable<Event>
             $"(@id, @name, @location, @start_datetime, @end_datetime)";
         command.Parameters.AddWithValue("id", toInsert.EventId);
         command.Parameters.AddWithValue("name", toInsert.EventName);
-        command.Parameters.AddWithValue("location", toInsert.Location);
+        command.Parameters.AddWithValue("location", toInsert.Region);
         command.Parameters.AddWithValue("start_datetime", toInsert.StartDateTime);
         command.Parameters.AddWithValue("end_datetime", toInsert.EndDateTime);
         command.ExecuteNonQuery();
@@ -117,10 +117,10 @@ public class EventTable : ITable<Event>
         {
             var id = reader.GetInt64(IdColumnNumber);
             var name = reader.GetString(NameColumnNumber);
-            var location = reader.GetString(LocationColumnNumber);
+            var region = RegionHelper.ConvertToRegion(RegionColumnNumber);
             var startDateTime = reader.GetDateTime(StartDateTimeColumnNumber);
             var endDateTime = reader.GetDateTime(EndDateTimeColumnNumber);
-            Event eventToAdd = new(id, name, location, startDateTime, endDateTime);
+            Event eventToAdd = new(id, name, region, startDateTime, endDateTime);
             events.Add(eventToAdd);
         }
 

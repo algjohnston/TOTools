@@ -9,7 +9,7 @@ namespace CS341Project.Scheduler;
 /// Caden Rohan
 /// The data source for Matches (usually called sets, but SetHistoryTable is a bit confusing)
 /// </summary>
-public class MatchTable : ITable<Match>
+public class MatchTable : ITable<Match, long>
 {
     private const string MatchTableName = "matches";
     private const string MatchIdColumn = "match_id";

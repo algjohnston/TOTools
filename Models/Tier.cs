@@ -1,5 +1,8 @@
 ﻿namespace CS341Project.Models;
 
+/// <summary>
+/// A list of possible tiers a player could be in.
+/// </summary>
 public enum Tier
 {
     S,
@@ -12,15 +15,13 @@ public enum Tier
 
 public static class TierHelper
 {
-    public static Tier ConvertToTier(int tierInt) //chatgpt gave me this, I have no idea if it sucks or not
+    public static Tier ConvertToTier(int tierInt)
     {
-        // Try parsing the string as a Tier enum
         if (Enum.IsDefined(typeof(Tier), tierInt))
         {
             return (Tier)tierInt;
-            // Proceed with enumValue
         }
 
-        return Tier.F; // If no match is found, just return F by default
+        return Tier.F; 
     }
 }

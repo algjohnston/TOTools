@@ -7,13 +7,14 @@ namespace CS341Project.Database;
 /// An interface for databases.
 /// </summary>
 /// <typeparam name="T">The type to be stored in this database.</typeparam>
-public interface ITable<T>
+/// <typeparam name="TIdType">The type of the id column.</typeparam>
+public interface ITable<T, TIdType>
 {
     /// <summary>
     /// Deletes the record from this database with the given id.
     /// </summary>
     /// <param name="id">The id of the record to delete.</param>
-    void Delete(long id);
+    void Delete(TIdType id);
     
     /// <summary>
     /// Updates the record with the same id as toUpdate.
@@ -32,7 +33,7 @@ public interface ITable<T>
     /// </summary>
     /// <param name="id">The id of the record to select.</param>
     /// <returns>The record with the given id if it exists, else null.</returns>
-    T? Select(long id);
+    T? Select(TIdType id);
     
     /// <summary>
     /// Selects all records form the database.

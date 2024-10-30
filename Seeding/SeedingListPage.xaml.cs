@@ -1,11 +1,13 @@
 ﻿using System.Collections.ObjectModel;
 using CS341Project.Models;
+using Region = CS341Project.Models.Region;
 
 namespace CS341Project.Seeding;
 
 /// <summary>
-/// A page of people who have competed in tournaments in the past.
-/// The people are put in groups based on tier that can be expanded or collapsed.
+/// A page of players who have competed in past tournaments.
+/// The players are put in groups based on the tier they belong to
+/// and each group can be expanded or collapsed.
 /// </summary>
 public partial class SeedingListPage : ContentPage
 {
@@ -18,16 +20,16 @@ public partial class SeedingListPage : ContentPage
         SeedingList.Add(new PlayerTierGroup(
             "Tier S",
             [
-                new Player("a","Candle", 1, Tier.S, 1),
-                new Player("b","Comet", 1, Tier.S, 2),
-                new Player("c","Skuniar", 1, Tier.S, 3)
+                new Player("a","Candle", Region.WEST, Tier.S, 1),
+                new Player("b","Comet", Region.WEST, Tier.S, 2),
+                new Player("c","Skuniar", Region.WEST, Tier.S, 3)
             ]));
         SeedingList.Add(new PlayerTierGroup(
             "Tier A",
             [
-                new Player("a","CRB", 1, Tier.A, 1),
-                new Player("a","Arico", 1, Tier.A, 2),
-                new Player("a","Spencer", 1, Tier.A, 3)
+                new Player("a","CRB", Region.WEST, Tier.A, 1),
+                new Player("a","Arico", Region.WEST, Tier.A, 2),
+                new Player("a","Spencer", Region.WEST, Tier.A, 3)
             ]));
     }
 
@@ -36,17 +38,18 @@ public partial class SeedingListPage : ContentPage
     /// </summary>
     /// <param name="sender">
     /// Should be the Label with a binding context set to
-    /// the player group to be expanded or collapsed
+    /// the player group to be expanded or collapsed.
     /// </param>
     /// <param name="e">Ignored</param>
     private void OnToggleGroupClick(object sender, EventArgs e)
     {
         if (sender is not Label { BindingContext: PlayerTierGroup playerGroup }) return;
         playerGroup.ToggleExpanded();
+        
         // Needed to get the list to refresh
         // since the ObservableCollection does not listen for changes in elements
         // (even PropertyChanged events sent by the elements do not trigger a change
-        //  and there is no way to manually link the events or trigger a refesh) 
+        //  and there is no way to manually link the events or trigger a refresh) 
         SeedingListView.ItemsSource = null;
         SeedingListView.ItemsSource = SeedingList;
     }

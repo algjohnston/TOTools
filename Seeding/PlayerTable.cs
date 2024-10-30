@@ -7,9 +7,9 @@ namespace CS341Project.Seeding;
 
 /// <summary>
 /// Caden Rohan
-/// The data source for Players
+/// The data source for Players.
 /// </summary>
-public class PlayerTable
+public class PlayerTable: ITable<Player, string>
 {
     private const string PlayerTableName = "players";
     private const string StartggIdColumn = "startgg_id";
@@ -121,15 +121,13 @@ public class PlayerTable
         {
             var startggId = reader.GetString(StartggIdColumnNumber);
             var tag = reader.GetString(PlayerTagColumnNumber);
-            var region = reader.GetInt16(PlayerRegionColumnNumber);
+            var region = RegionHelper.ConvertToRegion(reader.GetInt16(PlayerRegionColumnNumber));
             var tier = reader.GetInt16(PlayerTierColumnNumber);
             var ranking = reader.GetInt32(PlayerRankingColumnNumber);
             Player playerToAdd = new(startggId, tag, region, TierHelper.ConvertToTier(tier), ranking);
             players.Add(playerToAdd);
         }
-
         return players;
     }
-    
     
 }

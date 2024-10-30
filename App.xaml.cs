@@ -16,7 +16,7 @@ public partial class App : Application
         }
         catch (Exception exception)
         {
-            MainPage?.DisplayAlert("Error", exception.Message, "OK");
+            MainPage?.DisplayAlert("Error", exception.StackTrace, "OK");
         }
     }
 }

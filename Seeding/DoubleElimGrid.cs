@@ -89,7 +89,7 @@ public class DoubleElimGrid : Grid
             {
                 // Add lines between names in the previous column and the next column to the current column
                 var rowPositionForLines = rowOffsetForLines + (row * spaceBetweenWinnerNames);
-                var matchDrawable = new DoubleElimDrawable(new Label().TextColor, rowSpanForLines);
+                var matchDrawable = new BracketDrawable(new Label().TextColor, rowSpanForLines);
                 var graphicsView = new GraphicsView
                 {
                     Drawable = matchDrawable,

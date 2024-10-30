@@ -2,6 +2,9 @@
 
 namespace CS341Project.Seeding;
 
+/// <summary>
+/// A page that allows the user to select a list of competitors to be used in bracket generation.
+/// </summary>
 public partial class SelectCompetitorsPage : ContentPage
 {
 
