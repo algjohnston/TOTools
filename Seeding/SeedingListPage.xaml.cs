@@ -10,27 +10,28 @@ namespace CS341Project.Seeding;
 /// and each group can be expanded or collapsed.
 /// </summary>
 public partial class SeedingListPage : ContentPage
-{
+{ 
     public ObservableCollection<PlayerTierGroup> SeedingList { get; } = [];
 
     public SeedingListPage()
     {
         InitializeComponent();
         BindingContext = this;
-        SeedingList.Add(new PlayerTierGroup(
-            "Tier S",
-            [
-                new Player("a","Candle", Region.West, Tier.S, 1),
-                new Player("b","Comet", Region.West, Tier.S, 2),
-                new Player("c","Skuniar", Region.West, Tier.S, 3)
-            ]));
-        SeedingList.Add(new PlayerTierGroup(
-            "Tier A",
-            [
-                new Player("a","CRB", Region.West, Tier.A, 1),
-                new Player("a","Arico", Region.West, Tier.A, 2),
-                new Player("a","Spencer", Region.West, Tier.A, 3)
-            ]));
+        PopulateTiers();
+    }
+
+    public void PopulateTiers()
+    {
+        var playerTable = new PlayerTable();
+        var tierConverter = new TierConverter();
+        var players = playerTable.SelectAll();
+        foreach (Tier tier in Enum.GetValues(typeof(Tier)))
+        {
+            var currentTierGroup = new PlayerTierGroup("Tier " + tierConverter.ToString(tier),
+                players.Where(p => p.PlayerTier == tier));
+            currentTierGroup.Sort();
+            SeedingList.Add(currentTierGroup);
+        }
     }
 
     /// <summary>

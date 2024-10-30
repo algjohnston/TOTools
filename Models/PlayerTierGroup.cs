@@ -8,7 +8,7 @@
 /// <param name="players">The players in the given tier.</param>
 public class PlayerTierGroup(
     string tier,
-    List<Player> players
+    IEnumerable<Player> players
 ) : List<Player>(players)
 {
     public string Tier { get; } = tier;

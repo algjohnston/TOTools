@@ -25,4 +25,19 @@ public static class RegionHelper
 
         return Region.Unknown;
     }
+    
+    public static string ConvertToString(Region region)
+    {
+        return region switch
+        {
+            Region.Milwaukee => "Milwaukee",
+            Region.Madison => "Madison",
+            Region.Norcen => "Norcen",
+            Region.West => "West",
+            Region.Whitewater => "Whitewater",
+            Region.OutOfState => "Out of State",
+            _ => "Unknown Region"
+        };
+    }
 }
+

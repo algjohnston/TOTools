@@ -30,7 +30,7 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:Player">
                         <Label 
-                            Text="{Binding FormattedPlayer}" 
+                            Text="{Binding FormattedPlayerForList}" 
                             FontSize="21"/>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
