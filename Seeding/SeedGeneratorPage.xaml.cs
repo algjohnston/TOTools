@@ -1,5 +1,8 @@
 ﻿namespace CS341Project.Seeding;
 
+/// <summary>
+/// A page that takes in a list of players and produces a double elimination bracket.
+/// </summary>
 public partial class SeedGeneratorPage : ContentPage
 {
     public SeedGeneratorPage()

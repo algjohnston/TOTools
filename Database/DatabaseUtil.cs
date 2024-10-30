@@ -49,7 +49,7 @@ public static class DatabaseUtil
     public static NpgsqlConnection GetDatabaseConnection()
     {
         const string databaseName = "test";
-        // CreateDatabaseIfItDoesNotExist(databaseName);
+        // CreateDatabaseIfItDoesNotExist(databaseName); // Is not needed if the database is created in the cockroachdb console
         var databaseConnection = new NpgsqlConnection(GetConnectionString(databaseName));
         databaseConnection.Open();
         return databaseConnection;

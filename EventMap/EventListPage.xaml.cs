@@ -2,7 +2,7 @@
 
 /// <summary>
 /// Alexander Johnston
-/// A page the lists all upcoming events.
+/// A page that lists all upcoming events.
 /// </summary>
 public partial class EventListPage : ContentPage
 {

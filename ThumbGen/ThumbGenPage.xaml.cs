@@ -1,5 +1,8 @@
 namespace CS341Project.ThumbGen;
 
+/// <summary>
+/// A page that takes a startgg link and extracts the parameters for the script generation.
+/// </summary>
 public partial class ThumbGenPage : ContentPage {
 
     public ThumbGenPage ()

@@ -4,17 +4,18 @@
 /// Alexander Johnston
 /// Represents a player in the tournaments.
 /// </summary>
+/// <param name="startggId">The startgg id of the player.</param>
 /// <param name="tag">The tag (aka gamertag) of the player.</param>
 /// <param name="region">The region the player resides.</param>
 /// <param name="tier">The tier the player is in</param>
-/// <param name="ranking"> ranking of player within tier.</param>
-public class Player(string startggId, string tag, int region, Tier tier, int ranking)
+/// <param name="ranking">The rank of player within the given tier.</param>
+public class Player(string startggId, string tag, Region region, Tier tier, int ranking)
 {
     public string StarttggId { get; } = startggId;
     
     public string PlayerTag { get; } = tag;
 
-    public int PlayerRegion { get; } = region;
+    public Region PlayerRegion { get; } = region;
 
     public Tier PlayerTier { get; } = tier;
 

@@ -1,5 +1,8 @@
 namespace CS341Project.ThumbGen;
 
+/// <summary>
+/// A form to allow the user to specify the parameters for the thumbnail script generation.
+/// </summary>
 public partial class ThumbGenManualPage : ContentPage
 {
     public ThumbGenManualPage()

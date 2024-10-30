@@ -2,6 +2,9 @@
 
 namespace CS341Project.Scheduler;
 
+/// <summary>
+/// A list of times that matches start.
+/// </summary>
 public partial class EventPopup : ContentPage
 {
 

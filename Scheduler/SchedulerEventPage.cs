@@ -3,6 +3,9 @@ using CS341Project.Models;
 
 namespace CS341Project.Scheduler;
 
+/// <summary>
+/// A page with a list of events that are used to come up with a match schedule.
+/// </summary>
 public partial class SchedulerEventPage : ContentPage
 {
     public ObservableCollection<EventLink> Events { get; } = [];
