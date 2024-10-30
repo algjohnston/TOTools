@@ -10,19 +10,11 @@ namespace CS341Project.Scheduler;
 public partial class MatchSchedulerPage : ContentPage
 {
 
-    public ObservableCollection<Match> Matches { get; } = [];
+    private SchedulerBusinessLogic _schedulerBusinessLogic = new();
 
     public MatchSchedulerPage()
     {
         InitializeComponent();
-        MatchList.BindingContext = this;
-        for (var i = 0; i < 10; i++)
-        {
-            Matches.Add(new Match(500, "1", "!", 600));
-            Matches.Add(new Match(501, "2", "1", 601));
-            Matches.Add(new Match(502, "2", "2", 602));
-            Matches.Add(new Match(503, "3", "#", 700));
-        }
-
+        MatchList.BindingContext = _schedulerBusinessLogic;
     }
 }

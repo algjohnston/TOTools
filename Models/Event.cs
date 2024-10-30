@@ -6,19 +6,19 @@
 /// </summary>
 /// <param name="eventId">The unique id of the event.</param>
 /// <param name="eventName">The name of the event.</param>
-/// <param name="region">The location of the event.</param>
+/// <param name="location">The location of the event.</param>
 /// <param name="startDateTime"></param>
 /// <param name="endDateTime"></param>
 public class Event(
     long eventId,
     string eventName,
-    Region region,
+    string location,
     DateTime startDateTime,
     DateTime endDateTime)
 {
     public long EventId { get; } = eventId;
     public string EventName { get; } = eventName;
-    public Region Region { get; } = region;
+    public string Location { get; } = location;
     public DateTime StartDateTime { get; } = startDateTime;
     public DateTime EndDateTime { get; } = endDateTime;
     

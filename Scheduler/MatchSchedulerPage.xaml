@@ -3,7 +3,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CS341Project.Scheduler.MatchSchedulerPage"
-             x:DataType="local:MatchSchedulerPage"
+             x:DataType="local:SchedulerBusinessLogic"
              xmlns:models="clr-namespace:CS341Project.Models"
              xmlns:local="clr-namespace:CS341Project.Scheduler"
              Title="Match Scheduler">
