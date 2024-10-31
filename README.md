@@ -10,6 +10,8 @@ Added event list page. |(ˇ⚙͠ѽ⚙͠ ˇ)|
 
 Added a player table.
 
+Added players to the seeding list.
+
 Added a match table.
 
-Added players to the seeding list.
+Displayed the match data in the match scheduler.

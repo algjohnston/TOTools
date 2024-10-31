@@ -1,7 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using TOTools.Models;
-
-namespace TOTools.Scheduler;
+﻿namespace TOTools.Scheduler;
 
 /// <summary>
 /// A page that displays a potential match schedule
