@@ -1,48 +1,55 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			 x:Class="TOTools.AppEntry.TitlePage">
-	
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TOTools.AppEntry.TitlePage"
+             Padding="0"
+             BackgroundColor="Transparent">
 
-	<ContentPage.Content>
-	    <Grid ColumnDefinitions="*"
-              RowDefinitions="*, *, *, *"
-              Margin="16, 0, 16, 16">
-		    
-		    <Label Text="TO Tools"
-		           Style="{StaticResource Headline}"
-		           FontSize="50"
-		           TextColor="Gold"
-		           VerticalTextAlignment="Start"
-		           FontAttributes="Bold, Italic"
-		           HorizontalOptions="FillAndExpand"
-		           />
+    <ContentPage.Content>
+        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center">
 
-			<Button x:Name="LogInButton"
-					Text="Log In"
-					FontAttributes="Bold"
-					Grid.Row="1"
-					HorizontalOptions="Center"
-					VerticalOptions="Center"
-					Clicked="OnLogInButtonClicked" />
+            <Image Source="appbackground.png" Aspect="Fill"
+                   AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                   AbsoluteLayout.LayoutFlags="All" />
 
-			<Button x:Name="SignUpButton"
-					Text="Sign Up"
-					FontAttributes="Bold"
-					Grid.Row="2"
-					HorizontalOptions="Center"
-					VerticalOptions="Center"
-					Clicked="OnSignUpButtonClicked" />
+            <Grid ColumnDefinitions="*"
+                  RowDefinitions="*, *, *, *"
+                  Margin="16, 0, 16, 16"
+                  AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                  AbsoluteLayout.LayoutFlags="All">
 
-			<Button x:Name="SkipButton"
-					Text="Skip"
-					FontAttributes="Bold"
-					Grid.Row="3"
-					HorizontalOptions="Start"
-					VerticalOptions="End"
-					Clicked="OnSkipButtonClicked" />
+                <Label Text="TO Tools"
+                       Style="{StaticResource Headline}"
+                       FontSize="50"
+                       TextColor="Gold"
+                       VerticalTextAlignment="Start"
+                       FontAttributes="Bold, Italic"
+                       HorizontalOptions="FillAndExpand" />
+                
+                <Button x:Name="LogInButton"
+                        Text="Log In"
+                        FontAttributes="Bold"
+                        Grid.Row="1"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Clicked="OnLogInButtonClicked" />
 
-		</Grid>
-	</ContentPage.Content>
+                <Button x:Name="SignUpButton"
+                        Text="Sign Up"
+                        FontAttributes="Bold"
+                        Grid.Row="2"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Clicked="OnSignUpButtonClicked" />
+
+                <Button x:Name="SkipButton"
+                        Text="Skip"
+                        FontAttributes="Bold"
+                        Grid.Row="3"
+                        HorizontalOptions="Start"
+                        VerticalOptions="End"
+                        Clicked="OnSkipButtonClicked" />
+
+            </Grid>
+        </AbsoluteLayout>
+    </ContentPage.Content>
 </ContentPage>
