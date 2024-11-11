@@ -18,8 +18,8 @@
                   AbsoluteLayout.LayoutFlags="All">
 
 				<Image Source="Images/tot_logo.png"
-					   WidthRequest="200"
-					   HeightRequest="150"
+					   WidthRequest="400"
+					   HeightRequest="200"
 					   VerticalOptions="Start"
 					   HorizontalOptions="FillAndExpand" />
 
