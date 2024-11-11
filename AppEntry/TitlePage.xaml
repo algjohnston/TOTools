@@ -17,15 +17,14 @@
                   AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                   AbsoluteLayout.LayoutFlags="All">
 
-                <Label Text="TO Tools"
-                       Style="{StaticResource Headline}"
-                       FontSize="50"
-                       TextColor="Gold"
-                       VerticalTextAlignment="Start"
-                       FontAttributes="Bold, Italic"
-                       HorizontalOptions="FillAndExpand" />
-                
-                <Button x:Name="LogInButton"
+				<Image Source="Images/tot_logo.png"
+					   WidthRequest="200"
+					   HeightRequest="150"
+					   VerticalOptions="Start"
+					   HorizontalOptions="FillAndExpand" />
+
+
+				<Button x:Name="LogInButton"
                         Text="Log In"
                         FontAttributes="Bold"
                         Grid.Row="1"
