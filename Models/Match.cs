@@ -11,16 +11,22 @@ namespace TOTools.Models;
 /// <param name="player1">The first player.</param>
 /// <param name="player2">The second player.</param>
 /// <param name="timeInSeconds">
+/// <param name="game"> the game they are plaing.</param>
+/// /// <param name="isBestOfFive"> whether the match was BO5 or BO3.</param>
 /// How long the match took to complete, in seconds.
 /// This will be used to estimate future match times for the given players.
 /// /// </param>
-public class Match(long id, string player1, string player2, long? timeInSeconds, Game game)
+public class Match(long id, string player1, string player2, long? timeInSeconds, Game game, bool isBestOfFive)
 {
     public long MatchId { get; } = id;
     
     public string Player1 { get; } = player1;
 
     public string Player2 { get; } = player2;
+    
+    public long TimeInSeconds { get; } = timeInSeconds ?? 0;
+    
+    public bool isBestOfFive { get; } = isBestOfFive;
 
     /// <summary>
     /// Provides the match time in mm:ss format
