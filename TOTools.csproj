@@ -70,13 +70,14 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="GraphQL.Client" Version="6.1.0" />
+        <PackageReference Include="GraphQL.Client.Serializer.Newtonsoft" Version="6.1.0" />
         <PackageReference Include="Mapsui" Version="5.0.0-beta.4" />
         <PackageReference Include="Mapsui.Maui" Version="5.0.0-beta.4" />
         <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.92" />
         <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.92" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
         <PackageReference Include="Npgsql" Version="8.0.5" />
-        <PackageReference Include="StrawberryShake.Maui" Version="15.0.0-p.12" />
     </ItemGroup>
 
     <ItemGroup>
@@ -111,12 +112,6 @@
 
     <ItemGroup>
       <GraphQL Update="StartGGAPI\GetNumberOfEntrants.graphql">
-        <Generator>MSBuild:GenerateGraphQLCode</Generator>
-      </GraphQL>
-      <GraphQL Update="schema.graphql">
-        <Generator>MSBuild:GenerateGraphQLCode</Generator>
-      </GraphQL>
-      <GraphQL Update="schema.extensions.graphql">
         <Generator>MSBuild:GenerateGraphQLCode</Generator>
       </GraphQL>
     </ItemGroup>

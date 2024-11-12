@@ -1,5 +1,0 @@
-﻿query GetNumberOfEntrants($slug: String) {
-    event(slug: $slug){
-        numEntrants
-    }
-}

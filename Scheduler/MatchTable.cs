@@ -10,7 +10,7 @@ namespace TOTools.Scheduler;
 /// Caden Rohan
 /// The data source for Matches (usually called sets, but SetHistoryTable is a bit confusing)
 /// </summary>
-public class MatchTable : ITable<Match, long>
+public class MatchTable : ITable<PastMatch, long>
 {
     private const string MatchTableName = "matches";
     private const string MatchIdColumn = "match_id";
@@ -25,7 +25,7 @@ public class MatchTable : ITable<Match, long>
     private const int MatchTimeColumnNumber = 3;
     private const int GameNameColumnNumber = 4;
 
-    private readonly ObservableCollection<Match> matches = [];
+    private readonly ObservableCollection<PastMatch> matches = [];
 
     public MatchTable()
     {
@@ -56,7 +56,7 @@ public class MatchTable : ITable<Match, long>
         }
     }
 
-    public void Update(Match toUpdate)
+    public void Update(PastMatch toUpdate)
     {
         using var connection = DatabaseUtil.GetDatabaseConnection();
         using var command = new NpgsqlCommand();
@@ -82,7 +82,7 @@ public class MatchTable : ITable<Match, long>
         }
     }
 
-    public void Insert(Match toInsert)
+    public void Insert(PastMatch toInsert)
     {
         using var connection = DatabaseUtil.GetDatabaseConnection();
         using var command = new NpgsqlCommand();
@@ -100,7 +100,7 @@ public class MatchTable : ITable<Match, long>
         SelectAll();
     }
 
-    public Match? Select(long id)
+    public PastMatch? Select(long id)
     {
         return matches.SingleOrDefault(
             x => x?.MatchId.Equals(id) ?? false,
@@ -108,7 +108,7 @@ public class MatchTable : ITable<Match, long>
         );
     }
 
-    public ObservableCollection<Match> SelectAll()
+    public ObservableCollection<PastMatch> SelectAll()
     {
         matches.Clear();
         using var connection = DatabaseUtil.GetDatabaseConnection();
@@ -124,8 +124,8 @@ public class MatchTable : ITable<Match, long>
             var player2Id = reader.GetString(Player2IdColumnNumber);
             var matchTime = reader.GetInt64(MatchTimeColumnNumber);
             var gameName = reader.GetInt16(GameNameColumnNumber);
-            Match matchToAdd = new(matchId, player1Id, player2Id, matchTime, GameHelper.ConvertToGame(gameName));
-            matches.Add(matchToAdd);
+            PastMatch pastMatchToAdd = new(matchId, player1Id, player2Id, matchTime, GameHelper.ConvertToGame(gameName));
+            matches.Add(pastMatchToAdd);
         }
 
         return matches;

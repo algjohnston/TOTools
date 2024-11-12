@@ -11,8 +11,8 @@
 
         <Grid
             ColumnDefinitions="*, auto, auto"
-            RowDefinitions="auto, *, auto, auto"
-            Margin="16, 16, 16, 64">
+            RowDefinitions="auto, *, auto, *"
+            Margin="16, 16, 16, 16">
 
             <Label Text="Event Link"
                    FontSize="31"
@@ -60,7 +60,6 @@
 
             <Button Text="Submit"
                     Grid.Row="3"
-                    Grid.ColumnSpan="3"
                     FontAttributes="Bold"
                     VerticalOptions="Center"
                     HorizontalOptions="Start"

@@ -1,6 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using GraphQL.Client.Http;
+using GraphQL.Client.Serializer.Newtonsoft;
+using Microsoft.Extensions.Logging;
 using SkiaSharp.Views.Maui.Controls.Hosting;
-using StrawberryShake;
 
 namespace TOTools;
 
@@ -19,14 +20,14 @@ public static class MauiProgram
             });
 
         // For interacting with start.gg
+        var graphQLClient = new GraphQLHttpClient(
+            "https://api.start.gg/gql/alpha", 
+            new NewtonsoftJsonSerializer());
+        graphQLClient.HttpClient.DefaultRequestHeaders.Add(
+            "Authorization", 
+            "Bearer dd3f05cd4cc1496d28bb2a406f96a4d0");
         builder.Services
-            .AddGraphQLClient(ExecutionStrategy.CacheAndNetwork)
-            .ConfigureHttpClient(
-                client =>
-                    client.BaseAddress = new Uri(
-                        "https://api.start.gg/gql/alpha"
-                    )
-            );
+            .AddSingleton(graphQLClient);
 
 #if DEBUG
         builder.Logging.AddDebug();

@@ -26,7 +26,7 @@ public class PlayerTable : ITable<Player, string>
 
     private readonly ObservableCollection<Player> players = [];
 
-    public PlayerTable()
+    private PlayerTable()
     {
         const string createTableStatement =
             "CREATE TABLE " +
@@ -136,4 +136,12 @@ public class PlayerTable : ITable<Player, string>
 
         return players;
     }
+
+    private static PlayerTable _playerTable = new PlayerTable();
+    
+    public static PlayerTable GetPlayerTable()
+    {
+        return _playerTable;
+    }
+    
 }

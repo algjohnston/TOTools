@@ -22,7 +22,7 @@ public partial class SeedingListPage : ContentPage
 
     public void PopulateTiers()
     {
-        var playerTable = new PlayerTable();
+        var playerTable = PlayerTable.GetPlayerTable();
         var tierConverter = new TierConverter();
         var players = playerTable.SelectAll();
         foreach (Tier tier in Enum.GetValues(typeof(Tier)))

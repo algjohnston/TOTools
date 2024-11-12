@@ -30,9 +30,9 @@
                 Grid.ColumnSpan="2">
                 <CollectionView
                     x:Name="MatchList"
-                    ItemsSource="{Binding pastMatches}">  <!-- TODO change this back after sprint 2 ItemsSource="{Binding currentMatches}"> -->
+                    ItemsSource="{Binding CurrentMatches}">
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="models:Match">
+                        <DataTemplate x:DataType="models:PastMatch">
                             <Grid RowDefinitions="*"
                                   ColumnDefinitions="*, auto">
                                 <Label Text="{Binding FormattedMatch  }"
