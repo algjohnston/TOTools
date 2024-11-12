@@ -22,7 +22,7 @@ public class SchedulerBusinessLogic
         
         foreach (Match pastMatch in pastMatches)
         {
-            if (ArePlayersEqual(pastMatch, match) && AreMatchesComperable(match, pastMatch))
+            if (ArePlayersEqual(pastMatch, match) && AreMatchesComparable(match, pastMatch))
             {
                 totalTime += pastMatch.TimeInSeconds;
                 numMatches++;
