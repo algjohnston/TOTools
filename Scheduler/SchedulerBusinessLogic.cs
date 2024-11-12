@@ -30,10 +30,10 @@ public class SchedulerBusinessLogic
         }
         
         // if the players have never played, will give the average match length from all matches
-        return (numMatches != 0) ? totalTime / numMatches : getAverageMatchLength(match);
+        return (numMatches != 0) ? totalTime / numMatches : GetAverageMatchLength(match);
     }
 
-    public long getAverageMatchLength(Match match)
+    public long GetAverageMatchLength(Match match)
     {
         long totalTime = 0;
         int numMatches = 0;
