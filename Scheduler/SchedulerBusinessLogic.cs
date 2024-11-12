@@ -39,7 +39,7 @@ public class SchedulerBusinessLogic
         int numMatches = 0;
         foreach (Match pastMatch in pastMatches)
         {
-            if (AreMatchesComperable(match, pastMatch))
+            if (AreMatchesComparable(match, pastMatch))
             {
                 totalTime += pastMatch.TimeInSeconds;
                 numMatches++;
@@ -51,7 +51,7 @@ public class SchedulerBusinessLogic
     }
 
 
-    private bool AreMatchesComperable(Match match1, Match match2)
+    private bool AreMatchesComparable(Match match1, Match match2)
     {
         // matches are comperable if the games are the same, and they are either both best of 5, or best of 3
         return(match1.isBestOfFive == match2.isBestOfFive) && (match1.GameName.Equals(match2.GameName));
