@@ -1,107 +1,68 @@
 ﻿using System.Collections.ObjectModel;
-using GraphQL.Client.Http;
 using TOTools.Database;
 using TOTools.Models;
-using TOTools.Seeding;
 
 namespace TOTools.Scheduler;
 
 /// <summary>
 /// Business logic for the scheduler
 /// </summary>
-public class SchedulerBusinessLogic(GraphQLHttpClient client)
+public class SchedulerBusinessLogic
 {
-    
-    private readonly PlayerTable _playerTable = PlayerTable.GetPlayerTable();
-    private readonly ITable<PastMatch, long> _table = new MatchTable();
-        
     // this has all matches played previously by any players in any game, used to estimate time
-    public ObservableCollection<PastMatch> PastMatches => _table.SelectAll();
+    private readonly ITable<Match, long> _table = new MatchTable();
+    public ObservableCollection<Match> pastMatches => _table.SelectAll();
     // This gets filled with matches from startgg that need to be played
-    public ObservableCollection<Match> CurrentMatches { get; }  = [];
+    public ObservableCollection<Match> currentMatches { get; } = [];
 
-    // public async Task LoadPotentialMatchList(string url)
-    // {
-    //     var numberOfEntrantsResult = await client.GetNumberOfEntrants.ExecuteAsync(url);
-    //     var numberOfEntrantsResultData = numberOfEntrantsResult.Data;
-    //     if (numberOfEntrantsResultData?.Event?.NumEntrants == null)
-    //     {
-    //         throw new Exception("No entrants found"); // TODO remove
-    //         return;
-    //     }
-    //     var numberOfEntrants = numberOfEntrantsResultData.Event.NumEntrants;
-    //     
-    //     var currentPage = 1;
-    //     var entrantsResultData = await GetEntrantResultData(url, numberOfEntrants, currentPage);
-    //     if (entrantsResultData?.Event?.Entrants?.PageInfo == null)
-    //     {
-    //         throw new Exception("No entrants found"); // TODO remove
-    //         return;
-    //     }
-    //     var players = GetPlayers(entrantsResultData);
-    //     
-    //     var pageInfo = entrantsResultData.Event.Entrants.PageInfo;
-    //     if (pageInfo.PerPage < numberOfEntrants)
-    //     {
-    //         while (pageInfo.Page < pageInfo.TotalPages)
-    //         {
-    //             currentPage++;
-    //             entrantsResultData = await GetEntrantResultData(url, numberOfEntrants, currentPage);
-    //             if (entrantsResultData?.Event?.Entrants?.PageInfo == null)
-    //             {
-    //                 throw new Exception("No entrants found"); // TODO remove
-    //                 return;
-    //             }
-    //             players.AddRange(GetPlayers(entrantsResultData));
-    //             pageInfo = entrantsResultData.Event.Entrants.PageInfo;
-    //         }
-    //     }
-    //     
-    //     for (int i = 0; i < players.Count; i += 2)
-    //     {
-    //         CurrentMatches.Add(new Match(players[i].PlayerTag, players[i + 1].PlayerTag));
-    //     }
-    //     
-    // }
-    //
-    // private async Task<StartGG.GraphQL.IGetEntrantsResult?> GetEntrantResultData(string url, int? numberOfEntrants, int currentPage)
-    // {
-    //     var entrantsResult = await client.GetEntrants.ExecuteAsync(url, numberOfEntrants, currentPage);
-    //     var entrantsResultData = entrantsResult.Data;
-    //     if (entrantsResultData?.Event?.Entrants?.PageInfo == null ||
-    //         entrantsResultData?.Event?.Entrants?.Nodes == null)
-    //     {
-    //         return entrantsResultData;
-    //     }
-    //
-    //     return entrantsResultData;
-    // }
-    //
-    // private List<Player> GetPlayers(StartGG.GraphQL.IGetEntrantsResult entrantsResultData)
-    // {
-    //     List<Player> players = [];
-    //     if (entrantsResultData?.Event?.Entrants?.Nodes == null)
-    //     {
-    //         return players;
-    //     }
-    //     var nodes = entrantsResultData.Event.Entrants.Nodes;
-    //     foreach (var node in nodes)
-    //     {
-    //         if (node?.Id == null)
-    //         {
-    //             continue;
-    //         }
-    //         var player = _playerTable.Select(node.Id);
-    //         if (player != null)
-    //         {
-    //             players.Add(player);
-    //         }
-    //     }
-    //     return players;
-    // }
-
-    public object LoadPotentialMatchList(string url)
+    public long EstimateMatchLength(Match match)
     {
-        throw new NotImplementedException();
+        long totalTime = 0;
+        int numMatches = 0;
+        
+        foreach (Match pastMatch in pastMatches)
+        {
+            if (ArePlayersEqual(pastMatch, match) && AreMatchesComparable(match, pastMatch))
+            {
+                totalTime += pastMatch.TimeInSeconds;
+                numMatches++;
+            }
+        }
+        
+        // if the players have never played, will give the average match length from all matches
+        return (numMatches != 0) ? totalTime / numMatches : GetAverageMatchLength(match);
     }
+
+    public long GetAverageMatchLength(Match match)
+    {
+        long totalTime = 0;
+        int numMatches = 0;
+        foreach (Match pastMatch in pastMatches)
+        {
+            if (AreMatchesComparable(match, pastMatch))
+            {
+                totalTime += pastMatch.TimeInSeconds;
+                numMatches++;
+            }
+        }
+
+        // this will return -1 if there is nothing in the table for previous matches, but this should basically never happen
+        return (numMatches != 0) ? totalTime / numMatches : -1;
+    }
+
+
+    private bool AreMatchesComparable(Match match1, Match match2)
+    {
+        // matches are comperable if the games are the same, and they are either both best of 5, or best of 3
+        return(match1.isBestOfFive == match2.isBestOfFive) && (match1.GameName.Equals(match2.GameName));
+    }
+    
+    
+    private bool ArePlayersEqual(Match match1, Match match2)
+    {
+        return (match1.Player1 == match2.Player1 && match1.Player2 == match2.Player2) ||
+               (match2.Player1 == match2.Player2 && match1.Player2 == match1.Player1);
+    }
+
+
 }
