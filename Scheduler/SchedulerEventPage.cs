@@ -6,7 +6,7 @@ namespace TOTools.Scheduler;
 /// <summary>
 /// A page with a list of events that are used to come up with a match schedule.
 /// </summary>
-public partial class SchedulerEventPage : ContentPage
+public partial class SchedulerEventPage : ContentPage, IOnEventLinkSubmitted
 {
     public ObservableCollection<EventLink> Events { get; } = [];
 
@@ -14,13 +14,13 @@ public partial class SchedulerEventPage : ContentPage
     {
         InitializeComponent();
         BindingContext = this;
-        for (var i = 0; i < 10; i++)
-        {
-            Events.Add(new EventLink("A", new DateTime(100)));
-            Events.Add(new EventLink("B", new DateTime(101)));
-            Events.Add(new EventLink("C", new DateTime(102)));
-            Events.Add(new EventLink("D", new DateTime(103)));
-        }
+
+        // For testing
+        Events.Add(
+            new EventLink(
+                "https://www.start.gg/tournament/between-2-lakes-67-a-madison-super-smash-bros-tournament/event/ultimate-singles/overview",
+                DateTime.Now)
+        );
     }
 
     private void OnSettingsImageButtonClicked(object? sender, EventArgs e)
@@ -28,8 +28,18 @@ public partial class SchedulerEventPage : ContentPage
         Navigation.PushAsync(new EventPopup());
     }
 
-    private void SubmitButtonClicked(object? sender, EventArgs e)
+    private void OnSubmitButtonClicked(object? sender, EventArgs e)
     {
         Navigation.PushAsync(new MatchSchedulerPage());
+    }
+
+    private void OnAddLinkButtonClicked(object? sender, EventArgs e)
+    {
+        Navigation.PushAsync(new EventLinkPopup(this));
+    }
+
+    public void OnEventLinkSubmitted(EventLink eventLink)
+    {
+        Events.Add(eventLink);
     }
 }

@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TOTools.Scheduler.EventLinkPopup">
+    <ContentPage.Content>
+        <Grid ColumnDefinitions="auto, *"
+              RowDefinitions="*, *, *"
+              Margin="16">
+
+            <Label Text="Event Link: "
+                   Grid.Row="0"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+
+            <Entry x:Name="EventLinkEntry"
+                   Grid.Row="0"
+                   Grid.Column="1"
+                   Placeholder="Enter an event link"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+
+            <Label Text="Start Time: "
+                   Grid.Row="1"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+
+            <TimePicker
+                Grid.Row="1"
+                Grid.Column="1"
+                x:Name="StartTimeEntry"
+                HorizontalOptions="Center"
+                VerticalOptions="Center" />
+
+            <Button x:Name="SubmitButton"
+                    Text="Submit"
+                    FontAttributes="Bold"
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    HorizontalOptions="Start"
+                    VerticalOptions="End"
+                    Clicked="OnSubmitButtonClicked" />
+
+            <Button x:Name="Cancel"
+                    Text="Cancel"
+                    FontAttributes="Bold"
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    HorizontalOptions="End"
+                    VerticalOptions="End"
+                    Clicked="OnCancelButtonClicked" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
