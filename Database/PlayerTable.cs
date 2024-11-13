@@ -9,7 +9,7 @@ namespace TOTools.Seeding;
 /// Caden Rohan
 /// The data source for Players.
 /// </summary>
-public class PlayerTable : ITable<Player, string>
+public class PlayerTable : ITable<Player, string, Player>
 {
     private const string PlayerTableName = "players";
     private const string StartggIdColumn = "startgg_id";

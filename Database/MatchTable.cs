@@ -1,16 +1,15 @@
 using System.Collections.ObjectModel;
 using CS341Project.Models;
 using Npgsql;
-using TOTools.Database;
 using TOTools.Models;
 
-namespace TOTools.Scheduler;
+namespace TOTools.Database;
 
 /// <summary>
 /// Caden Rohan
 /// The data source for Matches (usually called sets, but SetHistoryTable is a bit confusing)
 /// </summary>
-public class MatchTable : ITable<Match, long>
+public class MatchTable : ITable<PastMatch, long, Match>
 {
     private const string MatchTableName = "matches";
     private const string MatchIdColumn = "match_id";
@@ -27,7 +26,7 @@ public class MatchTable : ITable<Match, long>
     private const int GameNameColumnNumber = 4;
     private const int IsBestOfFiveColumnNumber = 5;
 
-    private readonly ObservableCollection<Match> matches = [];
+    private readonly ObservableCollection<PastMatch> matches = [];
 
     public MatchTable()
     {
@@ -59,7 +58,7 @@ public class MatchTable : ITable<Match, long>
         }
     }
 
-    public void Update(Match toUpdate)
+    public void Update(PastMatch match)
     {
         using var connection = DatabaseUtil.GetDatabaseConnection();
         using var command = new NpgsqlCommand();
@@ -73,12 +72,12 @@ public class MatchTable : ITable<Match, long>
             $"{GameNameColumn} = @game_name, " +
             $"{IsBestOfFiveColumn} = @is_best_of_five, " +
             $"WHERE {MatchIdColumn} = @match_id;";
-        command.Parameters.AddWithValue("match_id", toUpdate.MatchId);
-        command.Parameters.AddWithValue("player_1_id", toUpdate.Player1);
-        command.Parameters.AddWithValue("player_2_id", toUpdate.Player2);
-        command.Parameters.AddWithValue("match_time", toUpdate.MatchTime);
-        command.Parameters.AddWithValue("game_name", toUpdate.GameName);
-        command.Parameters.AddWithValue("is_best_of_five", toUpdate.isBestOfFive);
+        command.Parameters.AddWithValue("match_id", match.MatchId);
+        command.Parameters.AddWithValue("player_1_id", match.Player1);
+        command.Parameters.AddWithValue("player_2_id", match.Player2);
+        command.Parameters.AddWithValue("match_time", match.MatchTime);
+        command.Parameters.AddWithValue("game_name", match.GameName);
+        command.Parameters.AddWithValue("is_best_of_five", match.IsBestOfFive);
 
         var numAffected = command.ExecuteNonQuery();
         if (numAffected > 0)
@@ -101,12 +100,12 @@ public class MatchTable : ITable<Match, long>
         command.Parameters.AddWithValue("player_2_id", toInsert.Player2);
         command.Parameters.AddWithValue("match_time", toInsert.MatchTime);
         command.Parameters.AddWithValue("game", toInsert.GameName);
-        command.Parameters.AddWithValue("is_best_of_five", toInsert.isBestOfFive);
+        command.Parameters.AddWithValue("is_best_of_five", toInsert.IsBestOfFive);
         command.ExecuteNonQuery();
         SelectAll();
     }
 
-    public Match? Select(long id)
+    public PastMatch? Select(long id)
     {
         return matches.SingleOrDefault(
             x => x?.MatchId.Equals(id) ?? false,
@@ -114,7 +113,7 @@ public class MatchTable : ITable<Match, long>
         );
     }
 
-    public ObservableCollection<Match> SelectAll()
+    public ObservableCollection<PastMatch> SelectAll()
     {
         matches.Clear();
         using var connection = DatabaseUtil.GetDatabaseConnection();
@@ -131,7 +130,7 @@ public class MatchTable : ITable<Match, long>
             var matchTime = reader.GetInt64(MatchTimeColumnNumber);
             var gameName = reader.GetInt16(GameNameColumnNumber);
             var isBestOfFive = reader.GetBoolean(IsBestOfFiveColumnNumber);
-            Match matchToAdd = new(matchId, player1Id, player2Id, matchTime, GameHelper.ConvertToGame(gameName), isBestOfFive);
+            PastMatch matchToAdd = new(matchId, player1Id, player2Id, matchTime, GameHelper.ConvertToGame(gameName), isBestOfFive);
             matches.Add(matchToAdd);
         }
 

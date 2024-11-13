@@ -30,7 +30,7 @@
                 Grid.ColumnSpan="2">
                 <CollectionView
                     x:Name="MatchList"
-                    ItemsSource="{Binding CurrentMatches}">
+                    ItemsSource="{Binding FutureMatches}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:PastMatch">
                             <Grid RowDefinitions="*"

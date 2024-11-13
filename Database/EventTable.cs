@@ -1,15 +1,14 @@
 ﻿using System.Collections.ObjectModel;
 using Npgsql;
-using TOTools.Database;
 using TOTools.Models;
 
-namespace TOTools.EventMap;
+namespace TOTools.Database;
 
 /// <summary>
 /// Alexander Johnston
 /// The data source for Events.
 /// </summary>
-public class EventTable : ITable<Event, long>
+public class EventTable : ITable<Event, long, Event>
 {
     private const string TableName = "events";
     private const string IdColumn = "event_id";

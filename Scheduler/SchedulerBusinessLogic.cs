@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using GraphQL.Client.Abstractions;
 using GraphQL.Client.Http;
 using TOTools.Database;
 using TOTools.Models;
@@ -13,7 +12,7 @@ namespace TOTools.Scheduler;
 public class SchedulerBusinessLogic
 {
     // this has all matches played previously by any players in any game, used to estimate time
-    private readonly ITable<Match, long> _table = new MatchTable();
+    private readonly ITable<PastMatch, long, Match> _table = new MatchTable();
 
     private readonly GraphQLHttpClient startGGClient;
 
@@ -22,18 +21,18 @@ public class SchedulerBusinessLogic
         startGGClient = client;
     }
 
-    public ObservableCollection<Match> pastMatches => _table.SelectAll();
+    private ObservableCollection<PastMatch> PastMatches => _table.SelectAll();
 
     // This gets filled with matches from startgg that need to be played
-    public ObservableCollection<Match> CurrentMatches { get; } = [];
+    public ObservableCollection<Match> FutureMatches { get; } = [];
 
 
-    public long EstimateMatchLength(Match match)
+    public long EstimateMatchLength(PastMatch match)
     {
         long totalTime = 0;
         int numMatches = 0;
 
-        foreach (Match pastMatch in pastMatches)
+        foreach (PastMatch pastMatch in PastMatches)
         {
             if (ArePlayersEqual(pastMatch, match) && AreMatchesComparable(match, pastMatch))
             {
@@ -46,11 +45,11 @@ public class SchedulerBusinessLogic
         return (numMatches != 0) ? totalTime / numMatches : GetAverageMatchLength(match);
     }
 
-    public long GetAverageMatchLength(Match match)
+    private long GetAverageMatchLength(PastMatch match)
     {
         long totalTime = 0;
         int numMatches = 0;
-        foreach (Match pastMatch in pastMatches)
+        foreach (PastMatch pastMatch in PastMatches)
         {
             if (AreMatchesComparable(match, pastMatch))
             {
@@ -64,10 +63,10 @@ public class SchedulerBusinessLogic
     }
 
 
-    private bool AreMatchesComparable(Match match1, Match match2)
+    private static bool AreMatchesComparable(PastMatch match1, PastMatch match2)
     {
-        // matches are comperable if the games are the same, and they are either both best of 5, or best of 3
-        return (match1.isBestOfFive == match2.isBestOfFive) && (match1.GameName.Equals(match2.GameName));
+        // matches are comparable if the games are the same, and they are either both best of 5, or best of 3
+        return (match1.IsBestOfFive == match2.IsBestOfFive) && (match1.GameName.Equals(match2.GameName));
     }
 
 
@@ -78,7 +77,7 @@ public class SchedulerBusinessLogic
     }
 
 
-    public async Task<List<PhaseGroup>> LoadPotentialMatchList(string url)
+    public async Task<List<Match>> LoadPotentialMatchList(string url)
     {
         var currentPage = 1;
         var graphQLResponse = await startGGClient.SendQueryAsync<EventReponseType>(
@@ -107,11 +106,21 @@ public class SchedulerBusinessLogic
                 new PhaseGroup(
                     pg.Value, 
                     phaseGroupLists[pg.Key]
-                        .OrderBy(set => set.Identifier)
+                        .OrderBy(set => set.Round)
+                        .ThenBy(set => set.Identifier)
                         .ToList()
                     ))
             .ToList();
-
-        return phaseGroups;
+        return GenerateMatchSchedule(phaseGroups);
     }
+
+    private List<Match> GenerateMatchSchedule(List<PhaseGroup> phaseGroups)
+    {
+        List<Match> futureMatches = [];
+
+        
+        
+        return futureMatches;
+    }
+    
 }

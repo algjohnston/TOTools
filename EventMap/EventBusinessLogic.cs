@@ -10,7 +10,7 @@ namespace TOTools.EventMap;
 /// </summary>
 public class EventBusinessLogic
 {
-    private readonly ITable<Event, long> _table = new EventTable();
+    private readonly ITable<Event, long, Event> _table = new EventTable();
     public ObservableCollection<Event> Events => _table.SelectAll();
     
 }
