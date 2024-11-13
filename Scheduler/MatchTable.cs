@@ -36,10 +36,10 @@ public class MatchTable : ITable<Match, long>
             "IF NOT EXISTS " +
             $"{MatchTableName} (" +
             $"{MatchIdColumn} BIGSERIAL PRIMARY KEY, " +
-            $"{Player1IdColumn} TEXT, " +
-            $"{Player2IdColumn} TEXT, " +
+            $"{Player1IdColumn} TEXT REFERENCES players(startgg_id), " +
+            $"{Player2IdColumn} TEXT REFERENCES players(startgg_id), " +
             $"{MatchTimeColumn} BIGINT, " +
-            $"{GameNameColumn} INT " +
+            $"{GameNameColumn} INT, " +
             $"{IsBestOfFiveColumn} BOOL " +
             ")";
         DatabaseUtil.CreateTable(createTableStatement);

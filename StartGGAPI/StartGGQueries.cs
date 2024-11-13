@@ -1,27 +1,26 @@
 ﻿using GraphQL;
-using GraphQL.Client.Http;
 
-namespace StartGG;
+namespace TOTools.StartGGAPI;
 
 class StartGGQueries
 {
-    GraphQLRequest CreateNumberOfEntrantsQuery(string slug)
+    public static GraphQLRequest CreateNumberOfEntrantsQuery(string slug)
     {
         return new GraphQLRequest
         {
             Query = """
-                    query GetNumberOfEntrants($slug: String) {
+                    query GetNumberOfEntrants($slug: String!) {
                         event(slug: $slug) {
                             id
                             numEntrants
                         }
                     }
                     """,
-            Variables = new { slug }
+            Variables = new { slug = slug }
         };
     }
 
-    static GraphQLRequest CreateEntrantsQuery(
+    public static GraphQLRequest CreateEntrantsQuery(
         string slug,
         int numEntrants,
         int page)
@@ -44,7 +43,45 @@ class StartGGQueries
                         }
                     }
                     """,
-            Variables = new { slug, numEntrants, page }
+            Variables = new { slug = slug, numEntrants = numEntrants, page = page }
+        };
+    }
+
+    public static GraphQLRequest CreateEventSetsQuery(string slug, int page)
+    {
+        return new GraphQLRequest
+        {
+            Query = """
+                    query GetEventSets($slug: String!, $page: Int!) {
+                        event(slug: $slug){
+                            sets(perPage: 100, page: $page){
+                            	pageInfo{
+                            	    totalPages
+                                }
+                                nodes {
+                                    id
+                                    identifier
+                                    round
+                                    slots {
+                                        entrant {
+                                            id
+                                            name
+                                        }
+                                        prereqId
+                                    }
+                                    phaseGroup{
+                                        phase {
+                                            id
+                                            bracketType
+                                            phaseOrder
+                                        }
+                                    }
+                                }
+                            }	
+                        }
+                    }
+                    """,
+            Variables = new { slug = slug, page = page }
         };
     }
 }

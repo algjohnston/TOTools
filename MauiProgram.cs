@@ -20,12 +20,15 @@ public static class MauiProgram
             });
 
         // For interacting with start.gg
-        var graphQLClient = new GraphQLHttpClient(
-            "https://api.start.gg/gql/alpha", 
-            new NewtonsoftJsonSerializer());
-        graphQLClient.HttpClient.DefaultRequestHeaders.Add(
+        var client = new HttpClient();
+        client.DefaultRequestHeaders.Add(
             "Authorization", 
             "Bearer dd3f05cd4cc1496d28bb2a406f96a4d0");
+        var graphQLClient = new GraphQLHttpClient(
+            "https://api.start.gg/gql/alpha", 
+            new NewtonsoftJsonSerializer(),
+            httpClient: client);
+
         builder.Services
             .AddSingleton(graphQLClient);
 
