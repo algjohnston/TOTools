@@ -20,7 +20,7 @@ public partial class SchedulerEventPage : ContentPage, IOnEventLinkSubmitted
         // For testing
         Events.Add(
             new EventLink(
-                "https://www.start.gg/tournament/between-2-lakes-67-a-madison-super-smash-bros-tournament/event/ultimate-singles/overview",
+                "tournament/between-2-lakes-67-a-madison-super-smash-bros-tournament/event/ultimate-singles",
                 DateTime.Now,
                 3)
         );
