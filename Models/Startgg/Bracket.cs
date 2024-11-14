@@ -24,21 +24,14 @@ public class Bracket
         // AddNextSets(grandFinals);
     }
 
-    // private void AddNextSets(Set set)
-    // {
-    //     if (set.GetPrevTop() == null || set.GetPrevBottom() == null) return;
-    //     Set topSet = sets[set.GetPrevTop()];
-    //     if (topSet.GetRound >= 0)
-    //     {
-    //         topSet.nextWinner = set.GetPrevBottom
-    //     }
-    //     topSet.nextWinner = set.GetPrevTop();
-    //     topSet.nextLoser = set.GetPrevBottom();
-    //     AddNextSets(topSet);
-    //     Set bottomSet = sets[set.GetPrevBottom()];
-    //     topSet.nextWinner = set.GetPrevTop();
-    //     topSet.nextLoser = set.GetPrevBottom();
-    // } this was NOT working lmao 
-
-   
+    private void AddNextSets(Set set)
+    {
+        if (set.GetPrevTopId() == null || set.GetPrevBottomId() == null) return;
+        Set topSet = sets[set.GetPrevTopId()];
+        Set bottomSet = sets[set.GetPrevBottomId()];
+        topSet.nextTopId = set.GetPrevTopId();
+        topSet.nextBottomId = set.GetPrevBottomId();
+        AddNextSets(topSet);
+        AddNextSets(bottomSet);
+    }
 }

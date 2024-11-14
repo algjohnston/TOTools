@@ -5,28 +5,28 @@ namespace TOTools.Models.Startgg;
 public class Set
 { 
     private SetType setType;
-    public String? nextWinner; 
-    public String? nextLoser;
+    public String? nextTopId; 
+    public String? nextBottomId;
     public Set(SetType setType)
     {
         this.setType = setType;
-        nextWinner = null;
-        nextLoser = null;
+        nextTopId = null;
+        nextBottomId = null;
     }
 
     public Set(SetType setType, String nextWinner, String nextLoser)
     {
         this.setType = setType;
-        this.nextWinner = nextWinner;
-        this.nextLoser = nextLoser;
+        this.nextTopId = nextWinner;
+        this.nextBottomId = nextLoser;
     }
 
-    public String GetPrevTop()
+    public String GetPrevTopId()
     {
         return setType.Slots.First().PrereqId;
     }
 
-    public String GetPrevBottom()
+    public String GetPrevBottomId()
     {
         return setType.Slots.Last().PrereqId;
     }
