@@ -4,39 +4,55 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TOTools.Scheduler.EventLinkPopup">
     <ContentPage.Content>
-        <Grid ColumnDefinitions="auto, *"
-              RowDefinitions="*, *, *"
+        <Grid ColumnDefinitions="*"
+              RowDefinitions="*, *, *, *, *, *, *"
               Margin="16">
 
             <Label Text="Event Link: "
+                   FontSize="Large"
                    Grid.Row="0"
                    HorizontalOptions="Center"
                    VerticalOptions="Center" />
 
             <Entry x:Name="EventLinkEntry"
-                   Grid.Row="0"
-                   Grid.Column="1"
+                   Grid.Row="1"
+                   FontSize="Large"
                    Placeholder="Enter an event link"
                    HorizontalOptions="Center"
                    VerticalOptions="Center" />
 
             <Label Text="Start Time: "
-                   Grid.Row="1"
+                   Grid.Row="2"
+                   FontSize="Large"
                    HorizontalOptions="Center"
                    VerticalOptions="Center" />
 
             <TimePicker
-                Grid.Row="1"
-                Grid.Column="1"
+                Grid.Row="3"
+                FontSize="Large"
                 x:Name="StartTimeEntry"
                 HorizontalOptions="Center"
                 VerticalOptions="Center" />
 
+            <Label Text="Number of Concurrent Matches: "
+                   Grid.Row="4"
+                   FontSize="Large"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+
+            <Entry x:Name="ConcurrentMatchesEntry"
+                   Grid.Row="5"
+                   Keyboard="Numeric"
+                   FontSize="Large"
+                   Placeholder="Enter the number of matches that can be played at once"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+            
             <Button x:Name="SubmitButton"
                     Text="Submit"
+                    FontSize="Large"
                     FontAttributes="Bold"
-                    Grid.Row="3"
-                    Grid.Column="0"
+                    Grid.Row="6"
                     HorizontalOptions="Start"
                     VerticalOptions="End"
                     Clicked="OnSubmitButtonClicked" />
@@ -44,7 +60,8 @@
             <Button x:Name="Cancel"
                     Text="Cancel"
                     FontAttributes="Bold"
-                    Grid.Row="3"
+                    FontSize="Large"
+                    Grid.Row="6"
                     Grid.Column="1"
                     HorizontalOptions="End"
                     VerticalOptions="End"

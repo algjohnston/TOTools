@@ -10,6 +10,7 @@
 
         <Entry x:Name="VodTitleEntry" 
             Grid.Row="0"
+            FontSize="Large"
             VerticalOptions="Center"
             HorizontalOptions="Center"
             Placeholder="Enter VOD Title"/>
@@ -18,6 +19,7 @@
             x:Name="SelectTemplateButton" 
             Text="Select Template"
             Grid.Row="1"
+            FontSize="Large"
             FontAttributes="Bold"
             VerticalOptions="Center"
             HorizontalOptions="Center"
@@ -26,6 +28,7 @@
         <Button x:Name="OutputFolderButton" 
             Text="Select Output Folder" 
             Grid.Row="2"
+            FontSize="Large"
             FontAttributes="Bold"
             VerticalOptions="Center"
             HorizontalOptions="Center"
@@ -34,6 +37,7 @@
         <Button x:Name="SubmitButton" 
             Text="Submit" 
             Grid.Row="3"
+            FontSize="Large"
             FontAttributes="Bold"
             VerticalOptions="End"
             HorizontalOptions="Start"

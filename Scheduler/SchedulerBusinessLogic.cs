@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using CS341Project.Models;
+using GraphQL;
 using GraphQL.Client.Http;
 using TOTools.Database;
 using TOTools.Models;
@@ -24,7 +26,12 @@ public class SchedulerBusinessLogic
     private ObservableCollection<PastMatch> PastMatches => _table.SelectAll();
 
     // This gets filled with matches from startgg that need to be played
-    public ObservableCollection<Match> FutureMatches { get; } = [];
+    public ObservableCollection<Match> FutureMatches { get; } = [
+        new Match("a", "b", 1, Game.Melee, false),
+        new Match("b", "b", 1, Game.Melee, false),
+        new Match("c", "b", 1, Game.Melee, false),
+        new Match("d", "b", 1, Game.Melee, false)
+    ];
 
 
     public long EstimateMatchLength(PastMatch match)
@@ -77,11 +84,20 @@ public class SchedulerBusinessLogic
     }
 
 
-    public async Task<List<Match>> LoadPotentialMatchList(string url)
+    private async Task<List<PhaseGroup>> LoadPotentialMatchList(string url)
     {
         var currentPage = 1;
-        var graphQLResponse = await startGGClient.SendQueryAsync<EventReponseType>(
+        var responses = new List<GraphQLResponse<EventResponseType>>();
+        var graphQLResponse = await startGGClient.SendQueryAsync<EventResponseType>(
             StartGGQueries.CreateEventSetsQuery(url, currentPage));
+        responses.Add(graphQLResponse);
+        while (currentPage < graphQLResponse.Data.Event.Sets.PageInfo.TotalPages)
+        {
+            currentPage++;
+            graphQLResponse = await startGGClient.SendQueryAsync<EventResponseType>(
+                StartGGQueries.CreateEventSetsQuery(url, currentPage));
+            responses.Add(graphQLResponse);
+        }
         var eventType = graphQLResponse.Data.Event;
         var nodes = eventType.Sets.Nodes;
         Dictionary<int, List<SetType>> phaseGroupLists = [];
@@ -111,16 +127,29 @@ public class SchedulerBusinessLogic
                         .ToList()
                     ))
             .ToList();
-        return GenerateMatchSchedule(phaseGroups);
+        return phaseGroups;
     }
 
     private List<Match> GenerateMatchSchedule(List<PhaseGroup> phaseGroups)
     {
         List<Match> futureMatches = [];
-
+        
         
         
         return futureMatches;
     }
-    
+
+    public async void LoadPotentialSchedule(IList<EventLink> events)
+    {
+        foreach (var event_ in events.OrderBy(e => e.StartTime))
+        {
+            var phaseGroups = await LoadPotentialMatchList(event_.Link);
+            var matches = GenerateMatchSchedule(phaseGroups);
+            foreach (var match in matches)
+            {
+                FutureMatches.Add(match);
+            }
+
+        }
+    }
 }

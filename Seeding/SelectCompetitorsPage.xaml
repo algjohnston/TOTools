@@ -10,7 +10,6 @@
     <ContentPage.Content>
         
         <Grid Padding="16, 16, 16, 64" 
-              RowSpacing="8" 
               ColumnDefinitions="*" 
               RowDefinitions="Auto, *, Auto">
             
@@ -34,6 +33,7 @@
             <Button Text="Submit"
                     x:Name="SubmitButton"
                     Grid.Row="2"
+                    FontSize="Large"
                     FontAttributes="Bold"
                     HorizontalOptions="Start"
                     VerticalOptions="End"

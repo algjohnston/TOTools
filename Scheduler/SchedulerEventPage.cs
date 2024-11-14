@@ -8,6 +8,8 @@ namespace TOTools.Scheduler;
 /// </summary>
 public partial class SchedulerEventPage : ContentPage, IOnEventLinkSubmitted
 {
+    private SchedulerBusinessLogic? _schedulerBusinessLogic;
+
     public ObservableCollection<EventLink> Events { get; } = [];
 
     public SchedulerEventPage()
@@ -19,18 +21,14 @@ public partial class SchedulerEventPage : ContentPage, IOnEventLinkSubmitted
         Events.Add(
             new EventLink(
                 "https://www.start.gg/tournament/between-2-lakes-67-a-madison-super-smash-bros-tournament/event/ultimate-singles/overview",
-                DateTime.Now)
+                DateTime.Now,
+                3)
         );
-    }
-
-    private void OnSettingsImageButtonClicked(object? sender, EventArgs e)
-    {
-        Navigation.PushAsync(new EventPopup());
     }
 
     private void OnSubmitButtonClicked(object? sender, EventArgs e)
     {
-        Navigation.PushAsync(new MatchSchedulerPage());
+        Navigation.PushAsync(new MatchSchedulerPage(Events));
     }
 
     private void OnAddLinkButtonClicked(object? sender, EventArgs e)
@@ -42,4 +40,5 @@ public partial class SchedulerEventPage : ContentPage, IOnEventLinkSubmitted
     {
         Events.Add(eventLink);
     }
+    
 }

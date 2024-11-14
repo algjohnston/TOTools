@@ -1,6 +1,6 @@
 ﻿namespace TOTools.StartGGAPI;
 
-public class EventReponseType()
+public class EventResponseType()
 {
     public EventType Event { get; set; }
 }
@@ -12,7 +12,7 @@ public class EventType()
 
 public class SetType
 {
-    public int Id { get; set; }
+    public string Id { get; set; }
     public string Identifier { get; set; }
     public int Round { get; set; }
     public List<SetSlotType> Slots { get; set; }

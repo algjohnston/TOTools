@@ -15,6 +15,27 @@ public partial class EventLinkPopup : ContentPage
     {
         InitializeComponent();
         _onEventLinkSubmitted = onEventLinkSubmitted;
+        var currentTime = DateTime.Now - DateTime.Today;
+        StartTimeEntry.Time = currentTime;
+    }
+
+    public EventLinkPopup(
+        SchedulerEventPage onEventLinkSubmitted, 
+        EventLink selectedEvent
+        ) : this(onEventLinkSubmitted)
+    {
+        EventLinkEntry.Text = selectedEvent.Link;
+        var currentTime = DateTime.Now - DateTime.Today;
+        var time = selectedEvent.StartTime.TimeOfDay;
+        if (currentTime > time)
+        {
+            StartTimeEntry.Time = currentTime;
+        }
+        else
+        {
+            StartTimeEntry.Time = time;
+        }
+        ConcurrentMatchesEntry.Text = selectedEvent.NumberOfConcurrentMatches.ToString();
     }
 
     private void OnSubmitButtonClicked(object? sender, EventArgs e)
@@ -52,9 +73,23 @@ public partial class EventLinkPopup : ContentPage
             return null;
         }
 
+        var numberOfConcurrentMatchesText = ConcurrentMatchesEntry.Text;
+        if (numberOfConcurrentMatchesText == null)
+        {
+            DisplayAlert("Error", "Please enter the concurrent matches", "OK");
+            return null;
+        }
+        int.TryParse(numberOfConcurrentMatchesText, out var numberOfConcurrentMatches);
+        if (numberOfConcurrentMatches < 1)
+        {
+            DisplayAlert("Error", "Please enter a valid number of concurrent matches", "OK");
+            return null;
+        }
+
         return new EventLink(
             ExtractTournamentPath(link),
-            DateTime.Today.Add(startTime));
+            DateTime.Today.Add(startTime),
+            numberOfConcurrentMatches);
     }
 
     private static string ExtractTournamentPath(string link)

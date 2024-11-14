@@ -1,17 +1,35 @@
-Added the map and got it to center on Madison, WI! ᕦ(ຈ◡ຈ)ᕤ
+Sprint 3 Changes:
 
-Set up strawberry shake to interact with the graphql of start.gg! ⌐\[︶ヮ︶⌐]
+    Added GraphQL.Client and used it to get data from start.gg
+    based on a url provided by the user! |っ^ᴥ^ꐦ|っ
 
-Added a loser's bracket to the double elimination page! \[ᵒಠ‸ಠᵒ]
+    Added logic to make a schedule of matches in a way that will 
+    try to prevent players from having to wait.
 
-Added an event table. ‿︵‿︵‿ɳ༼ᵔᗜᵔ༽ɲ‿︵‿︵‿
+    Added logic to estimate match lengths.
 
-Added event list page. |(ˇ⚙͠ѽ⚙͠ ˇ)|
+    The match list now supports match reordering! ~(ȍ‿ȍ~)
 
-Added a player table.
+    Had to remove StrawberryShake due to a very naive bug 
+    where they assumed the id was always a string despite the 
+    GraphQL spec saying it can be an int. |¬ᗒ□ᗕ|¬
 
-Added players to the seeding list.
+Sprint 2 Changes:
 
-Added a match table.
-
-Displayed the match data in the match scheduler.
+    Added the map and got it to center on Madison, WI! ᕦ(ຈ◡ຈ)ᕤ
+    
+    Set up strawberry shake to interact with the graphql of start.gg! ⌐\[︶ヮ︶⌐]
+    
+    Added a loser's bracket to the double elimination page! \[ᵒಠ‸ಠᵒ]
+    
+    Added an event table. ‿︵‿︵‿ɳ༼ᵔᗜᵔ༽ɲ‿︵‿︵‿
+    
+    Added event list page. |(ˇ⚙͠ѽ⚙͠ ˇ)|
+    
+    Added a player table.
+    
+    Added players to the seeding list.
+    
+    Added a match table.
+    
+    Displayed the match data in the match scheduler.

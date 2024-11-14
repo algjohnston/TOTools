@@ -9,11 +9,13 @@
           Margin="16">
 
         <Label Text="Email:"
+               FontSize="Large"
                Grid.Column="0"
                Grid.Row="0"
                VerticalOptions="Center" />
 
         <Entry x:Name="EmailEntry"
+               FontSize="Large"
                Grid.Row="0"
                Grid.Column="1"
                Placeholder="Enter your email"
@@ -21,11 +23,13 @@
                VerticalOptions="Center" />
 
         <Label Text="Password:"
+               FontSize="Large"
                Grid.Column="0"
                Grid.Row="1"
                VerticalOptions="Center" />
 
         <Entry x:Name="PasswordEntry"
+               FontSize="Large"
                Grid.Row="1"
                Grid.Column="1"
                Placeholder="Enter a password"
@@ -33,6 +37,7 @@
                VerticalOptions="Center" />
 
         <Label Text="Confirm Password:"
+               FontSize="Large"
                Grid.Column="0"
                Grid.Row="2"
                VerticalOptions="Center"/>
@@ -47,6 +52,7 @@
         <!--        Padding="5" -->
         <!--        HasShadow="False"> -->
         <Entry x:Name="PasswordConfirmationEntry"
+               FontSize="Large"
                Grid.Row="2"
                Grid.Column="1"
                Placeholder="Enter the same password"
@@ -55,6 +61,7 @@
         <!-- </Frame> -->
 
         <Button x:Name="SubmitButton"
+                FontSize="Large"
                 Text="Submit"
                 Grid.Column="0"
                 Grid.Row="3"

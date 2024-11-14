@@ -25,6 +25,7 @@
 
 
 				<Button x:Name="LogInButton"
+				        FontSize="Large"
                         Text="Log In"
                         FontAttributes="Bold"
                         Grid.Row="1"
@@ -34,6 +35,7 @@
 
                 <Button x:Name="SignUpButton"
                         Text="Sign Up"
+                        FontSize="Large"
                         FontAttributes="Bold"
                         Grid.Row="2"
                         HorizontalOptions="Center"
@@ -42,6 +44,7 @@
 
                 <Button x:Name="SkipButton"
                         Text="Skip"
+                        FontSize="Large"
                         FontAttributes="Bold"
                         Grid.Row="3"
                         HorizontalOptions="Start"

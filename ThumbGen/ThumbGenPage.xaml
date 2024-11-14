@@ -10,12 +10,14 @@
         
         <Label Text="Event Link"
                Grid.Row="0"
+               FontSize="Large"
                HorizontalOptions="Start"
                VerticalOptions="Center"/>
         
         <Entry x:Name="StartggLinkEntry"
                Grid.Row="0"
                Grid.Column="1"
+               FontSize="Large"
                Placeholder="Enter Start.gg Event Link"
                VerticalOptions="Center"
                HorizontalOptions="Center"/>
@@ -24,6 +26,7 @@
             Text="Manual Entry"
             Grid.Row="1"
             Grid.ColumnSpan="2"
+            FontSize="Large"
             FontAttributes="Bold"
             VerticalOptions="Center"
             HorizontalOptions="Center"
@@ -33,6 +36,7 @@
             Text="Select Template"
             Grid.Row="2"
             Grid.ColumnSpan="2"
+            FontSize="Large"
             VerticalOptions="Center"
             HorizontalOptions="Center"
             FontAttributes="Bold"
@@ -42,6 +46,7 @@
             Text="Select Output Folder" 
             Grid.Row="3"
             Grid.ColumnSpan="2"
+            FontSize="Large"
             FontAttributes="Bold"
             VerticalOptions="Center"
             HorizontalOptions="Center"
@@ -51,6 +56,7 @@
             Text="Submit" 
             Grid.Row="4"
             Grid.ColumnSpan="2"
+            FontSize="Large"
             FontAttributes="Bold"
             HorizontalOptions="Start"
             VerticalOptions="End"

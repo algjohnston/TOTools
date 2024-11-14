@@ -13,8 +13,7 @@
             ColumnDefinitions="*, auto"
             RowDefinitions="auto, *"
             Margin="16">
-
-
+            
             <Label Text="Match"
                    FontSize="31"
                    Grid.Column="0"
@@ -30,7 +29,10 @@
                 Grid.ColumnSpan="2">
                 <CollectionView
                     x:Name="MatchList"
-                    ItemsSource="{Binding FutureMatches}">
+                    ItemsSource="{Binding FutureMatches}"
+                    SelectionMode="Single"
+                    CanReorderItems="True"
+                    >
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:PastMatch">
                             <Grid RowDefinitions="*"
@@ -43,7 +45,6 @@
                                        FontSize="31"
                                        Grid.Column="1">
                                 </Label>
-
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

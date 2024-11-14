@@ -24,6 +24,7 @@
 
             <Button Text="Manual Entry"
                     Grid.Row="1"
+                    FontSize="Large"
                     FontAttributes="Bold"
                     HorizontalOptions="Center"
                     VerticalOptions="Start"
@@ -31,6 +32,7 @@
             
             <Button Text="Submit"
                     Grid.Row="2"
+                    FontSize="Large"
                     FontAttributes="Bold"
                     HorizontalOptions="Start"
                     VerticalOptions="Center"

@@ -1,4 +1,6 @@
-﻿using GraphQL.Client.Http;
+﻿using System.Collections.ObjectModel;
+using GraphQL.Client.Http;
+using TOTools.Models;
 using TOTools.StartGGAPI;
 
 namespace TOTools.Scheduler;
@@ -12,24 +14,26 @@ public partial class MatchSchedulerPage : ContentPage
 
     private SchedulerBusinessLogic? _schedulerBusinessLogic;
 
-    public MatchSchedulerPage()
+    // TODO This is a quick hack due to time constraints
+    private ObservableCollection<EventLink> _events;
+
+    public MatchSchedulerPage(ObservableCollection<EventLink> events)
     {
+        _events = events;
         HandlerChanged += OnHandlerChanged;
     }
 
-    async void OnHandlerChanged(object? sender, EventArgs e)
+    void OnHandlerChanged(object? sender, EventArgs e)
     {
         var client = Handler?.MauiContext?.Services.GetService<GraphQLHttpClient>();
         if (client == null)
         {
-            await DisplayAlert("Error", "There was an error trying to connect to start.gg", "OK");
+            DisplayAlert("Error", "There was an error trying to connect to start.gg", "OK");
             return;
         }
-        
-        _schedulerBusinessLogic = new SchedulerBusinessLogic(client);
 
-        var phaseGroups = await _schedulerBusinessLogic.LoadPotentialMatchList(
-            "tournament/between-2-lakes-67-a-madison-super-smash-bros-tournament/event/ultimate-singles");
+        _schedulerBusinessLogic = new SchedulerBusinessLogic(client);
+        _schedulerBusinessLogic.LoadPotentialSchedule(_events);
         
         InitializeComponent();
         MatchList.BindingContext = _schedulerBusinessLogic;

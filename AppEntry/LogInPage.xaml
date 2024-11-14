@@ -10,11 +10,13 @@
 			  Margin="16">
 			
 			<Label Text="Username: "
+			       FontSize="Large"
 				   Grid.Row="0"
 				   HorizontalOptions="Center"
 				   VerticalOptions="Center" />
 
 			<Entry x:Name="UsernameEntry" 
+			       FontSize="Large"
 				   Grid.Row="0"
 				   Grid.Column="1"
 				   Placeholder="Enter your username"
@@ -22,11 +24,13 @@
 				   VerticalOptions="Center"/>
 
 			<Label Text="Password: "
+			       FontSize="Large"
 				   Grid.Row="1"
 				   HorizontalOptions="Center"
 				   VerticalOptions="Center" />
 
 			<Entry x:Name="PasswordEntry" 
+			       FontSize="Large"
 				   Grid.Row="1"
 				   Grid.Column="1"
 				   Placeholder="Enter your password"
@@ -35,6 +39,7 @@
 
 			<Button x:Name="Login"
 					Text="Log In"
+					FontSize="Large"
 					FontAttributes="Bold"
 					Grid.Row="3"
 					Grid.Column="0"
@@ -44,6 +49,7 @@
 
 			<Button x:Name="Cancel"
 					Text="Cancel"
+					FontSize="Large"
 					FontAttributes="Bold"
 					Grid.Row="3"
 					Grid.Column="1"

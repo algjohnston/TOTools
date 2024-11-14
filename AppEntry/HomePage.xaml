@@ -2,12 +2,7 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TOTools.AppEntry.HomePage"
-             xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
-             xmlns:eventMap="clr-namespace:TOTools.EventMap"
-             xmlns:thumbGen="clr-namespace:TOTools.ThumbGen"
-             xmlns:scheduler="clr-namespace:TOTools.Scheduler"
-             xmlns:seeding="clr-namespace:TOTools.Seeding">
+             x:Class="TOTools.AppEntry.HomePage">
     <!-- TODO try to get tabs working without crashing -->
     <!-- android:TabbedPage.ToolbarPlacement="Bottom" -->
     <!-- android:TabbedPage.IsSwipePagingEnabled="false" -->
@@ -42,6 +37,7 @@
 
         <Button x:Name="LogOutButton"
                 Text="Log Out"
+                FontSize="Large"
                 Grid.Row="0"
                 FontAttributes="Bold"
                 HorizontalOptions="End"
@@ -50,6 +46,7 @@
 
         <Button x:Name="SeedingButton"
                 Text="Seeding"
+                FontSize="Large"
                 Grid.Row="1"
                 FontAttributes="Bold"
                 HorizontalOptions="Center"
@@ -58,6 +55,7 @@
 
         <Button x:Name="SchedulerButton"
                 Text="Scheduler"
+                FontSize="Large"
                 Grid.Row="2"
                 FontAttributes="Bold"
                 HorizontalOptions="Center"
@@ -66,6 +64,7 @@
 
         <Button x:Name="EventMapButton"
                 Text="Event Map"
+                FontSize="Large"
                 Grid.Row="3"
                 FontAttributes="Bold"
                 HorizontalOptions="Center"
@@ -74,11 +73,11 @@
 
         <Button x:Name="ThumbnailGeneratorButton"
                 Text="Thumbnail Generator"
+                FontSize="Large"
                 Grid.Row="4"
                 FontAttributes="Bold"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
-
                 Clicked="OnThumbnailGeneratorButtonClicked" />
     </Grid>
 </ContentPage>

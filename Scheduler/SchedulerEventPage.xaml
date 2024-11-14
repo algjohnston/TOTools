@@ -24,16 +24,13 @@
                    Grid.Column="1"
                    Grid.Row="0" />
 
-            <ImageButton Source="settings.svg"
-                         Clicked="OnSettingsImageButtonClicked"
-                         Grid.Column="2" />
-
             <ScrollView
                 Grid.Row="1"
                 Grid.ColumnSpan="3">
                 <CollectionView
                     x:Name="MatchList"
-                    ItemsSource="{Binding Events}">
+                    ItemsSource="{Binding Events}"
+                    SelectionMode="Single">
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:EventLink">
@@ -44,7 +41,7 @@
                                        FontSize="31"
                                        Grid.Column="0">
                                 </Label>
-                                <Label Text="{Binding StartTime }"
+                                <Label Text="{Binding StartTimeFormatted }"
                                        FontSize="31"
                                        Grid.Column="1">
                                 </Label>
@@ -56,6 +53,8 @@
 
             <ImageButton Source="plus.svg"
                          HorizontalOptions="Start"
+                         Width="40"
+                         Height="40"
                          Grid.Row="2" 
                          Clicked="OnAddLinkButtonClicked"/>
 
