@@ -7,7 +7,7 @@ public partial class TitlePage : ContentPage
 	public TitlePage()
 	{
 		InitializeComponent();
-	}
+    }
 
 	private void OnLogInButtonClicked(object? sender, EventArgs e)
 	{
@@ -24,17 +24,6 @@ public partial class TitlePage : ContentPage
 		Navigation.PushAsync(new EventMapPage());
 	}
 
-    [Obsolete]
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
-
-        // Remove padding programmatically if necessary
-        if (Device.RuntimePlatform == Device.Android)
-        {
-            this.Padding = new Thickness(0); // Removes extra padding
-        }
-    }
 
 
 }
