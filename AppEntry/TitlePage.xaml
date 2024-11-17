@@ -1,7 +1,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TOTools.AppEntry.TitlePage"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             Padding="0">
 
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="Center">
@@ -12,33 +14,41 @@
 
             <Grid ColumnDefinitions="*"
                   RowDefinitions="*, *, *, *"
-                  Margin="16, 0, 16, 16"
+                  Margin="16, 40, 16, 16"
                   AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                   AbsoluteLayout.LayoutFlags="All">
 
 				<Image Source="Images/tot_logo.png"
-					   WidthRequest="400"
+					   WidthRequest="350"
 					   HeightRequest="200"
-					   VerticalOptions="Start"
+					   VerticalOptions="Center"
 					   HorizontalOptions="FillAndExpand" />
 
 
 				<Button x:Name="LogInButton"
 				        FontSize="Large"
                         Text="Log In"
+                        TextColor="AntiqueWhite"
                         FontAttributes="Bold"
                         Grid.Row="1"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
+                        WidthRequest="120"
+                        HeightRequest="50"
+                        BackgroundColor="Blue"
                         Clicked="OnLogInButtonClicked" />
 
                 <Button x:Name="SignUpButton"
                         Text="Sign Up"
                         FontSize="Large"
                         FontAttributes="Bold"
+                        TextColor="AntiqueWhite"
                         Grid.Row="2"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
+                        WidthRequest="120"
+                        HeightRequest="50"
+                        BackgroundColor="Blue"
                         Clicked="OnSignUpButtonClicked" />
 
                 <Button x:Name="SkipButton"
@@ -46,8 +56,14 @@
                         FontSize="Large"
                         FontAttributes="Bold"
                         Grid.Row="3"
+                        Grid.Column="1"
+                        TextColor="AntiqueWhite"
                         HorizontalOptions="Start"
                         VerticalOptions="End"
+                        WidthRequest="120"
+                        HeightRequest="50"
+                        BackgroundColor="Blue"
+                        Margin="20, 0, 16, 16"
                         Clicked="OnSkipButtonClicked" />
 
             </Grid>

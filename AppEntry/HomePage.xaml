@@ -31,53 +31,79 @@
     <!--     </NavigationPage> -->
     <!-- </TabbedPage.Children> -->
 
-    <Grid ColumnDefinitions="*"
-          RowDefinitions="80, *, *, *, *"
-          Margin="16">
+    <AbsoluteLayout>
+        <Image Source="background.png"
+               AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+               Aspect="Fill"/>
 
         <Button x:Name="LogOutButton"
                 Text="Log Out"
                 FontSize="Large"
-                Grid.Row="0"
+                BackgroundColor="Blue"
                 FontAttributes="Bold"
+                TextColor="AntiqueWhite"
+                Margin="0, 20, 40, 0"
                 HorizontalOptions="End"
                 VerticalOptions="Start"
-                Clicked="OnLogOutButtonClicked" />
+                Clicked="OnLogOutButtonClicked"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                AbsoluteLayout.LayoutBounds="1, 0, AutoSize, AutoSize" />
 
         <Button x:Name="SeedingButton"
                 Text="Seeding"
                 FontSize="Large"
-                Grid.Row="1"
+                TextColor="AntiqueWhite"
                 FontAttributes="Bold"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
-                Clicked="OnSeedingButtonClicked" />
+                WidthRequest="210"
+                BackgroundColor="Blue"
+                HeightRequest="50"
+                Clicked="OnSeedingButtonClicked"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                AbsoluteLayout.LayoutBounds="0.5, 0.25, AutoSize, AutoSize" />
 
         <Button x:Name="SchedulerButton"
                 Text="Scheduler"
                 FontSize="Large"
-                Grid.Row="2"
+                TextColor="AntiqueWhite"
+                BackgroundColor="Blue"
                 FontAttributes="Bold"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
-                Clicked="OnSchedulerButtonClicked" />
+                WidthRequest="210"
+                HeightRequest="50"
+                Clicked="OnSchedulerButtonClicked"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                AbsoluteLayout.LayoutBounds="0.5, 0.45, AutoSize, AutoSize" />
 
         <Button x:Name="EventMapButton"
                 Text="Event Map"
                 FontSize="Large"
-                Grid.Row="3"
                 FontAttributes="Bold"
+                BackgroundColor="Blue"
+                TextColor="AntiqueWhite"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
-                Clicked="OnEventMapButtonClicked" />
+                WidthRequest="210"
+                HeightRequest="50"
+                Clicked="OnEventMapButtonClicked"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                AbsoluteLayout.LayoutBounds="0.5, 0.65, AutoSize, AutoSize" />
 
         <Button x:Name="ThumbnailGeneratorButton"
                 Text="Thumbnail Generator"
-                FontSize="Large"
-                Grid.Row="4"
+                FontSize="Medium"
                 FontAttributes="Bold"
+                BackgroundColor="Blue"
+                TextColor="AntiqueWhite"
+                WidthRequest="210"
+                HeightRequest="50"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
-                Clicked="OnThumbnailGeneratorButtonClicked" />
-    </Grid>
+                Clicked="OnThumbnailGeneratorButtonClicked"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                AbsoluteLayout.LayoutBounds="0.5, 0.85, AutoSize, AutoSize" />
+    </AbsoluteLayout>
 </ContentPage>

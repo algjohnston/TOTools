@@ -1,62 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-			 x:Class="TOTools.AppEntry.LogInPage"
-			 Title="Log in">
-	<ContentPage.Content>
-		<Grid ColumnDefinitions="auto, *"
-			  RowDefinitions="*, *, *"
-			  Margin="16">
-			
-			<Label Text="Username: "
-			       FontSize="Large"
-				   Grid.Row="0"
-				   HorizontalOptions="Center"
-				   VerticalOptions="Center" />
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TOTools.AppEntry.LogInPage"
+             Title="Log in"
+             NavigationPage.HasNavigationBar="True"
+             NavigationPage.IconColor="Blue">
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <Image Source="background.png" 
+                   Aspect="Fill"
+                   AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                   AbsoluteLayout.LayoutFlags="All" />
 
-			<Entry x:Name="UsernameEntry" 
-			       FontSize="Large"
-				   Grid.Row="0"
-				   Grid.Column="1"
-				   Placeholder="Enter your username"
-				   HorizontalOptions="Center"
-				   VerticalOptions="Center"/>
+            <Grid ColumnDefinitions="auto, *"
+                  RowDefinitions="*, *, *"
+                  Margin="16"
+                  AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                  AbsoluteLayout.LayoutFlags="All">
 
-			<Label Text="Password: "
-			       FontSize="Large"
-				   Grid.Row="1"
-				   HorizontalOptions="Center"
-				   VerticalOptions="Center" />
+                <Label Text="Username: "
+                       FontSize="Large"
+                       TextColor="AntiqueWhite"
+                       Grid.Row="0"
+                       Margin="20, 0, 0, 0"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
 
-			<Entry x:Name="PasswordEntry" 
-			       FontSize="Large"
-				   Grid.Row="1"
-				   Grid.Column="1"
-				   Placeholder="Enter your password"
-				   HorizontalOptions="Center"
-				   VerticalOptions="Center"/>
+                <Entry x:Name="UsernameEntry" 
+                       FontSize="Large"
+                       Margin="0, 0, 0, 0"
+                       Grid.Row="0"
+                       TextColor="AntiqueWhite"
+                       Grid.Column="1"
+                       Placeholder="Enter your username"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       Opacity="100"/>
 
-			<Button x:Name="Login"
-					Text="Log In"
-					FontSize="Large"
-					FontAttributes="Bold"
-					Grid.Row="3"
-					Grid.Column="0"
-					HorizontalOptions="Start"
-					VerticalOptions="End"
-					Clicked="OnLogInButtonClicked" />
+                <Label Text="Password: "
+                       FontSize="Large"
+                       TextColor="AntiqueWhite"
+                       Grid.Row="1"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
 
-			<Button x:Name="Cancel"
-					Text="Cancel"
-					FontSize="Large"
-					FontAttributes="Bold"
-					Grid.Row="3"
-					Grid.Column="1"
-					HorizontalOptions="End"
-					VerticalOptions="End"
-					Clicked="OnCancelButtonClicked" />
-		</Grid>
+                <Entry x:Name="PasswordEntry" 
+                       FontSize="Large"
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       TextColor="AntiqueWhite"
+                       Placeholder="Enter your password"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
 
-	</ContentPage.Content>
+                <Button x:Name="Login"
+                        Text="Log In"
+                        FontSize="Large"
+                        FontAttributes="Bold"
+                        TextColor="White"
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        HorizontalOptions="Start"
+                        VerticalOptions="End"
+                        WidthRequest="120"
+                        HeightRequest="50"
+                        Margin="10"
+                        BackgroundColor="Blue"
+                        Clicked="OnLogInButtonClicked" />
+
+                <Button x:Name="Cancel"
+                        Text="Cancel"
+                        FontSize="Large"
+                        FontAttributes="Bold"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        TextColor="White"
+                        HorizontalOptions="End"
+                        VerticalOptions="End"
+                        Margin="10"
+                        WidthRequest="120"
+                        HeightRequest="50"
+                        BackgroundColor="Blue"
+                        Clicked="OnCancelButtonClicked" />
+            </Grid>
+        </AbsoluteLayout>
+    </ContentPage.Content>
 </ContentPage>
