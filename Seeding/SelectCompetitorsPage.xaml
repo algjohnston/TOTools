@@ -6,39 +6,55 @@
              x:DataType="seeding:SelectCompetitorsPage"
              x:Class="TOTools.Seeding.SelectCompetitorsPage"
              Title="Select Competitors">
-    
-    <ContentPage.Content>
-        
+
+    <AbsoluteLayout>
+        <!-- Background Image -->
+        <Image Source="background.png"
+               Aspect="Fill"
+               AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="0, 0, 1, 1" />
+
+        <!-- Content -->
         <Grid Padding="16, 16, 16, 64" 
               ColumnDefinitions="*" 
-              RowDefinitions="Auto, *, Auto">
-            
-            <Label Text="{Binding Competitors.Count}"/>
-            
+              RowDefinitions="Auto, *, Auto"
+              AbsoluteLayout.LayoutFlags="All"
+              AbsoluteLayout.LayoutBounds="0, 0, 1, 1">
+
+            <Label Text="{Binding Competitors.Count}"
+                   Grid.Row="0"
+                   FontSize="21"
+                   TextColor="AntiqueWhite"
+                   HorizontalOptions="Center" />
+
             <CollectionView Grid.Row="1" 
                             ItemsSource="{Binding Competitors}">
-                
+
                 <CollectionView.ItemTemplate>
-                    <DataTemplate >
+                    <DataTemplate>
                         <StackLayout Padding="10">
                             <Label Text="{Binding .}"
                                    FontSize="18"
+                                   TextColor="AntiqueWhite"
                                    HorizontalOptions="Center" />
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-                
+
             </CollectionView>
-            
+
             <Button Text="Submit"
                     x:Name="SubmitButton"
                     Grid.Row="2"
                     FontSize="Large"
+                    TextColor="AntiqueWhite"
+                    BackgroundColor="Blue"
+                    Margin="20, 0, 0, 0"
                     FontAttributes="Bold"
                     HorizontalOptions="Start"
                     VerticalOptions="End"
                     Clicked="OnSubmitClicked"/>
-            
+
         </Grid>
-    </ContentPage.Content>
+    </AbsoluteLayout>
 </ContentPage>

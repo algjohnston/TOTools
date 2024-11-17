@@ -7,8 +7,19 @@
              x:Class="TOTools.EventMap.EventListPage"
              Title="Events" 
              x:DataType="eventMap:EventBusinessLogic">
-    <ContentPage.Content>
-        <Grid Padding="16, 16, 16, 64">
+
+    <AbsoluteLayout>
+        <!-- Background Image -->
+        <Image Source="background.png"
+               Aspect="Fill"
+               AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="0, 0, 1, 1" />
+
+        <!-- Content -->
+        <Grid Padding="16, 16, 16, 64"
+              AbsoluteLayout.LayoutFlags="All"
+              AbsoluteLayout.LayoutBounds="0, 0, 1, 1">
+
             <CollectionView x:Name="EventCollectionView"
                             ItemsSource="{Binding Events}">
                 <CollectionView.ItemTemplate>
@@ -16,17 +27,21 @@
                         <StackLayout Margin="0,8,0,8">
                             <Label Text="{Binding EventName}"
                                    FontSize="20"
+                                   TextColor="AntiqueWhite"
                                    FontAttributes="Bold" />
                             <Label Text="{Binding Location}"
+                                   TextColor="AntiqueWhite"
                                    FontSize="16" />
                             <Label Text="{Binding FormattedStartDateTime}"
+                                   TextColor="AntiqueWhite"
                                    FontSize="14" />
                             <Label Text="{Binding FormattedEndDateTime}"
+                                   TextColor="AntiqueWhite"
                                    FontSize="14" />
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </Grid>
-    </ContentPage.Content>
+    </AbsoluteLayout>
 </ContentPage>

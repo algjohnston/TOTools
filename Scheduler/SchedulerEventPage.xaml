@@ -7,20 +7,31 @@
              x:DataType="scheduler:SchedulerEventPage"
              x:Class="TOTools.Scheduler.SchedulerEventPage"
              Title="Event Scheduler">
-    <ContentPage.Content>
 
+    <AbsoluteLayout>
+        <!-- Background Image -->
+        <Image Source="background.png"
+               Aspect="Fill"
+               AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="0, 0, 1, 1" />
+
+        <!-- Content -->
         <Grid
             ColumnDefinitions="*, auto, auto"
             RowDefinitions="auto, *, auto, auto"
-            Margin="16, 16, 16, 16">
+            Margin="16, 16, 16, 16"
+            AbsoluteLayout.LayoutFlags="All"
+            AbsoluteLayout.LayoutBounds="0, 0, 1, 1">
 
             <Label Text="Event Link"
                    FontSize="31"
+                   TextColor="AntiqueWhite"
                    Grid.Column="0"
                    Grid.Row="0" />
 
             <Label Text="Start Time"
                    FontSize="31"
+                   TextColor="AntiqueWhite"
                    Grid.Column="1"
                    Grid.Row="0" />
 
@@ -39,10 +50,12 @@
                                 ColumnDefinitions="*, auto, auto">
                                 <Label Text="{Binding Link }"
                                        FontSize="31"
+                                       TextColor="AntiqueWhite"
                                        Grid.Column="0">
                                 </Label>
                                 <Label Text="{Binding StartTimeFormatted }"
                                        FontSize="31"
+                                       TextColor="AntiqueWhite"
                                        Grid.Column="1">
                                 </Label>
                             </Grid>
@@ -61,11 +74,12 @@
             <Button Text="Submit"
                     Grid.Row="3"
                     FontAttributes="Bold"
+                    TextColor="AntiqueWhite"
+                    BackgroundColor="Blue"
                     VerticalOptions="Center"
                     HorizontalOptions="Start"
                     Clicked="OnSubmitButtonClicked" />
 
         </Grid>
-
-    </ContentPage.Content>
+    </AbsoluteLayout>
 </ContentPage>

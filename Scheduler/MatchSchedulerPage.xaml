@@ -16,11 +16,13 @@
             
             <Label Text="Match"
                    FontSize="31"
+                   TextColor="AntiqueWhite"
                    Grid.Column="0"
                    Grid.Row="0" />
 
             <Label Text="Estimated Time"
                    FontSize="31"
+                   TextColor="AntiqueWhite"
                    Grid.Column="1"
                    Grid.Row="0" />
 
@@ -39,10 +41,12 @@
                                   ColumnDefinitions="*, auto">
                                 <Label Text="{Binding FormattedMatch  }"
                                        FontSize="31"
+                                       TextColor="AntiqueWhite"
                                        Grid.Column="0">
                                 </Label>
                                 <Label Text="{Binding MatchTime  }"
                                        FontSize="31"
+                                       TextColor="AntiqueWhite"
                                        Grid.Column="1">
                                 </Label>
                             </Grid>

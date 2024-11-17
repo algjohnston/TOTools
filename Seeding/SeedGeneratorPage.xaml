@@ -4,19 +4,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TOTools.Seeding.SeedGeneratorPage"
              Title="Seed Generator">
-    <ContentPage.Content>
+    <AbsoluteLayout>
+        <Image Source="background.png"
+               AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+               Aspect="Fill"/>
 
         <Grid ColumnDefinitions="*"
               RowDefinitions="*, *, auto"
-              Margin="16, 0, 16, 64">
+              Margin="16, 0, 16, 64"
+              AbsoluteLayout.LayoutFlags="All"
+              AbsoluteLayout.LayoutBounds="0, 0, 1, 1">
 
             <StackLayout Grid.Row="0"
                          VerticalOptions="Center">
 
                 <Label Text="Attendee List Page"
+                       TextColor="AntiqueWhite"
+                       Margin="20, 0, 0, 0"
                        FontSize="21" />
 
                 <Entry x:Name="AttendeeLinkEntry"
+                       TextColor="AntiqueWhite"
+                       Margin="15, 0, 20, 0"
                        FontSize="21"
                        Placeholder="Enter attendee link"/>
 
@@ -25,21 +35,25 @@
             <Button Text="Manual Entry"
                     Grid.Row="1"
                     FontSize="Large"
+                    BackgroundColor="Blue"
+                    TextColor="AntiqueWhite"
                     FontAttributes="Bold"
                     HorizontalOptions="Center"
                     VerticalOptions="Start"
                     Clicked="OnManualEntryButtonClicked"/>
-            
+
             <Button Text="Submit"
                     Grid.Row="2"
                     FontSize="Large"
                     FontAttributes="Bold"
+                    BackgroundColor="Blue"
+                    TextColor="AntiqueWhite"
+                    Margin="20, 0, 0, 0"
                     HorizontalOptions="Start"
                     VerticalOptions="Center"
                     Clicked="OnSubmitButtonClicked"/>
 
         </Grid>
 
-    </ContentPage.Content>
-    
+    </AbsoluteLayout>
 </ContentPage>

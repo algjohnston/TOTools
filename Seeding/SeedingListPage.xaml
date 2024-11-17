@@ -7,26 +7,35 @@
              x:Class="TOTools.Seeding.SeedingListPage"
              x:DataType="seeding:SeedingListPage"
              Title="Seeding List">
-    <ContentPage.Content>
+    <AbsoluteLayout>
+        <Image Source="background.png"
+               AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+               Aspect="Fill"/>
+
         <ScrollView
-            Margin="16, 16, 16, 64">
+            Margin="16, 16, 16, 64"
+            AbsoluteLayout.LayoutFlags="All"
+            AbsoluteLayout.LayoutBounds="0, 0, 1, 1">
             <CollectionView
                 x:Name="SeedingListView"
                 IsGrouped="True"
                 ItemsSource="{Binding SeedingList}">
-                
+
                 <CollectionView.GroupHeaderTemplate>
                     <DataTemplate x:DataType="models:PlayerTierGroup">
-                        <Label Text="{Binding Tier  }"
+                        <Label Text="{Binding Tier}"
                                FontAttributes="Bold" 
+                               Margin="20, 0, 0, 0"
+                               TextColor="AntiqueWhite"
                                FontSize="31">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnToggleGroupClick" />
                             </Label.GestureRecognizers>
-                            </Label>
+                        </Label>
                     </DataTemplate>
                 </CollectionView.GroupHeaderTemplate>
-                
+
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:Player">
                         <Label 
@@ -37,5 +46,5 @@
 
             </CollectionView>
         </ScrollView>
-    </ContentPage.Content>
+    </AbsoluteLayout>
 </ContentPage>

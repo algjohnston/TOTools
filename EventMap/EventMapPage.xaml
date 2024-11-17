@@ -17,6 +17,8 @@
             <Button Text="View All Events"
                     Clicked="OnViewAllEventsButtonClicked"
                     Grid.Row="1"
+                    TextColor="AntiqueWhite"
+                    BackgroundColor="Blue"
                     FontSize="Large"
                     FontAttributes="Bold"
                     HorizontalOptions="Center"
