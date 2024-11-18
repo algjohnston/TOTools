@@ -4,37 +4,38 @@ using GraphQL;
 using GraphQL.Client.Http;
 using TOTools.Database;
 using TOTools.Models;
-using TOTools.StartGGAPI;
+using TOTools.Models.Startgg;
+using TOTools.StartggAPI;
 
 namespace TOTools.Scheduler;
 
 /// <summary>
 /// Business logic for the scheduler
 /// </summary>
-public class SchedulerBusinessLogic
+public class SchedulerBusinessLogic(
+    GraphQLHttpClient client,
+    MatchTable matchTable // has all matches played previously by any players in any game, used to estimate time
+)
 {
-    // this has all matches played previously by any players in any game, used to estimate time
-    private readonly ITable<PastMatch, long, Match> _table = new MatchTable();
+    public ObservableCollection<EventLink> EventLinks { get; } = [];
 
-    private readonly GraphQLHttpClient startGGClient;
-
-    public SchedulerBusinessLogic(GraphQLHttpClient client)
-    {
-        startGGClient = client;
-    }
-
-    private ObservableCollection<PastMatch> PastMatches => _table.SelectAll();
+    private ObservableCollection<PastMatch> PastMatches => matchTable.SelectAll();
 
     // This gets filled with matches from startgg that need to be played
     public ObservableCollection<Match> FutureMatches { get; } = [];
 
 
-    public long EstimateMatchLength(string player1, string player2)
+    public void AddEvent(EventLink eventLink)
+    {
+        EventLinks.Add(eventLink);
+    }
+
+    private long EstimateMatchLength(string player1, string player2)
     {
         long totalTime = 0;
-        int numMatches = 0;
+        var numMatches = 0;
 
-        foreach (PastMatch pastMatch in PastMatches)
+        foreach (var pastMatch in PastMatches)
         {
             if (ArePlayersEqual(player1, player2, pastMatch)
                 // && AreMatchesComparable(player1, pastMatch, pastMatch)
@@ -52,8 +53,8 @@ public class SchedulerBusinessLogic
     private long GetAverageMatchLength()
     {
         long totalTime = 0;
-        int numMatches = 0;
-        foreach (PastMatch pastMatch in PastMatches)
+        var numMatches = 0;
+        foreach (var pastMatch in PastMatches)
         {
             // if (AreMatchesComparable(match, pastMatch))
             // {
@@ -75,7 +76,7 @@ public class SchedulerBusinessLogic
     }
 
 
-    private bool ArePlayersEqual(string player1, string player2, Match match2)
+    private static bool ArePlayersEqual(string player1, string player2, Match match2)
     {
         return (player1 == match2.Player1 && player2 == match2.Player2) ||
                (match2.Player1 == match2.Player2 && player2 == player1);
@@ -86,37 +87,37 @@ public class SchedulerBusinessLogic
     {
         var currentPage = 1;
         var responses = new List<GraphQLResponse<EventResponseType>>();
-        var graphQLResponse = await startGGClient.SendQueryAsync<EventResponseType>(
+        var graphQLResponse = await client.SendQueryAsync<EventResponseType>(
             StartGGQueries.CreateEventSetsQuery(url, currentPage));
         responses.Add(graphQLResponse);
         while (currentPage < graphQLResponse.Data.Event.Sets.PageInfo.TotalPages)
         {
             currentPage++;
-            graphQLResponse = await startGGClient.SendQueryAsync<EventResponseType>(
+            graphQLResponse = await client.SendQueryAsync<EventResponseType>(
                 StartGGQueries.CreateEventSetsQuery(url, currentPage));
             responses.Add(graphQLResponse);
         }
-        
-        Dictionary<int, List<SetType>> phaseGroupLists = [];
+
+        Dictionary<int, List<SetType>> phaseGroupSetLists = [];
         Dictionary<int, PhaseGroupType> phaseGroupTypes = [];
 
         foreach (var qlResponse in responses)
         {
             var eventType = qlResponse.Data.Event;
-            var nodes = eventType.Sets.Nodes;
+            var setTypes = eventType.Sets.Nodes;
 
-            foreach (var node in nodes)
+            foreach (var setType in setTypes)
             {
-                var phaseGroup = node.PhaseGroup;
+                var phaseGroup = setType.PhaseGroup;
                 var phaseOrder = phaseGroup.Phase.PhaseOrder;
-                if (!phaseGroupLists.TryGetValue(phaseOrder, out List<SetType>? value))
+                if (!phaseGroupSetLists.TryGetValue(phaseOrder, out var value))
                 {
                     value = [];
-                    phaseGroupLists.Add(phaseOrder, value);
+                    phaseGroupSetLists.Add(phaseOrder, value);
                     phaseGroupTypes.Add(phaseOrder, phaseGroup);
                 }
 
-                value.Add(node);
+                value.Add(setType);
             }
         }
 
@@ -125,57 +126,50 @@ public class SchedulerBusinessLogic
             .Select(pg =>
                 new PhaseGroup(
                     pg.Value,
-                    phaseGroupLists[pg.Key]
-                        .OrderBy(set => set.Round)
+                    phaseGroupSetLists[pg.Key]
+                        .OrderBy(set => set.PhaseGroup.DisplayIdentifier)
+                        .ThenBy(set => set.Round)
                         .ThenBy(set => set.Identifier)
                         .ToList()
                 ))
             .ToList();
-        
+
         return phaseGroups;
     }
 
     private List<Match> GenerateMatchSchedule(List<PhaseGroup> phaseGroups)
     {
+        var bracket = new Bracket(phaseGroups);
+        
         List<Match> futureMatches = [];
 
-        var matchParticipants = new Dictionary<SetType, long>();
-        foreach (var phaseGroup in phaseGroups)
-        {
-            foreach (var set in phaseGroup.Sets)
-            {
-                if (set.Slots.Count == 2)
-                {
-                    matchParticipants.Add(set, EstimateMatchLength(set.Slots[0].Entrant.Name, set.Slots[1].Entrant.Name));
-                }
-            }
-        }
+        var matchParticipants = phaseGroups.SelectMany(
+            phaseGroup => phaseGroup.Sets.Where(
+                set => set.Slots.Count == 2)
+        ).ToDictionary(set => set, set => EstimateMatchLength(set.Slots[0].Entrant.Name, set.Slots[1].Entrant.Name));
 
         var sortedMatchParticipants = matchParticipants
             .OrderByDescending(kv => kv.Value)
             .ToList();
 
-        foreach (var kvp in sortedMatchParticipants)
-        {
-            // TODO bo3 or 5, and game
-            futureMatches.Add(
-                new Match(
+        // TODO get game and isBestOfFive
+        futureMatches.AddRange(
+            sortedMatchParticipants
+                .Select(kvp => new Match(
                     kvp.Key.Slots[0].Entrant.Name,
                     kvp.Key.Slots[1].Entrant.Name,
                     kvp.Value,
                     Game.Unknown,
-                    true)
-            );
-        }
+                    true)));
 
         return futureMatches;
     }
 
-    public async void LoadPotentialSchedule(IList<EventLink> events)
+    public async Task LoadPotentialSchedule()
     {
-        foreach (var event_ in events.OrderBy(e => e.StartTime))
+        foreach (var eventLink in EventLinks.OrderBy(e => e.StartTime))
         {
-            var phaseGroups = await LoadPotentialMatchList(event_.Link);
+            var phaseGroups = await LoadPotentialMatchList(eventLink.Link);
             var matches = GenerateMatchSchedule(phaseGroups);
             foreach (var match in matches)
             {
@@ -183,4 +177,5 @@ public class SchedulerBusinessLogic
             }
         }
     }
+    
 }

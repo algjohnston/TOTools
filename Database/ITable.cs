@@ -8,7 +8,8 @@ namespace TOTools.Database;
 /// </summary>
 /// <typeparam name="T">The type to be stored in this database.</typeparam>
 /// <typeparam name="TIdType">The type of the id column.</typeparam>
-public interface ITable<T, TIdType, TInsertType>
+/// <typeparam name="TInsertType">The type that is inserted into the database</typeparam>
+public interface ITable<T, in TIdType, in TInsertType>
 {
     /// <summary>
     /// Deletes the record from this database with the given id.

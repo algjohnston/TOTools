@@ -73,14 +73,17 @@ public static class DatabaseUtil
             $"SELECT 1 FROM pg_database WHERE datname = '{databaseName}'",
             postgresDatabaseConnection
         );
-        if (command.ExecuteScalar() == null)
+
+        var databaseExists = command.ExecuteScalar() != null;
+        if (databaseExists)
         {
-            using var createCommand = new NpgsqlCommand(
-                $"CREATE DATABASE \"{databaseName}\"",
-                postgresDatabaseConnection
-            );
-            createCommand.ExecuteNonQuery();
+            return;
         }
+        using var createCommand = new NpgsqlCommand(
+            $"CREATE DATABASE \"{databaseName}\"",
+            postgresDatabaseConnection
+        );
+        createCommand.ExecuteNonQuery();
     }
 
 }

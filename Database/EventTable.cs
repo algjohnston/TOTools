@@ -27,7 +27,7 @@ public class EventTable : ITable<Event, long, Event>
     private const int LatitudeColumnNumber = 5; 
     private const int LongitudeColumnNumber = 6; 
 
-    private readonly ObservableCollection<Event> events = [];
+    private readonly ObservableCollection<Event> _events = [];
 
     public EventTable()
     {
@@ -110,7 +110,7 @@ public class EventTable : ITable<Event, long, Event>
 
     public Event? Select(long id)
     {
-        return events.SingleOrDefault(
+        return _events.SingleOrDefault(
             x => x?.EventId.Equals(id) ?? false,
             null
         );
@@ -118,7 +118,7 @@ public class EventTable : ITable<Event, long, Event>
 
     public ObservableCollection<Event> SelectAll()
     {
-        events.Clear();
+        _events.Clear();
         using var command = new NpgsqlCommand(
             $"SELECT {IdColumn}, {NameColumn}, {LocationColumn}, {StartDateTimeColumn}, {EndDateTimeColumn}, {LatitudeColumn}, {LongitudeColumn}  FROM {TableName}",
             DatabaseUtil.GetDatabaseConnection()
@@ -134,9 +134,10 @@ public class EventTable : ITable<Event, long, Event>
             var latitude = reader.GetDouble(LatitudeColumnNumber);
             var longitude = reader.GetDouble(LongitudeColumnNumber);
             Event eventToAdd = new(id, name, location, startDateTime, endDateTime, latitude, longitude);
-            events.Add(eventToAdd);
+            _events.Add(eventToAdd);
         }
 
-        return events;
+        return _events;
     }
+    
 }

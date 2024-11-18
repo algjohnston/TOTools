@@ -4,7 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:TOTools.Models"
              xmlns:scheduler="clr-namespace:TOTools.Scheduler"
-             x:DataType="scheduler:SchedulerEventPage"
+             x:DataType="scheduler:SchedulerBusinessLogic"
              x:Class="TOTools.Scheduler.SchedulerEventPage"
              Title="Event Scheduler">
 
@@ -39,8 +39,8 @@
                 Grid.Row="1"
                 Grid.ColumnSpan="3">
                 <CollectionView
-                    x:Name="MatchList"
-                    ItemsSource="{Binding Events}"
+                    x:Name="EventLinkList"
+                    ItemsSource="{Binding EventLinks}"
                     SelectionMode="Single">
 
                     <CollectionView.ItemTemplate>
@@ -72,6 +72,7 @@
                          Clicked="OnAddLinkButtonClicked"/>
 
             <Button Text="Submit"
+                    FontSize="Large"
                     Grid.Row="3"
                     FontAttributes="Bold"
                     TextColor="AntiqueWhite"

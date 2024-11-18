@@ -5,6 +5,9 @@ using TOTools.ThumbGen;
 
 namespace TOTools.AppEntry;
 
+/// <summary>
+/// The home page of the app.
+/// </summary>
 public partial class HomePage : ContentPage {
 
     public HomePage () {

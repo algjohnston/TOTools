@@ -13,13 +13,13 @@ public class PlayerTierGroup(
 {
     public string Tier { get; } = tier;
 
-    public bool Expanded { get; private set; } = true;
+    private bool Expanded { get; set; } = true;
 
     public void ToggleExpanded()
     {
         if (!Expanded)
         {
-                AddRange(players);
+                AddRange(this);
         }
         else
         {

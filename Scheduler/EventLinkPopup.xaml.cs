@@ -60,12 +60,15 @@ public partial class EventLinkPopup : ContentPage
         }
 
         var currentTime = DateTime.Now - DateTime.Today;
-        var startTime = StartTimeEntry.Time;
+        TimeSpan startTime = StartTimeEntry.Time;
+        
+#pragma warning disable CS8073 // The result of the expression is always the same since a value of this type is never equal to 'null'
         if (startTime == null)
         {
             DisplayAlert("Invalid start time", "Please enter a valid start time", "OK");
             return null;
         }
+#pragma warning restore CS8073 // The result of the expression is always the same since a value of this type is never equal to 'null'
 
         if (startTime < currentTime)
         {
@@ -74,22 +77,27 @@ public partial class EventLinkPopup : ContentPage
         }
 
         var numberOfConcurrentMatchesText = ConcurrentMatchesEntry.Text;
+        
+#pragma warning disable CS8073 // The result of the expression is always the same since a value of this type is never equal to 'null'
         if (numberOfConcurrentMatchesText == null)
         {
             DisplayAlert("Error", "Please enter the concurrent matches", "OK");
             return null;
         }
-        int.TryParse(numberOfConcurrentMatchesText, out var numberOfConcurrentMatches);
-        if (numberOfConcurrentMatches < 1)
+#pragma warning restore CS8073 // The result of the expression is always the same since a value of this type is never equal to 'null'
+        
+        var parseSucceeded = int.TryParse(numberOfConcurrentMatchesText, out var numberOfConcurrentMatches);
+        if (parseSucceeded && numberOfConcurrentMatches >= 1)
         {
-            DisplayAlert("Error", "Please enter a valid number of concurrent matches", "OK");
-            return null;
+            return new EventLink(
+                ExtractTournamentPath(link),
+                DateTime.Today.Add(startTime),
+                numberOfConcurrentMatches);
         }
 
-        return new EventLink(
-            ExtractTournamentPath(link),
-            DateTime.Today.Add(startTime),
-            numberOfConcurrentMatches);
+        DisplayAlert("Error", "Please enter a valid number of concurrent matches", "OK");
+        return null;
+
     }
 
     private static string ExtractTournamentPath(string link)
@@ -121,4 +129,5 @@ public partial class EventLinkPopup : ContentPage
     {
         Navigation.PopAsync();
     }
+    
 }

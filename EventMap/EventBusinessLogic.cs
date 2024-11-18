@@ -8,9 +8,8 @@ namespace TOTools.EventMap;
 /// Alexander Johnston
 /// The business logic for the scheduler.
 /// </summary>
-public class EventBusinessLogic
+public class EventBusinessLogic(EventTable eventTable)
 {
-    private readonly ITable<Event, long, Event> _table = new EventTable();
-    public ObservableCollection<Event> Events => _table.SelectAll();
+    public ObservableCollection<Event> Events => eventTable.SelectAll();
     
 }

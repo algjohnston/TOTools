@@ -40,6 +40,7 @@ public class TierConverter
             Tier.D => "D",
             Tier.E => "E",
             Tier.F => "F",
+            _ => throw new ArgumentOutOfRangeException(nameof(tier), tier, null)
         };
     }
 }

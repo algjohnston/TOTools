@@ -1,46 +1,42 @@
-using TOTools.StartGGAPI;
+using TOTools.StartggAPI;
 
 namespace TOTools.Models.Startgg;
 
 public class Set
-{ 
-    private SetType setType;
-    public String? nextTopId; 
-    public String? nextBottomId;
+{
+    private readonly SetType _setType;
+    public Set? NextSet { get; set; }
+
     public Set(SetType setType)
     {
-        this.setType = setType;
-        nextTopId = null;
-        nextBottomId = null;
+        _setType = setType;
+        NextSet = null;
     }
 
-    public Set(SetType setType, String nextWinner, String nextLoser)
+    public Set(SetType setType, Set nextWinner)
     {
-        this.setType = setType;
-        this.nextTopId = nextWinner;
-        this.nextBottomId = nextLoser;
+        _setType = setType;
+        NextSet = nextWinner;
     }
 
-    public String GetPrevTopId()
+    public string GetPrevTopId()
     {
-        return setType.Slots.First().PrereqId;
+        return _setType.Slots.First().PrereqId;
     }
 
-    public String GetPrevBottomId()
+    public string GetPrevBottomId()
     {
-        return setType.Slots.Last().PrereqId;
+        return _setType.Slots.Last().PrereqId;
     }
 
-    public String GetId()
+    public string GetId()
     {
-        return setType.Id;
+        return _setType.Id;
     }
 
     public int GetRound()
     {
-        return setType.Round;
+        return _setType.Round;
     }
-    public SetType GetPrevTopSetType() => setType;
-    public SetType GetPrevBottomSetType() => setType;
     
 }

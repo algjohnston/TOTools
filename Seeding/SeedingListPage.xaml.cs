@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using TOTools.Models;
-using Region = TOTools.Models.Region;
 
 namespace TOTools.Seeding;
 
@@ -10,25 +9,48 @@ namespace TOTools.Seeding;
 /// and each group can be expanded or collapsed.
 /// </summary>
 public partial class SeedingListPage : ContentPage
-{ 
+{
+    private SeedingBusinessLogic? _seedingBusinessLogic;
+    
     public ObservableCollection<PlayerTierGroup> SeedingList { get; } = [];
 
     public SeedingListPage()
     {
         InitializeComponent();
         BindingContext = this;
+        HandlerChanged += OnHandlerChanged;
+    }
+
+    private void OnHandlerChanged(object? sender, EventArgs e)
+    {
+        _seedingBusinessLogic ??= Handler?.MauiContext?.Services
+            .GetService<SeedingBusinessLogic>();
+        
         PopulateTiers();
     }
 
-    public void PopulateTiers()
+    private void PopulateTiers()
     {
-        var playerTable = PlayerTable.GetPlayerTable();
         var tierConverter = new TierConverter();
-        var players = playerTable.SelectAll();
+        var players = _seedingBusinessLogic?.GetAllPlayers();
+        if (players == null)
+        {
+            return;
+        }
+
+        var groupedPlayers = players
+            .GroupBy(p => p.PlayerTier)
+            .ToDictionary(p => p.Key, p => p.ToList());
+        
         foreach (Tier tier in Enum.GetValues(typeof(Tier)))
         {
-            var currentTierGroup = new PlayerTierGroup("Tier " + tierConverter.ToString(tier),
-                players.Where(p => p.PlayerTier == tier));
+            var tierString = "Tier " + tierConverter.ToString(tier);
+            if (!groupedPlayers.TryGetValue(tier, out var playerGroup))
+            {
+                SeedingList.Add(new PlayerTierGroup(tierString, []));
+                continue;
+            }
+            var currentTierGroup = new PlayerTierGroup(tierString, playerGroup);
             currentTierGroup.Sort();
             SeedingList.Add(currentTierGroup);
         }
@@ -46,7 +68,7 @@ public partial class SeedingListPage : ContentPage
     {
         if (sender is not Label { BindingContext: PlayerTierGroup playerGroup }) return;
         playerGroup.ToggleExpanded();
-        
+
         // Needed to get the list to refresh
         // since the ObservableCollection does not listen for changes in elements
         // (even PropertyChanged events sent by the elements do not trigger a change

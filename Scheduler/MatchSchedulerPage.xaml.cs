@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using GraphQL.Client.Http;
 using TOTools.Models;
-using TOTools.StartGGAPI;
 
 namespace TOTools.Scheduler;
 
@@ -11,31 +10,19 @@ namespace TOTools.Scheduler;
 /// </summary>
 public partial class MatchSchedulerPage : ContentPage
 {
-
     private SchedulerBusinessLogic? _schedulerBusinessLogic;
-
-    // TODO This is a quick hack due to time constraints
-    private ObservableCollection<EventLink> _events;
-
-    public MatchSchedulerPage(ObservableCollection<EventLink> events)
+    
+    public MatchSchedulerPage()
     {
-        _events = events;
+        InitializeComponent();
         HandlerChanged += OnHandlerChanged;
     }
 
-    void OnHandlerChanged(object? sender, EventArgs e)
+    private void OnHandlerChanged(object? sender, EventArgs e)
     {
-        var client = Handler?.MauiContext?.Services.GetService<GraphQLHttpClient>();
-        if (client == null)
-        {
-            DisplayAlert("Error", "There was an error trying to connect to start.gg", "OK");
-            return;
-        }
-
-        _schedulerBusinessLogic = new SchedulerBusinessLogic(client);
-        _schedulerBusinessLogic.LoadPotentialSchedule(_events);
-        
-        InitializeComponent();
+        _schedulerBusinessLogic ??= Handler?.MauiContext?.Services
+            .GetService<SchedulerBusinessLogic>();
+        _schedulerBusinessLogic?.LoadPotentialSchedule();
         MatchList.BindingContext = _schedulerBusinessLogic;
     }
     

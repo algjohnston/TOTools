@@ -1,4 +1,4 @@
-﻿using TOTools.StartGGAPI;
+﻿using TOTools.StartggAPI;
 
 namespace TOTools.Models;
 

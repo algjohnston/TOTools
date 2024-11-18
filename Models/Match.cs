@@ -32,8 +32,8 @@ public class Match(string player1, string player2, long timeInSeconds, Game game
     {
         get
         {
-            var minutes = timeInSeconds / 60;
-            var seconds = timeInSeconds % 60;
+            var minutes = TimeInSeconds / 60;
+            var seconds = TimeInSeconds % 60;
             return $"{minutes}:{seconds:00}";
         }
     }

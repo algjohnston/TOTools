@@ -1,37 +1,41 @@
-
-using TOTools.StartGGAPI;
-
 namespace TOTools.Models.Startgg;
 
 public class Bracket
 {
-    Dictionary<String, Set> sets = new();
+    private readonly Dictionary<string, Set> _sets = new();
 
     public Bracket(List<PhaseGroup> phaseGroups)
     {
         //creates the grand finals set
-        Set grandFinals = new Set(phaseGroups.Last().Sets.Last());
+        var grandFinals = new Set(phaseGroups.Last().Sets.Last());
 
-        foreach (PhaseGroup pg in phaseGroups)
+        foreach (var currentSet in phaseGroups.SelectMany(phaseGroup =>
+                     phaseGroup.Sets.Select(setType => new Set(setType))))
         {
-            foreach (SetType setType in pg.Sets)
-            {
-                Set curSet = new Set(setType);
-                sets.Add(curSet.GetId(), curSet);
-            }
+            _sets.Add(currentSet.GetId(), currentSet);
         }
 
-        // AddNextSets(grandFinals);
+        AddNextSets(grandFinals);
     }
 
     private void AddNextSets(Set set)
     {
-        if (set.GetPrevTopId() == null || set.GetPrevBottomId() == null) return;
-        Set topSet = sets[set.GetPrevTopId()];
-        Set bottomSet = sets[set.GetPrevBottomId()];
-        topSet.nextTopId = set.GetPrevTopId();
-        topSet.nextBottomId = set.GetPrevBottomId();
-        AddNextSets(topSet);
+        var haveNextTop = _sets.ContainsKey(set.GetPrevTopId());
+        var haveNextBottom = _sets.ContainsKey(set.GetPrevBottomId());
+        if (haveNextTop)
+        {
+            var topSet = _sets[set.GetPrevTopId()];
+            topSet.NextSet = set;
+            AddNextSets(topSet);
+        }
+
+        if (!haveNextBottom)
+        {
+            return;
+        }
+        var bottomSet = _sets[set.GetPrevBottomId()];
+        bottomSet.NextSet = set;
         AddNextSets(bottomSet);
     }
+    
 }

@@ -26,7 +26,7 @@ public class MatchTable : ITable<PastMatch, long, Match>
     private const int GameNameColumnNumber = 4;
     private const int IsBestOfFiveColumnNumber = 5;
 
-    private readonly ObservableCollection<PastMatch> matches = [];
+    private readonly ObservableCollection<PastMatch> _matches = [];
 
     public MatchTable()
     {
@@ -107,7 +107,7 @@ public class MatchTable : ITable<PastMatch, long, Match>
 
     public PastMatch? Select(long id)
     {
-        return matches.SingleOrDefault(
+        return _matches.SingleOrDefault(
             x => x?.MatchId.Equals(id) ?? false,
             null
         );
@@ -115,7 +115,7 @@ public class MatchTable : ITable<PastMatch, long, Match>
 
     public ObservableCollection<PastMatch> SelectAll()
     {
-        matches.Clear();
+        _matches.Clear();
         using var connection = DatabaseUtil.GetDatabaseConnection();
         using var command = new NpgsqlCommand(
             $"SELECT {MatchIdColumn}, {Player1IdColumn}, {Player2IdColumn}, {MatchTimeColumn}, {GameNameColumn}, {IsBestOfFiveColumn} FROM {MatchTableName}",
@@ -131,9 +131,9 @@ public class MatchTable : ITable<PastMatch, long, Match>
             var gameName = reader.GetInt16(GameNameColumnNumber);
             var isBestOfFive = reader.GetBoolean(IsBestOfFiveColumnNumber);
             PastMatch matchToAdd = new(matchId, player1Id, player2Id, matchTime, GameHelper.ConvertToGame(gameName), isBestOfFive);
-            matches.Add(matchToAdd);
+            _matches.Add(matchToAdd);
         }
 
-        return matches;
+        return _matches;
     }
 }

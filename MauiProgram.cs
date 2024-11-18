@@ -2,6 +2,10 @@
 using GraphQL.Client.Serializer.Newtonsoft;
 using Microsoft.Extensions.Logging;
 using SkiaSharp.Views.Maui.Controls.Hosting;
+using TOTools.Database;
+using TOTools.EventMap;
+using TOTools.Scheduler;
+using TOTools.Seeding;
 
 namespace TOTools;
 
@@ -17,8 +21,18 @@ public static class MauiProgram
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-            });
+            })
+            .RegisterGraphQLClient()
+            .RegisterDatabases()
+            .RegisterBusinessLogic();
+#if DEBUG
+        builder.Logging.AddDebug();
+#endif
+        return builder.Build();
+    }
 
+    private static MauiAppBuilder RegisterGraphQLClient(this MauiAppBuilder builder)
+    {
         // For interacting with start.gg
         var client = new HttpClient();
         client.DefaultRequestHeaders.Add(
@@ -31,11 +45,25 @@ public static class MauiProgram
 
         builder.Services
             .AddSingleton(graphQLClient);
-
-#if DEBUG
-        builder.Logging.AddDebug();
-#endif
-
-        return builder.Build();
+        return builder;
     }
+
+    private static MauiAppBuilder RegisterDatabases(this MauiAppBuilder builder)
+    {
+        builder.Services
+            .AddSingleton<PlayerTable>()
+            .AddSingleton<MatchTable>()
+            .AddSingleton<EventTable>();
+        return builder;
+    }
+    
+    private static MauiAppBuilder RegisterBusinessLogic(this MauiAppBuilder builder)
+    {
+        builder.Services
+            .AddSingleton<EventBusinessLogic>()
+            .AddSingleton<SchedulerBusinessLogic>()
+            .AddSingleton<SeedingBusinessLogic>();
+        return builder;
+    }
+    
 }

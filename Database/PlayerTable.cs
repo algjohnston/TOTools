@@ -1,9 +1,8 @@
 using System.Collections.ObjectModel;
 using Npgsql;
-using TOTools.Database;
 using TOTools.Models;
 
-namespace TOTools.Seeding;
+namespace TOTools.Database;
 
 /// <summary>
 /// Caden Rohan
@@ -24,9 +23,9 @@ public class PlayerTable : ITable<Player, string, Player>
     private const int PlayerTierColumnNumber = 3;
     private const int PlayerRankingColumnNumber = 4; // needs a better name
 
-    private readonly ObservableCollection<Player> players = [];
+    private readonly ObservableCollection<Player> _players = [];
 
-    private PlayerTable()
+    public PlayerTable()
     {
         const string createTableStatement =
             "CREATE TABLE " +
@@ -102,7 +101,7 @@ public class PlayerTable : ITable<Player, string, Player>
 
     public Player? Select(string id)
     {
-        return players.SingleOrDefault(
+        return _players.SingleOrDefault(
             x => x?.StarttggId.Equals(id) ?? false,
             null
         );
@@ -110,7 +109,7 @@ public class PlayerTable : ITable<Player, string, Player>
 
     public ObservableCollection<Player> SelectAll()
     {
-        players.Clear();
+        _players.Clear();
         using var connection = DatabaseUtil.GetDatabaseConnection();
         using var command = new NpgsqlCommand(
             $"SELECT {StartggIdColumn}, {PlayerTagColumn}, {PlayerRegionColumn}, {PlayerTierColumn}, {PlayerRankingColumn} FROM {PlayerTableName}",
@@ -131,17 +130,10 @@ public class PlayerTable : ITable<Player, string, Player>
                 TierHelper.ConvertToTier(tier),
                 ranking
             );
-            players.Add(playerToAdd);
+            _players.Add(playerToAdd);
         }
 
-        return players;
-    }
-
-    private static PlayerTable _playerTable = new PlayerTable();
-    
-    public static PlayerTable GetPlayerTable()
-    {
-        return _playerTable;
+        return _players;
     }
     
 }

@@ -15,14 +15,23 @@ namespace TOTools.EventMap;
  */
 public partial class EventMapPage : ContentPage
 {
-    private readonly EventBusinessLogic EventBusinessLogic = new();
 
+    private EventBusinessLogic? _eventBusinessLogic;
+    
     public EventMapPage()
     {
         InitializeComponent();
-        SetUpMap();
+        HandlerChanged += OnHandlerChanged;
     }
 
+    private void OnHandlerChanged(object? sender, EventArgs e)
+    {
+        _eventBusinessLogic ??= Handler?.MauiContext?.Services
+            .GetService<EventBusinessLogic>();
+        BindingContext = _eventBusinessLogic;
+        SetUpMap();
+    }
+    
     private void SetUpMap()
     {
         // TODO sometimes does not load 
@@ -60,19 +69,17 @@ public partial class EventMapPage : ContentPage
         };
         map.Layers.Add(layer);
 
-        map.Info += (_, e) =>
+        map.Info += (_, _) =>
         {
-            EventBusinessLogic.Events.CollectionChanged += (_, _) =>
+            _eventBusinessLogic!.Events.CollectionChanged += (_, _) =>
             {
-                if (e.MapInfo?.WorldPosition == null) return;
-
                 // TODO drop pin on location
                 // Currently does not work
-                layer?.Features.Clear(); 
-                foreach (var eventItem in EventBusinessLogic.Events)
+                layer.Features.Clear(); 
+                foreach (var eventItem in _eventBusinessLogic!.Events)
                 {
                     var mercatorPoint = SphericalMercator.FromLonLat(eventItem.Longitude, eventItem.Latitude).ToMPoint();
-                    layer?.Features.Add(
+                    layer.Features.Add(
                         new GeometryFeature
                         {
                             Geometry = new NetTopologySuite.Geometries.Point(
@@ -81,38 +88,43 @@ public partial class EventMapPage : ContentPage
                             )
                         }
                     );
-                    layer?.DataHasChanged();
+                    layer.DataHasChanged();
                 }
             };
         };
     }
 
-    protected override async void OnAppearing()
+    protected override void OnAppearing()
     {
         base.OnAppearing();
-        await CheckAndRequestLocationPermission();
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+        CheckAndRequestLocationPermission();
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
     }
 
-    private async Task<PermissionStatus> CheckAndRequestLocationPermission()
+    private async Task CheckAndRequestLocationPermission()
     {
-        PermissionStatus status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
-
-        if (status == PermissionStatus.Granted)
+        var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+        switch (status)
         {
-            return status;
-        }
-
-        if (status == PermissionStatus.Denied)
-        {
-            await DisplayAlert(
-                "Permission Needed",
-                "You need to enable location to see nearby events." +
-                "Your location data will not be stored or transmitted in any way.",
-                "OK"
-            );
-            status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
-
-            return status;
+            case PermissionStatus.Granted:
+                return;
+            case PermissionStatus.Denied:
+                await DisplayAlert(
+                    "Permission Needed",
+                    "You need to enable location to see nearby events." +
+                    "Your location data will not be stored or transmitted in any way.",
+                    "OK"
+                );
+                await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
+                return;
+            case PermissionStatus.Unknown:
+            case PermissionStatus.Disabled:
+            case PermissionStatus.Restricted:
+            case PermissionStatus.Limited:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
 
         if (Permissions.ShouldShowRationale<Permissions.LocationWhenInUse>())
@@ -125,11 +137,12 @@ public partial class EventMapPage : ContentPage
             );
         }
 
-        return await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
+        await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
     }
 
     private void OnViewAllEventsButtonClicked(object? sender, EventArgs e)
     {
-        Navigation.PushAsync(new EventListPage(EventBusinessLogic));
+        Navigation.PushAsync(new EventListPage());
     }
+    
 }

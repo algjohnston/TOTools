@@ -1,6 +1,6 @@
 ﻿using GraphQL;
 
-namespace TOTools.StartGGAPI;
+namespace TOTools.StartggAPI;
 
 class StartGGQueries
 {
@@ -70,6 +70,7 @@ class StartGGQueries
                                         prereqId
                                     }
                                     phaseGroup{
+                                        displayIdentifier
                                         phase {
                                             id
                                             bracketType

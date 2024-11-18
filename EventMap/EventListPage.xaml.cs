@@ -7,9 +7,19 @@
 public partial class EventListPage : ContentPage
 {
     
-    public EventListPage(EventBusinessLogic eventBusinessLogic)
+    private EventBusinessLogic? _eventBusinessLogic;
+    
+    public EventListPage()
     {
         InitializeComponent();
-        BindingContext = eventBusinessLogic;
+        HandlerChanged += OnHandlerChanged;
     }
+
+    private void OnHandlerChanged(object? sender, EventArgs e)
+    {
+        _eventBusinessLogic ??= Handler?.MauiContext?.Services
+            .GetService<EventBusinessLogic>();
+        BindingContext = _eventBusinessLogic;
+    }
+    
 }

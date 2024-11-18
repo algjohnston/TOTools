@@ -1,5 +1,8 @@
 ﻿namespace TOTools.AppEntry;
 
+/// <summary>
+/// The login page of the app
+/// </summary>
 public partial class LogInPage : ContentPage
 {
 	public LogInPage()
