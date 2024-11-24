@@ -1,11 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using CS341Project.Models;
-using GraphQL;
-using GraphQL.Client.Http;
 using TOTools.Database;
 using TOTools.Models;
 using TOTools.Models.Startgg;
-using TOTools.StartggAPI;
+using TOTools.Seeding;
 
 namespace TOTools.Scheduler;
 
@@ -13,17 +11,38 @@ namespace TOTools.Scheduler;
 /// Business logic for the scheduler
 /// </summary>
 public class SchedulerBusinessLogic(
-    GraphQLHttpClient client,
-    MatchTable matchTable // has all matches played previously by any players in any game, used to estimate time
-)
+    SeedingBusinessLogic seedingBusinessLogic,
+    MatchTable matchTable)
 {
-    public ObservableCollection<EventLink> EventLinks { get; } = [];
+    public ObservableCollection<EventLink> EventLinks { get; } =
+    [
+        // For testing
+        new(
+            "tournament/between-2-lakes-67-a-madison-super-smash-bros-tournament/event/ultimate-singles",
+            DateTime.Now,
+            3)
+    ];
 
-    private ObservableCollection<PastMatch> PastMatches => matchTable.SelectAll();
+    private ObservableCollection<PastMatch> PastMatches { get; } = [];
 
     // This gets filled with matches from startgg that need to be played
     public ObservableCollection<Match> FutureMatches { get; } = [];
+    
+    // has all matches played previously by any players in any game, used to estimate time
 
+    private readonly TaskCompletionSource<bool> _loadCompletionSource = new();
+    public Task LoadTask => _loadCompletionSource.Task;
+    
+    public void LoadPastMatches()
+    {
+        var matches = matchTable.SelectAll();
+        PastMatches.Clear();
+        foreach (var match in matches)
+        {
+            PastMatches.Add(match);
+        }
+        _loadCompletionSource.TrySetResult(true);
+    }
 
     public void AddEvent(EventLink eventLink)
     {
@@ -82,67 +101,8 @@ public class SchedulerBusinessLogic(
                (match2.Player1 == match2.Player2 && player2 == player1);
     }
 
-
-    private async Task<List<PhaseGroup>> LoadPotentialMatchList(string url)
+    private void GenerateMatchSchedule(List<PhaseGroup> phaseGroups)
     {
-        var currentPage = 1;
-        var responses = new List<GraphQLResponse<EventResponseType>>();
-        var graphQLResponse = await client.SendQueryAsync<EventResponseType>(
-            StartGGQueries.CreateEventSetsQuery(url, currentPage));
-        responses.Add(graphQLResponse);
-        while (currentPage < graphQLResponse.Data.Event.Sets.PageInfo.TotalPages)
-        {
-            currentPage++;
-            graphQLResponse = await client.SendQueryAsync<EventResponseType>(
-                StartGGQueries.CreateEventSetsQuery(url, currentPage));
-            responses.Add(graphQLResponse);
-        }
-
-        Dictionary<int, List<SetType>> phaseGroupSetLists = [];
-        Dictionary<int, PhaseGroupType> phaseGroupTypes = [];
-
-        foreach (var qlResponse in responses)
-        {
-            var eventType = qlResponse.Data.Event;
-            var setTypes = eventType.Sets.Nodes;
-
-            foreach (var setType in setTypes)
-            {
-                var phaseGroup = setType.PhaseGroup;
-                var phaseOrder = phaseGroup.Phase.PhaseOrder;
-                if (!phaseGroupSetLists.TryGetValue(phaseOrder, out var value))
-                {
-                    value = [];
-                    phaseGroupSetLists.Add(phaseOrder, value);
-                    phaseGroupTypes.Add(phaseOrder, phaseGroup);
-                }
-
-                value.Add(setType);
-            }
-        }
-
-        var phaseGroups = phaseGroupTypes
-            .OrderBy(pg => pg.Key)
-            .Select(pg =>
-                new PhaseGroup(
-                    pg.Value,
-                    phaseGroupSetLists[pg.Key]
-                        .OrderBy(set => set.PhaseGroup.DisplayIdentifier)
-                        .ThenBy(set => set.Round)
-                        .ThenBy(set => set.Identifier)
-                        .ToList()
-                ))
-            .ToList();
-
-        return phaseGroups;
-    }
-
-    private List<Match> GenerateMatchSchedule(List<PhaseGroup> phaseGroups)
-    {
-        var bracket = new Bracket(phaseGroups);
-        
-        List<Match> futureMatches = [];
-
         var matchParticipants = phaseGroups.SelectMany(
             phaseGroup => phaseGroup.Sets.Where(
                 set => set.Slots.Count == 2)
@@ -153,29 +113,28 @@ public class SchedulerBusinessLogic(
             .ToList();
 
         // TODO get game and isBestOfFive
-        futureMatches.AddRange(
-            sortedMatchParticipants
-                .Select(kvp => new Match(
-                    kvp.Key.Slots[0].Entrant.Name,
-                    kvp.Key.Slots[1].Entrant.Name,
-                    kvp.Value,
-                    Game.Unknown,
-                    true)));
-
-        return futureMatches;
+        var futureMatches = sortedMatchParticipants
+            .Select(kvp => new Match(
+                kvp.Key.Slots[0].Entrant.Name,
+                kvp.Key.Slots[1].Entrant.Name,
+                kvp.Value,
+                Game.Unknown,
+                true));
+        foreach (var match in futureMatches)
+        {
+            FutureMatches.Add(match);
+        }
     }
 
     public async Task LoadPotentialSchedule()
     {
+        await seedingBusinessLogic.LoadTask;
         foreach (var eventLink in EventLinks.OrderBy(e => e.StartTime))
         {
-            var phaseGroups = await LoadPotentialMatchList(eventLink.Link);
-            var matches = GenerateMatchSchedule(phaseGroups);
-            foreach (var match in matches)
-            {
-                FutureMatches.Add(match);
-            }
+            var phaseGroups = await seedingBusinessLogic.LoadPhaseGroups(eventLink.Link);
+            GenerateMatchSchedule(phaseGroups);
+            var bracket = new Brackets(phaseGroups);
+            seedingBusinessLogic.SetBracket(bracket);
         }
     }
-    
 }

@@ -112,7 +112,7 @@ public class MatchTable : ITable<PastMatch, long, Match>
             null
         );
     }
-
+    
     public ObservableCollection<PastMatch> SelectAll()
     {
         _matches.Clear();
@@ -133,7 +133,6 @@ public class MatchTable : ITable<PastMatch, long, Match>
             PastMatch matchToAdd = new(matchId, player1Id, player2Id, matchTime, GameHelper.ConvertToGame(gameName), isBestOfFive);
             _matches.Add(matchToAdd);
         }
-
         return _matches;
     }
 }

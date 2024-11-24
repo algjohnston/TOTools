@@ -19,7 +19,7 @@
             <StackLayout Grid.Row="0"
                          VerticalOptions="Center">
 
-                <Label Text="Attendee List Page"
+                <Label Text="Event Page"
                        TextColor="AntiqueWhite"
                        Margin="20, 0, 0, 0"
                        FontSize="21" />

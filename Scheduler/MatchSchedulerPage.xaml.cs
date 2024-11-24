@@ -18,11 +18,16 @@ public partial class MatchSchedulerPage : ContentPage
         HandlerChanged += OnHandlerChanged;
     }
 
-    private void OnHandlerChanged(object? sender, EventArgs e)
+    private async void OnHandlerChanged(object? sender, EventArgs e)
     {
         _schedulerBusinessLogic ??= Handler?.MauiContext?.Services
             .GetService<SchedulerBusinessLogic>();
-        _schedulerBusinessLogic?.LoadPotentialSchedule();
+        if (_schedulerBusinessLogic == null)
+        {
+            return;
+        }
+        await _schedulerBusinessLogic.LoadTask;
+        await _schedulerBusinessLogic.LoadPotentialSchedule();
         MatchList.BindingContext = _schedulerBusinessLogic;
     }
     

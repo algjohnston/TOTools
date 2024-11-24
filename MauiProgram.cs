@@ -25,6 +25,7 @@ public static class MauiProgram
             .RegisterGraphQLClient()
             .RegisterDatabases()
             .RegisterBusinessLogic();
+
 #if DEBUG
         builder.Logging.AddDebug();
 #endif
@@ -36,10 +37,10 @@ public static class MauiProgram
         // For interacting with start.gg
         var client = new HttpClient();
         client.DefaultRequestHeaders.Add(
-            "Authorization", 
+            "Authorization",
             "Bearer dd3f05cd4cc1496d28bb2a406f96a4d0");
         var graphQLClient = new GraphQLHttpClient(
-            "https://api.start.gg/gql/alpha", 
+            "https://api.start.gg/gql/alpha",
             new NewtonsoftJsonSerializer(),
             httpClient: client);
 
@@ -56,7 +57,7 @@ public static class MauiProgram
             .AddSingleton<EventTable>();
         return builder;
     }
-    
+
     private static MauiAppBuilder RegisterBusinessLogic(this MauiAppBuilder builder)
     {
         builder.Services
@@ -65,5 +66,4 @@ public static class MauiProgram
             .AddSingleton<SeedingBusinessLogic>();
         return builder;
     }
-    
 }

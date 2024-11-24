@@ -15,10 +15,15 @@ public partial class EventListPage : ContentPage
         HandlerChanged += OnHandlerChanged;
     }
 
-    private void OnHandlerChanged(object? sender, EventArgs e)
+    private async void OnHandlerChanged(object? sender, EventArgs e)
     {
         _eventBusinessLogic ??= Handler?.MauiContext?.Services
             .GetService<EventBusinessLogic>();
+        if (_eventBusinessLogic == null)
+        {
+            return;
+        }
+        await _eventBusinessLogic.LoadTask;
         BindingContext = _eventBusinessLogic;
     }
     

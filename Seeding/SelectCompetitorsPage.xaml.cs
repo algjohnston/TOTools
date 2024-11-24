@@ -8,22 +8,28 @@ namespace TOTools.Seeding;
 public partial class SelectCompetitorsPage : ContentPage
 {
 
-	public ObservableCollection<string> Competitors { get; } = [];
+	private SeedingBusinessLogic? _seedingBusinessLogic;
 	
 	public SelectCompetitorsPage()
 	{
 		InitializeComponent();
-		BindingContext = this;
-		
-		Competitors.Add("Player 1");
-		Competitors.Add("Player 2");
-		Competitors.Add("Player 3");
-		Competitors.Add("Player 4");
-		Competitors.Add("Player 5");
+		HandlerChanged += OnHandlerChanged;
+	}
+	
+	private async void OnHandlerChanged(object? sender, EventArgs e)
+	{
+		_seedingBusinessLogic ??= Handler?.MauiContext?.Services
+			.GetService<SeedingBusinessLogic>();
+		if (_seedingBusinessLogic == null)
+		{
+			return;
+		}
+		await _seedingBusinessLogic.LoadTask;
+		BindingContext = _seedingBusinessLogic;
 	}
 
 	private void OnSubmitClicked(object sender, EventArgs e)
 	{
-		Navigation.PushAsync(new DoubleElimPage());
+		Navigation.PushAsync(new BracketsPage());
 	}
 }

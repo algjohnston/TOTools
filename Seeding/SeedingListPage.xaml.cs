@@ -12,7 +12,7 @@ public partial class SeedingListPage : ContentPage
 {
     private SeedingBusinessLogic? _seedingBusinessLogic;
     
-    public ObservableCollection<PlayerTierGroup> SeedingList { get; } = [];
+    public ObservableCollection<PlayerTierGroup> PlayerTierGroups { get; } = [];
 
     public SeedingListPage()
     {
@@ -21,23 +21,23 @@ public partial class SeedingListPage : ContentPage
         HandlerChanged += OnHandlerChanged;
     }
 
-    private void OnHandlerChanged(object? sender, EventArgs e)
+    private async void OnHandlerChanged(object? sender, EventArgs e)
     {
         _seedingBusinessLogic ??= Handler?.MauiContext?.Services
             .GetService<SeedingBusinessLogic>();
-        
+        if (_seedingBusinessLogic == null)
+        {
+            return;
+        }
+        await _seedingBusinessLogic.LoadTask;
         PopulateTiers();
     }
 
     private void PopulateTiers()
     {
         var tierConverter = new TierConverter();
-        var players = _seedingBusinessLogic?.GetAllPlayers();
-        if (players == null)
-        {
-            return;
-        }
-
+        var players = _seedingBusinessLogic!.Players;
+        
         var groupedPlayers = players
             .GroupBy(p => p.PlayerTier)
             .ToDictionary(p => p.Key, p => p.ToList());
@@ -47,12 +47,12 @@ public partial class SeedingListPage : ContentPage
             var tierString = "Tier " + tierConverter.ToString(tier);
             if (!groupedPlayers.TryGetValue(tier, out var playerGroup))
             {
-                SeedingList.Add(new PlayerTierGroup(tierString, []));
+                PlayerTierGroups.Add(new PlayerTierGroup(tierString, []));
                 continue;
             }
             var currentTierGroup = new PlayerTierGroup(tierString, playerGroup);
             currentTierGroup.Sort();
-            SeedingList.Add(currentTierGroup);
+            PlayerTierGroups.Add(currentTierGroup);
         }
     }
 
@@ -74,6 +74,7 @@ public partial class SeedingListPage : ContentPage
         // (even PropertyChanged events sent by the elements do not trigger a change
         //  and there is no way to manually link the events or trigger a refresh) 
         SeedingListView.ItemsSource = null;
-        SeedingListView.ItemsSource = SeedingList;
+        SeedingListView.ItemsSource = PlayerTierGroups;
     }
+    
 }

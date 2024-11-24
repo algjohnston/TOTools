@@ -4,28 +4,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:TOTools.Models"
              xmlns:seeding="clr-namespace:TOTools.Seeding"
-             x:Class="TOTools.Seeding.SeedingListPage"
-             x:DataType="seeding:SeedingListPage"
-             Title="Seeding List">
-    <AbsoluteLayout>
-        <Image Source="background.png"
-               AbsoluteLayout.LayoutFlags="All"
-               AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
-               Aspect="Fill"/>
+             xmlns:startgg="clr-namespace:TOTools.Models.Startgg"
+             x:Class="TOTools.Seeding.BracketsPage"
+             x:DataType="seeding:BracketsPage">
+    <ContentPage.Content>
 
         <ScrollView
             Margin="16, 16, 16, 64"
             AbsoluteLayout.LayoutFlags="All"
             AbsoluteLayout.LayoutBounds="0, 0, 1, 1">
             <CollectionView
-                x:Name="SeedingListView"
+                x:Name="BracketListView"
                 IsGrouped="True"
-                ItemsSource="{Binding PlayerTierGroups}">
+                ItemsSource="{Binding BracketGroupList}">
 
                 <CollectionView.GroupHeaderTemplate>
-                    <DataTemplate x:DataType="models:PlayerTierGroup">
-                        <Label Text="{Binding Tier}"
-                               FontAttributes="Bold" 
+                    <DataTemplate x:DataType="models:BracketGroup">
+                        <Label Text="{Binding PhaseGroupType }"
+                               FontAttributes="Bold"
                                Margin="20, 0, 0, 0"
                                TextColor="AntiqueWhite"
                                FontSize="31">
@@ -37,14 +33,15 @@
                 </CollectionView.GroupHeaderTemplate>
 
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:Player">
-                        <Label 
-                            Text="{Binding FormattedPlayerForList}" 
-                            FontSize="21"/>
+                    <DataTemplate x:DataType="x:String">
+                        <Label
+                            Text="{Binding . }"
+                            FontSize="21" />
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
 
             </CollectionView>
         </ScrollView>
-    </AbsoluteLayout>
+
+    </ContentPage.Content>
 </ContentPage>

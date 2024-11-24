@@ -3,7 +3,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:seeding="clr-namespace:TOTools.Seeding"
-             x:DataType="seeding:SelectCompetitorsPage"
+             x:DataType="seeding:SeedingBusinessLogic"
              x:Class="TOTools.Seeding.SelectCompetitorsPage"
              Title="Select Competitors">
 
@@ -21,14 +21,8 @@
               AbsoluteLayout.LayoutFlags="All"
               AbsoluteLayout.LayoutBounds="0, 0, 1, 1">
 
-            <Label Text="{Binding Competitors.Count}"
-                   Grid.Row="0"
-                   FontSize="21"
-                   TextColor="AntiqueWhite"
-                   HorizontalOptions="Center" />
-
             <CollectionView Grid.Row="1" 
-                            ItemsSource="{Binding Competitors}">
+                            ItemsSource="{Binding Players}">
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate>

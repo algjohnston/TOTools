@@ -19,7 +19,7 @@ public class PlayerTierGroup(
     {
         if (!Expanded)
         {
-                AddRange(this);
+                AddRange(players);
         }
         else
         {

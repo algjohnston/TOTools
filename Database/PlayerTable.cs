@@ -106,7 +106,7 @@ public class PlayerTable : ITable<Player, string, Player>
             null
         );
     }
-
+    
     public ObservableCollection<Player> SelectAll()
     {
         _players.Clear();
@@ -132,7 +132,6 @@ public class PlayerTable : ITable<Player, string, Player>
             );
             _players.Add(playerToAdd);
         }
-
         return _players;
     }
     

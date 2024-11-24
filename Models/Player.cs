@@ -27,6 +27,6 @@ public class Player(string startggId, string tag, Region region, Tier tier, int 
 
     public int CompareTo(Player? other)
     {
-        return (other == null) ? 1 : PlayerRanking - other.PlayerRanking ;
+        return PlayerRanking - other?.PlayerRanking ?? 1;
     }
 }

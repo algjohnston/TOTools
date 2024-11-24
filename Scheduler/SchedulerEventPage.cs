@@ -16,19 +16,16 @@ public partial class SchedulerEventPage : ContentPage, IOnEventLinkSubmitted
         HandlerChanged += OnHandlerChanged;
     }
     
-    private void OnHandlerChanged(object? sender, EventArgs e)
+    private async void OnHandlerChanged(object? sender, EventArgs e)
     {
         _schedulerBusinessLogic ??= Handler?.MauiContext?.Services
             .GetService<SchedulerBusinessLogic>();
+        if (_schedulerBusinessLogic == null)
+        {
+            return;
+        }
+        await _schedulerBusinessLogic.LoadTask;
         BindingContext = _schedulerBusinessLogic;
-
-        // For testing
-        _schedulerBusinessLogic?.AddEvent(
-            new EventLink(
-                "tournament/between-2-lakes-67-a-madison-super-smash-bros-tournament/event/ultimate-singles",
-                DateTime.Now,
-                3)
-        );
     }
 
     private void OnSubmitButtonClicked(object? sender, EventArgs e)

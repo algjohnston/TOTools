@@ -2,41 +2,16 @@ using TOTools.StartggAPI;
 
 namespace TOTools.Models.Startgg;
 
-public class Set
+public class Set(SetType setType)
 {
-    private readonly SetType _setType;
-    public Set? NextSet { get; set; }
+    public Set? NextSet { get; set; } = null;
 
-    public Set(SetType setType)
-    {
-        _setType = setType;
-        NextSet = null;
-    }
+    public string DisplayIdentifier => setType.PhaseGroup.DisplayIdentifier;
+    
+    public string PrevTopId => setType.Slots.First().PrereqId;
 
-    public Set(SetType setType, Set nextWinner)
-    {
-        _setType = setType;
-        NextSet = nextWinner;
-    }
+    public string PrevBottomId => setType.Slots.Last().PrereqId;
 
-    public string GetPrevTopId()
-    {
-        return _setType.Slots.First().PrereqId;
-    }
-
-    public string GetPrevBottomId()
-    {
-        return _setType.Slots.Last().PrereqId;
-    }
-
-    public string GetId()
-    {
-        return _setType.Id;
-    }
-
-    public int GetRound()
-    {
-        return _setType.Round;
-    }
+    public string Id => setType.Id;
     
 }

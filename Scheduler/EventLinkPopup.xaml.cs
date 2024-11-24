@@ -90,7 +90,7 @@ public partial class EventLinkPopup : ContentPage
         if (parseSucceeded && numberOfConcurrentMatches >= 1)
         {
             return new EventLink(
-                ExtractTournamentPath(link),
+                EventLink.ExtractTournamentPath(link),
                 DateTime.Today.Add(startTime),
                 numberOfConcurrentMatches);
         }
@@ -98,31 +98,6 @@ public partial class EventLinkPopup : ContentPage
         DisplayAlert("Error", "Please enter a valid number of concurrent matches", "OK");
         return null;
 
-    }
-
-    private static string ExtractTournamentPath(string link)
-    {
-        const string startKeyword = "tournament/";
-        const string eventEndKeyword = "/event/";
-
-        var result = link;
-        var startIndex = link.IndexOf(startKeyword, StringComparison.Ordinal);
-        if (startIndex != -1)
-        {
-            result = link[startIndex..];
-        }
-
-        // Remove anything after "/event/[some string]/" including the last slash
-        var eventIndex = result.IndexOf(eventEndKeyword, StringComparison.Ordinal);
-        if (eventIndex == -1) return result;
-        var endIndex = result.IndexOf(
-            '/',
-            eventIndex + eventEndKeyword.Length);
-        if (endIndex != -1)
-        {
-            result = result[..endIndex];
-        }
-        return result;
     }
 
     private void OnCancelButtonClicked(object? sender, EventArgs e)

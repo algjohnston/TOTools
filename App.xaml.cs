@@ -1,10 +1,16 @@
 ﻿using TOTools.AppEntry;
+using TOTools.EventMap;
+using TOTools.Scheduler;
+using TOTools.Seeding;
 
 namespace TOTools;
 
 public partial class App : Application
 {
-    public App()
+    public App(
+        EventBusinessLogic eventBusinessLogic,
+        SchedulerBusinessLogic schedulerBusinessLogic,
+        SeedingBusinessLogic seedingBusinessLogic)
     {
         InitializeComponent();
 
@@ -12,6 +18,14 @@ public partial class App : Application
         // since crash messages are not propagated anywhere I can find. 
         try
         {
+            Task.Run(
+                () =>
+                {
+                    eventBusinessLogic.LoadEvents();
+                    schedulerBusinessLogic.LoadPastMatches();
+                    seedingBusinessLogic.LoadPlayers();
+                });
+
             MainPage = new NavigationPage(new TitlePage());
         }
         catch (Exception exception)
