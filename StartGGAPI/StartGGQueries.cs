@@ -2,6 +2,9 @@
 
 namespace TOTools.StartggAPI;
 
+/// <summary>
+/// A collection of static graphQL queries for startgg.
+/// </summary>
 class StartGGQueries
 {
     public static GraphQLRequest CreateNumberOfEntrantsQuery(string slug)

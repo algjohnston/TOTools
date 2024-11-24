@@ -16,16 +16,16 @@ public class EventTable : ITable<Event, long, Event>
     private const string LocationColumn = "location";
     private const string StartDateTimeColumn = "start_date_time";
     private const string EndDateTimeColumn = "end_date_time";
-    private const string LatitudeColumn = "latitude"; 
-    private const string LongitudeColumn = "longitude"; 
-    
+    private const string LatitudeColumn = "latitude";
+    private const string LongitudeColumn = "longitude";
+
     private const int IdColumnNumber = 0;
     private const int NameColumnNumber = 1;
     private const int LocationColumnNumber = 2;
     private const int StartDateTimeColumnNumber = 3;
     private const int EndDateTimeColumnNumber = 4;
-    private const int LatitudeColumnNumber = 5; 
-    private const int LongitudeColumnNumber = 6; 
+    private const int LatitudeColumnNumber = 5;
+    private const int LongitudeColumnNumber = 6;
 
     private readonly ObservableCollection<Event> _events = [];
 
@@ -139,5 +139,4 @@ public class EventTable : ITable<Event, long, Event>
 
         return _events;
     }
-    
 }

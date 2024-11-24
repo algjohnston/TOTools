@@ -8,14 +8,17 @@ namespace TOTools.AppEntry;
 /// <summary>
 /// The home page of the app.
 /// </summary>
-public partial class HomePage : ContentPage {
-
-    public HomePage () {
+public partial class HomePage : ContentPage
+{
+    public HomePage()
+    {
         InitializeComponent();
     }
-    
+
     private void OnLogOutButtonClicked(object? sender, EventArgs e)
     {
+        // Removes the log-in page so pop goes to the home screen
+        // The stack is currently TitlePage,LogInPage,HomePage
         Navigation.RemovePage(Navigation.NavigationStack[^2]);
         Navigation.PopAsync();
     }
@@ -24,7 +27,7 @@ public partial class HomePage : ContentPage {
     {
         Navigation.PushAsync(new SeedingTabbedPage());
     }
-    
+
     private void OnSchedulerButtonClicked(object? sender, EventArgs e)
     {
         Navigation.PushAsync(new SchedulerEventPage());
@@ -39,6 +42,4 @@ public partial class HomePage : ContentPage {
     {
         Navigation.PushAsync(new ThumbGenPage());
     }
-
-    
 }

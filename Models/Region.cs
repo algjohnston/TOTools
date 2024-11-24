@@ -16,6 +16,11 @@ public enum Region
 
 public static class RegionHelper
 {
+    /// <summary>
+    /// Converts an integer to a region enum.
+    /// </summary>
+    /// <param name="regionInt">The index of the region enum.</param>
+    /// <returns>The region enum represented by the given integer.</returns>
     public static Region ConvertToRegion(int regionInt)
     {
         if (Enum.IsDefined(typeof(Region), regionInt))
@@ -25,7 +30,12 @@ public static class RegionHelper
 
         return Region.Unknown;
     }
-    
+
+    /// <summary>
+    /// Converts a region to a string.
+    /// </summary>
+    /// <param name="region">The region to convert to a string.</param>
+    /// <returns>A string representation of the given region.</returns>
     public static string ConvertToString(Region region)
     {
         return region switch
@@ -40,4 +50,3 @@ public static class RegionHelper
         };
     }
 }
-

@@ -6,9 +6,8 @@
 /// </summary>
 public partial class EventListPage : ContentPage
 {
-    
     private EventBusinessLogic? _eventBusinessLogic;
-    
+
     public EventListPage()
     {
         InitializeComponent();
@@ -23,8 +22,9 @@ public partial class EventListPage : ContentPage
         {
             return;
         }
+
+        // Need to wait for the load task to ensure the events are loaded
         await _eventBusinessLogic.LoadTask;
         BindingContext = _eventBusinessLogic;
     }
-    
 }

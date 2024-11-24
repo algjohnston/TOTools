@@ -66,7 +66,7 @@ public static class DatabaseUtil
             GetConnectionString("postgres")
         );
         postgresDatabaseConnection.Open();
-        
+
         // pg_database stores information about the available databases
         // pg_database is shared across all databases of a cluster
         using var command = new NpgsqlCommand(
@@ -79,11 +79,11 @@ public static class DatabaseUtil
         {
             return;
         }
+
         using var createCommand = new NpgsqlCommand(
             $"CREATE DATABASE \"{databaseName}\"",
             postgresDatabaseConnection
         );
         createCommand.ExecuteNonQuery();
     }
-
 }

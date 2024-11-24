@@ -7,8 +7,10 @@
 /// <param name="eventId">The unique id of the event.</param>
 /// <param name="eventName">The name of the event.</param>
 /// <param name="location">The location of the event.</param>
-/// <param name="startDateTime"></param>
-/// <param name="endDateTime"></param>
+/// <param name="startDateTime">The start date time of the event.</param>
+/// <param name="endDateTime">The end date time of the event.</param>
+/// <param name="latitude">The latitude of the event.</param>
+/// <param name="longitude">The longitude of the event.</param>
 public class Event(
     long eventId,
     string eventName,

@@ -5,7 +5,6 @@
 /// </summary>
 public partial class SeedGeneratorPage : ContentPage
 {
-    
     /**
      * TODO There should be a toggle to allow for displaying all brackets from an event vs creating one instead
      * Currently just displays all brackets in a link.
@@ -19,7 +18,7 @@ public partial class SeedGeneratorPage : ContentPage
             "tournament/between-2-lakes-67-a-madison-super-smash-bros-tournament/event/ultimate-singles";
         HandlerChanged += OnHandlerChanged;
     }
-    
+
     private async void OnHandlerChanged(object? sender, EventArgs e)
     {
         _seedingBusinessLogic ??= Handler?.MauiContext?.Services
@@ -28,7 +27,9 @@ public partial class SeedGeneratorPage : ContentPage
         {
             return;
         }
-        await _seedingBusinessLogic.LoadTask;
+
+        // Wait for the players to get loaded
+        await _seedingBusinessLogic.PlayerLoadTask;
         BindingContext = _seedingBusinessLogic;
     }
 
@@ -41,7 +42,7 @@ public partial class SeedGeneratorPage : ContentPage
             return;
         }
 
-        await _seedingBusinessLogic!.AddLink(linkText);
+        await _seedingBusinessLogic!.AddLinkPhaseGroups(linkText);
         await Navigation.PushAsync(new BracketsPage());
     }
 
@@ -49,5 +50,4 @@ public partial class SeedGeneratorPage : ContentPage
     {
         Navigation.PushAsync(new SelectCompetitorsPage());
     }
-    
 }

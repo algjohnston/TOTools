@@ -1,7 +1,10 @@
-﻿using TOTools.Models.Startgg;
+﻿namespace TOTools.Models;
 
-namespace TOTools.Models;
-
+/// <summary>
+/// A group of phase groups of a single type.
+/// </summary>
+/// <param name="phaseGroupType">The type of the phase groups.</param>
+/// <param name="identifiers">The identifiers of each phase group.</param>
 public class BracketGroup(string phaseGroupType, ICollection<string> identifiers) : List<string>(identifiers)
 {
     private bool Expanded { get; set; } = true;
@@ -21,5 +24,4 @@ public class BracketGroup(string phaseGroupType, ICollection<string> identifiers
 
         Expanded = !Expanded;
     }
-    
 }

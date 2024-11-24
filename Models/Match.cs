@@ -1,6 +1,4 @@
-﻿using CS341Project.Models;
-
-namespace TOTools.Models;
+﻿namespace TOTools.Models;
 
 /// <summary>
 /// Alexander Johnston
@@ -39,7 +37,7 @@ public class Match(string player1, string player2, long timeInSeconds, Game game
     }
 
     public Game GameName { get; } = game;
-    
+
     public bool IsBestOfFive { get; } = isBestOfFive;
 
     public string FormattedMatch => $"{Player1} vs. {Player2} {GameName}";

@@ -8,41 +8,64 @@ using TOTools.StartggAPI;
 
 namespace TOTools.Seeding;
 
+/// <summary>
+/// The seeding business logic.
+/// </summary>
+/// <param name="client">The startgg graphQL client.</param>
+/// <param name="playerTable">The player table in the database.</param>
 public class SeedingBusinessLogic(
     GraphQLHttpClient client,
     PlayerTable playerTable)
 {
     public ObservableCollection<Player> Players { get; } = [];
-    
-    public Brackets? Brackets { get; private set; }
-    
+
+    public List<EventBracketGroup> EventBrackets { get; } = [];
+
     private readonly TaskCompletionSource<bool> _loadCompletionSource = new();
-    public Task LoadTask => _loadCompletionSource.Task;
-    
+    public Task PlayerLoadTask => _loadCompletionSource.Task;
+
+    /// <summary>
+    /// Load the players from the player table in the database.
+    /// Called at app start.
+    /// </summary>
     public void LoadPlayers()
     {
         var players = playerTable.SelectAll();
         Players.Clear();
         foreach (var player in players)
         {
-            Players.Add(player);   
+            Players.Add(player);
         }
+
         _loadCompletionSource.TrySetResult(true);
     }
 
-    public void SetBracket(Brackets brackets)
+    /// <summary>
+    /// Adds an event bracket group to be used by the bracket editor.
+    /// </summary>
+    /// <param name="eventBracketGroup">The event bracket group to add.</param>
+    public void AddBracketGroup(EventBracketGroup eventBracketGroup)
     {
-        Brackets = brackets;
+        EventBrackets.Add(eventBracketGroup);
     }
 
-    public async Task AddLink(string linkText)
+    /// <summary>
+    /// Takes a startgg event link and adds its brackets.
+    /// </summary>
+    /// <param name="linkText">The event link.</param>
+    public async Task AddLinkPhaseGroups(string linkText)
     {
         var link = EventLink.ExtractTournamentPath(linkText);
         var phaseGroups = await LoadPhaseGroups(link);
-        var bracket = new Brackets(phaseGroups);
-        SetBracket(bracket);
+        var bracket = new EventBracketGroup(phaseGroups);
+        AddBracketGroup(bracket);
     }
-    
+
+    /// <summary>
+    /// Loads all the phase groups in an event specified by a startgg event link.
+    /// </summary>
+    /// <param name="url">The url of the event.</param>
+    /// <returns>The phase groups of the event.</returns>
     public async Task<List<PhaseGroup>> LoadPhaseGroups(string url)
     {
         // Load all the phase groups across all the online pages for an event

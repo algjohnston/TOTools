@@ -15,30 +15,44 @@ namespace TOTools.EventMap;
  */
 public partial class EventMapPage : ContentPage
 {
-
     private EventBusinessLogic? _eventBusinessLogic;
-    
+
     public EventMapPage()
     {
         InitializeComponent();
         HandlerChanged += OnHandlerChanged;
     }
 
-    private void OnHandlerChanged(object? sender, EventArgs e)
+    private async void OnHandlerChanged(object? sender, EventArgs e)
     {
         _eventBusinessLogic ??= Handler?.MauiContext?.Services
             .GetService<EventBusinessLogic>();
+        if (_eventBusinessLogic == null)
+        {
+            return;
+        }
+
+        // Need to wait for the load task to ensure the events are loaded
+        await _eventBusinessLogic.LoadTask;
         BindingContext = _eventBusinessLogic;
         SetUpMap();
     }
-    
+
+    /// <summary>
+    /// Create the map, and centers it on Madison, WI.
+    /// Adds a pin for each event to the map.
+    /// </summary>
     private void SetUpMap()
     {
         // TODO sometimes does not load 
+
+        // Add the map layer
         var map = MapControl.Map;
         map.Layers.Add(
             Mapsui.Tiling.OpenStreetMap.CreateTileLayer()
         );
+
+        // Shows distance scale 
         map.Widgets.Add(
             new ScaleBarWidget(map)
             {
@@ -46,6 +60,7 @@ public partial class EventMapPage : ContentPage
                 HorizontalAlignment = Mapsui.Widgets.HorizontalAlignment.Center,
                 VerticalAlignment = Mapsui.Widgets.VerticalAlignment.Top
             });
+        // Shows zoom buttons
         map.Widgets.Add(new ZoomInOutWidget { Margin = new MRect(20, 40) });
 
         // Zoom to Madison, WI
@@ -75,10 +90,11 @@ public partial class EventMapPage : ContentPage
             {
                 // TODO drop pin on location
                 // Currently does not work
-                layer.Features.Clear(); 
+                layer.Features.Clear();
                 foreach (var eventItem in _eventBusinessLogic!.Events)
                 {
-                    var mercatorPoint = SphericalMercator.FromLonLat(eventItem.Longitude, eventItem.Latitude).ToMPoint();
+                    var mercatorPoint = SphericalMercator.FromLonLat(eventItem.Longitude, eventItem.Latitude)
+                        .ToMPoint();
                     layer.Features.Add(
                         new GeometryFeature
                         {
@@ -102,6 +118,10 @@ public partial class EventMapPage : ContentPage
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
     }
 
+    /// <summary>
+    /// Checks if there is location permission.
+    /// If not, asks for it or shows the rationale for why it is needed.
+    /// </summary>
     private async Task CheckAndRequestLocationPermission()
     {
         var status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
@@ -144,5 +164,4 @@ public partial class EventMapPage : ContentPage
     {
         Navigation.PushAsync(new EventListPage());
     }
-    
 }

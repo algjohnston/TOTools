@@ -17,6 +17,11 @@ public class EventLink(string link, DateTime startTime, int numberOfConcurrentMa
     
     public int NumberOfConcurrentMatches { get; } = numberOfConcurrentMatches;
     
+    /// <summary>
+    /// Extracts the tournament path needed by startgg from an event link.
+    /// </summary>
+    /// <param name="link">The startgg event link.</param>
+    /// <returns></returns>
     public static string ExtractTournamentPath(string link)
     {
         const string startKeyword = "tournament/";

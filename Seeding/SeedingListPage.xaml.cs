@@ -29,27 +29,33 @@ public partial class SeedingListPage : ContentPage
         {
             return;
         }
-        await _seedingBusinessLogic.LoadTask;
+        // Need to make sure the players have been loaded
+        await _seedingBusinessLogic.PlayerLoadTask;
         PopulateTiers();
     }
 
+    /// <summary>
+    /// Groups players by their tier group and makes it available to the UI.
+    /// </summary>
     private void PopulateTiers()
     {
-        var tierConverter = new TierConverter();
+        // Group player by tier
         var players = _seedingBusinessLogic!.Players;
-        
         var groupedPlayers = players
             .GroupBy(p => p.PlayerTier)
             .ToDictionary(p => p.Key, p => p.ToList());
         
+        // Populate each tier group
         foreach (Tier tier in Enum.GetValues(typeof(Tier)))
         {
-            var tierString = "Tier " + tierConverter.ToString(tier);
+            var tierString = "Tier " + TierConverter.ToString(tier);
+            // Handle the case where there are no players in a tier
             if (!groupedPlayers.TryGetValue(tier, out var playerGroup))
             {
                 PlayerTierGroups.Add(new PlayerTierGroup(tierString, []));
                 continue;
             }
+            // Add the player groups to their respective tier group
             var currentTierGroup = new PlayerTierGroup(tierString, playerGroup);
             currentTierGroup.Sort();
             PlayerTierGroups.Add(currentTierGroup);

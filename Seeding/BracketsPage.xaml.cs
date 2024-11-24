@@ -7,8 +7,7 @@ namespace TOTools.Seeding;
 /// A page that displays the winner's and loser's bracket of a double elimination tournament.
 /// </summary>
 public partial class BracketsPage : ContentPage
-{ 
-
+{
     public ObservableCollection<BracketGroup> BracketGroupList { get; } = [];
 
     private SeedingBusinessLogic? _seedingBusinessLogic;
@@ -29,23 +28,33 @@ public partial class BracketsPage : ContentPage
             return;
         }
 
-        await _seedingBusinessLogic.LoadTask;
-        var roundRobinBrackets = _seedingBusinessLogic!.Brackets!.GetRoundRobinBrackets();
-        List<string> roundRobinBracketIdentifiers = [];
-        roundRobinBracketIdentifiers.AddRange(
-            roundRobinBrackets.Select(
-                bracket => bracket.First().DisplayIdentifier
-            )
-        );
-        BracketGroupList.Add(new BracketGroup("Round Robin", roundRobinBracketIdentifiers));
+        // Waits for players to load
+        await _seedingBusinessLogic.PlayerLoadTask;
 
+        // Goes through every event's brackets
+        // TODO may want to group by event
+        List<string> roundRobinBracketIdentifiers = [];
         List<string> doubleEliminationBracketIdentifiers = [];
-        var doubleEliminationBrackets = _seedingBusinessLogic.Brackets.GetDoubleEliminationLoserWinner();
-        doubleEliminationBracketIdentifiers.AddRange(
-            doubleEliminationBrackets.Select(
-                winnerSet => winnerSet.DisplayIdentifier
-            )
-        );
+        foreach (var eventBracketGroup in _seedingBusinessLogic.EventBrackets)
+        {
+            // Adds all the round-robin bracket identifiers as a group
+            var roundRobinBrackets = eventBracketGroup.GetRoundRobinBrackets();
+            roundRobinBracketIdentifiers.AddRange(
+                roundRobinBrackets.Select(
+                    bracket => bracket.First().DisplayIdentifier
+                )
+            );
+
+            // Adds all the double elimination bracket identifiers as a group
+            var doubleEliminationBrackets = eventBracketGroup.GetDoubleEliminationLoserWinner();
+            doubleEliminationBracketIdentifiers.AddRange(
+                doubleEliminationBrackets.Select(
+                    winnerSet => winnerSet.DisplayIdentifier
+                )
+            );
+        }
+
+        BracketGroupList.Add(new BracketGroup("Round Robin", roundRobinBracketIdentifiers));
         BracketGroupList.Add(new BracketGroup("Double Elimination", doubleEliminationBracketIdentifiers));
     }
 

@@ -1,5 +1,9 @@
 ﻿namespace TOTools.StartggAPI;
 
+/**
+ * A list of classes used by the GraphQL.Client API to load the startgg API query responses.
+ * These classes must match the startgg graphql queries for the GraphQL.Client to work.
+ */
 public class EventResponseType()
 {
     public required EventType Event { get; set; }
