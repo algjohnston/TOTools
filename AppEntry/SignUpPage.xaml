@@ -4,72 +4,99 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TOTools.AppEntry.SignUpPage"
              Title="Sign Up">
-    <Grid ColumnDefinitions="*, *"
-          RowDefinitions="*, *, *, *"
-          Margin="16">
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <Image Source="background.png" 
+                   Aspect="Fill"
+                   AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                   AbsoluteLayout.LayoutFlags="All" />
 
-        <Label Text="Email:"
-               FontSize="Large"
-               Grid.Column="0"
-               Grid.Row="0"
-               VerticalOptions="Center" />
+            <Grid ColumnDefinitions="*, *"
+                  RowDefinitions="*, *, *, *"
+                  Margin="16"
+                  AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                  AbsoluteLayout.LayoutFlags="All">
 
-        <Entry x:Name="EmailEntry"
-               FontSize="Large"
-               Grid.Row="0"
-               Grid.Column="1"
-               Placeholder="Enter your email"
-               HorizontalOptions="Start"
-               VerticalOptions="Center" />
+                <Label Text="Email:"
+                       FontSize="Large"
+                       TextColor="AntiqueWhite"
+                       Grid.Column="0"
+                       Grid.Row="0"
+                       Margin="20, 0, 0, 0"
+                       VerticalOptions="Center" />
 
-        <Label Text="Password:"
-               FontSize="Large"
-               Grid.Column="0"
-               Grid.Row="1"
-               VerticalOptions="Center" />
+                <Entry x:Name="EmailEntry"
+                       FontSize="Large"
+                       Margin="0, 0, 0, 0"
+                       TextColor="AntiqueWhite"
+                       Grid.Row="0"
+                       Grid.Column="1"
+                       Placeholder="Enter your email"
+                       HorizontalOptions="Start"
+                       VerticalOptions="Center" />
 
-        <Entry x:Name="PasswordEntry"
-               FontSize="Large"
-               Grid.Row="1"
-               Grid.Column="1"
-               Placeholder="Enter a password"
-               HorizontalOptions="Start"
-               VerticalOptions="Center" />
+                <Label Text="Password:"
+                       FontSize="Large"
+                       TextColor="AntiqueWhite"
+                       Grid.Column="0"
+                       Grid.Row="1"
+                       Margin="20, 0, 0, 0"
+                       VerticalOptions="Center" />
 
-        <Label Text="Confirm Password:"
-               FontSize="Large"
-               Grid.Column="0"
-               Grid.Row="2"
-               VerticalOptions="Center"/>
+                <Entry x:Name="PasswordEntry"
+                       FontSize="Large"
+                       Margin="0, 0, 0, 0"
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       TextColor="AntiqueWhite"
+                       Placeholder="Enter a password"
+                       HorizontalOptions="Start"
+                       VerticalOptions="Center" />
 
-        <!-- Saving for later since it looks inconsistent with the log in page -->
-        <!-- TODO frames around entries? -->
-        <!-- <Frame Grid.Column="1" -->
-        <!--        Grid.Row="2" -->
-        <!--        Margin="10" -->
-        <!--        BorderColor="Gray" -->
-        <!--        CornerRadius="5" -->
-        <!--        Padding="5" -->
-        <!--        HasShadow="False"> -->
-        <Entry x:Name="PasswordConfirmationEntry"
-               FontSize="Large"
-               Grid.Row="2"
-               Grid.Column="1"
-               Placeholder="Enter the same password"
-               HorizontalOptions="Start"
-               VerticalOptions="Center" />
-        <!-- </Frame> -->
+                <Label Text="Confirm Password:"
+                       FontSize="Large"
+                       TextColor="AntiqueWhite"
+                       Grid.Column="0"
+                       Grid.Row="2"
+                       Margin="20, 0, 0, 0"
+                       VerticalOptions="Center"/>
 
-        <Button x:Name="SubmitButton"
-                FontSize="Large"
-                Text="Submit"
-                Grid.Column="0"
-                Grid.Row="3"
-                FontAttributes="Bold"
-                HorizontalOptions="Start"
-                VerticalOptions="End"
-                Clicked="OnSubmitButtonClicked" />
+                <!-- Saving for later since it looks inconsistent with the log in page -->
+                <!-- TODO frames around entries? -->
+                <!-- <Frame Grid.Column="1" -->
+                <!--        Grid.Row="2" -->
+                <!--        Margin="10" -->
+                <!--        BorderColor="Gray" -->
+                <!--        CornerRadius="5" -->
+                <!--        Padding="5" -->
+                <!--        HasShadow="False"> -->
+                <Entry x:Name="PasswordConfirmationEntry"
+                       FontSize="Large"
+                       Margin="0, 0, 0, 0"
+                       Grid.Row="2"
+                       Grid.Column="1"
+                       TextColor="AntiqueWhite"
+                       Placeholder="Re-enter password"
+                       HorizontalOptions="Start"
+                       VerticalOptions="Center" />
+                <!-- </Frame> -->
 
-    </Grid>
+                <Button x:Name="SubmitButton"
+                        Text="Submit"
+                        FontSize="Large"
+                        FontAttributes="Bold"
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        TextColor="White"
+                        HorizontalOptions="Start"
+                        VerticalOptions="End"
+                        Margin="10"
+                        WidthRequest="120"
+                        HeightRequest="50"
+                        BackgroundColor="Blue"
+                        Clicked="OnSubmitButtonClicked" />
 
+            </Grid>
+        </AbsoluteLayout>
+    </ContentPage.Content>
 </ContentPage>
