@@ -113,4 +113,9 @@ public class Brackets
         bottomSet.NextSet = set;
         FillNextDoubleEliminationBracket(bottomSet);
     }
+
+    public Dictionary<string, Set> GetSets()
+    {
+        return _allBracketSets;
+    }
 }

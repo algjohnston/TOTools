@@ -30,6 +30,33 @@ public class SeedingBusinessLogic(
         _loadCompletionSource.TrySetResult(true);
     }
 
+    public void LoadPlayersFromEntrants()
+    {
+        //TODO
+        /* load player IDS from entrant list gotten from query of the event
+         *
+         * check if their IDs are in the seeding list, if not, prompt with edit player popup
+         * with tag param being their tag in startgg, region as null, and tier / ranking as null
+         */
+    }
+
+    public void SeedPlayerList(List<Player> players)
+    {
+        // this is all seeding a list of players will be, since we made them comparable based on tier and ranking
+        players.Sort();
+    }
+
+    public void SeedEvent()
+    {
+        //TODO
+        /* I don't really know how we do this with a local bracket data structure. I think startgg's phaseGroup stuff haas something for seed numbers in it that
+           will let us edit who goes where locally. If so, we just iterate through the bracket and replace whatever player IDs are their with the player ID from our 
+           list whose seed should go there. (the list won't have actual seed info, it's just ordered in order of seed, so position 0 is seed 1, pos 1 is seed 2, etc.)
+           We then take that data structure and use it in our bracket viewable. Moving players around in their will have to swap their positions in the list of players ordered by
+           seeding as well, since that is what we're inevitably gonna push to startgg, or show them so they can input it manually into startgg*/
+    }
+    
+
     public void SetBracket(Brackets brackets)
     {
         Brackets = brackets;

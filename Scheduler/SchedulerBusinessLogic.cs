@@ -23,12 +23,13 @@ public class SchedulerBusinessLogic(
             3)
     ];
 
+    // has all matches played previously by any players in any game, used to estimate time
     private ObservableCollection<PastMatch> PastMatches { get; } = [];
 
     // This gets filled with matches from startgg that need to be played
     public ObservableCollection<Match> FutureMatches { get; } = [];
-    
-    // has all matches played previously by any players in any game, used to estimate time
+
+    public EventLink? SelectedEventLink { get; set; }
 
     private readonly TaskCompletionSource<bool> _loadCompletionSource = new();
     public Task LoadTask => _loadCompletionSource.Task;
@@ -47,6 +48,11 @@ public class SchedulerBusinessLogic(
     public void AddEvent(EventLink eventLink)
     {
         EventLinks.Add(eventLink);
+    }
+
+    public void RemoveEvent(EventLink eventLink)
+    {
+        EventLinks.Remove(eventLink);
     }
 
     private long EstimateMatchLength(string player1, string player2)

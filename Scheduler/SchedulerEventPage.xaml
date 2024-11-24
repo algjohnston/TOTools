@@ -41,7 +41,8 @@
                 <CollectionView
                     x:Name="EventLinkList"
                     ItemsSource="{Binding EventLinks}"
-                    SelectionMode="Single">
+                    SelectionMode="Single"
+                    SelectionChanged="OnEventLinkSelectionChanged">
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:EventLink">
@@ -63,6 +64,14 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </ScrollView>
+            
+            <ImageButton Source="trash.svg"
+                         HorizontalOptions="Start"
+                         VerticalOptions="End"
+                         Width="40"
+                         Height="40"
+                         Grid.Row="1" 
+                         Clicked="OnDeleteLinkButtonClicked"/>
 
             <ImageButton Source="plus.svg"
                          HorizontalOptions="Start"
