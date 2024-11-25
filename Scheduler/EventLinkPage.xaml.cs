@@ -97,6 +97,11 @@ public partial class EventLinkPage : ContentPage
             DisplayAlert("Error", "Please enter the concurrent matches", "OK");
             return null;
         }
+        
+        //TODO
+        // CHECK if Bo5 start placement is a valid DE placement, (ie, 1, 2, 3, 4, 5, 7, 9, 13, 17, 25, 33, 49, 65, etc)
+        // Send to wherever it actually needs to go 
+        
 #pragma warning restore CS8073 // The result of the expression is always the same since a value of this type is never equal to 'null'
         var parseSucceeded = int.TryParse(
             numberOfConcurrentMatchesText,

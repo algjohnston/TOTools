@@ -186,4 +186,11 @@ public class SchedulerBusinessLogic(
             seedingBusinessLogic.AddBracketGroup(bracket);
         }
     }
+
+    public void ReportMatch(Match match, Player winner)
+    {
+        //TODO
+        // Update bracket ds with the winner going to the next top set, and loser going to next bottom set
+        // actively reload the matches with the new match
+    }
 }

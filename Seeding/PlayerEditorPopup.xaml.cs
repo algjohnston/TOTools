@@ -13,6 +13,15 @@ public partial class PlayerEditorPopup : Popup
         Console.WriteLine("Popup Opened");
         
     }
+    private void OnOkButtonClicked(object? sender, EventArgs e)
+    {
+        
+    }
+    
+    private void OnCancelButtonClicked(object? sender, EventArgs e)
+    {
+        Close();
+    }
     
     
 }

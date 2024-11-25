@@ -106,6 +106,29 @@
                    TextColor="AntiqueWhite"
                    VerticalOptions="Center" />
         </HorizontalStackLayout>
+        
+        <!-- Cancel and Submit Buttons -->
+        <HorizontalStackLayout 
+            Grid.Row="5" 
+            Grid.ColumnSpan="2" 
+            Spacing="10" 
+            HorizontalOptions="Center"
+            Margin="0,20,0,0">
+
+            <Button Text="Cancel"
+                    Clicked="OnCancelButtonClicked"
+                    BackgroundColor="#E74C3C"
+                    TextColor="White"
+                    CornerRadius="10" 
+                    WidthRequest="100" />
+
+            <Button Text="OK"
+                    Clicked="OnOkButtonClicked"
+                    BackgroundColor="#2ECC71"
+                    TextColor="White"
+                    CornerRadius="10" 
+                    WidthRequest="100" />
+        </HorizontalStackLayout>
     </Grid>
     
     

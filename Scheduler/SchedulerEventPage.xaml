@@ -28,7 +28,7 @@
                    TextColor="AntiqueWhite"
                    Grid.Column="0"
                    Grid.Row="0" />
-
+            
             <Label Text="Start Time"
                    FontSize="31"
                    TextColor="AntiqueWhite"
