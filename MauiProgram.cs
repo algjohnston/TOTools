@@ -1,4 +1,5 @@
-﻿using GraphQL.Client.Http;
+﻿using CommunityToolkit.Maui;
+using GraphQL.Client.Http;
 using GraphQL.Client.Serializer.Newtonsoft;
 using Microsoft.Extensions.Logging;
 using SkiaSharp.Views.Maui.Controls.Hosting;
@@ -25,7 +26,8 @@ public static class MauiProgram
             // Register all the singletons with the dependency injection service
             .RegisterGraphQLClient()
             .RegisterDatabases()
-            .RegisterBusinessLogic();
+            .RegisterBusinessLogic()
+            .UseMauiCommunityToolkit();
 
 #if DEBUG
         builder.Logging.AddDebug();
