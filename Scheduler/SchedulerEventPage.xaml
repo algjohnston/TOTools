@@ -50,12 +50,12 @@
                                 RowDefinitions="*"
                                 ColumnDefinitions="*, auto, auto">
                                 <Label Text="{Binding Link }"
-                                       FontSize="31"
+                                       FontSize="16"
                                        TextColor="AntiqueWhite"
                                        Grid.Column="0">
                                 </Label>
                                 <Label Text="{Binding StartTimeFormatted }"
-                                       FontSize="31"
+                                       FontSize="24"
                                        TextColor="AntiqueWhite"
                                        Grid.Column="1">
                                 </Label>
@@ -82,12 +82,13 @@
 
             <Button Text="Submit"
                     FontSize="Large"
-                    Grid.Row="3"
+                    Grid.Row="2"
+                    Grid.Column="1"
                     FontAttributes="Bold"
                     TextColor="AntiqueWhite"
                     BackgroundColor="Blue"
                     VerticalOptions="Center"
-                    HorizontalOptions="Start"
+                    HorizontalOptions="End"
                     Clicked="OnSubmitButtonClicked" />
 
         </Grid>

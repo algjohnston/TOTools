@@ -17,11 +17,12 @@ namespace TOTools.Models;
 /// <param name="isBestOfFive"> Whether the match is BO5 or BO3.</param>
 public class Match(string player1, string player2, long timeInSeconds, Game game, bool isBestOfFive)
 {
+    
     public string Player1 { get; } = player1;
 
     public string Player2 { get; } = player2;
 
-    public long TimeInSeconds { get; } = timeInSeconds;
+    public long TimeInSeconds { get; set; } = timeInSeconds;
 
     /// <summary>
     /// Provides the match time in mm:ss format
@@ -43,4 +44,10 @@ public class Match(string player1, string player2, long timeInSeconds, Game game
     public bool IsBestOfFive { get; } = isBestOfFive;
 
     public string FormattedMatch => $"{Player1} vs. {Player2} {GameName}";
+    
+    public Boolean IsInProgress { get; set; } = false;
+    
+    public DateTime MatchStartTime { get; set; }
+
+    public string? SetId { get; set; }
 }

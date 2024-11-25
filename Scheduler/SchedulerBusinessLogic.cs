@@ -14,6 +14,7 @@ public class SchedulerBusinessLogic(
     SeedingBusinessLogic seedingBusinessLogic,
     MatchTable matchTable)
 {
+    
     public ObservableCollection<EventLink> EventLinks { get; } =
     [
         // For testing
@@ -30,6 +31,8 @@ public class SchedulerBusinessLogic(
     public ObservableCollection<Match> FutureMatches { get; } = [];
 
     public EventLink? SelectedEventLink { get; set; }
+    
+    public Match? SelectedMatch { get; set; }
 
     private readonly TaskCompletionSource<bool> _loadCompletionSource = new();
     public Task LoadTask => _loadCompletionSource.Task;

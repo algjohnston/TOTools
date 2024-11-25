@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using GraphQL.Client.Http;
 using TOTools.Models;
 
@@ -29,6 +30,27 @@ public partial class MatchSchedulerPage : ContentPage
         await _schedulerBusinessLogic.LoadTask;
         await _schedulerBusinessLogic.LoadPotentialSchedule();
         MatchList.BindingContext = _schedulerBusinessLogic;
+    }
+    
+    public void OnReportButtonClicked(object? sender, EventArgs e)
+    {
+        // TODO 
+        // make a popup that lets you report who won the set
+    }
+
+    public void OnStartButtonClicked(object? sender, EventArgs e)
+    {
+        _schedulerBusinessLogic.SelectedMatch.MatchStartTime = DateTime.Now;
+        _schedulerBusinessLogic.SelectedMatch.IsInProgress = true;
+
+    }
+    
+    public void OnMatchSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (e.CurrentSelection.FirstOrDefault() is Match selectedMatch)
+        {
+            _schedulerBusinessLogic.SelectedMatch = selectedMatch;
+        }
     }
     
 }
