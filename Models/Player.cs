@@ -12,7 +12,7 @@
 public class Player(string startggId, string tag, Region region, Tier tier, int ranking) : IComparable<Player>
 {
     public string StarttggId { get; } = startggId;
-    
+
     public string PlayerTag { get; } = tag;
 
     public Region PlayerRegion { get; } = region;
@@ -20,9 +20,9 @@ public class Player(string startggId, string tag, Region region, Tier tier, int 
     public Tier PlayerTier { get; } = tier;
 
     public int PlayerRanking { get; } = ranking;
-    
+
     public string FormattedPlayer => $"{StarttggId} : {PlayerTag}: {PlayerRegion} : {PlayerTier} : {PlayerRanking}";
-    
+
     public string FormattedPlayerForList => $"{PlayerTag}: {RegionHelper.ConvertToString(PlayerRegion)} : {PlayerTier}";
 
     public int CompareTo(Player? other)

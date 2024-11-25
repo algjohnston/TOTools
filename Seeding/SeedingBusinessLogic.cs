@@ -8,28 +8,38 @@ using TOTools.StartggAPI;
 
 namespace TOTools.Seeding;
 
+/// <summary>
+/// The seeding business logic.
+/// </summary>
+/// <param name="client">The startgg graphQL client.</param>
+/// <param name="playerTable">The player table in the database.</param>
 public class SeedingBusinessLogic(
     GraphQLHttpClient client,
     PlayerTable playerTable)
 {
     public ObservableCollection<Player> Players { get; } = [];
-    
-    public Brackets? Brackets { get; private set; }
-    
+
+    public List<EventBracketGroup> EventBrackets { get; } = [];
+
     private readonly TaskCompletionSource<bool> _loadCompletionSource = new();
-    public Task LoadTask => _loadCompletionSource.Task;
-    
+    public Task PlayerLoadTask => _loadCompletionSource.Task;
+
+    /// <summary>
+    /// Load the players from the player table in the database.
+    /// Called at app start.
+    /// </summary>
     public void LoadPlayers()
     {
         var players = playerTable.SelectAll();
         Players.Clear();
         foreach (var player in players)
         {
-            Players.Add(player);   
+            Players.Add(player);
         }
+
         _loadCompletionSource.TrySetResult(true);
     }
-
+    
     public void LoadPlayersFromEntrants()
     {
         //TODO
@@ -50,26 +60,38 @@ public class SeedingBusinessLogic(
     {
         //TODO
         /* I don't really know how we do this with a local bracket data structure. I think startgg's phaseGroup stuff haas something for seed numbers in it that
-           will let us edit who goes where locally. If so, we just iterate through the bracket and replace whatever player IDs are their with the player ID from our 
+           will let us edit who goes where locally. If so, we just iterate through the bracket and replace whatever player IDs are their with the player ID from our
            list whose seed should go there. (the list won't have actual seed info, it's just ordered in order of seed, so position 0 is seed 1, pos 1 is seed 2, etc.)
            We then take that data structure and use it in our bracket viewable. Moving players around in their will have to swap their positions in the list of players ordered by
            seeding as well, since that is what we're inevitably gonna push to startgg, or show them so they can input it manually into startgg*/
     }
-    
 
-    public void SetBracket(Brackets brackets)
+    /// <summary>
+    /// Adds an event bracket group to be used by the bracket editor.
+    /// </summary>
+    /// <param name="eventBracketGroup">The event bracket group to add.</param>
+    public void AddBracketGroup(EventBracketGroup eventBracketGroup)
     {
-        Brackets = brackets;
+        EventBrackets.Add(eventBracketGroup);
     }
 
-    public async Task AddLink(string linkText)
+    /// <summary>
+    /// Takes a startgg event link and adds its brackets.
+    /// </summary>
+    /// <param name="linkText">The event link.</param>
+    public async Task AddLinkPhaseGroups(string linkText)
     {
         var link = EventLink.ExtractTournamentPath(linkText);
         var phaseGroups = await LoadPhaseGroups(link);
-        var bracket = new Brackets(phaseGroups);
-        SetBracket(bracket);
+        var bracket = new EventBracketGroup(phaseGroups);
+        AddBracketGroup(bracket);
     }
-    
+
+    /// <summary>
+    /// Loads all the phase groups in an event specified by a startgg event link.
+    /// </summary>
+    /// <param name="url">The url of the event.</param>
+    /// <returns>The phase groups of the event.</returns>
     public async Task<List<PhaseGroup>> LoadPhaseGroups(string url)
     {
         // Load all the phase groups across all the online pages for an event

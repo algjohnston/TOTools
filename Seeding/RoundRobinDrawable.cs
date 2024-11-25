@@ -2,13 +2,18 @@
 
 namespace TOTools.Seeding;
 
+/// <summary>
+/// A drawable that draws a round-robin bracket.
+/// </summary>
+/// <param name="roundRobin">The round-robin information.</param>
+/// <param name="lineColor">The line color of the bracket.</param>
 public class RoundRobinDrawable(RoundRobin roundRobin, Color lineColor) : IDrawable
 {
     
     /**
      * None of this code is correct!
      * I just kept it for reference!
-     * TODO
+     * TODO Draw the round-robin
      */
     public void Draw(ICanvas canvas, RectF dirtyRect)
     {

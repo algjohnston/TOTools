@@ -6,14 +6,17 @@ namespace TOTools.Models.Startgg;
 /// <summary>
 /// A dictionary of all brackets in a list of phase groups.
 /// </summary>
-public class Brackets
+public class EventBracketGroup
 {
     private readonly Dictionary<string, Set> _allBracketSets = new(); // Needed to check if prereqs exist
 
-    private readonly Dictionary<string, List<Set>> _roundRobinBrackets = new();
+    private readonly Dictionary<string, List<Set>> _roundRobinBrackets = new(); // Every round-robin phase group
+
+    // Every double elimination's phase group winner
+    // The bracket sets can be traversed via Set's PrevTop and PrevBottom
     private readonly Dictionary<string, Set> _doubleEliminationWinner = new();
 
-    public Brackets(List<PhaseGroup> phaseGroups)
+    public EventBracketGroup(List<PhaseGroup> phaseGroups)
     {
         foreach (var phaseGroup in phaseGroups)
         {
@@ -55,7 +58,7 @@ public class Brackets
         var i = 0;
         while (i < phaseGroup.Sets.Count)
         {
-            List<Set> currentRoundRobinSets = []; 
+            List<Set> currentRoundRobinSets = [];
             SetType currentSet; // Needed to compile
             do
             {
@@ -80,7 +83,7 @@ public class Brackets
         {
             throw new ArgumentException("Invalid phase group type; expected DOUBLE_ELIMINATION");
         }
-        
+
         var finalWinnerSet = new Set(phaseGroup.Sets.Last());
         _doubleEliminationWinner.Add(finalWinnerSet.Id, finalWinnerSet);
         FillNextDoubleEliminationBracket(finalWinnerSet);
@@ -101,6 +104,7 @@ public class Brackets
         {
             var topSet = _allBracketSets[set.PrevTopId];
             topSet.NextSet = set;
+            set.PrevTop = topSet;
             FillNextDoubleEliminationBracket(topSet);
         }
 
@@ -111,6 +115,7 @@ public class Brackets
 
         var bottomSet = _allBracketSets[set.PrevBottomId];
         bottomSet.NextSet = set;
+        set.PrevBottom = bottomSet;
         FillNextDoubleEliminationBracket(bottomSet);
     }
 

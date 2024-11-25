@@ -10,6 +10,9 @@ public class DoubleElimGrid : Grid
         FillGridWithPlayers();
     }
 
+    /// <summary>
+    /// Creates the grid with player sets
+    /// </summary>
     private void FillGridWithPlayers()
     {
         List<string> players =
@@ -64,12 +67,12 @@ public class DoubleElimGrid : Grid
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.Center
             };
-            
+
             this.Add(
                 playerLabel,
                 0,
                 (currentPlayerNumber * 2)
-                );
+            );
         }
 
         // Fill the winner columns and add the lines in between names

@@ -16,6 +16,11 @@ public enum Tier
 
 public static class TierHelper
 {
+    /// <summary>
+    /// Converts an integer to a tier enum.
+    /// </summary>
+    /// <param name="tierInt">The index of the tier enum.</param>
+    /// <returns>The tier enum represented by the given integer.</returns>
     public static Tier ConvertToTier(int tierInt)
     {
         if (Enum.IsDefined(typeof(Tier), tierInt))
@@ -23,13 +28,18 @@ public static class TierHelper
             return (Tier)tierInt;
         }
 
-        return Tier.F; 
+        return Tier.F;
     }
 }
 
 public class TierConverter
 {
-    public string ToString(Tier tier)
+    /// <summary>
+    /// Converts a tier to a string.
+    /// </summary>
+    /// <param name="tier">The tier to convert to a string.</param>
+    /// <returns>A string representation of the given tier.</returns>
+    public static string ToString(Tier tier)
     {
         return tier switch
         {

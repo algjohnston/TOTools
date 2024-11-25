@@ -19,12 +19,13 @@ public class PlayerTierGroup(
     {
         if (!Expanded)
         {
-                AddRange(players);
+            AddRange(players);
         }
         else
         {
             Clear();
         }
+
         Expanded = !Expanded;
     }
 }

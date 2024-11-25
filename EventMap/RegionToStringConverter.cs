@@ -1,6 +1,10 @@
 ﻿using System.Globalization;
-namespace TOTools.EventMapMap;
 
+namespace TOTools.EventMap;
+
+/// <summary>
+/// Used to convert region enums to strings for XAML.
+/// </summary>
 public class RegionToStringConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
@@ -18,8 +22,8 @@ public class RegionToStringConverter : IValueConverter
                 _ => "Unknown Region",
             };
         }
+
         return "Unknown Region";
-        
     }
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

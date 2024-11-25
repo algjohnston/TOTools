@@ -18,6 +18,7 @@ public partial class App : Application
         // since crash messages are not propagated anywhere I can find. 
         try
         {
+            // Load all database tables on a background thread on app start
             Task.Run(
                 () =>
                 {
@@ -25,7 +26,6 @@ public partial class App : Application
                     schedulerBusinessLogic.LoadPastMatches();
                     seedingBusinessLogic.LoadPlayers();
                 });
-
             MainPage = new NavigationPage(new TitlePage());
         }
         catch (Exception exception)

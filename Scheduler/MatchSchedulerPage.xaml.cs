@@ -6,13 +6,13 @@ using TOTools.Models;
 namespace TOTools.Scheduler;
 
 /// <summary>
-/// A page that displays a potential match schedule
-/// for all matches in a given tournament.
+/// A page that displays a potential match schedule for all matches in a list of events
+/// that were input by the user in the SchedulerEventPage.
 /// </summary>
 public partial class MatchSchedulerPage : ContentPage
 {
     private SchedulerBusinessLogic? _schedulerBusinessLogic;
-    
+
     public MatchSchedulerPage()
     {
         InitializeComponent();
@@ -27,7 +27,11 @@ public partial class MatchSchedulerPage : ContentPage
         {
             return;
         }
-        await _schedulerBusinessLogic.LoadTask;
+
+        // Need to make sure the past matches are loaded for the scheduler to estimate time
+        await _schedulerBusinessLogic.PastMatchLoadTask;
+        // Since the user already entered the event links, and they are in the SchedulerBusinessLogic,
+        // we can load the schedule right away
         await _schedulerBusinessLogic.LoadPotentialSchedule();
         MatchList.BindingContext = _schedulerBusinessLogic;
     }

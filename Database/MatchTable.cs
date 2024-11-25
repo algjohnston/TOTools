@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using CS341Project.Models;
 using Npgsql;
 using TOTools.Models;
 
@@ -18,7 +17,7 @@ public class MatchTable : ITable<PastMatch, long, Match>
     private const string MatchTimeColumn = "match_time";
     private const string GameNameColumn = "game_name";
     private const string IsBestOfFiveColumn = "is_best_of_five";
-    
+
     private const int MatchIdColumnNumber = 0;
     private const int Player1IdColumnNumber = 1;
     private const int Player2IdColumnNumber = 2;
@@ -112,7 +111,7 @@ public class MatchTable : ITable<PastMatch, long, Match>
             null
         );
     }
-    
+
     public ObservableCollection<PastMatch> SelectAll()
     {
         _matches.Clear();
@@ -130,9 +129,11 @@ public class MatchTable : ITable<PastMatch, long, Match>
             var matchTime = reader.GetInt64(MatchTimeColumnNumber);
             var gameName = reader.GetInt16(GameNameColumnNumber);
             var isBestOfFive = reader.GetBoolean(IsBestOfFiveColumnNumber);
-            PastMatch matchToAdd = new(matchId, player1Id, player2Id, matchTime, GameHelper.ConvertToGame(gameName), isBestOfFive);
+            PastMatch matchToAdd = new(matchId, player1Id, player2Id, matchTime, GameHelper.ConvertToGame(gameName),
+                isBestOfFive);
             _matches.Add(matchToAdd);
         }
+
         return _matches;
     }
 }
