@@ -14,20 +14,31 @@
                      Clicked="OnReportButtonClicked"/>
             </ContentPage.ToolbarItems>
     <ContentPage.Content>
+		<Grid>
+			<Image Source="background.png"
+				   Aspect="Fill"
+				   Grid.Row="0"
+				   Grid.Column="0"
+				   Grid.RowSpan="2"
+				   Grid.ColumnSpan="2"
+				   ZIndex="0"/>
 
-        <Grid
+			<Grid
             ColumnDefinitions="*, auto"
             RowDefinitions="auto, *"
-            Margin="16">
+            Margin="24"
+			ZIndex="1">
             
             <Label Text="Match"
                    FontSize="31"
+				   FontFamily="GoboldBold"
                    TextColor="AntiqueWhite"
                    Grid.Column="0"
                    Grid.Row="0" />
 
             <Label Text="Estimated Time"
                    FontSize="31"
+				   FontFamily="GoboldBold"
                    TextColor="AntiqueWhite"
                    Grid.Column="1"
                    Grid.Row="0" />
@@ -46,12 +57,15 @@
                             <Grid RowDefinitions="*"
                                   ColumnDefinitions="*, auto">
                                 <Label Text="{Binding FormattedMatch  }"
-                                       FontSize="20"
+                                       FontSize="18.5"
+									   FontFamily="RalewayRegular"
                                        TextColor="AntiqueWhite"
                                        Grid.Column="0">
                                 </Label>
                                 <Label Text="{Binding MatchTime  }"
                                        FontSize="24"
+									   FontFamily="RalewayRegular"
+									   FontAttributes="Bold"
                                        TextColor="AntiqueWhite"
                                        Grid.Column="1">
                                     <Label.Triggers>
@@ -69,6 +83,7 @@
             </ScrollView>
 
         </Grid>
+		</Grid>
 
-    </ContentPage.Content>
+	</ContentPage.Content>
 </ContentPage>

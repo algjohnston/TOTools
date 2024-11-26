@@ -4,43 +4,59 @@
         x:Class="TOTools.ThumbGen.ThumbGenManualPage"
         Title="Thumbnail Generator">
 
-    <Grid ColumnDefinitions="*"
-          RowDefinitions="*, *, *, *"
-          Margin="16, 16, 16, 64">
+	<Grid>
+		<Image Source="background.png"
+               Aspect="Fill"
+               Grid.Row="0"
+               Grid.Column="0"
+               Grid.RowSpan="5"
+               Grid.ColumnSpan="2" />
+		
+        <Grid ColumnDefinitions="*"
+              RowDefinitions="*, *, *, *"
+              Margin="24, 16, 24, 64">
 
-        <Entry x:Name="VodTitleEntry" 
-            Grid.Row="0"
-            FontSize="Large"
-            VerticalOptions="Center"
-            HorizontalOptions="Center"
-            Placeholder="Enter VOD Title"/>
+            <Entry x:Name="VodTitleEntry" 
+                   Grid.Row="0"
+                   FontSize="35"
+				   FontFamily="RalewayRegular"
+				   TextColor="AntiqueWhite"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   Placeholder="Enter VOD Title"/>
 
-        <Button 
-            x:Name="SelectTemplateButton" 
-            Text="Select Template"
-            Grid.Row="1"
-            FontSize="Large"
-            FontAttributes="Bold"
-            VerticalOptions="Center"
-            HorizontalOptions="Center"
-            Clicked="OnSelectTemplateButtonClicked"/>
+            <Button x:Name="SelectTemplateButton" 
+                Text="Select Template"
+                Grid.Row="1"
+                FontSize="Large"
+                FontFamily="GoboldBold"
+			    TextColor="Black"
+			    BackgroundColor="#eebf6d"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                Clicked="OnSelectTemplateButtonClicked"/>
 
-        <Button x:Name="OutputFolderButton" 
-            Text="Select Output Folder" 
-            Grid.Row="2"
-            FontSize="Large"
-            FontAttributes="Bold"
-            VerticalOptions="Center"
-            HorizontalOptions="Center"
-            Clicked="OnOutputFolderButtonClicked"/>
+            <Button x:Name="OutputFolderButton" 
+                    Text="Select Output Folder" 
+                    Grid.Row="2"
+                    FontSize="Large"
+                    FontFamily="GoboldBold"
+				    TextColor="Black"
+                    BackgroundColor="#eebf6d"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Clicked="OnOutputFolderButtonClicked"/>
 
-        <Button x:Name="SubmitButton" 
-            Text="Submit" 
-            Grid.Row="3"
-            FontSize="Large"
-            FontAttributes="Bold"
-            VerticalOptions="End"
-            HorizontalOptions="Start"
-            Clicked="OnSubmitButtonClicked"/>
-    </Grid>
+            <Button x:Name="SubmitButton" 
+                    Text="Submit" 
+                    Grid.Row="3"
+                    FontSize="Large"
+                    FontFamily="GoboldBold"
+					TextColor="#fbefdb"
+                    BackgroundColor="#643f00"
+                    VerticalOptions="End"
+                    HorizontalOptions="Start"
+                    Clicked="OnSubmitButtonClicked"/>
+        </Grid>
+	</Grid>
 </ContentPage>

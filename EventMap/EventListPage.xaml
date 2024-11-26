@@ -27,17 +27,21 @@
                         <StackLayout Margin="0,8,0,8">
                             <Label Text="{Binding EventName}"
                                    FontSize="20"
-                                   TextColor="AntiqueWhite"
-                                   FontAttributes="Bold" />
+								   FontFamily="GoboldBold"
+                                   TextColor="AntiqueWhite" />
                             <Label Text="{Binding Location}"
-                                   TextColor="AntiqueWhite"
-                                   FontSize="16" />
+                                   FontSize="16"
+								   FontFamily="RalewayRegular"
+								   TextColor="AntiqueWhite"
+								   FontAttributes="Bold" />
                             <Label Text="{Binding FormattedStartDateTime}"
-                                   TextColor="AntiqueWhite"
-                                   FontSize="14" />
+                                   FontSize="14"
+								   FontFamily="RalewayRegular"
+								   TextColor="AntiqueWhite" />
                             <Label Text="{Binding FormattedEndDateTime}"
-                                   TextColor="AntiqueWhite"
-                                   FontSize="14" />
+                                   FontSize="14"
+								   FontFamily="RalewayRegular"
+								   TextColor="AntiqueWhite" />
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

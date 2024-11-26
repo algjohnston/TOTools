@@ -25,7 +25,7 @@
                 <CollectionView.GroupHeaderTemplate>
                     <DataTemplate x:DataType="models:PlayerTierGroup">
                         <Label Text="{Binding Tier}"
-                               FontAttributes="Bold" 
+                               FontFamily="GoboldBold" 
                                Margin="20, 0, 0, 0"
                                TextColor="AntiqueWhite"
                                FontSize="31">
@@ -40,7 +40,9 @@
                     <DataTemplate x:DataType="models:Player">
                         <Label 
                             Text="{Binding FormattedPlayerForList}" 
-                            FontSize="21"/>
+                            FontFamily="RalewayRegular"
+							FontAttributes="Bold"
+							FontSize="21"/>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
 

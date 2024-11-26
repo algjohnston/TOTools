@@ -29,6 +29,8 @@
                         <StackLayout Padding="10">
                             <Label Text="{Binding .}"
                                    FontSize="18"
+								   FontFamily="RalewayRegular"
+								   FontAttributes="Bold"
                                    TextColor="AntiqueWhite"
                                    HorizontalOptions="Center" />
                         </StackLayout>
@@ -41,10 +43,10 @@
                     x:Name="SubmitButton"
                     Grid.Row="2"
                     FontSize="Large"
-                    TextColor="AntiqueWhite"
-                    BackgroundColor="Blue"
+					FontFamily="GoboldBold"
+                    TextColor="#fbefdb"
+                    BackgroundColor="#643f00"
                     Margin="20, 0, 0, 0"
-                    FontAttributes="Bold"
                     HorizontalOptions="Start"
                     VerticalOptions="End"
                     Clicked="OnSubmitClicked"/>

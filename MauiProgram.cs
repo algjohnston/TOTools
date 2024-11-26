@@ -20,8 +20,8 @@ public static class MauiProgram
             .UseSkiaSharp()
             .ConfigureFonts(fonts =>
             {
-                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                fonts.AddFont("Gobold-Bold.ttf", "GoboldBold");
+                fonts.AddFont("Raleway-Regular.ttf", "RalewayRegular");
             })
             // Register all the singletons with the dependency injection service
             .RegisterGraphQLClient()

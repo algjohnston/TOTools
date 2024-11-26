@@ -22,12 +22,14 @@
                 <Label Text="Event Page"
                        TextColor="AntiqueWhite"
                        Margin="20, 0, 0, 0"
-                       FontSize="21" />
+                       FontSize="29"
+					   FontFamily="GoboldBold" />
 
                 <Entry x:Name="AttendeeLinkEntry"
                        TextColor="AntiqueWhite"
                        Margin="15, 0, 20, 0"
-                       FontSize="21"
+                       FontSize="20"
+					   FontFamily="RalewayRegular"
                        Placeholder="Enter attendee link"/>
 
             </StackLayout>
@@ -35,9 +37,9 @@
             <Button Text="Manual Entry"
                     Grid.Row="1"
                     FontSize="Large"
-                    BackgroundColor="Blue"
-                    TextColor="AntiqueWhite"
-                    FontAttributes="Bold"
+					FontFamily="GoboldBold"
+                    BackgroundColor="#eebf6d"
+                    TextColor="Black"
                     HorizontalOptions="Center"
                     VerticalOptions="Start"
                     Clicked="OnManualEntryButtonClicked"/>
@@ -45,9 +47,9 @@
             <Button Text="Submit"
                     Grid.Row="2"
                     FontSize="Large"
-                    FontAttributes="Bold"
-                    BackgroundColor="Blue"
-                    TextColor="AntiqueWhite"
+                    FontFamily="GoboldBold"
+                    BackgroundColor="#643f00"
+                    TextColor="#fbefdb"
                     Margin="20, 0, 0, 0"
                     HorizontalOptions="Start"
                     VerticalOptions="Center"

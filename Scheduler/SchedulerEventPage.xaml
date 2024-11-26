@@ -25,12 +25,14 @@
 
             <Label Text="Event Link"
                    FontSize="31"
+				   FontFamily="GoboldBold"
                    TextColor="AntiqueWhite"
                    Grid.Column="0"
                    Grid.Row="0" />
             
             <Label Text="Start Time"
                    FontSize="31"
+				   FontFamily="GoboldBold"
                    TextColor="AntiqueWhite"
                    Grid.Column="1"
                    Grid.Row="0" />
@@ -51,11 +53,14 @@
                                 ColumnDefinitions="*, auto, auto">
                                 <Label Text="{Binding Link }"
                                        FontSize="16"
+									   FontFamily="RalewayRegular"
                                        TextColor="AntiqueWhite"
                                        Grid.Column="0">
                                 </Label>
                                 <Label Text="{Binding StartTimeFormatted }"
                                        FontSize="24"
+									   FontFamily="RalewayRegular"
+									   FontAttributes="Bold"
                                        TextColor="AntiqueWhite"
                                        Grid.Column="1">
                                 </Label>
@@ -84,9 +89,9 @@
                     FontSize="Large"
                     Grid.Row="2"
                     Grid.Column="1"
-                    FontAttributes="Bold"
-                    TextColor="AntiqueWhite"
-                    BackgroundColor="Blue"
+                    FontFamily="GoboldBold"
+                    TextColor="#fbefdb"
+                    BackgroundColor="#643f00"
                     VerticalOptions="Center"
                     HorizontalOptions="End"
                     Clicked="OnSubmitButtonClicked" />
