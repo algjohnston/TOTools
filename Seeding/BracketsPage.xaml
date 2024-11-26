@@ -6,6 +6,7 @@
              xmlns:seeding="clr-namespace:TOTools.Seeding"
              xmlns:startgg="clr-namespace:TOTools.Models.Startgg"
              x:Class="TOTools.Seeding.BracketsPage"
+             NavigationPage.IconColor="Gold"
              x:DataType="seeding:BracketsPage">
     <ContentPage.Content>
 

@@ -5,7 +5,7 @@
              x:Class="TOTools.AppEntry.LogInPage"
              Title="Log in"
              NavigationPage.HasNavigationBar="True"
-             NavigationPage.IconColor="Blue">
+             >
     <ContentPage.Content>
         <AbsoluteLayout>
             <Image Source="background.png" 
