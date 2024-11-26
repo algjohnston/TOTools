@@ -49,10 +49,10 @@
 
     <ItemGroup>
         <!-- App Icon -->
-        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#ffa700" />
 
         <!-- Splash Screen -->
-        <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+        <MauiSplashScreen Include="Resources\Splash\splash_tot.svg" Color="#ffa700" />
 
         <!-- Images -->
         <MauiImage Include="Resources\Images\*" />
@@ -116,6 +116,10 @@
       <GraphQL Update="StartGGAPI\GetNumberOfEntrants.graphql">
         <Generator>MSBuild:GenerateGraphQLCode</Generator>
       </GraphQL>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Resources\Splash\" />
     </ItemGroup>
 
 </Project>
