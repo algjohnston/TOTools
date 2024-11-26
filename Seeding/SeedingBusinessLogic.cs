@@ -21,6 +21,9 @@ public class SeedingBusinessLogic(
 
     public List<EventBracketGroup> EventBrackets { get; } = [];
 
+    private Dictionary<string, Bracket> BracketsInProgress { get; } = [];
+    private string DisplayIdentifierOfActiveBracket { get; set; } = "";
+
     private readonly TaskCompletionSource<bool> _loadCompletionSource = new();
     public Task PlayerLoadTask => _loadCompletionSource.Task;
 
@@ -121,5 +124,62 @@ public class SeedingBusinessLogic(
             .ToList();
 
         return phaseGroups;
+    }
+
+    /// <summary>
+    /// Returns a bracket matching the display identifier given.
+    /// </summary>
+    /// <param name="displayIdentifier">The display identifier of the bracket to look for.</param>
+    /// <returns>The bracket with the given identifier if it exists, else null.</returns>
+    public Bracket? GetBracketByDisplayIdentifier(string displayIdentifier)
+    {
+        foreach (var bracketGroup in EventBrackets)
+        {
+            foreach (var bracket in bracketGroup.GetRoundRobinBrackets()
+                         .Where(bracket => bracket.First().DisplayIdentifier == displayIdentifier))
+            {
+                return new Bracket(BracketType.RoundRobin, bracket);
+            }
+
+            foreach (var bracket in bracketGroup.GetDoubleEliminationLoserWinner())
+            {
+                return new Bracket(BracketType.DoubleElimination, [bracket]);
+            }
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// Adds a bracket for the bracket editor and sets it as the currently editable bracket.
+    /// If the bracket is already added, it will not be re-added or cleared,
+    /// but it will be set as the active for the bracket editor.
+    /// </summary>
+    /// <param name="displayIdentifier">The display identifer of the bracket to add and set as active for the bracket editor.</param>
+    /// <returns>True if the bracket was found and added for the editor, else false.</returns>
+    public bool SetActiveBracketForEditing(string displayIdentifier)
+    {
+        var bracket = GetBracketByDisplayIdentifier(displayIdentifier);
+        if (bracket == null)
+        {
+            return false;
+        }
+        BracketsInProgress.TryAdd(displayIdentifier, bracket);
+        DisplayIdentifierOfActiveBracket = displayIdentifier;
+        return true;
+    }
+
+    /// <summary>
+    /// Gets the bracket editor's active bracket.
+    /// </summary>
+    /// <returns>The bracket editor's active bracket.</returns>
+    public Bracket? GetActiveBracket()
+    {
+        if (DisplayIdentifierOfActiveBracket == "")
+        {
+            return null;
+        }
+        BracketsInProgress.TryGetValue(DisplayIdentifierOfActiveBracket, out var bracket);
+        return bracket;
     }
 }

@@ -1,23 +1,61 @@
-﻿namespace TOTools.Seeding;
+﻿using TOTools.Models;
+
+namespace TOTools.Seeding;
 
 /// <summary>
 /// A page that displays a bracket for editing.
 /// </summary>
 public partial class BracketEditorPage : ContentPage
 {
+    private SeedingBusinessLogic? _seedingBusinessLogic;
+
     public BracketEditorPage()
     {
         InitializeComponent();
+        HandlerChanged += OnHandlerChanged;
+    }
 
-        // Saving this code for later
+    private async void OnHandlerChanged(object? sender, EventArgs e)
+    {
+        _seedingBusinessLogic ??= Handler?.MauiContext?.Services
+            .GetService<SeedingBusinessLogic>();
+        if (_seedingBusinessLogic == null)
+        {
+            return;
+        }
+
+        // Waits for players to load
+        await _seedingBusinessLogic.PlayerLoadTask;
+
+        var bracket = _seedingBusinessLogic.GetActiveBracket();
+        if (bracket == null)
+        {
+            return;
+        }
+
         var screenHeight = DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density;
         var screenWidth = DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
-        var winnersBracket = new ContentView
+        if (bracket.BracketType == BracketType.DoubleElimination)
         {
-            HeightRequest = screenHeight,
-            WidthRequest = screenWidth,
-            Content = new DoubleElimGrid()
-        };
-        // TODO add the players to the DoubleElimGrid and support round robin
+            var winnerAndLoserBracketSets = Bracket.GetWinnerAndLoserBracketSets(bracket);
+            var winnersBracket = new ContentView
+            {
+                HeightRequest = screenHeight,
+                WidthRequest = screenWidth,
+                Content = new DoubleElimGrid(winnerAndLoserBracketSets.WinnerSets, Colors.AntiqueWhite)
+            };
+            var losersBracket = new ContentView
+            {
+                HeightRequest = screenHeight,
+                WidthRequest = screenWidth,
+                Content = new DoubleElimGrid(winnerAndLoserBracketSets.LoserSets, Colors.AntiqueWhite)
+            };
+            BracketStackLayout.Children.Add(winnersBracket);
+            BracketStackLayout.Children.Add(losersBracket);
+        }
+        else if (bracket.BracketType == BracketType.RoundRobin)
+        {
+        }
+        // TODO add round-robin support
     }
 }

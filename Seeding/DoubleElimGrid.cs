@@ -1,28 +1,39 @@
-﻿namespace TOTools.Seeding;
+﻿using TOTools.Models.Startgg;
+
+namespace TOTools.Seeding;
 
 /// <summary>
 /// A page that displays a double elimination bracket.
 /// </summary>
 public class DoubleElimGrid : Grid
 {
-    public DoubleElimGrid()
+    /// <summary>
+    /// Creates a double elimination grid.
+    /// </summary>
+    /// <param name="sets">
+    /// The sets of the bracket.
+    /// The winner's set must be the last set.
+    /// </param>
+    /// <param name="color">
+    /// The color of the lines and the text in the bracket.
+    /// </param>
+    public DoubleElimGrid(List<Set> sets, Color color)
     {
-        FillGridWithPlayers();
+        FillGridWithPlayers(sets, color);
     }
 
     /// <summary>
-    /// Creates the grid with player sets
+    /// Creates the grid with player sets.
     /// </summary>
-    private void FillGridWithPlayers()
+    /// <param name="sets">The sets of the bracket.</param>
+    /// <param name="color">
+    /// The color of the lines and the text in the bracket.
+    /// </param>
+    private void FillGridWithPlayers(List<Set> sets, Color color)
     {
-        List<string> players =
-        [
-            "A", "B", "C", "D",
-            "A", "B", "C", "D",
-            "A", "B", "C", "D",
-            "A", "B", "C", "D"
-        ];
-        var numberOfPlayers = players.Count;
+        var groupedSets = sets.First().Round > -1
+            ? sets.GroupBy(set => set.Round).OrderBy(g => g.Key).ToList()
+            : sets.GroupBy(set => set.Round).OrderBy(g => -g.Key).ToList();
 
         // Add the rows
         RowDefinitions.Clear();
@@ -31,7 +42,8 @@ public class DoubleElimGrid : Grid
         // |name--|
         // |      |--name
         // |name--|
-        var numberOfRows = 2 * numberOfPlayers;
+        var firstRowSets = groupedSets.First().ToList();
+        var numberOfRows = firstRowSets.Count * 2 - 1;
         for (var row = 0; row < numberOfRows; row++)
         {
             RowDefinitions.Add(
@@ -46,53 +58,108 @@ public class DoubleElimGrid : Grid
         // | name --|
         // |        |-- name |
         // | name --|
-        // The extra column is for the winner's name
-        var numberOfColumns = (2 * (int)Math.Log(numberOfPlayers, 2)) + 1;
+        // The extra column is for the final match
+        var numberOfColumns = 2 * groupedSets.Count - 1;
         for (var i = 0; i < numberOfColumns; i++)
         {
             ColumnDefinitions.Add(
                 new ColumnDefinition { Width = GridLength.Star });
         }
 
-
+        List<int> previousColumnRows = [];
         for (
             var currentPlayerNumber = 0;
-            currentPlayerNumber < numberOfPlayers;
+            currentPlayerNumber < firstRowSets.Count;
             currentPlayerNumber++) // Fill the first column with players
         {
             // TODO autoscale text?
+            var currentSet = firstRowSets[currentPlayerNumber];
             var playerLabel = new Label
             {
-                Text = players[currentPlayerNumber],
+                Text = currentSet.Identifier + ": " + currentSet.Player1 + "vs ." + currentSet.Player2,
+                TextColor = color,
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.Center
             };
+
+            // Handle drag start
+            var dragGesture = new DragGestureRecognizer();
+            dragGesture.DragStarting += (sender, args) =>
+            {
+                args.Data.Properties["Set"] = currentSet;
+                args.Data.Properties["Label"] = playerLabel;
+            };
+            playerLabel.GestureRecognizers.Add(dragGesture);
+
+            // Add DropGestureRecognizer
+            var dropGesture = new DropGestureRecognizer();
+            dropGesture.Drop += (sender, args) =>
+            {
+                
+                if (!args.Data.Properties.TryGetValue("Label", out var sourceLabel)||
+                    !args.Data.Properties.TryGetValue("Set", out var set))
+                {
+                    return;
+                }
+
+                (playerLabel.Text, (sourceLabel as Label).Text) = ((sourceLabel as Label).Text, playerLabel.Text);
+                currentSet.SwapPlayerWith(set as Set);
+            };
+            playerLabel.GestureRecognizers.Add(dropGesture);
 
             this.Add(
                 playerLabel,
                 0,
                 (currentPlayerNumber * 2)
             );
+            previousColumnRows.Add(currentPlayerNumber * 2);
         }
 
         // Fill the winner columns and add the lines in between names
-        var currentRowCount = numberOfPlayers / 2;
-        var winnerColumnsCount = numberOfColumns / 2;
-        for (var col = 0; col < winnerColumnsCount; col++)
+        List<int> currentColumnRows = [];
+        var col = 0;
+        foreach (var winnerSetGroup in groupedSets.Skip(1))
         {
-            var currentColumn = (2 * col) + 1;
-
-            var rowOffsetForLines = (int)Math.Pow(2, col) - 1;
-            var rowSpanForLines = (int)Math.Pow(2, col + 1) + 1;
-
-            var rowOffsetForWinnerNames = (int)Math.Pow(2, col + 1) - 1;
-            var spaceBetweenWinnerNames = (int)Math.Pow(2, (col + 2));
-
-            for (var row = 0; row < currentRowCount; row++)
+            var currentWinnerColumn = (2 * col) + 2;
+            var row = 0;
+            foreach (var currentSet in winnerSetGroup)
             {
-                // Add lines between names in the previous column and the next column to the current column
-                var rowPositionForLines = rowOffsetForLines + (row * spaceBetweenWinnerNames);
-                var matchDrawable = new BracketDrawable(new Label().TextColor, rowSpanForLines);
+                // Add the winner's name to the next column
+                int rowPositionForWinnerNames;
+                if (previousColumnRows.Count == winnerSetGroup.Count())
+                {
+                    rowPositionForWinnerNames = previousColumnRows[row];
+                }
+                else
+                {
+                    rowPositionForWinnerNames =
+                        (previousColumnRows[row * 2] + previousColumnRows[row * 2 + 1]) / 2;
+                }
+
+                // TODO autoscale text?
+                var winnerLabel = new Label
+                {
+                    Text = currentSet.Identifier + ": " + currentSet.Player1 + "vs ." + currentSet.Player2,
+                    TextColor = color,
+                    HorizontalOptions = LayoutOptions.Center,
+                    VerticalOptions = LayoutOptions.Center
+                };
+                this.Add(
+                    winnerLabel,
+                    currentWinnerColumn,
+                    rowPositionForWinnerNames
+                );
+                currentColumnRows.Add(rowPositionForWinnerNames);
+
+                // Add the lines between the last row and 
+                var rowPositionForLines = previousColumnRows.Count == winnerSetGroup.Count()
+                    ? previousColumnRows[row]
+                    : previousColumnRows[row * 2];
+                var rowSpanForLines = previousColumnRows.Count == winnerSetGroup.Count()
+                    ? 1
+                    : (previousColumnRows[row * 2 + 1] - previousColumnRows[row * 2]) + 1;
+
+                var matchDrawable = new BracketDrawable(color, rowSpanForLines);
                 var graphicsView = new GraphicsView
                 {
                     Drawable = matchDrawable,
@@ -102,27 +169,15 @@ public class DoubleElimGrid : Grid
                 this.AddWithSpan(
                     graphicsView,
                     rowPositionForLines,
-                    currentColumn,
+                    currentWinnerColumn - 1,
                     rowSpanForLines
                 );
-
-                // Add the winner's name to the next column
-                var rowPositionForWinnerNames = rowOffsetForWinnerNames + (row * spaceBetweenWinnerNames);
-                // TODO autoscale text?
-                var winnerLabel = new Label
-                {
-                    Text = "TBD",
-                    HorizontalOptions = LayoutOptions.Center,
-                    VerticalOptions = LayoutOptions.Center
-                };
-                this.Add(
-                    winnerLabel,
-                    currentColumn + 1,
-                    rowPositionForWinnerNames
-                );
+                row++;
             }
 
-            currentRowCount /= 2;
+            previousColumnRows = currentColumnRows;
+            currentColumnRows = [];
+            col++;
         }
     }
 }

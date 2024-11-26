@@ -70,4 +70,11 @@ public partial class BracketsPage : ContentPage
         BracketListView.ItemsSource = null;
         BracketListView.ItemsSource = BracketGroupList;
     }
+
+    private void OnLabelClick(object? sender, TappedEventArgs e)
+    {
+        if (_seedingBusinessLogic == null || sender is not Label { BindingContext: string displayIdentifier }) return;
+        _seedingBusinessLogic.SetActiveBracketForEditing(displayIdentifier);
+        Navigation.PushAsync(new BracketEditorPage());
+    }
 }

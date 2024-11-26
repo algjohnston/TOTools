@@ -4,7 +4,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:TOTools.Models"
              xmlns:seeding="clr-namespace:TOTools.Seeding"
-             xmlns:startgg="clr-namespace:TOTools.Models.Startgg"
              x:Class="TOTools.Seeding.BracketsPage"
              x:DataType="seeding:BracketsPage">
     <ContentPage.Content>
@@ -36,7 +35,12 @@
                     <DataTemplate x:DataType="x:String">
                         <Label
                             Text="{Binding . }"
-                            FontSize="21" />
+                            TextColor="AntiqueWhite"
+                            FontSize="21">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnLabelClick" />
+                            </Label.GestureRecognizers>
+                        </Label>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
 

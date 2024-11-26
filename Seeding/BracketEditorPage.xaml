@@ -4,6 +4,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TOTools.Seeding.BracketEditorPage">
     <ContentPage.Content>
-        
+        <ScrollView Orientation="Both">
+        <AbsoluteLayout>
+            <Image Source="background.png"
+                   AbsoluteLayout.LayoutFlags="All"
+                   AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                   Aspect="Fill" />
+
+                <StackLayout x:Name="BracketStackLayout"
+                             Margin="16">
+                </StackLayout>
+
+        </AbsoluteLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
