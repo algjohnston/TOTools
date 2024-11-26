@@ -50,4 +50,17 @@ public partial class SchedulerEventPage : ContentPage, IOnEventLinkSubmitted
     {
         _schedulerBusinessLogic?.AddEventLink(eventLink);
     }
+
+    private void OnDeleteLinkButtonClicked(object? sender, EventArgs e)
+    {
+        _schedulerBusinessLogic.RemoveEvent(_schedulerBusinessLogic.SelectedEventLink as EventLink);
+    }
+
+    public void OnEventLinkSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (e.CurrentSelection.FirstOrDefault() is EventLink selectedEventLink)
+        {
+            _schedulerBusinessLogic.SelectedEventLink = selectedEventLink;
+        }
+    }
 }

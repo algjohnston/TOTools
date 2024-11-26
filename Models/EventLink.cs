@@ -46,4 +46,6 @@ public class EventLink(string link, DateTime startTime, int numberOfConcurrentMa
         }
         return result;
     }
+    
+    public int Bo5StartRound { get; set; }
 }

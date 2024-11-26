@@ -125,4 +125,9 @@ public class EventBracketGroup
         set.PrevBottom = bottomSet;
         FillNextDoubleEliminationBracket(bottomSet);
     }
+
+    public Dictionary<string, Set> GetSets()
+    {
+        return _allBracketSets;
+    }
 }

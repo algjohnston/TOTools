@@ -9,7 +9,7 @@
               Margin="16">
 
             <Label Text="Event Link: "
-                   FontSize="Large"
+                   FontSize="24"
                    TextColor="AntiqueWhite"
                    Grid.Row="0"
                    HorizontalOptions="Center"
@@ -17,7 +17,7 @@
 
             <Entry x:Name="EventLinkEntry"
                    Grid.Row="1"
-                   FontSize="Large"
+                   FontSize="16"
                    TextColor="AntiqueWhite"
                    Placeholder="Enter an event link"
                    HorizontalOptions="Center"
@@ -25,14 +25,14 @@
 
             <Label Text="Start Time: "
                    Grid.Row="2"
-                   FontSize="Large"
+                   FontSize="24"
                    TextColor="AntiqueWhite"
                    HorizontalOptions="Center"
                    VerticalOptions="Center" />
 
             <TimePicker
                 Grid.Row="3"
-                FontSize="Large"
+                FontSize="24"
                 x:Name="StartTimeEntry"
                 TextColor="AntiqueWhite"
                 HorizontalOptions="Center"
@@ -40,7 +40,7 @@
 
             <Label Text="Number of Concurrent Matches: "
                    Grid.Row="4"
-                   FontSize="Large"
+                   FontSize="24"
                    TextColor="AntiqueWhite"
                    HorizontalOptions="Center"
                    VerticalOptions="Center" />
@@ -49,14 +49,23 @@
                    Grid.Row="5"
                    TextColor="AntiqueWhite"
                    Keyboard="Numeric"
-                   FontSize="Large"
+                   FontSize="24"
                    Placeholder="Enter the number of matches that can be played at once"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+            
+            <Entry x:Name="Bo5StartPlacementEntry"
+                   Grid.Row="6"
+                   TextColor="AntiqueWhite"
+                   Keyboard="Numeric"
+                   FontSize="24"
+                   Placeholder="Enter the placement where Bo5 Starts"
                    HorizontalOptions="Center"
                    VerticalOptions="Center" />
             
             <Button x:Name="SubmitButton"
                     Text="Submit"
-                    FontSize="Large"
+                    FontSize="24"
                     TextColor="AntiqueWhite"
                     FontAttributes="Bold"
                     Grid.Row="6"
@@ -68,7 +77,7 @@
                     Text="Cancel"
                     TextColor="AntiqueWhite"
                     FontAttributes="Bold"
-                    FontSize="Large"
+                    FontSize="24"
                     Grid.Row="6"
                     Grid.Column="1"
                     HorizontalOptions="End"

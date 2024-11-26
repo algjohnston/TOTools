@@ -25,13 +25,17 @@
 
             <Label Text="Event Link"
                    FontSize="31"
+				   FontFamily="GoboldBold"
                    TextColor="AntiqueWhite"
+				   Margin="8, 0, 0, 0"
                    Grid.Column="0"
                    Grid.Row="0" />
-
+            
             <Label Text="Start Time"
                    FontSize="31"
+				   FontFamily="GoboldBold"
                    TextColor="AntiqueWhite"
+				   Margin="0, 0, 8, 0"
                    Grid.Column="1"
                    Grid.Row="0" />
 
@@ -41,7 +45,8 @@
                 <CollectionView
                     x:Name="EventLinkList"
                     ItemsSource="{Binding EventLinks}"
-                    SelectionMode="Single">
+                    SelectionMode="Single"
+                    SelectionChanged="OnEventLinkSelectionChanged">
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:EventLink">
@@ -49,13 +54,18 @@
                                 RowDefinitions="*"
                                 ColumnDefinitions="*, auto, auto">
                                 <Label Text="{Binding Link }"
-                                       FontSize="31"
+                                       FontSize="16"
+									   FontFamily="RalewayRegular"
                                        TextColor="AntiqueWhite"
+									   Margin="12, 4, 8, 8"
                                        Grid.Column="0">
                                 </Label>
                                 <Label Text="{Binding StartTimeFormatted }"
-                                       FontSize="31"
+                                       FontSize="24"
+									   FontFamily="RalewayRegular"
+									   FontAttributes="Bold"
                                        TextColor="AntiqueWhite"
+									   Margin="8, 4, 12, 8"
                                        Grid.Column="1">
                                 </Label>
                             </Grid>
@@ -63,22 +73,34 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </ScrollView>
+            
+            <ImageButton Source="trash.svg"
+                         HorizontalOptions="Start"
+                         VerticalOptions="End"
+                         WidthRequest="40"
+                         HeightRequest="40"
+						 Margin="8, 4, 8, 0"
+                         Grid.Row="1" 
+                         Clicked="OnDeleteLinkButtonClicked"/>
 
             <ImageButton Source="plus.svg"
                          HorizontalOptions="Start"
-                         Width="40"
-                         Height="40"
+                         WidthRequest="40"
+                         HeightRequest="40"
+						 Margin="8, 4, 8, 0"
                          Grid.Row="2" 
                          Clicked="OnAddLinkButtonClicked"/>
 
             <Button Text="Submit"
                     FontSize="Large"
-                    Grid.Row="3"
-                    FontAttributes="Bold"
-                    TextColor="AntiqueWhite"
-                    BackgroundColor="Blue"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    FontFamily="GoboldBold"
+                    TextColor="#fbefdb"
+                    BackgroundColor="#643f00"
                     VerticalOptions="Center"
-                    HorizontalOptions="Start"
+                    HorizontalOptions="End"
+					Margin="8, 4,12, 8"
                     Clicked="OnSubmitButtonClicked" />
 
         </Grid>

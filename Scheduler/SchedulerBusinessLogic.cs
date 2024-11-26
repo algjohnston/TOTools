@@ -28,6 +28,10 @@ public class SchedulerBusinessLogic(
     // This gets filled with matches from startgg that need to be played
     public ObservableCollection<Match> FutureMatches { get; } = [];
 
+    public EventLink? SelectedEventLink { get; set; }
+    
+    public Match? SelectedMatch { get; set; }
+
     private readonly TaskCompletionSource<bool> _loadCompletionSource = new();
     public Task PastMatchLoadTask => _loadCompletionSource.Task;
 
@@ -43,7 +47,6 @@ public class SchedulerBusinessLogic(
         {
             PastMatches.Add(match);
         }
-
         _loadCompletionSource.TrySetResult(true);
     }
 
@@ -54,6 +57,11 @@ public class SchedulerBusinessLogic(
     public void AddEventLink(EventLink eventLink)
     {
         EventLinks.Add(eventLink);
+    }
+
+    public void RemoveEvent(EventLink eventLink)
+    {
+        EventLinks.Remove(eventLink);
     }
 
     /// <summary>
@@ -177,5 +185,12 @@ public class SchedulerBusinessLogic(
             var bracket = new EventBracketGroup(phaseGroups);
             seedingBusinessLogic.AddBracketGroup(bracket);
         }
+    }
+
+    public void ReportMatch(Match match, Player winner)
+    {
+        //TODO
+        // Update bracket ds with the winner going to the next top set, and loser going to next bottom set
+        // actively reload the matches with the new match
     }
 }

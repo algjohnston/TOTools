@@ -7,21 +7,38 @@
              xmlns:models="clr-namespace:TOTools.Models"
              xmlns:local="clr-namespace:TOTools.Scheduler"
              Title="Match Scheduler">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Start"
+                     Clicked="OnStartButtonClicked"/>
+        <ToolbarItem Text="Report"
+                     Clicked="OnReportButtonClicked"/>
+            </ContentPage.ToolbarItems>
     <ContentPage.Content>
+		<Grid>
+			<Image Source="background.png"
+				   Aspect="Fill"
+				   Grid.Row="0"
+				   Grid.Column="0"
+				   Grid.RowSpan="2"
+				   Grid.ColumnSpan="2"
+				   ZIndex="0"/>
 
-        <Grid
+			<Grid
             ColumnDefinitions="*, auto"
             RowDefinitions="auto, *"
-            Margin="16">
+            Margin="24"
+			ZIndex="1">
             
             <Label Text="Match"
                    FontSize="31"
+				   FontFamily="GoboldBold"
                    TextColor="AntiqueWhite"
                    Grid.Column="0"
                    Grid.Row="0" />
 
             <Label Text="Estimated Time"
                    FontSize="31"
+				   FontFamily="GoboldBold"
                    TextColor="AntiqueWhite"
                    Grid.Column="1"
                    Grid.Row="0" />
@@ -34,20 +51,30 @@
                     ItemsSource="{Binding FutureMatches}"
                     SelectionMode="Single"
                     CanReorderItems="True"
-                    >
+                    SelectionChanged="OnMatchSelectionChanged">
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="models:PastMatch">
+                        <DataTemplate x:DataType="models:Match">
                             <Grid RowDefinitions="*"
                                   ColumnDefinitions="*, auto">
                                 <Label Text="{Binding FormattedMatch  }"
-                                       FontSize="31"
+                                       FontSize="18.5"
+									   FontFamily="RalewayRegular"
                                        TextColor="AntiqueWhite"
                                        Grid.Column="0">
                                 </Label>
                                 <Label Text="{Binding MatchTime  }"
-                                       FontSize="31"
+                                       FontSize="24"
+									   FontFamily="RalewayRegular"
+									   FontAttributes="Bold"
                                        TextColor="AntiqueWhite"
                                        Grid.Column="1">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label" 
+                                                     Binding="{Binding IsInProgress}"
+                                                     Value="True">
+                                            <Setter Property="TextColor" Value="Red" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
                                 </Label>
                             </Grid>
                         </DataTemplate>
@@ -56,6 +83,7 @@
             </ScrollView>
 
         </Grid>
+		</Grid>
 
-    </ContentPage.Content>
+	</ContentPage.Content>
 </ContentPage>

@@ -21,6 +21,7 @@
 
                 <Label Text="Username: "
                        FontSize="Large"
+					   FontFamily="GoboldBold"
                        TextColor="AntiqueWhite"
                        Grid.Row="0"
                        Margin="20, 0, 0, 0"
@@ -29,6 +30,7 @@
 
                 <Entry x:Name="UsernameEntry" 
                        FontSize="Large"
+					   FontFamily="RalewayRegular"
                        Margin="0, 0, 0, 0"
                        Grid.Row="0"
                        TextColor="AntiqueWhite"
@@ -40,6 +42,7 @@
 
                 <Label Text="Password: "
                        FontSize="Large"
+					   FontFamily="GoboldBold"
                        TextColor="AntiqueWhite"
                        Grid.Row="1"
                        HorizontalOptions="Center"
@@ -47,6 +50,7 @@
 
                 <Entry x:Name="PasswordEntry" 
                        FontSize="Large"
+					   FontFamily="RalewayRegular"
                        Grid.Row="1"
                        Grid.Column="1"
                        TextColor="AntiqueWhite"
@@ -57,8 +61,8 @@
                 <Button x:Name="Login"
                         Text="Log In"
                         FontSize="Large"
-                        FontAttributes="Bold"
-                        TextColor="White"
+                        FontFamily="GoboldBold"
+                        TextColor="Black"
                         Grid.Row="3"
                         Grid.Column="0"
                         HorizontalOptions="Start"
@@ -66,22 +70,22 @@
                         WidthRequest="120"
                         HeightRequest="50"
                         Margin="10"
-                        BackgroundColor="Blue"
+                        BackgroundColor="#eebf6d"
                         Clicked="OnLogInButtonClicked" />
 
                 <Button x:Name="Cancel"
                         Text="Cancel"
                         FontSize="Large"
-                        FontAttributes="Bold"
+                        FontFamily="GoboldBold"
                         Grid.Row="3"
                         Grid.Column="1"
-                        TextColor="White"
+                        TextColor="#fbefdb"
                         HorizontalOptions="End"
                         VerticalOptions="End"
                         Margin="10"
                         WidthRequest="120"
                         HeightRequest="50"
-                        BackgroundColor="Blue"
+                        BackgroundColor="#643f00"
                         Clicked="OnCancelButtonClicked" />
             </Grid>
         </AbsoluteLayout>

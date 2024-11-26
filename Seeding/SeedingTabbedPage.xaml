@@ -3,7 +3,10 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:seeding="using:TOTools.Seeding"
             x:Class="TOTools.Seeding.SeedingTabbedPage"
-            Title="Seeding">
+            Title="Seeding"
+			BarBackgroundColor="#eebf6d"
+			BarTextColor="Black"
+			SelectedTabColor="Black">
     
     <seeding:SeedingListPage/>
     <seeding:SeedGeneratorPage/>
