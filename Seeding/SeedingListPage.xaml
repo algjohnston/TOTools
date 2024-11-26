@@ -28,9 +28,12 @@
                                FontFamily="GoboldBold" 
                                Margin="20, 0, 0, 0"
                                TextColor="AntiqueWhite"
-                               FontSize="31">
+                               FontSize="31"
+                               HorizontalOptions="Start">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnToggleGroupClick" />
+                                <DragGestureRecognizer DragStarting="OnDragTierGroupStarting"/>
+                                <DropGestureRecognizer Drop="OnDropTierGroup"/>
                             </Label.GestureRecognizers>
                         </Label>
                     </DataTemplate>

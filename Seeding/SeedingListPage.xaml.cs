@@ -83,4 +83,32 @@ public partial class SeedingListPage : ContentPage
         SeedingListView.ItemsSource = PlayerTierGroups;
     }
     
+    private void OnDragTierGroupStarting(object? sender, DragStartingEventArgs e)
+    {
+        if (sender is not DragGestureRecognizer { BindingContext: PlayerTierGroup playerGroup }) return;
+        e.Data.Properties["TierGroup"] = playerGroup;
+    }
+
+
+    private void OnDropTierGroup(object? sender, DropEventArgs e)
+    {
+        if (sender is not DropGestureRecognizer { BindingContext: PlayerTierGroup destinationPlayerGroup }) return;
+        var sourceGroup = (PlayerTierGroup)e.Data.Properties["TierGroup"];
+        
+        var sourceIndex = PlayerTierGroups.IndexOf(sourceGroup);
+        var destinationIndex = PlayerTierGroups.IndexOf(destinationPlayerGroup);
+        if (sourceIndex == destinationIndex)
+        {
+            return;
+        }
+        
+        PlayerTierGroups.Remove(sourceGroup);
+        PlayerTierGroups.Remove(destinationPlayerGroup);
+        PlayerTierGroups.Insert(sourceIndex, destinationPlayerGroup);
+        PlayerTierGroups.Insert(destinationIndex, sourceGroup);
+        
+        // Needed to update the list this way because the CollectionView can not handle the above code
+        SeedingListView.ItemsSource = null;
+        SeedingListView.ItemsSource = PlayerTierGroups;
+    }
 }

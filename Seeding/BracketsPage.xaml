@@ -4,45 +4,53 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:TOTools.Models"
              xmlns:seeding="clr-namespace:TOTools.Seeding"
-             xmlns:startgg="clr-namespace:TOTools.Models.Startgg"
              x:Class="TOTools.Seeding.BracketsPage"
              NavigationPage.IconColor="Gold"
              x:DataType="seeding:BracketsPage">
     <ContentPage.Content>
+        <AbsoluteLayout>
+            <Image Source="background.png"
+                   AbsoluteLayout.LayoutFlags="All"
+                   AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                   Aspect="Fill" />
 
-        <ScrollView
-            Margin="16, 16, 16, 64"
-            AbsoluteLayout.LayoutFlags="All"
-            AbsoluteLayout.LayoutBounds="0, 0, 1, 1">
-            <CollectionView
-                x:Name="BracketListView"
-                IsGrouped="True"
-                ItemsSource="{Binding BracketGroupList}">
+            <ScrollView
+                Margin="16, 16, 16, 64"
+                AbsoluteLayout.LayoutFlags="All"
+                AbsoluteLayout.LayoutBounds="0, 0, 1, 1">
+                <CollectionView
+                    x:Name="BracketListView"
+                    IsGrouped="True"
+                    ItemsSource="{Binding BracketGroupList}">
+                    <CollectionView.GroupHeaderTemplate>
+                        <DataTemplate x:DataType="models:BracketGroup">
+                            <Label Text="{Binding PhaseGroupType }"
+                                   FontAttributes="Bold"
+                                   Margin="20, 0, 0, 0"
+                                   TextColor="AntiqueWhite"
+                                   FontSize="31">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnToggleGroupClick" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </DataTemplate>
+                    </CollectionView.GroupHeaderTemplate>
 
-                <CollectionView.GroupHeaderTemplate>
-                    <DataTemplate x:DataType="models:BracketGroup">
-                        <Label Text="{Binding PhaseGroupType }"
-                               FontAttributes="Bold"
-                               Margin="20, 0, 0, 0"
-                               TextColor="AntiqueWhite"
-                               FontSize="31">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnToggleGroupClick" />
-                            </Label.GestureRecognizers>
-                        </Label>
-                    </DataTemplate>
-                </CollectionView.GroupHeaderTemplate>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="x:String">
+                            <Label
+                                Text="{Binding . }"
+                                TextColor="AntiqueWhite"
+                                FontSize="21">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnLabelClick" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
 
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="x:String">
-                        <Label
-                            Text="{Binding . }"
-                            FontSize="21" />
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-
-            </CollectionView>
-        </ScrollView>
-
+                </CollectionView>
+            </ScrollView>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

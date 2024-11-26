@@ -55,7 +55,13 @@ public partial class BracketEditorPage : ContentPage
         }
         else if (bracket.BracketType == BracketType.RoundRobin)
         {
+            var roundRobinBrackets = new ContentView
+            {
+                HeightRequest = screenHeight,
+                WidthRequest = screenWidth,
+                Content = new RoundRobinGrid(Bracket.GetRoundRobinSets(bracket), Colors.AntiqueWhite)
+            };
+            BracketStackLayout.Children.Add(roundRobinBrackets);
         }
-        // TODO add round-robin support
     }
 }

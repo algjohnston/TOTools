@@ -60,11 +60,10 @@ public class EventBracketGroup
         {
             List<Set> currentRoundRobinSets = [];
             var currentSet = phaseGroup.Sets[i++];
-            currentRoundRobinSets.Add(new Set(currentSet));
             do
             {
-                currentSet = phaseGroup.Sets[i++];
                 currentRoundRobinSets.Add(new Set(currentSet));
+                currentSet = phaseGroup.Sets[i++];
             } while (!currentSet.Identifier.Equals("A") && i < phaseGroup.Sets.Count);
 
             _roundRobinBrackets.Add(

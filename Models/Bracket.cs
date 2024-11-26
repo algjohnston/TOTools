@@ -68,6 +68,11 @@ public class Bracket(BracketType bracketType, List<Set> sets)
 
         return new WinnerAndLoserBracketSets(winnersSets, loserSets);
     }
+
+    public static List<Set> GetRoundRobinSets(Bracket bracket)
+    {
+        return bracket.Sets;
+    }
 }
 
 public record WinnerAndLoserBracketSets(List<Set> WinnerSets, List<Set> LoserSets);
