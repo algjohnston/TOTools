@@ -57,7 +57,7 @@
 						FontFamily="GoboldBold"
                         Grid.Row="3"
                         Grid.Column="1"
-                        TextColor="#eebf6d"
+                        TextColor="#fbefdb"
                         HorizontalOptions="Start"
                         VerticalOptions="End"
                         WidthRequest="120"

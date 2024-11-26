@@ -27,6 +27,7 @@
                    FontSize="31"
 				   FontFamily="GoboldBold"
                    TextColor="AntiqueWhite"
+				   Margin="8, 0, 0, 0"
                    Grid.Column="0"
                    Grid.Row="0" />
             
@@ -34,6 +35,7 @@
                    FontSize="31"
 				   FontFamily="GoboldBold"
                    TextColor="AntiqueWhite"
+				   Margin="0, 0, 8, 0"
                    Grid.Column="1"
                    Grid.Row="0" />
 
@@ -55,6 +57,7 @@
                                        FontSize="16"
 									   FontFamily="RalewayRegular"
                                        TextColor="AntiqueWhite"
+									   Margin="12, 4, 8, 8"
                                        Grid.Column="0">
                                 </Label>
                                 <Label Text="{Binding StartTimeFormatted }"
@@ -62,6 +65,7 @@
 									   FontFamily="RalewayRegular"
 									   FontAttributes="Bold"
                                        TextColor="AntiqueWhite"
+									   Margin="8, 4, 12, 8"
                                        Grid.Column="1">
                                 </Label>
                             </Grid>
@@ -73,15 +77,17 @@
             <ImageButton Source="trash.svg"
                          HorizontalOptions="Start"
                          VerticalOptions="End"
-                         Width="40"
-                         Height="40"
+                         WidthRequest="40"
+                         HeightRequest="40"
+						 Margin="8, 4, 8, 0"
                          Grid.Row="1" 
                          Clicked="OnDeleteLinkButtonClicked"/>
 
             <ImageButton Source="plus.svg"
                          HorizontalOptions="Start"
-                         Width="40"
-                         Height="40"
+                         WidthRequest="40"
+                         HeightRequest="40"
+						 Margin="8, 4, 8, 0"
                          Grid.Row="2" 
                          Clicked="OnAddLinkButtonClicked"/>
 
@@ -94,6 +100,7 @@
                     BackgroundColor="#643f00"
                     VerticalOptions="Center"
                     HorizontalOptions="End"
+					Margin="8, 4,12, 8"
                     Clicked="OnSubmitButtonClicked" />
 
         </Grid>
