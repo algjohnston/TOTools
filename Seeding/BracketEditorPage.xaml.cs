@@ -42,13 +42,13 @@ public partial class BracketEditorPage : ContentPage
             {
                 HeightRequest = screenHeight,
                 WidthRequest = screenWidth,
-                Content = new DoubleElimGrid(winnerAndLoserBracketSets.WinnerSets, Colors.AntiqueWhite)
+                Content = new DoubleEliminationGrid(winnerAndLoserBracketSets.WinnerSets, Colors.AntiqueWhite)
             };
             var losersBracket = new ContentView
             {
                 HeightRequest = screenHeight,
                 WidthRequest = screenWidth,
-                Content = new DoubleElimGrid(winnerAndLoserBracketSets.LoserSets, Colors.AntiqueWhite)
+                Content = new DoubleEliminationGrid(winnerAndLoserBracketSets.LoserSets, Colors.AntiqueWhite)
             };
             BracketStackLayout.Children.Add(winnersBracket);
             BracketStackLayout.Children.Add(losersBracket);

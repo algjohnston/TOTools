@@ -8,7 +8,9 @@ namespace TOTools.Models.Startgg;
 /// </summary>
 public class EventBracketGroup
 {
-    private readonly Dictionary<string, Set> _allBracketSets = new(); // Needed to check if prereqs exist
+    private readonly Dictionary<string, Set> _allBracketSets = new();
+    
+    private readonly Dictionary<string, Set> _doubleEliminationBracketSets = new(); // Needed to check if prereqs exist
 
     private readonly Dictionary<string, List<Set>> _roundRobinBrackets = new(); // Every round-robin phase group
 
@@ -66,9 +68,12 @@ public class EventBracketGroup
                 currentSet = phaseGroup.Sets[i++];
             } while (!currentSet.Identifier.Equals("A") && i < phaseGroup.Sets.Count);
 
-            _roundRobinBrackets.Add(
-                currentRoundRobinSets.First().DisplayIdentifier,
-                currentRoundRobinSets);
+            var displayIdentifier = currentRoundRobinSets.First().DisplayIdentifier;
+            _roundRobinBrackets.Add(displayIdentifier, currentRoundRobinSets);
+            foreach (var set in currentRoundRobinSets)
+            {
+                _allBracketSets.Add(set.Id, set);
+            }
         }
     }
 
@@ -79,10 +84,10 @@ public class EventBracketGroup
     private void AddDoubleEliminationSets(PhaseGroup phaseGroup)
     {
         // Needed to build the set backwards from the winner set
-        _allBracketSets.Clear();
+        _doubleEliminationBracketSets.Clear();
         foreach (var set in phaseGroup.Sets)
         {
-            _allBracketSets.Add(set.Id, new Set(set));
+            _doubleEliminationBracketSets.Add(set.Id, new Set(set));
         }
         
         if (!phaseGroup.PhaseGroupType.Phase.BracketType.Equals("DOUBLE_ELIMINATION"))
@@ -93,7 +98,7 @@ public class EventBracketGroup
         var finalWinnerSet = new Set(phaseGroup.Sets.Last());
         _doubleEliminationWinner.Add(finalWinnerSet.DisplayIdentifier, finalWinnerSet);
         FillNextDoubleEliminationBracket(finalWinnerSet);
-        _allBracketSets.Clear();
+        _doubleEliminationBracketSets.Clear();
     }
 
     /// <summary>
@@ -104,22 +109,23 @@ public class EventBracketGroup
     /// <param name="set">The set to start back-filling at.</param>
     private void FillNextDoubleEliminationBracket(Set set)
     {
-        var hasPrevTop = _allBracketSets.ContainsKey(set.PrevTopId);
+        _allBracketSets.TryAdd(set.Id, set);
+        var hasPrevTop = _doubleEliminationBracketSets.ContainsKey(set.PrevTopId);
         if (hasPrevTop)
         {
-            var topSet = _allBracketSets[set.PrevTopId];
+            var topSet = _doubleEliminationBracketSets[set.PrevTopId];
             topSet.NextSet = set;
             set.PrevTop = topSet;
             FillNextDoubleEliminationBracket(topSet);
         }
 
-        var hasPrevBottom = _allBracketSets.ContainsKey(set.PrevBottomId);
+        var hasPrevBottom = _doubleEliminationBracketSets.ContainsKey(set.PrevBottomId);
         if (!hasPrevBottom)
         {
             return;
         }
 
-        var bottomSet = _allBracketSets[set.PrevBottomId];
+        var bottomSet = _doubleEliminationBracketSets[set.PrevBottomId];
         bottomSet.NextSet = set;
         set.PrevBottom = bottomSet;
         FillNextDoubleEliminationBracket(bottomSet);

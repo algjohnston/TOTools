@@ -1,27 +1,56 @@
-
 using CommunityToolkit.Maui.Views;
 using TOTools.Models;
 
 namespace TOTools.Seeding;
 
+/// <summary>
+/// A callback for when a new player is added via the PlayerEditorPopup.
+/// </summary>
+public interface IOnPlayerAdded
+{ 
+    void OnPlayerUpdated(Player player);
+}
+
+/// <summary>
+/// A popup for when a player needs to be added to the player table,
+/// or when a player in the player table needs to be updated.
+/// </summary>
 public partial class PlayerEditorPopup : Popup
 {
-
-    public PlayerEditorPopup(Player p)
+    
+    private readonly IOnPlayerAdded _onPlayerAdded;
+    
+    /// <summary>
+    /// Shows a popup for editing the given player.
+    /// </summary>
+    /// <param name="onPlayerAdded">Called when the player has been submitted by the user.</param>
+    /// <param name="player">The player to edit.</param>
+    /// <param name="height">The desired height of the popup.</param>
+    /// <param name="width">The desired width of the popup.</param>
+    public PlayerEditorPopup(
+        IOnPlayerAdded onPlayerAdded,
+        Player player, 
+        double height, 
+        double width
+        )
     {
         InitializeComponent();
-        Console.WriteLine("Popup Opened");
-        
+        BindingContext = player;
+        _onPlayerAdded = onPlayerAdded;
+        PopupGrid.HeightRequest = height;
+        PopupGrid.WidthRequest = width;
     }
+
     private void OnOkButtonClicked(object? sender, EventArgs e)
     {
+        // TODO validation
         
+        
+        // _onPlayerAdded.OnPlayerAdded(newPlayer);
     }
-    
+
     private void OnCancelButtonClicked(object? sender, EventArgs e)
     {
         Close();
     }
-    
-    
 }
