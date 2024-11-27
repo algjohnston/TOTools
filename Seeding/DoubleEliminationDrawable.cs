@@ -11,7 +11,7 @@
 /// The number of rows the lines span.
 /// This is used to ensure the horizontal lines line up with the targets on both side of the drawable.
 /// </param>
-public class BracketDrawable(Color lineColor, int rowSpan) : IDrawable
+public class DoubleEliminationDrawable(Color lineColor, int rowSpan) : IDrawable
 {
     void IDrawable.Draw(ICanvas canvas, RectF dirtyRect)
     {

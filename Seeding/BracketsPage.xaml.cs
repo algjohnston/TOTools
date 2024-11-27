@@ -54,6 +54,7 @@ public partial class BracketsPage : ContentPage
             );
         }
 
+        BracketGroupList.Clear();
         BracketGroupList.Add(new BracketGroup("Round Robin", roundRobinBracketIdentifiers));
         BracketGroupList.Add(new BracketGroup("Double Elimination", doubleEliminationBracketIdentifiers));
     }

@@ -178,6 +178,7 @@ public class SchedulerBusinessLogic(
         await seedingBusinessLogic.PlayerLoadTask;
 
         // Generate the schedule and add the brackets of each event to the seeding business logic
+        seedingBusinessLogic.ClearBrackets();
         foreach (var eventLink in EventLinks.OrderBy(e => e.StartTime))
         {
             var phaseGroups = await seedingBusinessLogic.LoadPhaseGroups(eventLink.Link);

@@ -16,6 +16,19 @@ public enum Region
 
 public static class RegionHelper
 {
+    public static List<string> RegionStrings { get; } = GetRegionStrings();
+
+    /// <summary>
+    /// Converts the Region enum values to a list of strings.
+    /// </summary>
+    /// <returns>A list of strings representing each region.</returns>
+    private static List<string> GetRegionStrings()
+    {
+        return Enum.GetValues<Region>()
+            .Select(ConvertToString)
+            .ToList();
+    }
+    
     /// <summary>
     /// Converts an integer to a region enum.
     /// </summary>

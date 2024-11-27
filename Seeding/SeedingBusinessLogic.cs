@@ -5,6 +5,7 @@ using TOTools.Database;
 using TOTools.Models;
 using TOTools.Models.Startgg;
 using TOTools.StartggAPI;
+using Region = TOTools.Models.Region;
 
 namespace TOTools.Seeding;
 
@@ -41,16 +42,6 @@ public class SeedingBusinessLogic(
         }
 
         _loadCompletionSource.TrySetResult(true);
-    }
-    
-    public void LoadPlayersFromEntrants()
-    {
-        //TODO
-        /* load player IDS from entrant list gotten from query of the event
-         *
-         * check if their IDs are in the seeding list, if not, prompt with edit player popup
-         * with tag param being their tag in startgg, region as null, and tier / ranking as null
-         */
     }
 
     public void SeedPlayerList(List<Player> players)
@@ -190,6 +181,7 @@ public class SeedingBusinessLogic(
         {
             return false;
         }
+
         BracketsInProgress.TryAdd(displayIdentifier, bracket);
         DisplayIdentifierOfActiveBracket = displayIdentifier;
         return true;
@@ -205,7 +197,75 @@ public class SeedingBusinessLogic(
         {
             return null;
         }
+
         BracketsInProgress.TryGetValue(DisplayIdentifierOfActiveBracket, out var bracket);
         return bracket;
+    }
+
+    /// <summary>
+    /// Removes all brackets stored in this class.
+    /// </summary>
+    public void ClearBrackets()
+    {
+        EventBrackets.Clear();
+    }
+
+    /// <summary>
+    /// Finds all players in the event brackets added to this class that are not in the player table.
+    /// </summary>
+    /// <returns>All players in the event brackets added to this class that are not in the player table.</returns>
+    public HashSet<Player> GetUnknownPlayers()
+    {
+        PlayerLoadTask.Wait();
+        var playerIds = Players.Select(player => player.StarttggId).ToList();
+        var unknownPlayers = new HashSet<Player>();
+        foreach (var set in EventBrackets.SelectMany(bracket => bracket.GetSets()))
+        {
+            if (!playerIds.Contains(set.Value.Player1Id))
+            {
+                unknownPlayers.Add(
+                    new Player(
+                        set.Value.Player1Id,
+                        set.Value.Player1,
+                        Region.Unknown,
+                        Tier.Unknown,
+                        -1
+                    )
+                );
+            }
+
+            if (!playerIds.Contains(set.Value.Player2Id))
+            {
+                unknownPlayers.Add(
+                    new Player(
+                        set.Value.Player2Id,
+                        set.Value.Player2,
+                        Region.Unknown,
+                        Tier.Unknown,
+                        -1
+                    )
+                );
+            }
+        }
+
+        return unknownPlayers;
+    }
+
+    /// <summary>
+    /// Adds or updates a player in the player table. 
+    /// </summary>
+    /// <param name="player">The player to add or update.</param>
+    public void AddOrUpdatePlayer(Player player)
+    {
+        PlayerLoadTask.Wait();
+        var playersWithId = Players.Select(p => p.StarttggId == player.StarttggId).ToList();
+        if (playersWithId.Count == 0)
+        {
+            playerTable.Insert(player);
+        }
+        else
+        {
+            playerTable.Update(player);
+        }
     }
 }

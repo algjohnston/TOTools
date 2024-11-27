@@ -62,6 +62,7 @@ class StartGGQueries
                             	    totalPages
                                 }
                                 nodes {
+                                    winnerId
                                     id
                                     identifier
                                     round

@@ -27,11 +27,15 @@ public class Player(string startggId, string tag, Region region, Tier tier, int 
 
     public int CompareTo(Player? other)
     {
-        if (other is null) return 1;
-        if (this.PlayerTier - other.PlayerTier == 0)
+        if (other is null)
+        {
+            return 1;
+        }
+        if (PlayerTier - other.PlayerTier == 0)
         {
             return PlayerRanking - other.PlayerRanking;
         }
-        else return this.PlayerTier - other.PlayerTier;
+
+        return PlayerTier - other.PlayerTier;
     }
 }

@@ -18,6 +18,8 @@ public class SetType
 {
     public required string Id { get; set; }
     public required string Identifier { get; set; }
+    
+    public required string WinnerId { get; set; }
     public int Round { get; set; }
     public required List<SetSlotType> Slots { get; set; }
     public required PhaseGroupType PhaseGroup { get; set; }
@@ -44,6 +46,7 @@ public class SetSlotType
 
 public class EntrantType
 {
+    public required string Id { get; set; }
     public required string Name { get; set; }
 }
 

@@ -13,7 +13,7 @@ public class RoundRobinGrid : Grid
     {
         var playerNames = sets.Select(set => set.Player1).ToList();
         playerNames.AddRange(sets.Select(set => set.Player2));
-        var uniquePlayers = playerNames.ToHashSet();
+        var uniquePlayers = playerNames.Distinct().ToList();
 
         var numRowsAndColumns = uniquePlayers.Count + 1;
         RowDefinitions.Clear();
@@ -47,5 +47,19 @@ public class RoundRobinGrid : Grid
             this.Add(winnerLabel2, playerIndex, 0);
             playerIndex++;
         }
+
+        var graphicsView = new GraphicsView
+        {
+            Drawable = new RoundRobinDrawable(uniquePlayers, sets, color),
+            HorizontalOptions = LayoutOptions.Center,
+            VerticalOptions = LayoutOptions.Center
+        };
+        this.AddWithSpan(
+            graphicsView,
+            1,
+            1,
+            uniquePlayers.Count,
+            uniquePlayers.Count
+        );
     }
 }

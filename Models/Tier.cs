@@ -11,7 +11,8 @@ public enum Tier
     C,
     D,
     E,
-    F
+    F,
+    Unknown
 }
 
 public static class TierHelper
@@ -32,8 +33,22 @@ public static class TierHelper
     }
 }
 
-public class TierConverter
+public static class TierConverter
 {
+
+    public static List<string> TierStrings { get; } = GetTierStrings();
+    
+    /// <summary>
+    /// Converts the Tier enum values to a list of strings.
+    /// </summary>
+    /// <returns>A list of strings representing each Tier.</returns>
+    private static List<string> GetTierStrings()
+    {
+        return Enum.GetValues<Tier>()
+            .Select(ToString) 
+            .ToList();
+    }
+    
     /// <summary>
     /// Converts a tier to a string.
     /// </summary>
@@ -50,6 +65,7 @@ public class TierConverter
             Tier.D => "D",
             Tier.E => "E",
             Tier.F => "F",
+            Tier.Unknown => "Unknown",
             _ => throw new ArgumentOutOfRangeException(nameof(tier), tier, null)
         };
     }

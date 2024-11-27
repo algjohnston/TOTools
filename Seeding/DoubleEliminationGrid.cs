@@ -5,7 +5,7 @@ namespace TOTools.Seeding;
 /// <summary>
 /// A page that displays a double elimination bracket.
 /// </summary>
-public class DoubleElimGrid : Grid
+public class DoubleEliminationGrid : Grid
 {
     /// <summary>
     /// Creates a double elimination grid.
@@ -17,7 +17,7 @@ public class DoubleElimGrid : Grid
     /// <param name="color">
     /// The color of the lines and the text in the bracket.
     /// </param>
-    public DoubleElimGrid(List<Set> sets, Color color)
+    public DoubleEliminationGrid(List<Set> sets, Color color)
     {
         FillGridWithPlayers(sets, color);
     }
@@ -159,7 +159,7 @@ public class DoubleElimGrid : Grid
                     ? 1
                     : (previousColumnRows[row * 2 + 1] - previousColumnRows[row * 2]) + 1;
 
-                var matchDrawable = new BracketDrawable(color, rowSpanForLines);
+                var matchDrawable = new DoubleEliminationDrawable(color, rowSpanForLines);
                 var graphicsView = new GraphicsView
                 {
                     Drawable = matchDrawable,

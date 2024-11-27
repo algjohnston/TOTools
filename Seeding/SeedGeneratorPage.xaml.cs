@@ -1,9 +1,12 @@
-﻿namespace TOTools.Seeding;
+﻿using CommunityToolkit.Maui.Views;
+using TOTools.Models;
+
+namespace TOTools.Seeding;
 
 /// <summary>
 /// A page that takes in a list of players and produces a double elimination bracket.
 /// </summary>
-public partial class SeedGeneratorPage : ContentPage
+public partial class SeedGeneratorPage : ContentPage, IOnPlayerAdded
 {
     /**
      * TODO There should be a toggle to allow for displaying all brackets from an event vs creating one instead
@@ -43,11 +46,37 @@ public partial class SeedGeneratorPage : ContentPage
         }
 
         await _seedingBusinessLogic!.AddLinkPhaseGroups(linkText);
+        var players = _seedingBusinessLogic.GetUnknownPlayers();
+        var screenHeight = DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density;
+        var screenWidth = DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
+        foreach (var player in players)
+        {
+            await this.ShowPopupAsync(
+                new PlayerEditorPopup(
+                    this, 
+                    player,
+                    screenHeight * 0.75,
+                    screenWidth * 0.75
+                )
+            );
+        }
+
         await Navigation.PushAsync(new BracketsPage());
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        _seedingBusinessLogic?.ClearBrackets();
     }
 
     private void OnManualEntryButtonClicked(object? sender, EventArgs e)
     {
         Navigation.PushAsync(new SelectCompetitorsPage());
+    }
+
+    public void OnPlayerUpdated(Player player)
+    {
+        _seedingBusinessLogic?.AddOrUpdatePlayer(player);
     }
 }
