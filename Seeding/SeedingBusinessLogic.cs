@@ -257,15 +257,25 @@ public class SeedingBusinessLogic(
     /// <param name="player">The player to add or update.</param>
     public void AddOrUpdatePlayer(Player player)
     {
+        // Wait, then do the updates on a background thread
         PlayerLoadTask.Wait();
-        var playersWithId = Players.Select(p => p.StarttggId == player.StarttggId).ToList();
-        if (playersWithId.Count == 0)
-        {
-            playerTable.Insert(player);
-        }
-        else
-        {
-            playerTable.Update(player);
-        }
+        _loadCompletionSource.TrySetResult(false);
+        Task.Run(
+            () =>
+            {
+                var playersWithId = Players.Where(p => p.StarttggId == player.StarttggId).ToList();
+                if (playersWithId.Count == 0)
+                {
+                    playerTable.Insert(player);
+                }
+                else
+                {
+                    playerTable.Update(player);
+                }
+
+                LoadPlayers();
+                _loadCompletionSource.TrySetResult(true);
+            }
+        );
     }
 }

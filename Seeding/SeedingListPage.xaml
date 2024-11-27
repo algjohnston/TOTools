@@ -43,7 +43,9 @@
                     <DataTemplate x:DataType="models:Player">
                         <Label 
                             Text="{Binding FormattedPlayerForList}" 
+                            Margin="25, 0, 0, 0"
                             FontFamily="RalewayRegular"
+                            TextColor="AntiqueWhite"
 							FontAttributes="Bold"
 							FontSize="21"/>
                     </DataTemplate>
