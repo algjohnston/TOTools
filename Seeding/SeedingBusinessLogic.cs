@@ -278,4 +278,64 @@ public class SeedingBusinessLogic(
             }
         );
     }
+
+    public void CreateDoubleEliminationBracketAndSetToCurrent(List<Player> players)
+    {
+        // TODO the bracket seeds should be intelligently set
+        // The winners and losers brackets also need to be set up correctly
+        EventBrackets.Clear();
+        List<SetType> sets = [];
+        var phaseGroupType = new PhaseGroupType
+        {
+            DisplayIdentifier = "",
+            Phase = new PhaseType
+            {
+                BracketType = "Double Elimination"
+            }
+        };
+        for (int i = 0; i < players.Count; i += 2)
+        {
+            var player1 = players[i];
+            Player? player2 = null;
+            if (players.Count < i + 1)
+            {
+                player2 = players[i + 1];
+            }
+
+            sets.Add(
+                    new SetType
+                    {
+                        Id = "",
+                        Identifier = "",
+                        WinnerId = "",
+                        Slots =
+                        [
+                            new SetSlotType
+                            {
+                                Entrant = new EntrantType
+                                {
+                                    Id = player1.StarttggId,
+                                    Name = player1.PlayerTag
+                                },
+                                PrereqId = ""
+                            },
+                            new SetSlotType
+                            {
+                                Entrant = new EntrantType
+                                {
+                                    Id = player2?.StarttggId ?? "",
+                                    Name = player2?.PlayerTag ?? "Bye"
+                                },
+                                PrereqId = ""
+                            }
+                        ],
+                        PhaseGroup = phaseGroupType
+                    });
+        }
+
+        var phaseGroup = new PhaseGroup(phaseGroupType, sets);
+        var bracketGroup = new EventBracketGroup([phaseGroup]);
+        EventBrackets.Add(bracketGroup);
+        SetActiveBracketForEditing("");
+    }
 }

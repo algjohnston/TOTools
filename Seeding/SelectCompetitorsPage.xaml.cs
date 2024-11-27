@@ -1,4 +1,6 @@
-﻿namespace TOTools.Seeding;
+﻿using TOTools.Models;
+
+namespace TOTools.Seeding;
 
 /// <summary>
 /// A page that allows the user to select a list of competitors to be used in bracket generation.
@@ -29,6 +31,9 @@ public partial class SelectCompetitorsPage : ContentPage
 
     private void OnSubmitClicked(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new BracketsPage());
+        List<Player> players = [];
+        players.AddRange(PlayerCollectionView.SelectedItems.Cast<Player>());
+        _seedingBusinessLogic?.CreateDoubleEliminationBracketAndSetToCurrent(players);
+        Navigation.PushAsync(new BracketEditorPage());
     }
 }
