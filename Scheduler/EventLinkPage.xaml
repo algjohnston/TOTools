@@ -3,99 +3,129 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TOTools.Scheduler.EventLinkPage">
-       <AbsoluteLayout>
-              <!-- Background Image -->
-              <Image Source="background.png"
-                     Aspect="Fill"
-                     AbsoluteLayout.LayoutFlags="All"
-                     AbsoluteLayout.LayoutBounds="0, 0, 1, 1" />
-              
-          <Grid ColumnDefinitions="*, *"
-          RowDefinitions="*, *, *, *, *, *, *"
-          Margin="16"
-          AbsoluteLayout.LayoutFlags="All"
-          AbsoluteLayout.LayoutBounds="0, 0, 1, 1">
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <Image Source="background.png"
+                   Aspect="Fill"
+                   AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                   AbsoluteLayout.LayoutFlags="All" />
 
-               <Label Text="Event Link: "
-                    FontSize="16"
-                    TextColor="AntiqueWhite"
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center" />
+            <Grid ColumnDefinitions="*"
+                  RowDefinitions="70, 70, 70, 70, 70, 70, 70, 100"
+                  Margin="30"
+                  AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                  AbsoluteLayout.LayoutFlags="All">
 
-               <Entry x:Name="EventLinkEntry"
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    FontSize="16"
-                    TextColor="AntiqueWhite"
-                    Placeholder="Enter an event link"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center" />
-
-               <Label Text="Start Time: "
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    FontSize="16"
-                    TextColor="AntiqueWhite"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center" />
-
-               <TimePicker
-                 Grid.Row="1"
-                 Grid.Column="1"
-                 FontSize="16"
-                 x:Name="StartTimeEntry"
-                 TextColor="AntiqueWhite"
-                 HorizontalOptions="Center"
-                 VerticalOptions="Center" />
-
-               <Entry x:Name="ConcurrentMatchesEntry"
-                    Grid.Row="3"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    TextColor="AntiqueWhite"
-                    Keyboard="Numeric"
-                    FontSize="16"
-                    Placeholder="Enter the number of matches that can be played at once"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center" />
-
-               <Entry x:Name="Bo5StartPlacementEntry"
-                    Grid.Row="4"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    TextColor="AntiqueWhite"
-                    Keyboard="Numeric"
-                    FontSize="16"
-                    Placeholder="Enter the placement where Bo5 Starts"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center" />
-               
-
-               <Button x:Name="Cancel"
-                     Text="Cancel"
-                     TextColor="AntiqueWhite"
-                     FontAttributes="Bold"
-                     FontSize="24"
-                     Grid.Row="7"
-                     Grid.Column="0"
-                     HorizontalOptions="Start"
-                     VerticalOptions="End"
-                     Margin="12, 4,8, 2"
-                     Clicked="OnCancelButtonClicked" />
-               
-               <Button x:Name="SubmitButton"
-                       Text="Submit"
+                <Label Text="Event Link: "
                        FontSize="24"
                        TextColor="AntiqueWhite"
-                       FontAttributes="Bold"
-                       Grid.Row="7"
-                       Grid.Column="1"
-                       HorizontalOptions="End"
-                       VerticalOptions="End"
-                       Margin="8, 4,12, 2"
-                       Clicked="OnSubmitButtonClicked" />
-          </Grid>
-    </AbsoluteLayout>
+                       Grid.Row="0"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+
+                <Frame BorderColor="AntiqueWhite"
+                       CornerRadius="8"
+                       Padding="5"
+                       HasShadow="False"
+                       Grid.Row="1"
+                       WidthRequest="150"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center">
+                    <Entry x:Name="EventLinkEntry"
+                           FontSize="15"
+                           TextColor="AntiqueWhite"
+                           Placeholder="Enter an event link"
+                           BackgroundColor="Transparent"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+                </Frame>
+
+                <Label Text="Start Time: "
+                       Grid.Row="2"
+                       FontSize="24"
+                       TextColor="AntiqueWhite"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+
+                <Frame BorderColor="AntiqueWhite"
+                       CornerRadius="8"
+                       Padding="5"
+                       HasShadow="False"
+                       WidthRequest="150"
+                       Grid.Row="3"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center">
+                    <TimePicker
+                        x:Name="StartTimeEntry"
+                        FontSize="24"
+                        TextColor="AntiqueWhite"
+                        BackgroundColor="Transparent"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+                </Frame>
+
+                <Label Text="Number of Concurrent Matches: "
+                       Grid.Row="4"
+                       FontSize="24"
+                       TextColor="AntiqueWhite"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+
+                <Frame BorderColor="AntiqueWhite"
+                       Padding="5"
+                       Grid.Row="5"
+                       HorizontalOptions="Center"
+                       WidthRequest="340"
+                       VerticalOptions="Center">
+                    <Entry x:Name="ConcurrentMatchesEntry"
+                           TextColor="AntiqueWhite"
+                           Keyboard="Numeric"
+                           FontSize="15"
+                           Placeholder="Enter the # of matches that can be played at once"
+                           BackgroundColor="Transparent"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+                </Frame>
+
+                <Frame BorderColor="AntiqueWhite"
+                       CornerRadius="8"
+                       Padding="5"
+                       HasShadow="False"
+                       Grid.Row="6"
+                       WidthRequest="340"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center">
+                    <Entry x:Name="Bo5StartPlacementEntry"
+                           TextColor="AntiqueWhite"
+                           Keyboard="Numeric"
+                           FontSize="15"
+                           Placeholder="Enter the placement where Bo5 Starts"
+                           BackgroundColor="Transparent"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+                </Frame>
+
+                <Button x:Name="SubmitButton"
+                        Text="Submit"
+                        FontSize="24"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        Grid.Row="7"
+                        HorizontalOptions="Start"
+                        VerticalOptions="End"
+                        Clicked="OnSubmitButtonClicked" />
+
+                <Button x:Name="Cancel"
+                        Text="Cancel"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        FontSize="24"
+                        Grid.Row="7"
+                        Grid.Column="1"
+                        HorizontalOptions="End"
+                        VerticalOptions="End"
+                        Clicked="OnCancelButtonClicked" />
+            </Grid>
+        </AbsoluteLayout>
+    </ContentPage.Content>
 </ContentPage>
