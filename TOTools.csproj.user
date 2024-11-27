@@ -3,7 +3,7 @@
   <PropertyGroup>
     <IsFirstTimeProjectOpen>False</IsFirstTimeProjectOpen>
     <ActiveDebugFramework>net8.0-android</ActiveDebugFramework>
-    <ActiveDebugProfile>Pixel_8_API_30 (Android 11.0 - API 30)</ActiveDebugProfile>
+    <ActiveDebugProfile>Pixel 8 Pro API 35 (Android 15.0 - API 35)</ActiveDebugProfile>
     <SelectedPlatformGroup>PhysicalDevice</SelectedPlatformGroup>
     <DefaultDevice>Pixel_8_Pro_API_35</DefaultDevice>
   </PropertyGroup>
