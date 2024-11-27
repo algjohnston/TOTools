@@ -23,7 +23,7 @@ public class Player(string startggId, string tag, Region region, Tier tier, int 
 
     public string FormattedPlayer => $"{StarttggId} : {PlayerTag}: {PlayerRegion} : {PlayerTier} : {PlayerRanking}";
 
-    public string FormattedPlayerForList => $"{PlayerTag}: {RegionHelper.ConvertToString(PlayerRegion)} : {PlayerTier}";
+    public string FormattedPlayerForList => $"{PlayerTag}: {RegionHelper.ConvertToString(PlayerRegion)}";
 
     public int CompareTo(Player? other)
     {
@@ -37,5 +37,20 @@ public class Player(string startggId, string tag, Region region, Tier tier, int 
         }
 
         return PlayerTier - other.PlayerTier;
+    }
+    
+    public override bool Equals(object? obj)
+    {
+        return obj is Player other && Equals(other);
+    }
+
+    protected bool Equals(Player other)
+    {
+        return StarttggId == other.StarttggId;
+    }
+
+    public override int GetHashCode()
+    {
+        return StarttggId.GetHashCode();
     }
 }

@@ -69,8 +69,8 @@ public class PlayerTable : ITable<Player, string, Player>
             $"WHERE {StartggIdColumn} = @startgg_id;";
         command.Parameters.AddWithValue("startgg_id", toUpdate.StarttggId);
         command.Parameters.AddWithValue("tag", toUpdate.PlayerTag);
-        command.Parameters.AddWithValue("region", toUpdate.PlayerRegion);
-        command.Parameters.AddWithValue("tier", toUpdate.PlayerTier);
+        command.Parameters.AddWithValue("region", (int)toUpdate.PlayerRegion);
+        command.Parameters.AddWithValue("tier", (int)toUpdate.PlayerTier);
         command.Parameters.AddWithValue("ranking", toUpdate.PlayerRanking);
 
         var numAffected = command.ExecuteNonQuery();
@@ -89,11 +89,11 @@ public class PlayerTable : ITable<Player, string, Player>
             $"INSERT INTO {PlayerTableName} (" +
             $"{StartggIdColumn}, {PlayerTagColumn}, {PlayerRegionColumn}, {PlayerTierColumn}, {PlayerRankingColumn}" +
             $") VALUES " +
-            $"(@start_gg_id, @tag, @region, @tier, @ranking)";
+            $"(@start_gg_id, @tag, @region, @tier, @ranking);";
         command.Parameters.AddWithValue("start_gg_id", toInsert.StarttggId);
         command.Parameters.AddWithValue("tag", toInsert.PlayerTag);
-        command.Parameters.AddWithValue("region", toInsert.PlayerRegion);
-        command.Parameters.AddWithValue("tier", toInsert.PlayerTier);
+        command.Parameters.AddWithValue("region", (int)toInsert.PlayerRegion);
+        command.Parameters.AddWithValue("tier", (int)toInsert.PlayerTier);
         command.Parameters.AddWithValue("ranking", toInsert.PlayerRanking);
         command.ExecuteNonQuery();
         SelectAll();

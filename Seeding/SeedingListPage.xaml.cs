@@ -34,12 +34,24 @@ public partial class SeedingListPage : ContentPage
         PopulateTiers();
     }
 
+    protected async override void OnAppearing()
+    {
+        base.OnAppearing();
+        if (_seedingBusinessLogic?.PlayerLoadTask == null)
+        {
+            return;
+        }
+        await _seedingBusinessLogic.PlayerLoadTask;
+        PopulateTiers();
+    }
+
     /// <summary>
     /// Groups players by their tier group and makes it available to the UI.
     /// </summary>
     private void PopulateTiers()
     {
         // Group player by tier
+        PlayerTierGroups.Clear();
         var players = _seedingBusinessLogic!.Players;
         var groupedPlayers = players
             .GroupBy(p => p.PlayerTier)
@@ -102,11 +114,7 @@ public partial class SeedingListPage : ContentPage
             return;
         }
         
-        PlayerTierGroups.Remove(sourceGroup);
-        PlayerTierGroups.Remove(destinationPlayerGroup);
-        PlayerTierGroups.Insert(sourceIndex, destinationPlayerGroup);
-        PlayerTierGroups.Insert(destinationIndex, sourceGroup);
-        
+        PlayerTierGroups.Move(sourceIndex, destinationIndex);
         // Needed to update the list this way because the CollectionView can not handle the above code
         SeedingListView.ItemsSource = null;
         SeedingListView.ItemsSource = PlayerTierGroups;

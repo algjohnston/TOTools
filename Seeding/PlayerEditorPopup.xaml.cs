@@ -7,7 +7,7 @@ namespace TOTools.Seeding;
 /// A callback for when a new player is added via the PlayerEditorPopup.
 /// </summary>
 public interface IOnPlayerAdded
-{ 
+{
     void OnPlayerUpdated(Player player);
 }
 
@@ -17,8 +17,9 @@ public interface IOnPlayerAdded
 /// </summary>
 public partial class PlayerEditorPopup : Popup
 {
-    
     private readonly IOnPlayerAdded _onPlayerAdded;
+
+    private Player _player;
     
     /// <summary>
     /// Shows a popup for editing the given player.
@@ -29,12 +30,13 @@ public partial class PlayerEditorPopup : Popup
     /// <param name="width">The desired width of the popup.</param>
     public PlayerEditorPopup(
         IOnPlayerAdded onPlayerAdded,
-        Player player, 
-        double height, 
+        Player player,
+        double height,
         double width
-        )
+    )
     {
         InitializeComponent();
+        _player = player;
         BindingContext = player;
         _onPlayerAdded = onPlayerAdded;
         PopupGrid.HeightRequest = height;
@@ -45,8 +47,16 @@ public partial class PlayerEditorPopup : Popup
     {
         // TODO validation
         
-        
-        // _onPlayerAdded.OnPlayerAdded(newPlayer);
+        _onPlayerAdded.OnPlayerUpdated(
+            new Player(
+                _player.StarttggId,
+                TagEntry.Text,
+                RegionHelper.ConvertToRegion(RegionPicker.SelectedIndex),
+                TierHelper.ConvertToTier(TierPicker.SelectedIndex),
+                -1
+            )
+        );
+        Close();
     }
 
     private void OnCancelButtonClicked(object? sender, EventArgs e)

@@ -39,6 +39,7 @@
             Placeholder="Enter Tag"
             Text="{Binding PlayerTag }"
             HorizontalOptions="Fill"
+            VerticalOptions="Center"
             TextColor="AntiqueWhite" />
 
         <!-- Region -->
@@ -57,6 +58,7 @@
             ItemsSource="{x:Static local:RegionHelper.RegionStrings}"
             SelectedItem="{Binding  PlayerRegion }"
             HorizontalOptions="Fill"
+            VerticalOptions="Center"
             TextColor="AntiqueWhite" />
 
         <!-- Tier -->
@@ -75,6 +77,7 @@
             ItemsSource="{ x:Static local:TierConverter.TierStrings }"
             SelectedItem="{Binding  PlayerTier}"
             HorizontalOptions="Fill"
+            VerticalOptions="Center"
             TextColor="AntiqueWhite" />
 
         <!-- Cancel and Submit Buttons -->
@@ -85,7 +88,8 @@
                 TextColor="AntiqueWhite"
                 BackgroundColor="#643f00"
                 FontFamily="GoboldBold"
-                HorizontalOptions="Start" />
+                HorizontalOptions="Start"
+                VerticalOptions="Center" />
 
         <Button Text="Cancel"
                 Grid.Row="4"
@@ -94,7 +98,8 @@
                 TextColor="AntiqueWhite"
                 BackgroundColor="#eebf6d"
                 FontFamily="GoboldBold"
-                HorizontalOptions="End" />
+                HorizontalOptions="End"
+                VerticalOptions="Center" />
 
     </Grid>
 
