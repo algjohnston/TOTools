@@ -49,7 +49,6 @@
                    FontSize="24"
                    TextColor="AntiqueWhite"
                    VerticalOptions="Center" />
-            <!-- Fixed Width -->
         </HorizontalStackLayout>
         
         <HorizontalStackLayout 
@@ -73,7 +72,6 @@
                 TextColor="AntiqueWhite"
                 MaxLength="5" 
                 WidthRequest="200" />
-            <!-- Fixed Width -->
         </HorizontalStackLayout>
         
         <!-- Cancel and Submit Buttons -->

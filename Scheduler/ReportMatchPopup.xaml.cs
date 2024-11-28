@@ -13,25 +13,25 @@ namespace TOTools.Scheduler;
 public partial class ReportMatchPopup : Popup
 {
     private SchedulerBusinessLogic? _schedulerBusinessLogic;
-    private Match match;
-    private Player? winner = null;
-    private int? timeInSeconds = null;
+    private Match _match;
+    private Player? _winner = null;
+    private int? _timeInSeconds = null;
     public ReportMatchPopup(Match match)
     {
         InitializeComponent();
-        this.match = match;
+        this._match = match;
     }
 
     private void OnOkButtonClicked(object? sender, EventArgs e)
     {
         string? errorMessage = "";
-        winner = WinnerPicker.SelectedItem as Player;
+        _winner = WinnerPicker.SelectedItem as Player;
         int timeInSeconds;
         if (!int.TryParse(TimeEntry.Text, out timeInSeconds))
         {
             errorMessage = "Time entry must be an integer.";
         }
-        else if (winner == null)
+        else if (_winner == null)
         {
             errorMessage = "You must select a winner.";
         }
@@ -40,8 +40,8 @@ public partial class ReportMatchPopup : Popup
         errorMessageToast.Show();
         if (errorMessage == "")
         {
-            match.TimeInSeconds = timeInSeconds;
-            _schedulerBusinessLogic.ReportMatch(match, winner);
+            _match.TimeInSeconds = timeInSeconds;
+            _schedulerBusinessLogic.ReportMatch(_match, _winner);
             Close();
         }
     }

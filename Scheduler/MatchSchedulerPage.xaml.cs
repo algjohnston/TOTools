@@ -35,8 +35,8 @@ public partial class MatchSchedulerPage : ContentPage
         await _schedulerBusinessLogic.LoadPotentialSchedule();
         MatchList.BindingContext = _schedulerBusinessLogic;
     }
-    
-    public void OnReportButtonClicked(object? sender, EventArgs e)
+
+    private void OnReportButtonClicked(object? sender, EventArgs e)
     {
         if (_schedulerBusinessLogic.SelectedMatch != null)
         {
@@ -44,15 +44,15 @@ public partial class MatchSchedulerPage : ContentPage
         }
     }
 
-    public void OnStartButtonClicked(object? sender, EventArgs e)
+    private void OnStartButtonClicked(object? sender, EventArgs e)
     {
         if (_schedulerBusinessLogic == null) return;
         if (_schedulerBusinessLogic?.SelectedMatch == null) return;
         _schedulerBusinessLogic.SelectedMatch.MatchStartTime = DateTime.Now;
         _schedulerBusinessLogic.SelectedMatch.IsInProgress = true;
     }
-    
-    public void OnMatchSelectionChanged(object sender, SelectionChangedEventArgs e)
+
+    private void OnMatchSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (e.CurrentSelection.FirstOrDefault() is Match selectedMatch)
         {
