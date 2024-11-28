@@ -18,8 +18,11 @@ public class EventBracketGroup
     // The bracket sets can be traversed via Set's PrevTop and PrevBottom
     private readonly Dictionary<string, Set> _doubleEliminationWinner = new();
 
-    public EventBracketGroup(List<PhaseGroup> phaseGroups)
+    public string EventName { get; private set; }
+    
+    public EventBracketGroup(string eventName, List<PhaseGroup> phaseGroups)
     {
+        EventName = eventName;
         foreach (var phaseGroup in phaseGroups)
         {
             var bracketType = phaseGroup.PhaseGroupType.Phase.BracketType;

@@ -13,7 +13,7 @@ public class SchedulerBusinessLogic(
     SeedingBusinessLogic seedingBusinessLogic,
     MatchTable matchTable)
 {
-    public ObservableCollection<EventLink> EventLinks { get; } =
+    public ObservableCollection<EventLink?> EventLinks { get; } =
     [
         // For testing
         new(
@@ -26,7 +26,7 @@ public class SchedulerBusinessLogic(
     private ObservableCollection<PastMatch> PastMatches { get; } = [];
 
     // This gets filled with matches from startgg that need to be played
-    public ObservableCollection<Match> FutureMatches { get; } = [];
+    public ObservableCollection<EventMatchGroup> FutureMatches { get; } = [];
 
     public EventLink? SelectedEventLink { get; set; }
 
@@ -59,7 +59,7 @@ public class SchedulerBusinessLogic(
         EventLinks.Add(eventLink);
     }
 
-    public void RemoveEvent(EventLink eventLink)
+    public void RemoveEvent(EventLink? eventLink)
     {
         EventLinks.Remove(eventLink);
     }
@@ -140,8 +140,10 @@ public class SchedulerBusinessLogic(
     /// <summary>
     /// Generates a match schedule for all phase groups in an all events whose links were added via AddEventLink.
     /// </summary>
+    /// <param name="eventName"></param>
+    /// <param name="eventStartTime"></param>
     /// <param name="phaseGroups">Every phase group of all the events.</param>
-    private void GenerateMatchSchedule(List<PhaseGroup> phaseGroups)
+    private void GenerateMatchSchedule(string eventName, DateTime eventStartTime, List<PhaseGroup> phaseGroups)
     {
         // Only get the sets that have two players...
         var matchParticipants = phaseGroups.SelectMany(
@@ -163,10 +165,7 @@ public class SchedulerBusinessLogic(
                 kvp.Value,
                 Game.Unknown,
                 true));
-        foreach (var match in futureMatches)
-        {
-            FutureMatches.Add(match);
-        }
+            FutureMatches.Add(new EventMatchGroup(eventName, eventStartTime, futureMatches));
     }
 
     /// <summary>
@@ -179,11 +178,12 @@ public class SchedulerBusinessLogic(
 
         // Generate the schedule and add the brackets of each event to the seeding business logic
         seedingBusinessLogic.ClearBrackets();
-        foreach (var eventLink in EventLinks.OrderBy(e => e.StartTime))
+        foreach (var eventLink in EventLinks.OrderBy(e => e?.StartTime))
         {
             var phaseGroups = await seedingBusinessLogic.LoadPhaseGroups(eventLink.Link);
-            GenerateMatchSchedule(phaseGroups);
-            var bracket = new EventBracketGroup(phaseGroups);
+            var eventName = EventLink.ExtractEventName(eventLink.Link);
+            GenerateMatchSchedule(eventName, eventLink.StartTime, phaseGroups);
+            var bracket = new EventBracketGroup(eventName, phaseGroups);
             seedingBusinessLogic.AddBracketGroup(bracket);
         }
     }

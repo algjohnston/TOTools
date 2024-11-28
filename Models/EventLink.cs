@@ -48,4 +48,9 @@ public class EventLink(string link, DateTime startTime, int numberOfConcurrentMa
     }
     
     public int Bo5StartRound { get; set; }
+
+    public static string ExtractEventName(string s)
+    {
+        return s.Substring(s.LastIndexOf('/') + 1);
+    }
 }

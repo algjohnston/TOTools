@@ -77,7 +77,7 @@ public class SeedingBusinessLogic(
     {
         var link = EventLink.ExtractTournamentPath(linkText);
         var phaseGroups = await LoadPhaseGroups(link);
-        var bracket = new EventBracketGroup(phaseGroups);
+        var bracket = new EventBracketGroup(EventLink.ExtractEventName(link), phaseGroups);
         AddBracketGroup(bracket);
     }
 
@@ -334,7 +334,7 @@ public class SeedingBusinessLogic(
         }
 
         var phaseGroup = new PhaseGroup(phaseGroupType, sets);
-        var bracketGroup = new EventBracketGroup([phaseGroup]);
+        var bracketGroup = new EventBracketGroup("Custom Event", [phaseGroup]);
         EventBrackets.Add(bracketGroup);
         SetActiveBracketForEditing("");
     }

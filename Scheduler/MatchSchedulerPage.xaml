@@ -12,6 +12,8 @@
                      Clicked="OnStartButtonClicked"/>
         <ToolbarItem Text="Report"
                      Clicked="OnReportButtonClicked"/>
+        <ToolbarItem Text="Change Start Time"
+                     Clicked="OnChangeStartTimeClicked"/>
             </ContentPage.ToolbarItems>
     <ContentPage.Content>
 		<Grid>
@@ -51,8 +53,27 @@
                     ItemsSource="{Binding FutureMatches}"
                     SelectionMode="Single"
                     CanReorderItems="True"
+                    IsGrouped="True"
                     SelectionChanged="OnMatchSelectionChanged">
-                    <CollectionView.ItemTemplate>
+	                
+	                <CollectionView.GroupHeaderTemplate>
+		                <DataTemplate x:DataType="models:EventMatchGroup">
+			                <Label Text="{Binding FormattedEventWithTime}"
+			                       FontFamily="GoboldBold" 
+			                       Margin="20, 0, 0, 0"
+			                       TextColor="AntiqueWhite"
+			                       FontSize="31"
+			                       HorizontalOptions="Start">
+				                <Label.GestureRecognizers>
+					                <TapGestureRecognizer Tapped="OnToggleGroupClick" />
+					                <DragGestureRecognizer DragStarting="OnDragMatchGroupStarting"/>
+					                <DropGestureRecognizer Drop="OnDropMatchGroup"/>
+				                </Label.GestureRecognizers>
+			                </Label>
+		                </DataTemplate>
+	                </CollectionView.GroupHeaderTemplate>
+	                
+	                <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:Match">
                             <Grid RowDefinitions="*"
                                   ColumnDefinitions="*, auto">

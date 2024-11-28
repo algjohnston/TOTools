@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:scheduler="clr-namespace:TOTools.Scheduler"
+             x:Class="TOTools.Scheduler.ChangeEventTimePage" x:DataType="scheduler:ChangeEventTimePage">
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <!-- Background Image -->
+            <Image Source="background.png"
+                   Aspect="Fill"
+                   AbsoluteLayout.LayoutFlags="All"
+                   AbsoluteLayout.LayoutBounds="0, 0, 1, 1" />
+             <Grid ColumnDefinitions="*, *"
+                  RowDefinitions="*, *, *"
+                  Margin="30"
+                  AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                  AbsoluteLayout.LayoutFlags="All">
+
+                <Label Text="{Binding SelectedEvent.FormattedEventWithTime}"
+                       FontSize="24"
+                       TextColor="AntiqueWhite"
+                       Grid.Row="0"
+                       Grid.ColumnSpan="2"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+
+                <Label Text="Start Time: "
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       FontSize="24"
+                       TextColor="AntiqueWhite"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+
+                <TimePicker
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    x:Name="StartTimeEntry"
+                    FontSize="24"
+                    TextColor="AntiqueWhite"
+                    BackgroundColor="Transparent"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center" />
+
+                <Button x:Name="SubmitButton"
+                        Text="Submit"
+                        FontSize="24"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        Grid.Row="2"
+                        HorizontalOptions="Start"
+                        VerticalOptions="End"
+                        Clicked="OnSubmitButtonClicked" />
+
+                <Button x:Name="Cancel"
+                        Text="Cancel"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        FontSize="24"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        HorizontalOptions="End"
+                        VerticalOptions="End"
+                        Clicked="OnCancelButtonClicked" />
+            </Grid>
+            </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>
