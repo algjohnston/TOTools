@@ -1,0 +1,40 @@
+This is just to give you an idea of what we are supposed to be going for, and why things will work the way they do.
+
+SEEDING: 
+- Seeding List:
+    For tournaments, there used to be a google doc that would track all the active competitors and generally how good they were,
+    so that when you seed a tournament (google that if you don't know what that means), you can put people generally where they belong.
+    This will effectively replace that. One of the problems with the doc was that rearranging players when they got better or worse was a pain,
+    so this lets you move them around on the list, which will actively update their rankings in the database. This database is then used for the next
+    part of seeding. This list also keeps track of a players region, which is also important for the next thing the seeding portion of our app is 
+    responsible for.
+- Seed generator: Takes a link of an event from start.gg (a website used for running tournaments) and will automatically seed that event
+                  using the seeding list that you have created. Any players that are in the event that are not in the seeding list will prompt you
+                  to enter their information so they can be added to the seeding list. This will then generate a bracket visual for the user to look at. 
+                  This bracket will be totally filled out according to the seeding. So it will look like a finished bracket. 
+                  It will have the payers tags (essentially usernames) be color coded to make it easy to spot regional conflicts 
+                  (Essentially, you don't want people to come all the way from iowa or something, and then they only end up playing against the people they came with,
+                  so if you see that two people with the same color are going to face each other right away, you can adjust the seeding). Speaking of adjusting the seeding,
+                  you can move the sets around within the bracket to fix these sorts of conflicts. This tool will be used before the user manually does the seeding again on start.gg
+                  (essentially, they will just copy whatever they have when they are done with our seed generator into start.gg). We may also get around to trying to 
+                  send this information to start.gg directly, but working with the site is a nightmare, and so we may also not.
+                  so that they don't miss any easily avoidable regional conflicts, and so their seeding accurately reflects the skill of the people participating. 
+
+
+SCHEDULER: Sometimes when you are running a tournament, you will have multiple brackets where people are playing different games. 
+           Sometimes, one person will be in multiple brackets at the same time. This can cause an issue if they don't play their matches in the right order,
+           potentially causing the bracket to take longer than it should have. This is where the scheduler comes in. This will let you put links for startgg events (brackets)
+           into the link input page. After you do this, it will pull up a list of all matches that can currently be played, and it will list the game they are being played in 
+           next to the match (currently, these are all unknown, since we haven't converted the game from startgg to our enum, or we just haven't ripped it in our query yet or something,
+           idrk, I'd have to ask alex). Each match will also give an estimate for how long it will take, which is calculated using all the data gathered from past matches between the two
+           players in that given game. Right now, no past matches are in the database, since they need to be entered using the app, so all the estimates are 0 minutes and 0 seconds. You will
+           be able to start a match, which will make it obvious that the match is being played in the scheduler (haven't done this yet) and when a match finished, you will be able to report 
+           who won (this doesn't push anything to start.gg's bracket, but is necessary so that you can get the next match to show up in the scheduler). This makes it easy to keep track of 
+           what is happening, and what needs to happen. It also will let you make better judgement calls on what to do when, as it has the time estimates, which aren't actually available  
+           from any sort of stats website using start.gg already.s
+
+
+MAP: This wasn't worked on this sprint. More info on final sprint.
+
+
+THUMBNAIL GENERATOR: NOT MADE YET

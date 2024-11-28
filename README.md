@@ -6,6 +6,14 @@ Sprint 4 promised tasks (with a checkmark by those that are completed):
     Group events in the scheduler and add a way to change their start time ✅ This took about 3 hours
     Make schedule generation faster ✅ This was easy
     The select competitors page needs a seeding list and multiple selection ✅ This took a whole day
+    Add to seeding list from bracket if not in seeding list ✅ Took a couple hours.
+    Let user start and report match ❌ Not finished. 
+    Add to the event url form, a placement number for when Bo5 Starts ✅ Ezpz
+    Region Editor Popup ✅ It do exist now. I needed Alex's help though for the backend
+    Make txt guide for rogers ✅ Hopefully this helps
+    
+    
+    
 
 Sprint 3 Changes:
 
