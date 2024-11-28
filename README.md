@@ -6,6 +6,10 @@ Sprint 4 promised tasks (with a checkmark by those that are completed):
     Group events in the scheduler and add a way to change their start time ✅ This took about 3 hours
     Make schedule generation faster ✅ This was easy
     The select competitors page needs a seeding list and multiple selection ✅ This took a whole day
+    Design GUI (Text fonts/colors/sizes, Backgrounds, Button colors, etc.) to have it look nicer ✅ This was easier said than done; went through a handful of redesigns
+    Change splash screen and app icon ✅ This was also easy
+    Add loading animation to splash screen; did not seem possible without adding its own screen (they seem static by design)
+
 
 Sprint 3 Changes:
 
