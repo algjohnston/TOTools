@@ -38,15 +38,18 @@ public partial class MatchSchedulerPage : ContentPage
     
     public void OnReportButtonClicked(object? sender, EventArgs e)
     {
-        // TODO 
-        // make a popup that lets you report who won the set
+        if (_schedulerBusinessLogic.SelectedMatch != null)
+        {
+            new ReportMatchPopup(_schedulerBusinessLogic.SelectedMatch);
+        }
     }
 
     public void OnStartButtonClicked(object? sender, EventArgs e)
     {
+        if (_schedulerBusinessLogic == null) return;
+        if (_schedulerBusinessLogic?.SelectedMatch == null) return;
         _schedulerBusinessLogic.SelectedMatch.MatchStartTime = DateTime.Now;
         _schedulerBusinessLogic.SelectedMatch.IsInProgress = true;
-
     }
     
     public void OnMatchSelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -81,16 +81,6 @@
             TextColor="AntiqueWhite" />
 
         <!-- Cancel and Submit Buttons -->
-        <Button Text="Submit"
-                Grid.Row="4"
-                Grid.Column="0"
-                Clicked="OnOkButtonClicked"
-                TextColor="AntiqueWhite"
-                BackgroundColor="#643f00"
-                FontFamily="GoboldBold"
-                HorizontalOptions="Start"
-                VerticalOptions="Center" />
-
         <Button Text="Cancel"
                 Grid.Row="4"
                 Grid.Column="1"
@@ -98,8 +88,18 @@
                 TextColor="AntiqueWhite"
                 BackgroundColor="#eebf6d"
                 FontFamily="GoboldBold"
+                HorizontalOptions="Start"
+                VerticalOptions="End" />
+        
+        <Button Text="Submit"
+                Grid.Row="4"
+                Grid.Column="0"
+                Clicked="OnOkButtonClicked"
+                TextColor="AntiqueWhite"
+                BackgroundColor="#643f00"
+                FontFamily="GoboldBold"
                 HorizontalOptions="End"
-                VerticalOptions="Center" />
+                VerticalOptions="End" />
 
     </Grid>
 

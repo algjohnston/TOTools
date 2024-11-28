@@ -105,26 +105,27 @@
                            VerticalOptions="Center" />
                 </Frame>
 
-                <Button x:Name="SubmitButton"
-                        Text="Submit"
-                        FontSize="24"
-                        TextColor="Black"
-                        FontAttributes="Bold"
-                        Grid.Row="7"
-                        HorizontalOptions="Start"
-                        VerticalOptions="End"
-                        Clicked="OnSubmitButtonClicked" />
-
                 <Button x:Name="Cancel"
                         Text="Cancel"
                         TextColor="Black"
                         FontAttributes="Bold"
                         FontSize="24"
                         Grid.Row="7"
+                        Grid.Column="0"
+                        HorizontalOptions="Start"
+                        VerticalOptions="End"
+                        Clicked="OnCancelButtonClicked" />
+                
+                <Button x:Name="SubmitButton"
+                        Text="Submit"
+                        FontSize="24"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        Grid.Row="7"
                         Grid.Column="1"
                         HorizontalOptions="End"
                         VerticalOptions="End"
-                        Clicked="OnCancelButtonClicked" />
+                        Clicked="OnSubmitButtonClicked" />
             </Grid>
         </AbsoluteLayout>
     </ContentPage.Content>

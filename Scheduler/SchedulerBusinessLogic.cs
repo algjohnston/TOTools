@@ -29,8 +29,8 @@ public class SchedulerBusinessLogic(
     public ObservableCollection<Match> FutureMatches { get; } = [];
 
     public EventLink? SelectedEventLink { get; set; }
-    
-    public Match? SelectedMatch { get; set; }
+
+    public Match? SelectedMatch { get; set; } = null;
 
     private readonly TaskCompletionSource<bool> _loadCompletionSource = new();
     public Task PastMatchLoadTask => _loadCompletionSource.Task;
