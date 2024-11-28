@@ -1,3 +1,12 @@
+Sprint 4 promised tasks (with a checkmark by those that are completed):
+
+    Add tier group drag and drop ✅ This was easy
+    Clone a bracket from startgg into the UI ✅ This took a two whole days
+    Drag and drop players in the brackets; This ended up turning into click to change players and did not get done.
+    Group events in the scheduler and add a way to change their start time ✅ This took about 3 hours
+    Make schedule generation faster ✅ This was easy
+    The select competitors page needs a seeding list and multiple selection ✅ This took a whole day
+
 Sprint 3 Changes:
 
     Added GraphQL.Client and used it to get data from start.gg

@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using TOTools.Models;
+﻿using TOTools.Models;
 
 namespace TOTools.Scheduler;
 
@@ -53,12 +52,16 @@ public partial class SchedulerEventPage : ContentPage, IOnEventLinkSubmitted
 
     private void OnDeleteLinkButtonClicked(object? sender, EventArgs e)
     {
-        _schedulerBusinessLogic.RemoveEvent(_schedulerBusinessLogic.SelectedEventLink as EventLink);
+        _schedulerBusinessLogic?.RemoveEvent(_schedulerBusinessLogic.SelectedEventLink);
     }
 
     public void OnEventLinkSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (e.CurrentSelection.FirstOrDefault() is EventLink selectedEventLink)
+        if (e.CurrentSelection.FirstOrDefault() is not EventLink selectedEventLink)
+        {
+            return;
+        }
+        if (_schedulerBusinessLogic != null)
         {
             _schedulerBusinessLogic.SelectedEventLink = selectedEventLink;
         }
