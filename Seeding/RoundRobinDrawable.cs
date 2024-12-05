@@ -2,6 +2,12 @@
 
 namespace TOTools.Seeding;
 
+/// <summary>
+/// A grid of round-robin winners.
+/// </summary>
+/// <param name="uniquePlayers">All the players in the round-robin bracket.</param>
+/// <param name="sets">All the sets (matches) in the bracket.</param>
+/// <param name="color">The color of the grid lines.</param>
 internal class RoundRobinDrawable(List<string> uniquePlayers, List<Set> sets, Color color) : IDrawable
 {
     private const int MinFont = 4;
@@ -19,6 +25,7 @@ internal class RoundRobinDrawable(List<string> uniquePlayers, List<Set> sets, Co
         SetFontSize(canvas, uniquePlayers, rowHeight, columnWidth);
 
 
+        // Draw the grid lines
         for (var i = 0; i < uniquePlayers.Count + 1; i++)
         {
             var x = (i * columnWidth);
@@ -27,6 +34,7 @@ internal class RoundRobinDrawable(List<string> uniquePlayers, List<Set> sets, Co
             canvas.DrawLine(x, 0, x, height);
         }
 
+        // Fill the winner names
         foreach (var set in sets)
         {
             var rowIndex = uniquePlayers.IndexOf(set.Player1);
@@ -41,9 +49,16 @@ internal class RoundRobinDrawable(List<string> uniquePlayers, List<Set> sets, Co
         }
     }
 
+    /// <summary>
+    /// Determines the font size that will allow for all player names to be visible in the grid.
+    /// </summary>
+    /// <param name="canvas">The canvas that will hold the names.</param>
+    /// <param name="playerNames">The names of the players in the bracket.</param>
+    /// <param name="rowHeight">The height of the rows in the grid.</param>
+    /// <param name="columnWidth">The width of the grid.</param>
     private static void SetFontSize(
-        ICanvas canvas, 
-        List<string> playerNames, 
+        ICanvas canvas,
+        List<string> playerNames,
         float rowHeight, float columnWidth)
     {
         var minFontSize = Math.Min(rowHeight, columnWidth);
@@ -51,16 +66,31 @@ internal class RoundRobinDrawable(List<string> uniquePlayers, List<Set> sets, Co
         {
             var fontSize = Math.Min(rowHeight, columnWidth);
             var size = canvas.GetStringSize(text, null, fontSize);
-            while (fontSize > MinFont && (size.Width > (columnWidth - DoublePadding) || size.Height > rowHeight - DoublePadding))
+            while (
+                fontSize > MinFont &&
+                (size.Width > columnWidth - DoublePadding || size.Height > rowHeight - DoublePadding)
+            )
             {
                 fontSize -= 1;
                 size = canvas.GetStringSize(text, null, fontSize);
             }
+
             minFontSize = Math.Min(minFontSize, fontSize);
         }
+
         canvas.FontSize = minFontSize;
     }
 
+    /// <summary>
+    /// Fills a cell in the grid with a player name.
+    /// </summary>
+    /// <param name="canvas">The canvas to draw the player name on.</param>
+    /// <param name="x">The starting x-value of the text bounding box.</param>
+    /// <param name="y">The starting y-value of the text bounding box.</param>
+    /// <param name="columnWidth">The width of a cell in the grid.</param>
+    /// <param name="rowHeight">The height of a cell in the grid.</param>
+    /// <param name="fillOnly">When true, no player name will be put into the cell.</param>
+    /// <param name="set">The set with the match whose winner will be put in the cell.</param>
     private static void FillCell(
         ICanvas canvas,
         float x, float y,
@@ -69,9 +99,9 @@ internal class RoundRobinDrawable(List<string> uniquePlayers, List<Set> sets, Co
         Set set)
     {
         canvas.FillRectangle(
-            x + Padding, 
-            y + Padding, 
-            columnWidth - DoublePadding, 
+            x + Padding,
+            y + Padding,
+            columnWidth - DoublePadding,
             rowHeight - DoublePadding);
         if (fillOnly)
         {

@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
-using GraphQL.Client.Http;
+﻿using CommunityToolkit.Maui.Views;
 using TOTools.Models;
 
 namespace TOTools.Scheduler;
@@ -36,21 +34,25 @@ public partial class MatchSchedulerPage : ContentPage, INewTimeSubmitted
         MatchList.BindingContext = _schedulerBusinessLogic;
     }
 
-    private void OnReportButtonClicked(object? sender, EventArgs e)
+    private async void OnReportButtonClicked(object? sender, EventArgs e)
     {
-        if (_schedulerBusinessLogic.SelectedMatch != null)
+        if (_schedulerBusinessLogic?.SelectedMatch != null)
         {
-            new ReportMatchPopup(_schedulerBusinessLogic.SelectedMatch);
+            await this.ShowPopupAsync(
+                new ReportMatchPopup(_schedulerBusinessLogic.SelectedMatch)
+            );
         }
     }
 
     private void OnStartButtonClicked(object? sender, EventArgs e)
     {
-        if (_schedulerBusinessLogic == null) return;
         if (_schedulerBusinessLogic?.SelectedMatch == null) return;
         _schedulerBusinessLogic.SelectedMatch.MatchStartTime = DateTime.Now;
         _schedulerBusinessLogic.SelectedMatch.IsInProgress = true;
-
+        
+        // Forces a reload of the events
+        MatchList.ItemsSource = null;
+        MatchList.ItemsSource = _schedulerBusinessLogic.FutureMatches;
     }
 
     private void OnMatchSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -81,7 +83,7 @@ public partial class MatchSchedulerPage : ContentPage, INewTimeSubmitted
         MatchList.ItemsSource = null;
         MatchList.ItemsSource = _schedulerBusinessLogic.FutureMatches;
     }
-    
+
     private void OnDragMatchGroupStarting(object? sender, DragStartingEventArgs e)
     {
         if (sender is not DragGestureRecognizer { BindingContext: EventMatchGroup eventMatchGroup }) return;
@@ -89,24 +91,34 @@ public partial class MatchSchedulerPage : ContentPage, INewTimeSubmitted
     }
 
 
+    /// <summary>
+    /// Swaps the match from drag starting with where the match was dropped
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void OnDropMatchGroup(object? sender, DropEventArgs e)
     {
         if (sender is not DropGestureRecognizer { BindingContext: EventMatchGroup destinationPlayerGroup }) return;
         var sourceGroup = (EventMatchGroup)e.Data.Properties["EventGroup"];
-        
+
         var sourceIndex = _schedulerBusinessLogic.FutureMatches.IndexOf(sourceGroup);
         var destinationIndex = _schedulerBusinessLogic.FutureMatches.IndexOf(destinationPlayerGroup);
         if (sourceIndex == destinationIndex)
         {
             return;
         }
-        
+
         _schedulerBusinessLogic.FutureMatches.Move(sourceIndex, destinationIndex);
         // Needed to update the list this way because the CollectionView can not handle the above code
         MatchList.ItemsSource = null;
         MatchList.ItemsSource = _schedulerBusinessLogic.FutureMatches;
     }
 
+    /// <summary>
+    /// Opens a page that allows the user to change the time of an event.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void OnChangeStartTimeClicked(object? sender, EventArgs e)
     {
         var selectedMatch = _schedulerBusinessLogic.SelectedMatch;
@@ -119,11 +131,16 @@ public partial class MatchSchedulerPage : ContentPage, INewTimeSubmitted
                 break;
             }
         }
+
         Navigation.PushAsync(new ChangeEventTimePage(eventMatchGroup, this));
     }
 
+    /// <summary>
+    /// Called by the change event time page when the user changes the time of an event
+    /// </summary>
     public void NewTimeSubmitted()
     {
+        // Forces a reload of the events
         MatchList.ItemsSource = null;
         MatchList.ItemsSource = _schedulerBusinessLogic.FutureMatches;
     }

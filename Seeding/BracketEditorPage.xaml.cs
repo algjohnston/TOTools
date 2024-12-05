@@ -37,6 +37,7 @@ public partial class BracketEditorPage : ContentPage
         var screenWidth = DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
         if (bracket.BracketType == BracketType.DoubleElimination)
         {
+            // Add the double elimination bracket
             var winnerAndLoserBracketSets = Bracket.GetWinnerAndLoserBracketSets(bracket);
             var winnersBracket = new ContentView
             {
@@ -55,6 +56,7 @@ public partial class BracketEditorPage : ContentPage
         }
         else if (bracket.BracketType == BracketType.RoundRobin)
         {
+            // Add the round-robin bracket
             var roundRobinBrackets = new ContentView
             {
                 HeightRequest = screenHeight,

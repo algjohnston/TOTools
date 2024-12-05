@@ -165,7 +165,7 @@ public class SchedulerBusinessLogic(
                 kvp.Value,
                 Game.Unknown,
                 true));
-            FutureMatches.Add(new EventMatchGroup(eventName, eventStartTime, futureMatches));
+        FutureMatches.Add(new EventMatchGroup(eventName, eventStartTime, futureMatches));
     }
 
     /// <summary>

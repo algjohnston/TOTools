@@ -279,6 +279,11 @@ public class SeedingBusinessLogic(
         );
     }
 
+    /// <summary>
+    /// Clears all event brackets and adds a new double elimination bracket with the given players
+    /// and sets it as the active bracket.
+    /// </summary>
+    /// <param name="players">The players to put in the generated bracket.</param>
     public void CreateDoubleEliminationBracketAndSetToCurrent(List<Player> players)
     {
         // TODO the bracket seeds should be intelligently set
@@ -303,34 +308,34 @@ public class SeedingBusinessLogic(
             }
 
             sets.Add(
-                    new SetType
-                    {
-                        Id = "",
-                        Identifier = "",
-                        WinnerId = "",
-                        Slots =
-                        [
-                            new SetSlotType
+                new SetType
+                {
+                    Id = "",
+                    Identifier = "",
+                    WinnerId = "",
+                    Slots =
+                    [
+                        new SetSlotType
+                        {
+                            Entrant = new EntrantType
                             {
-                                Entrant = new EntrantType
-                                {
-                                    Id = player1.StarttggId,
-                                    Name = player1.PlayerTag
-                                },
-                                PrereqId = ""
+                                Id = player1.StarttggId,
+                                Name = player1.PlayerTag
                             },
-                            new SetSlotType
+                            PrereqId = ""
+                        },
+                        new SetSlotType
+                        {
+                            Entrant = new EntrantType
                             {
-                                Entrant = new EntrantType
-                                {
-                                    Id = player2?.StarttggId ?? "",
-                                    Name = player2?.PlayerTag ?? "Bye"
-                                },
-                                PrereqId = ""
-                            }
-                        ],
-                        PhaseGroup = phaseGroupType
-                    });
+                                Id = player2?.StarttggId ?? "",
+                                Name = player2?.PlayerTag ?? "Bye"
+                            },
+                            PrereqId = ""
+                        }
+                    ],
+                    PhaseGroup = phaseGroupType
+                });
         }
 
         var phaseGroup = new PhaseGroup(phaseGroupType, sets);
