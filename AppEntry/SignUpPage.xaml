@@ -11,60 +11,60 @@
                    AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                    AbsoluteLayout.LayoutFlags="All" />
 
-            <Grid ColumnDefinitions="*, *"
-                  RowDefinitions="*, *, *, *"
+            <Grid ColumnDefinitions="*, auto, *"
+                  RowDefinitions="*, *, *, *, *, *"
                   Margin="16"
                   AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                   AbsoluteLayout.LayoutFlags="All">
 
-                <Label Text="Email:"
+                <!--<Label Text="Email:"
                        FontSize="Large"
                        TextColor="AntiqueWhite"
 					   FontFamily="GoboldBold"
                        Grid.Column="0"
-                       Grid.Row="0"
+                       Grid.Row="1"
                        Margin="20, 0, 0, 0"
-                       VerticalOptions="Center" />
+                       VerticalOptions="Center" />-->
 
                 <Entry x:Name="EmailEntry"
                        FontSize="Large"
 					   FontFamily="RalewayRegular"
                        Margin="0, 0, 0, 0"
                        TextColor="AntiqueWhite"
-                       Grid.Row="0"
+                       Grid.Row="1"
                        Grid.Column="1"
                        Placeholder="Enter your email"
                        HorizontalOptions="Start"
                        VerticalOptions="Center" />
 
-                <Label Text="Password:"
-                       FontSize="Large"
-					   FontFamily="GoboldBold"
-                       TextColor="AntiqueWhite"
-                       Grid.Column="0"
-                       Grid.Row="1"
-                       Margin="20, 0, 0, 0"
-                       VerticalOptions="Center" />
-
-                <Entry x:Name="PasswordEntry"
-                       FontSize="Large"
-					   FontFamily="RalewayRegular"
-                       Margin="0, 0, 0, 0"
-                       Grid.Row="1"
-                       Grid.Column="1"
-                       TextColor="AntiqueWhite"
-                       Placeholder="Enter a password"
-                       HorizontalOptions="Start"
-                       VerticalOptions="Center" />
-
-                <Label Text="Confirm Password:"
+                <!--<Label Text="Password:"
                        FontSize="Large"
 					   FontFamily="GoboldBold"
                        TextColor="AntiqueWhite"
                        Grid.Column="0"
                        Grid.Row="2"
                        Margin="20, 0, 0, 0"
-                       VerticalOptions="Center"/>
+                       VerticalOptions="Center" />-->
+
+                <Entry x:Name="PasswordEntry"
+                       FontSize="Large"
+					   FontFamily="RalewayRegular"
+                       Margin="0, 0, 0, 0"
+                       Grid.Row="2"
+                       Grid.Column="1"
+                       TextColor="AntiqueWhite"
+                       Placeholder="Enter a password"
+                       HorizontalOptions="Start"
+                       VerticalOptions="Center" />
+
+                <!--<Label Text="Confirm Password:"
+                       FontSize="Large"
+					   FontFamily="GoboldBold"
+                       TextColor="AntiqueWhite"
+                       Grid.Column="0"
+                       Grid.Row="3"
+                       Margin="20, 0, 0, 0"
+                       VerticalOptions="Center"/>-->
 
                 <!-- Saving for later since it looks inconsistent with the log in page -->
                 <!-- TODO frames around entries? -->
@@ -79,7 +79,7 @@
                        FontSize="Large"
 					   FontFamily="RalewayRegular"
                        Margin="0, 0, 0, 0"
-                       Grid.Row="2"
+                       Grid.Row="3"
                        Grid.Column="1"
                        TextColor="AntiqueWhite"
                        Placeholder="Re-enter password"
@@ -91,15 +91,15 @@
                         Text="Submit"
                         FontSize="Large"
                         FontFamily="GoboldBold"
-                        Grid.Row="3"
+                        Grid.Row="4"
                         Grid.Column="0"
-                        TextColor="#fbefdb"
+                        TextColor="Black"
                         HorizontalOptions="Start"
                         VerticalOptions="End"
-                        Margin="10"
+                        Margin="30"
                         WidthRequest="120"
                         HeightRequest="50"
-                        BackgroundColor="#643f00"
+                        BackgroundColor="#eebf6d"
                         Clicked="OnSubmitButtonClicked" />
 
             </Grid>

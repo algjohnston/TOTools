@@ -13,26 +13,26 @@
                    AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                    AbsoluteLayout.LayoutFlags="All" />
 
-            <Grid ColumnDefinitions="auto, *"
-                  RowDefinitions="*, *, *"
+            <Grid ColumnDefinitions="*, auto, *"
+                  RowDefinitions="*, *, *, *, *"
                   Margin="16"
                   AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                   AbsoluteLayout.LayoutFlags="All">
 
-                <Label Text="Username: "
+                <!--<Label Text="Username: "
                        FontSize="Large"
 					   FontFamily="GoboldBold"
                        TextColor="AntiqueWhite"
                        Grid.Row="0"
                        Margin="20, 0, 0, 0"
                        HorizontalOptions="Center"
-                       VerticalOptions="Center" />
+                       VerticalOptions="Center" /> -->
 
                 <Entry x:Name="UsernameEntry" 
                        FontSize="Large"
 					   FontFamily="RalewayRegular"
                        Margin="0, 0, 0, 0"
-                       Grid.Row="0"
+                       Grid.Row="1"
                        TextColor="AntiqueWhite"
                        Grid.Column="1"
                        Placeholder="Enter your username"
@@ -40,18 +40,18 @@
                        VerticalOptions="Center"
                        Opacity="100"/>
 
-                <Label Text="Password: "
+                <!-- <Label Text="Password: "
                        FontSize="Large"
 					   FontFamily="GoboldBold"
                        TextColor="AntiqueWhite"
                        Grid.Row="1"
                        HorizontalOptions="Center"
-                       VerticalOptions="Center" />
+                       VerticalOptions="Center" /> -->
 
                 <Entry x:Name="PasswordEntry" 
                        FontSize="Large"
 					   FontFamily="RalewayRegular"
-                       Grid.Row="1"
+                       Grid.Row="2"
                        Grid.Column="1"
                        TextColor="AntiqueWhite"
                        Placeholder="Enter your password"
@@ -69,7 +69,7 @@
                         VerticalOptions="End"
                         WidthRequest="120"
                         HeightRequest="50"
-                        Margin="10"
+                        Margin="40"
                         BackgroundColor="#eebf6d"
                         Clicked="OnLogInButtonClicked" />
 
@@ -78,11 +78,11 @@
                         FontSize="Large"
                         FontFamily="GoboldBold"
                         Grid.Row="3"
-                        Grid.Column="1"
+                        Grid.Column="3"
                         TextColor="#fbefdb"
                         HorizontalOptions="End"
                         VerticalOptions="End"
-                        Margin="10"
+                        Margin="40"
                         WidthRequest="120"
                         HeightRequest="50"
                         BackgroundColor="#643f00"
