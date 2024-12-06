@@ -36,31 +36,36 @@ public partial class SeedGeneratorPage : ContentPage, IOnPlayerAdded
         BindingContext = _seedingBusinessLogic;
     }
 
+    private static readonly SemaphoreSlim semaphore = new(1, 1);
     private async void OnSubmitButtonClicked(object? sender, EventArgs e)
     {
-        var linkText = AttendeeLinkEntry.Text;
-        if (string.IsNullOrEmpty(linkText))
+        if (!semaphore.Wait(0)) // Avoid overlapping operations
         {
-            await DisplayAlert("Invalid BracketLink", "Please enter a valid event link", "OK");
-            return;
+            return; // Exit if another operation is in progress
         }
+            var linkText = AttendeeLinkEntry.Text;
+            if (string.IsNullOrEmpty(linkText))
+            {
+                await DisplayAlert("Invalid BracketLink", "Please enter a valid event link", "OK");
+                return;
+            }
 
-        await _seedingBusinessLogic!.AddLinkPhaseGroups(linkText);
-        var players = _seedingBusinessLogic.GetUnknownPlayers();
-        var screenHeight = DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density;
-        var screenWidth = DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
-        foreach (var player in players)
-        {
-            await this.ShowPopupAsync(
-                new PlayerEditorPopup(
-                    this, 
-                    player,
-                    screenHeight * 0.75,
-                    screenWidth * 0.75
-                )
-            );
+            await _seedingBusinessLogic!.AddLinkPhaseGroups(linkText);
+            var players = _seedingBusinessLogic.GetUnknownPlayers();
+            var screenHeight = DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density;
+            var screenWidth = DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
+            foreach (var player in players)
+            {
+                await this.ShowPopupAsync(
+                    new PlayerEditorPopup(
+                        this,
+                        player,
+                        screenHeight * 0.75,
+                        screenWidth * 0.75
+                    )
+                );
+                semaphore.Release(); 
         }
-
         await Navigation.PushAsync(new BracketsPage());
     }
 

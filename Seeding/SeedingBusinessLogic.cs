@@ -343,4 +343,10 @@ public class SeedingBusinessLogic(
         EventBrackets.Add(bracketGroup);
         SetActiveBracketForEditing("");
     }
+
+    public void UpdateSetInCurrentBracket(Set set)
+    {
+        var bracket = GetActiveBracket();
+        bracket.UpdateSet(set);
+    }
 }

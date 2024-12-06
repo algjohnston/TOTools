@@ -73,6 +73,16 @@ public class Bracket(BracketType bracketType, List<Set> sets)
     {
         return bracket.Sets;
     }
+
+    /// <summary>
+    /// Replaces a set with the same id as the given set, in this bracket, with the given set.
+    /// </summary>
+    /// <param name="set">The set to update.</param>
+    public void UpdateSet(Set set)
+    {
+        var setToReplace = sets.IndexOf(sets.First(set1 => set1.Identifier == set.Identifier));
+        sets[setToReplace] = set;
+    }
 }
 
 public record WinnerAndLoserBracketSets(List<Set> WinnerSets, List<Set> LoserSets);

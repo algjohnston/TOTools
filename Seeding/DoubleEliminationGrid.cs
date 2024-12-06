@@ -3,10 +3,26 @@
 namespace TOTools.Seeding;
 
 /// <summary>
+/// An interface for getting a notification for when two sets in a bracket are swapped.
+/// </summary>
+public interface IOnSetsSwapped
+{
+    /// <summary>
+    /// Called when two sets in a bracket have had their players swapped.
+    /// </summary>
+    /// <param name="set1">One of the sets that was part of the swap.</param>
+    /// <param name="set2">The other set that was part of the swap.</param>
+    void Swapped(Set set1, Set set2);
+}
+
+/// <summary>
 /// A page that displays a double elimination bracket.
 /// </summary>
 public class DoubleEliminationGrid : Grid
 {
+    
+    private IOnSetsSwapped _onSetsSwapped;
+    
     /// <summary>
     /// Creates a double elimination grid.
     /// </summary>
@@ -17,8 +33,9 @@ public class DoubleEliminationGrid : Grid
     /// <param name="color">
     /// The color of the lines and the text in the bracket.
     /// </param>
-    public DoubleEliminationGrid(List<Set> sets, Color color)
+    public DoubleEliminationGrid(List<Set> sets, Color color, IOnSetsSwapped onSetsSwapped)
     {
+        _onSetsSwapped = onSetsSwapped;
         FillGridWithPlayers(sets, color);
     }
 
@@ -58,7 +75,6 @@ public class DoubleEliminationGrid : Grid
         // | name --|
         // |        |-- name |
         // | name --|
-        // The extra column is for the final match
         var numberOfColumns = 2 * groupedSets.Count - 1;
         for (var i = 0; i < numberOfColumns; i++)
         {
@@ -82,9 +98,11 @@ public class DoubleEliminationGrid : Grid
                 VerticalOptions = LayoutOptions.Center
             };
 
+            // TODO Do not allow dragging if the set has a winner
+            
             // Handle drag start
             var dragGesture = new DragGestureRecognizer();
-            dragGesture.DragStarting += (sender, args) =>
+            dragGesture.DragStarting += (_, args) =>
             {
                 args.Data.Properties["Set"] = currentSet;
                 args.Data.Properties["Label"] = playerLabel;
@@ -93,17 +111,22 @@ public class DoubleEliminationGrid : Grid
 
             // Add DropGestureRecognizer
             var dropGesture = new DropGestureRecognizer();
-            dropGesture.Drop += (sender, args) =>
+            dropGesture.Drop += (_, args) =>
             {
                 
                 if (!args.Data.Properties.TryGetValue("Label", out var sourceLabel)||
-                    !args.Data.Properties.TryGetValue("Set", out var set))
+                    !args.Data.Properties.TryGetValue("Set", out var sourceSet))
                 {
                     return;
                 }
-
-                (playerLabel.Text, (sourceLabel as Label).Text) = ((sourceLabel as Label).Text, playerLabel.Text);
-                currentSet.SwapPlayerWith(set as Set);
+                if (sourceLabel == null || sourceSet == null || sourceLabel is not Label label || sourceSet is not Set set)
+                {
+                    return;
+                }
+                
+                (playerLabel.Text, label.Text) = (label.Text, playerLabel.Text);
+                currentSet.SwapPlayerWith(set);
+                _onSetsSwapped.Swapped(currentSet, set);
             };
             playerLabel.GestureRecognizers.Add(dropGesture);
 

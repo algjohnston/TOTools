@@ -1,11 +1,12 @@
 ﻿using TOTools.Models;
+using TOTools.Models.Startgg;
 
 namespace TOTools.Seeding;
 
 /// <summary>
 /// A page that displays a bracket for editing.
 /// </summary>
-public partial class BracketEditorPage : ContentPage
+public partial class BracketEditorPage : ContentPage, IOnSetsSwapped
 {
     private SeedingBusinessLogic? _seedingBusinessLogic;
 
@@ -43,13 +44,19 @@ public partial class BracketEditorPage : ContentPage
             {
                 HeightRequest = screenHeight,
                 WidthRequest = screenWidth,
-                Content = new DoubleEliminationGrid(winnerAndLoserBracketSets.WinnerSets, Colors.AntiqueWhite)
+                Content = new DoubleEliminationGrid(
+                    winnerAndLoserBracketSets.WinnerSets,
+                    Colors.AntiqueWhite,
+                    this)
             };
             var losersBracket = new ContentView
             {
                 HeightRequest = screenHeight,
                 WidthRequest = screenWidth,
-                Content = new DoubleEliminationGrid(winnerAndLoserBracketSets.LoserSets, Colors.AntiqueWhite)
+                Content = new DoubleEliminationGrid(
+                    winnerAndLoserBracketSets.LoserSets,
+                    Colors.AntiqueWhite,
+                    this)
             };
             BracketStackLayout.Children.Add(winnersBracket);
             BracketStackLayout.Children.Add(losersBracket);
@@ -65,5 +72,12 @@ public partial class BracketEditorPage : ContentPage
             };
             BracketStackLayout.Children.Add(roundRobinBrackets);
         }
+    }
+
+
+    public void Swapped(Set set1, Set set2)
+    {
+        _seedingBusinessLogic!.UpdateSetInCurrentBracket(set1);
+        _seedingBusinessLogic!.UpdateSetInCurrentBracket(set2);
     }
 }
