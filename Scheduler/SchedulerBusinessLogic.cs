@@ -56,7 +56,10 @@ public class SchedulerBusinessLogic(
     /// <param name="eventLink">A startgg event link.</param>
     public void AddEventLink(EventLink eventLink)
     {
-        EventLinks.Add(eventLink);
+        if (!EventLinks.Contains(eventLink))
+        {
+            EventLinks.Add(eventLink);
+        }
     }
 
     public void RemoveEvent(EventLink? eventLink)
@@ -145,6 +148,12 @@ public class SchedulerBusinessLogic(
     /// <param name="phaseGroups">Every phase group of all the events.</param>
     private void GenerateMatchSchedule(string eventName, DateTime eventStartTime, List<PhaseGroup> phaseGroups)
     {
+        // Prevents duplicates from being added
+        if (FutureMatches.FirstOrDefault(x => x.EventName == eventName) != null)
+        {
+            return;
+        }
+        
         // Only get the sets that have two players...
         var matchParticipants = phaseGroups.SelectMany(
             phaseGroup => phaseGroup.Sets.Where(

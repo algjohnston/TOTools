@@ -33,10 +33,11 @@ public class DoubleEliminationGrid : Grid
     /// <param name="color">
     /// The color of the lines and the text in the bracket.
     /// </param>
-    public DoubleEliminationGrid(List<Set> sets, Color color, IOnSetsSwapped onSetsSwapped)
+    /// <param name="isWinnerBracket">Whether this is a winner bracket.</param>
+    public DoubleEliminationGrid(List<Set> sets, Color color, IOnSetsSwapped onSetsSwapped, bool isWinnerBracket)
     {
         _onSetsSwapped = onSetsSwapped;
-        FillGridWithPlayers(sets, color);
+        FillGridWithPlayers(sets, color, isWinnerBracket);
     }
 
     /// <summary>
@@ -44,9 +45,10 @@ public class DoubleEliminationGrid : Grid
     /// </summary>
     /// <param name="sets">The sets of the bracket.</param>
     /// <param name="color">
-    /// The color of the lines and the text in the bracket.
+    ///     The color of the lines and the text in the bracket.
     /// </param>
-    private void FillGridWithPlayers(List<Set> sets, Color color)
+    /// <param name="isWinner">Whether this is a winner bracket.</param>
+    private void FillGridWithPlayers(List<Set> sets, Color color, bool isWinner)
     {
         var groupedSets = sets.First().Round > -1
             ? sets.GroupBy(set => set.Round).OrderBy(g => g.Key).ToList()
@@ -99,36 +101,41 @@ public class DoubleEliminationGrid : Grid
             };
 
             // TODO Do not allow dragging if the set has a winner
-            
-            // Handle drag start
-            var dragGesture = new DragGestureRecognizer();
-            dragGesture.DragStarting += (_, args) =>
-            {
-                args.Data.Properties["Set"] = currentSet;
-                args.Data.Properties["Label"] = playerLabel;
-            };
-            playerLabel.GestureRecognizers.Add(dragGesture);
 
-            // Add DropGestureRecognizer
-            var dropGesture = new DropGestureRecognizer();
-            dropGesture.Drop += (_, args) =>
+            if (isWinner)
             {
-                
-                if (!args.Data.Properties.TryGetValue("Label", out var sourceLabel)||
-                    !args.Data.Properties.TryGetValue("Set", out var sourceSet))
+                // Handle drag start
+                var dragGesture = new DragGestureRecognizer();
+                dragGesture.DragStarting += (_, args) =>
                 {
-                    return;
-                }
-                if (sourceLabel == null || sourceSet == null || sourceLabel is not Label label || sourceSet is not Set set)
+                    args.Data.Properties["Set"] = currentSet;
+                    args.Data.Properties["Label"] = playerLabel;
+                };
+                playerLabel.GestureRecognizers.Add(dragGesture);
+
+                // Add DropGestureRecognizer
+                var dropGesture = new DropGestureRecognizer();
+                dropGesture.Drop += (_, args) =>
                 {
-                    return;
-                }
-                
-                (playerLabel.Text, label.Text) = (label.Text, playerLabel.Text);
-                currentSet.SwapPlayerWith(set);
-                _onSetsSwapped.Swapped(currentSet, set);
-            };
-            playerLabel.GestureRecognizers.Add(dropGesture);
+
+                    if (!args.Data.Properties.TryGetValue("Label", out var sourceLabel) ||
+                        !args.Data.Properties.TryGetValue("Set", out var sourceSet))
+                    {
+                        return;
+                    }
+
+                    if (sourceLabel == null || sourceSet == null || sourceLabel is not Label label ||
+                        sourceSet is not Set set)
+                    {
+                        return;
+                    }
+
+                    (playerLabel.Text, label.Text) = (label.Text, playerLabel.Text);
+                    currentSet.SwapPlayerWith(set);
+                    _onSetsSwapped.Swapped(currentSet, set);
+                };
+                playerLabel.GestureRecognizers.Add(dropGesture);
+            }
 
             this.Add(
                 playerLabel,

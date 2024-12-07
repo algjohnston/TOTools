@@ -47,7 +47,8 @@ public partial class BracketEditorPage : ContentPage, IOnSetsSwapped
                 Content = new DoubleEliminationGrid(
                     winnerAndLoserBracketSets.WinnerSets,
                     Colors.AntiqueWhite,
-                    this)
+                    this, 
+                    true)
             };
             var losersBracket = new ContentView
             {
@@ -56,7 +57,7 @@ public partial class BracketEditorPage : ContentPage, IOnSetsSwapped
                 Content = new DoubleEliminationGrid(
                     winnerAndLoserBracketSets.LoserSets,
                     Colors.AntiqueWhite,
-                    this)
+                    this, false)
             };
             BracketStackLayout.Children.Add(winnersBracket);
             BracketStackLayout.Children.Add(losersBracket);

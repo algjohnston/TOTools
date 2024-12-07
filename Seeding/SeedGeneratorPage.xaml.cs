@@ -36,13 +36,17 @@ public partial class SeedGeneratorPage : ContentPage, IOnPlayerAdded
         BindingContext = _seedingBusinessLogic;
     }
 
-    private static readonly SemaphoreSlim semaphore = new(1, 1);
+    private readonly SemaphoreSlim semaphore = new(1, 1);
+
     private async void OnSubmitButtonClicked(object? sender, EventArgs e)
     {
-        if (!semaphore.Wait(0)) // Avoid overlapping operations
+        if (!await semaphore.WaitAsync(0))
         {
-            return; // Exit if another operation is in progress
+            return;
         }
+
+        try
+        {
             var linkText = AttendeeLinkEntry.Text;
             if (string.IsNullOrEmpty(linkText))
             {
@@ -64,9 +68,14 @@ public partial class SeedGeneratorPage : ContentPage, IOnPlayerAdded
                         screenWidth * 0.75
                     )
                 );
-                semaphore.Release(); 
+            }
+
+            await Navigation.PushAsync(new BracketsPage());
         }
-        await Navigation.PushAsync(new BracketsPage());
+        finally
+        {
+            semaphore.Release();
+        }
     }
 
     protected override void OnAppearing()

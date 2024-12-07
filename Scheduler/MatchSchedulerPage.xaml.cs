@@ -49,7 +49,7 @@ public partial class MatchSchedulerPage : ContentPage, INewTimeSubmitted
         if (_schedulerBusinessLogic?.SelectedMatch == null) return;
         _schedulerBusinessLogic.SelectedMatch.MatchStartTime = DateTime.Now;
         _schedulerBusinessLogic.SelectedMatch.IsInProgress = true;
-        
+
         // Forces a reload of the events
         MatchList.ItemsSource = null;
         MatchList.ItemsSource = _schedulerBusinessLogic.FutureMatches;
@@ -57,6 +57,11 @@ public partial class MatchSchedulerPage : ContentPage, INewTimeSubmitted
 
     private void OnMatchSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
+        if (_schedulerBusinessLogic == null)
+        {
+            return;
+        }
+
         if (e.CurrentSelection.FirstOrDefault() is Match selectedMatch)
         {
             _schedulerBusinessLogic.SelectedMatch = selectedMatch;
@@ -73,6 +78,11 @@ public partial class MatchSchedulerPage : ContentPage, INewTimeSubmitted
     /// <param name="e">Ignored</param>
     private void OnToggleGroupClick(object sender, EventArgs e)
     {
+        if (_schedulerBusinessLogic == null)
+        {
+            return;
+        }
+
         if (sender is not Label { BindingContext: EventMatchGroup eventMatchGroup }) return;
         eventMatchGroup.ToggleExpanded();
 
@@ -98,7 +108,10 @@ public partial class MatchSchedulerPage : ContentPage, INewTimeSubmitted
     /// <param name="e"></param>
     private void OnDropMatchGroup(object? sender, DropEventArgs e)
     {
-        if (sender is not DropGestureRecognizer { BindingContext: EventMatchGroup destinationPlayerGroup }) return;
+        if (_schedulerBusinessLogic == null || sender is not DropGestureRecognizer
+            {
+                BindingContext: EventMatchGroup destinationPlayerGroup
+            }) return;
         var sourceGroup = (EventMatchGroup)e.Data.Properties["EventGroup"];
 
         var sourceIndex = _schedulerBusinessLogic.FutureMatches.IndexOf(sourceGroup);
@@ -121,17 +134,26 @@ public partial class MatchSchedulerPage : ContentPage, INewTimeSubmitted
     /// <param name="e"></param>
     private void OnChangeStartTimeClicked(object? sender, EventArgs e)
     {
+        if (_schedulerBusinessLogic == null)
+        {
+            return;
+        }
+        
         var selectedMatch = _schedulerBusinessLogic.SelectedMatch;
         EventMatchGroup? eventMatchGroup = null;
         foreach (var group in _schedulerBusinessLogic.FutureMatches)
         {
-            if (group.Contains(selectedMatch))
+            if (selectedMatch != null && group.Contains(selectedMatch))
             {
                 eventMatchGroup = group;
                 break;
             }
         }
 
+        if (eventMatchGroup == null)
+        {
+            return;
+        }
         Navigation.PushAsync(new ChangeEventTimePage(eventMatchGroup, this));
     }
 
@@ -140,6 +162,11 @@ public partial class MatchSchedulerPage : ContentPage, INewTimeSubmitted
     /// </summary>
     public void NewTimeSubmitted()
     {
+        if (_schedulerBusinessLogic == null)
+        {
+            return;
+        }
+        
         // Forces a reload of the events
         MatchList.ItemsSource = null;
         MatchList.ItemsSource = _schedulerBusinessLogic.FutureMatches;
