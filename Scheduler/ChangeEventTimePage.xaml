@@ -22,7 +22,7 @@
                        TextColor="AntiqueWhite"
                        Grid.Row="0"
                        Grid.ColumnSpan="2"
-                       HorizontalOptions="Center"
+                       HorizontalOptions="Start"
                        VerticalOptions="Center" />
 
                 <Label Text="Start Time: "
@@ -30,7 +30,7 @@
                        Grid.Column="0"
                        FontSize="24"
                        TextColor="AntiqueWhite"
-                       HorizontalOptions="Center"
+                       HorizontalOptions="Start"
                        VerticalOptions="Center" />
 
                 <TimePicker
@@ -48,19 +48,22 @@
                         FontSize="24"
                         TextColor="Black"
                         FontAttributes="Bold"
+                        BackgroundColor="#eebf6d"
                         Grid.Row="2"
-                        HorizontalOptions="Start"
+                        Grid.Column="1"
+                        HorizontalOptions="End"
                         VerticalOptions="End"
                         Clicked="OnSubmitButtonClicked" />
 
                 <Button x:Name="Cancel"
                         Text="Cancel"
-                        TextColor="Black"
+                        TextColor="AntiqueWhite"
+                        BackgroundColor="#643f00"
                         FontAttributes="Bold"
                         FontSize="24"
                         Grid.Row="2"
-                        Grid.Column="1"
-                        HorizontalOptions="End"
+                        Grid.Column="0"
+                        HorizontalOptions="Start"
                         VerticalOptions="End"
                         Clicked="OnCancelButtonClicked" />
             </Grid>
