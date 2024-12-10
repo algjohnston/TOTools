@@ -73,18 +73,8 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </ScrollView>
-            <Button Text="Submit"
-                        FontSize="Large"
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        FontFamily="GoboldBold"
-                        TextColor="Black"
-                        BackgroundColor="#eebf6d"
-                        HorizontalOptions="Start"
-		                Margin="28, 4, 12, 8"
-                        Clicked="OnSubmitButtonClicked" />
             <ImageButton Source="trash.svg"
-                         HorizontalOptions="End"
+                         HorizontalOptions="Start"
                          VerticalOptions="End"
                          WidthRequest="40"
                          HeightRequest="40"
@@ -93,13 +83,22 @@
                          Clicked="OnDeleteLinkButtonClicked"/>
 
             <ImageButton Source="plus.svg"
-                         HorizontalOptions="End"
+                         HorizontalOptions="Start"
                          WidthRequest="40"
                          HeightRequest="40"
 						 Margin="8, 4, -140, 0"
                          Grid.Row="2" 
                          Clicked="OnAddLinkButtonClicked"/>
-
+            <Button Text="Submit"
+                FontSize="Large"
+                Grid.Row="2"
+                Grid.Column="1"
+                FontFamily="GoboldBold"
+                TextColor="Black"
+                BackgroundColor="#eebf6d"
+                HorizontalOptions="End"
+                Margin="28, 4, 12, 8"
+                Clicked="OnSubmitButtonClicked" />
             
 
         </Grid>

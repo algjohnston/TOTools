@@ -85,23 +85,23 @@
                         BackgroundColor="#eebf6d"
                         FontAttributes="Bold"
                         Grid.Row="7"
-                        Grid.Column="0"
+                        Grid.Column="1"
                         HorizontalOptions="Start"
                         VerticalOptions="Start"
-                        Margin="38, 4,12, 2"
+                        Margin="70, -40, 10, 2"
                         Clicked="OnSubmitButtonClicked" />
 
                 <Button x:Name="Cancel"
                          Text="Cancel"
-                         TextColor="White"
+                         TextColor="#fbefdb"
                          BackgroundColor="#643f00"
                          FontAttributes="Bold"
                          FontSize="24"
                          Grid.Row="7"
-                         Grid.Column="1"
+                         Grid.Column="0"
                          HorizontalOptions="Start"
                          VerticalOptions="Start"
-                         Margin="80, 4, 8, 2"
+                         Margin="40, -40, 8, 2"
                          Clicked="OnCancelButtonClicked" />
                
                

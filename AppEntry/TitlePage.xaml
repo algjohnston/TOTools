@@ -33,8 +33,8 @@
                         Grid.Row="1"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
-                        WidthRequest="120"
-                        HeightRequest="50"
+                        WidthRequest="150"
+                        HeightRequest="80"
                         BackgroundColor="#eebf6d"
                         Clicked="OnLogInButtonClicked" />
 
@@ -46,8 +46,8 @@
                         Grid.Row="2"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
-                        WidthRequest="120"
-                        HeightRequest="50"
+                        WidthRequest="150"
+                        HeightRequest="80"
                         BackgroundColor="#eebf6d"
                         Clicked="OnSignUpButtonClicked" />
 
@@ -56,11 +56,11 @@
                         FontSize="Large"
 						FontFamily="GoboldBold"
                         Grid.Row="3"
-                        Grid.Column="1"
-                        TextColor="#fbefdb"
+                        Grid.Column="0"
+                        TextColor="AntiqueWhite"
                         HorizontalOptions="Start"
                         VerticalOptions="End"
-                        WidthRequest="120"
+                        WidthRequest="70"
                         HeightRequest="50"
                         BackgroundColor="#643f00"
                         Margin="20, 0, 16, 16"
