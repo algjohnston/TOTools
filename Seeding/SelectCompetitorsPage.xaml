@@ -51,7 +51,7 @@
                     TextColor="#fbefdb"
                     BackgroundColor="#643f00"
                     Margin="20, 0, 0, 0"
-                    HorizontalOptions="Start"
+                    HorizontalOptions="End"
                     VerticalOptions="End"
                     Clicked="OnSubmitClicked"/>
 
