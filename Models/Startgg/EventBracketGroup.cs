@@ -98,8 +98,17 @@ public class EventBracketGroup
             throw new ArgumentException("Invalid phase group type; expected DOUBLE_ELIMINATION");
         }
 
-        var finalWinnerSet = new Set(phaseGroup.Sets.Last());
-        _doubleEliminationWinner.Add(finalWinnerSet.DisplayIdentifier, finalWinnerSet);
+        // TODO The event bracket group needs to treat all brackets in a group as a single bracket to build the tournament for the scheduler. 
+        var finalWinnerSet =  new Set(phaseGroup.Sets
+            .Where(set => set.Round >= 0) 
+            .OrderByDescending(set => set.PhaseGroup.Phase.PhaseOrder)
+            .ThenByDescending(set => set.Round)
+            .First());
+        
+        _doubleEliminationWinner.Add(
+            finalWinnerSet.DisplayIdentifier,
+            finalWinnerSet
+            );
         FillNextDoubleEliminationBracket(finalWinnerSet);
         _doubleEliminationBracketSets.Clear();
     }
@@ -137,5 +146,18 @@ public class EventBracketGroup
     public Dictionary<string, Set> GetSets()
     {
         return _allBracketSets;
+    }
+
+    public Match? RecordWinner(string winner, string id)
+    {
+        _allBracketSets[id].Winner = winner;
+        var nextSet = _allBracketSets[id].NextSet;
+        if (nextSet == null)
+        {
+            return null;
+        }
+
+        return null;
+
     }
 }

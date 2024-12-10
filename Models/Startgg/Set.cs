@@ -6,17 +6,17 @@ public class Set
 {
 
     // Startgg variables
-    public string Player1Id { get; private set; }
-    public string Player2Id { get; private set; }
-    public string Player1 { get; private set; }
-    public string Player2 { get; private set; }
+    public string? Player1Id { get; private set; }
+    public string? Player2Id { get; private set; }
+    public string? Player1 { get; private set; }
+    public string? Player2 { get; private set; }
     public readonly int Round;
     public readonly string DisplayIdentifier;
     public readonly string PrevTopId;
     public readonly string PrevBottomId;
     public readonly string Id;
     public readonly string Identifier;
-    private string _winnerId;
+    private string? _winnerId;
     
     // Custom variables
     public Set? NextSet { get; set; }
@@ -57,12 +57,12 @@ public class Set
         var lastSlot = setType.Slots.Last();
         var player1Entrant = firstSlot.Entrant;
         var player2Entrant = lastSlot.Entrant;
-        Player1Id = player1Entrant.Id;
-        Player2Id = player2Entrant.Id;
-        Player1 = player1Entrant.Name;
-        Player2 =player2Entrant.Name;
+        Player1Id = player1Entrant?.Id;
+        Player2Id = player2Entrant?.Id;
+        Player1 = player1Entrant?.Name;
+        Player2 =player2Entrant?.Name;
         Round = setType.Round;
-        DisplayIdentifier = setType.PhaseGroup.DisplayIdentifier;
+        DisplayIdentifier = setType.PhaseGroup.DisplayIdentifier+ ": Phase #" + setType.PhaseGroup.Phase.PhaseOrder;
         PrevTopId = firstSlot.PrereqId;
         PrevBottomId = lastSlot.PrereqId;
         Id = setType.Id;

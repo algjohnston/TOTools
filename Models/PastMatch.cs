@@ -14,7 +14,7 @@
 /// <param name="game">The game that was played</param>
 /// <param name="isBestOfFive"> Whether the match was BO5 or BO3.</param>
 public class PastMatch(long id, string player1, string player2, long timeInSeconds, Game game, bool isBestOfFive)
-    : Match(player1, player2, timeInSeconds, game, isBestOfFive)
+    : Match(null, player1, player2, timeInSeconds, game, isBestOfFive)
 {
     public long MatchId { get; } = id;
 }

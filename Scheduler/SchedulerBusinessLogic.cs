@@ -17,7 +17,7 @@ public class SchedulerBusinessLogic(
     [
         // For testing
         new(
-            "tournament/between-2-lakes-67-a-madison-super-smash-bros-tournament/event/ultimate-singles",
+            "tournament/la-mechita-2024-torneo-feria-esports-zona-retro-y-m/event/ultimate-singles",
             DateTime.Now,
             3)
     ];
@@ -27,10 +27,12 @@ public class SchedulerBusinessLogic(
 
     // This gets filled with matches from startgg that need to be played
     public ObservableCollection<EventMatchGroup> FutureMatches { get; } = [];
+    
+    private Dictionary<string, EventBracketGroup> EventBrackets { get; } = [];
 
-    public EventLink? SelectedEventLink { get; set; }
+    public EventLink? SelectedEventLink { get; set; } // For editing the event link
 
-    public Match? SelectedMatch { get; set; } = null;
+    public Match? SelectedMatch { get; set; } // For editing matches
 
     private readonly TaskCompletionSource<bool> _loadCompletionSource = new();
     public Task PastMatchLoadTask => _loadCompletionSource.Task;
@@ -47,6 +49,7 @@ public class SchedulerBusinessLogic(
         {
             PastMatches.Add(match);
         }
+
         _loadCompletionSource.TrySetResult(true);
     }
 
@@ -62,7 +65,11 @@ public class SchedulerBusinessLogic(
         }
     }
 
-    public void RemoveEvent(EventLink? eventLink)
+    /// <summary>
+    /// Removes an event link from the schedule generator
+    /// </summary>
+    /// <param name="eventLink">The link to remove.</param>
+    public void RemoveEvent(EventLink eventLink)
     {
         EventLinks.Remove(eventLink);
     }
@@ -153,12 +160,12 @@ public class SchedulerBusinessLogic(
         {
             return;
         }
-        
+
         // Only get the sets that have two players...
         var matchParticipants = phaseGroups.SelectMany(
             phaseGroup => phaseGroup.Sets.Where(
-                set => set.Slots.Count == 2)
-        ).ToDictionary(set => set, set => EstimateMatchLength(set.Slots[0].Entrant.Name, set.Slots[1].Entrant.Name));
+                set => set.Slots is [{ Entrant: not null }, { Entrant: not null }])
+        ).ToDictionary(set => set, set => EstimateMatchLength(set.Slots[0].Entrant!.Name, set.Slots[1].Entrant!.Name));
 
         // ... and sort by the estimated match length
         var sortedMatchParticipants = matchParticipants
@@ -169,11 +176,14 @@ public class SchedulerBusinessLogic(
         // Create the matches for the UI
         var futureMatches = sortedMatchParticipants
             .Select(kvp => new Match(
-                kvp.Key.Slots[0].Entrant.Name,
-                kvp.Key.Slots[1].Entrant.Name,
+                kvp.Key.Id,
+                kvp.Key.Slots[0].Entrant!.Name,
+                kvp.Key.Slots[1].Entrant!.Name,
                 kvp.Value,
                 Game.Unknown,
-                true));
+                true
+                )
+            );
         FutureMatches.Add(new EventMatchGroup(eventName, eventStartTime, futureMatches));
     }
 
@@ -189,18 +199,46 @@ public class SchedulerBusinessLogic(
         seedingBusinessLogic.ClearBrackets();
         foreach (var eventLink in EventLinks.OrderBy(e => e?.StartTime))
         {
+            if (eventLink == null)
+            {
+                continue;
+            }
+
             var phaseGroups = await seedingBusinessLogic.LoadPhaseGroups(eventLink.Link);
             var eventName = EventLink.ExtractEventName(eventLink.Link);
             GenerateMatchSchedule(eventName, eventLink.StartTime, phaseGroups);
             var bracket = new EventBracketGroup(eventName, phaseGroups);
-            seedingBusinessLogic.AddBracketGroup(bracket);
+            EventBrackets.Add(eventName, bracket);
         }
     }
 
-    public void ReportMatch(Match match, Player winner)
+    /// <summary>
+    /// Swaps two event groups in the list of match groups.
+    /// </summary>
+    /// <param name="sourceGroup"></param>
+    /// <param name="destinationPlayerGroup"></param>
+    public void SwapEventGroups(
+        EventMatchGroup sourceGroup,
+        EventMatchGroup destinationPlayerGroup
+    )
     {
-        //TODO
-        // Update bracket ds with the winner going to the next top set, and loser going to next bottom set
-        // actively reload the matches with the new match
+        var sourceIndex = FutureMatches.IndexOf(sourceGroup);
+        var destinationIndex = FutureMatches.IndexOf(destinationPlayerGroup);
+        if (sourceIndex == destinationIndex)
+        {
+            return;
+        }
+
+        FutureMatches.Move(sourceIndex, destinationIndex);
+    }
+
+    public void ReportMatch(string eventName, Match match, string winner)
+    {
+        var id = match.SetId;
+        if (id == null)
+        {
+            return;
+        }
+        EventBrackets[eventName].RecordWinner(winner, id);
     }
 }

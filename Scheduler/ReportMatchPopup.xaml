@@ -35,8 +35,6 @@
 
             <Picker
                 x:Name="WinnerPicker"
-                ItemsSource="{Binding }"
-                SelectedItem="{Binding SelectedWinner }"
                 HorizontalOptions="Fill"
                 TextColor="AntiqueWhite"
                 WidthRequest="200" />

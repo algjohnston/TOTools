@@ -5,6 +5,7 @@
 /// Represents a match between two players with a time estimate
 /// on how long the match could take.
 /// </summary>
+/// <param name="id">The set id.</param>
 /// <param name="player1">The first player.</param>
 /// <param name="player2">The second player.</param>
 /// <param name="timeInSeconds">
@@ -13,7 +14,14 @@
 /// </param>
 /// <param name="game">The game that will be played</param>
 /// <param name="isBestOfFive"> Whether the match is BO5 or BO3.</param>
-public class Match(string player1, string player2, long timeInSeconds, Game game, bool isBestOfFive)
+public class Match(
+    string? id,
+    string player1, 
+    string player2, 
+    long timeInSeconds, 
+    Game game, 
+    bool isBestOfFive
+    )
 {
     
     public string Player1 { get; } = player1;
@@ -47,5 +55,5 @@ public class Match(string player1, string player2, long timeInSeconds, Game game
     
     public DateTime MatchStartTime { get; set; }
 
-    public string? SetId { get; set; }
+    public string? SetId { get; set; } = id;
 }

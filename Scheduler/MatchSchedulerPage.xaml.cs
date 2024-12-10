@@ -38,8 +38,18 @@ public partial class MatchSchedulerPage : ContentPage, INewTimeSubmitted
     {
         if (_schedulerBusinessLogic?.SelectedMatch != null)
         {
+            var selectedMatch = _schedulerBusinessLogic.SelectedMatch;
+            var eventMatchGroup = FindEventGroupOfMatch(selectedMatch);
+            if (eventMatchGroup == null)
+            {
+                return;
+            }
             await this.ShowPopupAsync(
-                new ReportMatchPopup(_schedulerBusinessLogic.SelectedMatch)
+                new ReportMatchPopup(
+                    eventMatchGroup.EventName,
+                    selectedMatch,
+                    _schedulerBusinessLogic
+                    )
             );
         }
     }
@@ -114,18 +124,13 @@ public partial class MatchSchedulerPage : ContentPage, INewTimeSubmitted
             }) return;
         var sourceGroup = (EventMatchGroup)e.Data.Properties["EventGroup"];
 
-        var sourceIndex = _schedulerBusinessLogic.FutureMatches.IndexOf(sourceGroup);
-        var destinationIndex = _schedulerBusinessLogic.FutureMatches.IndexOf(destinationPlayerGroup);
-        if (sourceIndex == destinationIndex)
-        {
-            return;
-        }
-
-        _schedulerBusinessLogic.FutureMatches.Move(sourceIndex, destinationIndex);
+        _schedulerBusinessLogic.SwapEventGroups(sourceGroup, destinationPlayerGroup);
         // Needed to update the list this way because the CollectionView can not handle the above code
         MatchList.ItemsSource = null;
         MatchList.ItemsSource = _schedulerBusinessLogic.FutureMatches;
     }
+
+
 
     /// <summary>
     /// Opens a page that allows the user to change the time of an event.
@@ -140,6 +145,26 @@ public partial class MatchSchedulerPage : ContentPage, INewTimeSubmitted
         }
         
         var selectedMatch = _schedulerBusinessLogic.SelectedMatch;
+        if (selectedMatch == null)
+        {
+            return;
+        }
+        
+        var eventMatchGroup = FindEventGroupOfMatch(selectedMatch);
+        if (eventMatchGroup == null)
+        {
+            return;
+        }
+        Navigation.PushAsync(new ChangeEventTimePage(eventMatchGroup, this));
+    }
+
+    private EventMatchGroup? FindEventGroupOfMatch(Match selectedMatch)
+    {
+        if (_schedulerBusinessLogic == null)
+        {
+            return null;
+        }
+        
         EventMatchGroup? eventMatchGroup = null;
         foreach (var group in _schedulerBusinessLogic.FutureMatches)
         {
@@ -149,12 +174,7 @@ public partial class MatchSchedulerPage : ContentPage, INewTimeSubmitted
                 break;
             }
         }
-
-        if (eventMatchGroup == null)
-        {
-            return;
-        }
-        Navigation.PushAsync(new ChangeEventTimePage(eventMatchGroup, this));
+        return eventMatchGroup;
     }
 
     /// <summary>

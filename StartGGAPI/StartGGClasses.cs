@@ -40,7 +40,7 @@ public class PhaseType
 
 public class SetSlotType
 {
-    public required EntrantType Entrant { get; set; }
+    public required EntrantType? Entrant { get; set; }
     public required string PrereqId { get; set; }
 }
 
