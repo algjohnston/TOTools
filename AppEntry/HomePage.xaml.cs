@@ -1,7 +1,6 @@
 using TOTools.EventMap;
 using TOTools.Scheduler;
 using TOTools.Seeding;
-using TOTools.ThumbGen;
 
 namespace TOTools.AppEntry;
 
@@ -36,10 +35,5 @@ public partial class HomePage : ContentPage
     private void OnEventMapButtonClicked(object? sender, EventArgs e)
     {
         Navigation.PushAsync(new EventMapPage());
-    }
-
-    private void OnThumbnailGeneratorButtonClicked(object? sender, EventArgs e)
-    {
-        Navigation.PushAsync(new ThumbGenPage());
     }
 }

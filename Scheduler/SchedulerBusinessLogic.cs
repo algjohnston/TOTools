@@ -203,12 +203,15 @@ public class SchedulerBusinessLogic(
             {
                 continue;
             }
-
-            var phaseGroups = await seedingBusinessLogic.LoadPhaseGroups(eventLink.Link);
             var eventName = EventLink.ExtractEventName(eventLink.Link);
-            GenerateMatchSchedule(eventName, eventLink.StartTime, phaseGroups);
-            var bracket = new EventBracketGroup(eventName, phaseGroups);
-            EventBrackets.Add(eventName, bracket);
+            if (!EventBrackets.ContainsKey(eventName))
+            {
+
+                var phaseGroups = await seedingBusinessLogic.LoadPhaseGroups(eventLink.Link);
+                GenerateMatchSchedule(eventName, eventLink.StartTime, phaseGroups);
+                var bracket = new EventBracketGroup(eventName, phaseGroups);
+                EventBrackets.Add(eventName, bracket);
+            }
         }
     }
 

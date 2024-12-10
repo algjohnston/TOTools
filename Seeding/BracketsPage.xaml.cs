@@ -46,10 +46,10 @@ public partial class BracketsPage : ContentPage
             );
 
             // Adds all the double elimination bracket identifiers as a group
-            var doubleEliminationBrackets = eventBracketGroup.GetDoubleEliminationLoserWinner();
+            var doubleEliminationBrackets = eventBracketGroup.GetDoubleEliminationWinners();
             doubleEliminationBracketIdentifiers.AddRange(
                 doubleEliminationBrackets.Select(
-                    winnerSet => winnerSet.DisplayIdentifier
+                    winnerSet => winnerSet.First().DisplayIdentifier
                 )
             );
         }
