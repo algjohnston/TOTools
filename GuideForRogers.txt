@@ -37,4 +37,4 @@ SCHEDULER: Sometimes when you are running a tournament, you will have multiple b
 MAP: This wasn't worked on this sprint. More info on final sprint.
 
 
-THUMBNAIL GENERATOR: NOT MADE YET
+THUMBNAIL GENERATOR: SCRAPPED
