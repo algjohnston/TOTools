@@ -10,13 +10,13 @@ public class EventBracketGroup
 {
     private readonly Dictionary<string, Set> _allBracketSets = new();
     
-    private readonly Dictionary<string, Set> _doubleEliminationBracketSets = new(); // Needed to check if prereqs exist
+    private readonly Dictionary<string, Set> _doubleEliminationBracketSets = new();
 
     private readonly Dictionary<string, List<Set>> _roundRobinBrackets = new(); // Every round-robin phase group
 
     // Every double elimination's phase group winner
     // The bracket sets can be traversed via Set's PrevTop and PrevBottom
-    private readonly Dictionary<string, Set> _doubleEliminationWinner = new();
+    private readonly Dictionary<string, List<Set>> _doubleEliminationWinners = new();
 
     public string EventName { get; private set; }
     
@@ -47,9 +47,9 @@ public class EventBracketGroup
         return _roundRobinBrackets.Values.ToList();
     }
 
-    public List<Set> GetDoubleEliminationLoserWinner()
+    public List<List<Set>> GetDoubleEliminationWinners()
     {
-        return _doubleEliminationWinner.Values.ToList();
+        return _doubleEliminationWinners.Values.ToList();
     }
 
     /// <summary>
@@ -86,7 +86,10 @@ public class EventBracketGroup
     /// <param name="phaseGroup">The phase group that contains the double elimination bracket sets.</param>
     private void AddDoubleEliminationSets(PhaseGroup phaseGroup)
     {
-        // Needed to build the set backwards from the winner set
+        // Find all the final winner sets
+
+        
+        // Needed to build the set backwards from the final winner sets
         _doubleEliminationBracketSets.Clear();
         foreach (var set in phaseGroup.Sets)
         {
@@ -98,18 +101,30 @@ public class EventBracketGroup
             throw new ArgumentException("Invalid phase group type; expected DOUBLE_ELIMINATION");
         }
 
-        // TODO The event bracket group needs to treat all brackets in a group as a single bracket to build the tournament for the scheduler. 
-        var finalWinnerSet =  new Set(phaseGroup.Sets
-            .Where(set => set.Round >= 0) 
-            .OrderByDescending(set => set.PhaseGroup.Phase.PhaseOrder)
-            .ThenByDescending(set => set.Round)
-            .First());
+        List<string> preRequisiteSets = [];
+        foreach(var set in phaseGroup.Sets)
+        {
+            preRequisiteSets.Add(set.Slots.First().PrereqId);
+            preRequisiteSets.Add(set.Slots.Last().PrereqId);
+        }
+
+        List<Set> finalWinnerSets = [];
+        foreach (var set in phaseGroup.Sets)
+        {
+            if (!preRequisiteSets.Contains(set.Id))
+            {
+                finalWinnerSets.Add(new Set(set));
+            }
+        }
         
-        _doubleEliminationWinner.Add(
-            finalWinnerSet.DisplayIdentifier,
-            finalWinnerSet
+        _doubleEliminationWinners.Add(
+            finalWinnerSets.First().DisplayIdentifier,
+            finalWinnerSets
             );
-        FillNextDoubleEliminationBracket(finalWinnerSet);
+        foreach (var set in finalWinnerSets)
+        {
+            FillNextDoubleEliminationBracket(set);
+        }
         _doubleEliminationBracketSets.Clear();
     }
 

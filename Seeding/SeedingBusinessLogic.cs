@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Net;
 using GraphQL;
 using GraphQL.Client.Http;
 using TOTools.Database;
@@ -88,57 +89,65 @@ public class SeedingBusinessLogic(
     /// <returns>The phase groups of the event.</returns>
     public async Task<List<PhaseGroup>> LoadPhaseGroups(string url)
     {
-        // Load all the phase groups across all the online pages for an event
-        var currentPage = 1;
-        var responses = new List<GraphQLResponse<EventResponseType>>();
-        var graphQLResponse = await client.SendQueryAsync<EventResponseType>(
-            StartGGQueries.CreateEventSetsQuery(url, currentPage));
-        responses.Add(graphQLResponse);
-        while (currentPage < graphQLResponse.Data.Event.Sets.PageInfo.TotalPages)
+        List<PhaseGroup> phaseGroups = [];
+        try
         {
-            currentPage++;
-            graphQLResponse = await client.SendQueryAsync<EventResponseType>(
+            // Load all the phase groups across all the online pages for an event
+            var currentPage = 1;
+            var responses = new List<GraphQLResponse<EventResponseType>>();
+            var graphQLResponse = await client.SendQueryAsync<EventResponseType>(
                 StartGGQueries.CreateEventSetsQuery(url, currentPage));
             responses.Add(graphQLResponse);
-        }
-
-        // Add all the sets and phase group types to their corresponding phase group number
-        Dictionary<int, List<SetType>> phaseGroupSetLists = [];
-        Dictionary<int, PhaseGroupType> phaseGroupTypes = [];
-        foreach (var qlResponse in responses)
-        {
-            var eventType = qlResponse.Data.Event;
-            var setTypes = eventType.Sets.Nodes;
-
-            foreach (var setType in setTypes)
+            while (currentPage < graphQLResponse.Data.Event.Sets.PageInfo.TotalPages)
             {
-                var phaseGroup = setType.PhaseGroup;
-                var phaseOrder = phaseGroup.Phase.PhaseOrder;
-                if (!phaseGroupSetLists.TryGetValue(phaseOrder, out var value))
-                {
-                    value = [];
-                    phaseGroupSetLists.Add(phaseOrder, value);
-                    phaseGroupTypes.Add(phaseOrder, phaseGroup);
-                }
-
-                value.Add(setType);
+                currentPage++;
+                graphQLResponse = await client.SendQueryAsync<EventResponseType>(
+                    StartGGQueries.CreateEventSetsQuery(url, currentPage));
+                responses.Add(graphQLResponse);
             }
-        }
 
-        // Order the phase group by the phase order, then order the set by
-        // their phase group's display identifier, which round they are, and then their id
-        var phaseGroups = phaseGroupTypes
-            .OrderBy(pg => pg.Key)
-            .Select(pg =>
-                new PhaseGroup(
-                    pg.Value,
-                    phaseGroupSetLists[pg.Key]
-                        .OrderBy(set => set.PhaseGroup.DisplayIdentifier)
-                        .ThenBy(set => set.Round)
-                        .ThenBy(set => set.Identifier)
-                        .ToList()
-                ))
-            .ToList();
+            // Add all the sets and phase group types to their corresponding phase group number
+            Dictionary<int, List<SetType>> phaseGroupSetLists = [];
+            Dictionary<int, PhaseGroupType> phaseGroupTypes = [];
+            foreach (var qlResponse in responses)
+            {
+                var eventType = qlResponse.Data.Event;
+                var setTypes = eventType.Sets.Nodes;
+
+                foreach (var setType in setTypes)
+                {
+                    var phaseGroup = setType.PhaseGroup;
+                    var phaseOrder = phaseGroup.Phase.PhaseOrder;
+                    if (!phaseGroupSetLists.TryGetValue(phaseOrder, out var value))
+                    {
+                        value = [];
+                        phaseGroupSetLists.Add(phaseOrder, value);
+                        phaseGroupTypes.Add(phaseOrder, phaseGroup);
+                    }
+
+                    value.Add(setType);
+                }
+            }
+
+            // Order the phase group by the phase order, then order the set by
+            // their phase group's display identifier, which round they are, and then their id
+            phaseGroups = phaseGroupTypes
+                .OrderBy(pg => pg.Key)
+                .Select(pg =>
+                    new PhaseGroup(
+                        pg.Value,
+                        phaseGroupSetLists[pg.Key]
+                            .OrderBy(set => set.PhaseGroup.DisplayIdentifier)
+                            .ThenBy(set => set.Round)
+                            .ThenBy(set => set.Identifier)
+                            .ToList()
+                    ))
+                .ToList();
+        }
+        catch (WebException e)
+        {
+            // TODO display an error
+        }
 
         return phaseGroups;
     }
@@ -158,9 +167,9 @@ public class SeedingBusinessLogic(
                 return new Bracket(BracketType.RoundRobin, bracket);
             }
 
-            foreach (var bracket in bracketGroup.GetDoubleEliminationLoserWinner())
+            foreach (var bracket in bracketGroup.GetDoubleEliminationWinners())
             {
-                return new Bracket(BracketType.DoubleElimination, [bracket]);
+                return new Bracket(BracketType.DoubleElimination, bracket);
             }
         }
 
