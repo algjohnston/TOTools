@@ -7,17 +7,17 @@
              xmlns:models="clr-namespace:TOTools.Models"
              xmlns:local="clr-namespace:TOTools.Scheduler"
              Title="Match Scheduler">
-	<ContentPage.ToolbarItems>
+    <ContentPage.ToolbarItems>
         <ToolbarItem Text="Start"
                      Clicked="OnStartButtonClicked"/>
         <ToolbarItem Text="Report"
                      Clicked="OnReportButtonClicked"/>
         <ToolbarItem Text="Change Start Time"
                      Clicked="OnChangeStartTimeClicked"/>
-            </ContentPage.ToolbarItems>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-		<Grid>
-			<Image Source="background.png"
+        <Grid>
+            <Image Source="background.png"
 				   Aspect="Fill"
 				   Grid.Row="0"
 				   Grid.Column="0"
@@ -25,86 +25,93 @@
 				   Grid.ColumnSpan="2"
 				   ZIndex="0"/>
 
-			<Grid
+            <Grid
             ColumnDefinitions="*, auto"
             RowDefinitions="auto, *"
             Margin="24"
 			ZIndex="1">
-            
-            <Label Text="Match"
+
+                <Label Text="Match"
                    FontSize="31"
 				   FontFamily="GoboldBold"
                    TextColor="AntiqueWhite"
                    Grid.Column="0"
                    Grid.Row="0" />
 
-            <Label Text="Estimated Time"
+                <Label Text="Estimated Time"
                    FontSize="31"
 				   FontFamily="GoboldBold"
                    TextColor="AntiqueWhite"
                    Grid.Column="1"
                    Grid.Row="0" />
 
-            <ScrollView
+                <ActivityIndicator x:Name="actInd"
+                    IsRunning="true"
+                    Color="White"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"/>
+
+                <ScrollView
                 Grid.Row="1"
                 Grid.ColumnSpan="2">
-                <CollectionView
+                    <CollectionView
                     x:Name="MatchList"
                     ItemsSource="{Binding FutureMatches}"
                     SelectionMode="Single"
                     CanReorderItems="True"
                     IsGrouped="True"
                     SelectionChanged="OnMatchSelectionChanged">
-	                
-	                <CollectionView.GroupHeaderTemplate>
-		                <DataTemplate x:DataType="models:EventMatchGroup">
-			                <Label Text="{Binding FormattedEventWithTime}"
+
+                        <CollectionView.GroupHeaderTemplate>
+                            <DataTemplate x:DataType="models:EventMatchGroup">
+                                <Label Text="{Binding FormattedEventWithTime}"
 			                       FontFamily="GoboldBold" 
 			                       Margin="20, 0, 0, 0"
 			                       TextColor="AntiqueWhite"
 			                       FontSize="31"
 			                       HorizontalOptions="Start">
-				                <Label.GestureRecognizers>
-					                <TapGestureRecognizer Tapped="OnToggleGroupClick" />
-					                <DragGestureRecognizer DragStarting="OnDragMatchGroupStarting"/>
-					                <DropGestureRecognizer Drop="OnDropMatchGroup"/>
-				                </Label.GestureRecognizers>
-			                </Label>
-		                </DataTemplate>
-	                </CollectionView.GroupHeaderTemplate>
-	                
-	                <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="models:Match">
-                            <Grid RowDefinitions="*"
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnToggleGroupClick" />
+                                        <DragGestureRecognizer DragStarting="OnDragMatchGroupStarting"/>
+                                        <DropGestureRecognizer Drop="OnDropMatchGroup"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </DataTemplate>
+                        </CollectionView.GroupHeaderTemplate>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Match">
+
+                                <Grid RowDefinitions="*"
                                   ColumnDefinitions="*, auto">
-                                <Label Text="{Binding FormattedMatch  }"
+                                    <Label Text="{Binding FormattedMatch  }"
                                        FontSize="18.5"
 									   FontFamily="RalewayRegular"
                                        TextColor="AntiqueWhite"
                                        Grid.Column="0">
-                                </Label>
-                                <Label Text="{Binding MatchTime  }"
+                                    </Label>
+                                    <Label Text="{Binding MatchTime  }"
                                        FontSize="24"
 									   FontFamily="RalewayRegular"
 									   FontAttributes="Bold"
                                        TextColor="AntiqueWhite"
                                        Grid.Column="1">
-                                    <Label.Triggers>
-                                        <DataTrigger TargetType="Label" 
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label" 
                                                      Binding="{Binding IsInProgress}"
                                                      Value="True">
-                                            <Setter Property="TextColor" Value="Red" />
-                                        </DataTrigger>
-                                    </Label.Triggers>
-                                </Label>
-                            </Grid>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </ScrollView>
+                                                <Setter Property="TextColor" Value="Red" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </ScrollView>
 
+            </Grid>
         </Grid>
-		</Grid>
 
-	</ContentPage.Content>
+    </ContentPage.Content>
 </ContentPage>

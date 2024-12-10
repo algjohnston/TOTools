@@ -31,6 +31,7 @@ public partial class MatchSchedulerPage : ContentPage, INewTimeSubmitted
         // Since the user already entered the event links, and they are in the SchedulerBusinessLogic,
         // we can load the schedule right away
         await _schedulerBusinessLogic.LoadPotentialSchedule();
+        actInd.IsRunning = false;
         MatchList.BindingContext = _schedulerBusinessLogic;
     }
 
