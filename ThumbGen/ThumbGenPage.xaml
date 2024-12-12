@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        x:Class="TOTools.ThumbGen.ThumbGenPage"
+        Title="Thumbnail Generator">
+
+	<Grid>
+		<Image Source="background.png"
+               Aspect="Fill"
+               Grid.Row="0"
+               Grid.Column="0"
+               Grid.RowSpan="5"
+               Grid.ColumnSpan="2" />
+
+		<Grid ColumnDefinitions="*, *"
+              RowDefinitions="*, *, *, *, *"
+              Margin="24, 16, 24, 64">
+        
+            <Label Text="Event Link"
+                   Grid.Row="0"
+                   FontSize="Large"
+				   FontFamily="GoboldBold"
+				   TextColor="AntiqueWhite"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"/>
+        
+            <Entry x:Name="StartggLinkEntry"
+                   Grid.Row="0"
+                   Grid.Column="1"
+                   FontSize="17"
+				   FontFamily="RalewayRegular"
+				   TextColor="AntiqueWhite"
+                   Placeholder="Enter Start.gg Event Link"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"/>
+
+            <Button x:Name="ManualEntryButton" 
+                    Text="Manual Entry"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    FontSize="Large"
+                    FontFamily="GoboldBold"
+					TextColor="Black"
+					BackgroundColor="#eebf6d"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Clicked="OnManualEntryButtonClicked"/>
+
+            <Button x:Name="SelectTemplateButton" 
+                    Text="Select Template"
+                    Grid.Row="2"
+                    Grid.ColumnSpan="2"
+                    FontSize="Large"
+					FontFamily="GoboldBold"
+					TextColor="Black"
+					BackgroundColor="#eebf6d"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    FontAttributes="Bold"
+                    Clicked="OnSelectTemplateButtonClicked"/>
+        
+            <Button x:Name="OutputFolderButton" 
+                    Text="Select Output Folder" 
+                    Grid.Row="3"
+                    Grid.ColumnSpan="2"
+                    FontSize="Large"
+                    FontFamily="GoboldBold"
+					TextColor="Black"
+					BackgroundColor="#eebf6d"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Clicked="OnOutputFolderButtonClicked"/>
+
+            <Button x:Name="SubmitButton" 
+                    Text="Submit" 
+                    Grid.Row="4"
+                    Grid.ColumnSpan="2"
+                    FontSize="Large"
+                    FontFamily="GoboldBold"
+					TextColor="#fbefdb"
+					BackgroundColor="#643f00"
+                    HorizontalOptions="Start"
+                    VerticalOptions="End"
+                    Clicked="OnSubmitButtonClicked"/>
+        </Grid>
+	</Grid>
+</ContentPage>

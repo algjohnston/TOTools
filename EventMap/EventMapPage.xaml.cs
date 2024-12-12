@@ -1,3 +1,4 @@
+using CommunityToolkit.Maui.Views;
 using Mapsui;
 using Mapsui.Extensions;
 using Mapsui.Layers;
@@ -16,7 +17,6 @@ namespace TOTools.EventMap;
 public partial class EventMapPage : ContentPage
 {
     private EventBusinessLogic? _eventBusinessLogic;
-
     public EventMapPage()
     {
         InitializeComponent();
@@ -81,7 +81,7 @@ public partial class EventMapPage : ContentPage
         var layer = new GenericCollectionLayer<List<IFeature>>
         {
             Style = SymbolStyles.CreatePinStyle()
-        };
+        }; ;
         map.Layers.Add(layer);
 
         map.Info += (_, _) =>
@@ -156,7 +156,6 @@ public partial class EventMapPage : ContentPage
                 "OK"
             );
         }
-
         await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
     }
 
@@ -164,4 +163,14 @@ public partial class EventMapPage : ContentPage
     {
         Navigation.PushAsync(new EventListPage());
     }
+
+    private async void OnAddEventButtonClicked(object? sender, EventArgs e)
+    {
+            await this.ShowPopupAsync(
+                new AddEventPopup(
+                    _eventBusinessLogic
+                )
+            );
+    }
+    
 }
