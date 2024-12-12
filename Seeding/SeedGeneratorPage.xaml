@@ -34,24 +34,15 @@
 
             </StackLayout>
 
-            <Button Text="Manual Entry"
-                    Grid.Row="1"
-                    FontSize="Large"
-					FontFamily="GoboldBold"
-                    BackgroundColor="#eebf6d"
-                    TextColor="Black"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Start"
-                    Clicked="OnManualEntryButtonClicked"/>
-
             <Button Text="Submit"
                     Grid.Row="2"
+                    Grid.Column="0"
                     FontSize="Large"
                     FontFamily="GoboldBold"
                     BackgroundColor="#eebf6d"
                     TextColor="Black"
                     Margin="20, 0, 0, 0"
-                    HorizontalOptions="Start"
+                    HorizontalOptions="End"
                     VerticalOptions="Center"
                     Clicked="OnSubmitButtonClicked"/>
 

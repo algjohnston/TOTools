@@ -84,11 +84,6 @@ public partial class SeedGeneratorPage : ContentPage, IOnPlayerAdded
         _seedingBusinessLogic?.ClearBrackets();
     }
 
-    private void OnManualEntryButtonClicked(object? sender, EventArgs e)
-    {
-        Navigation.PushAsync(new SelectCompetitorsPage());
-    }
-
     public void OnPlayerUpdated(Player player)
     {
         _seedingBusinessLogic?.AddOrUpdatePlayer(player);
