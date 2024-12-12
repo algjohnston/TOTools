@@ -133,15 +133,18 @@ public class SeedingBusinessLogic(
             // their phase group's display identifier, which round they are, and then their id
             phaseGroups = phaseGroupTypes
                 .OrderBy(pg => pg.Key)
-                .Select(pg =>
+                .SelectMany(pg =>
+                    phaseGroupSetLists[pg.Key]
+                        .GroupBy(set => set.PhaseGroup.DisplayIdentifier)
+                        .Select(group =>
                     new PhaseGroup(
                         pg.Value,
-                        phaseGroupSetLists[pg.Key]
+                        group
                             .OrderBy(set => set.PhaseGroup.DisplayIdentifier)
                             .ThenBy(set => set.Round)
                             .ThenBy(set => set.Identifier)
                             .ToList()
-                    ))
+                    )))
                 .ToList();
         }
         catch (WebException e)

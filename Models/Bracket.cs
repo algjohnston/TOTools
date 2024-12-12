@@ -15,7 +15,7 @@ public class Bracket(BracketType bracketType, List<Set> sets)
     
     public static WinnerAndLoserBracketSets GetWinnerAndLoserBracketSets(Bracket doubleEliminationBracket)
     {
-        var winners = doubleEliminationBracket.Sets.ToHashSet();
+        var winners = doubleEliminationBracket.Sets.Where(set => set.Round >= 0).ToHashSet();
         HashSet<Set> losers = [];
         var currentSets = winners.ToList();
         

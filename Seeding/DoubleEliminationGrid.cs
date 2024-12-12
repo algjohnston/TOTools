@@ -51,6 +51,10 @@ public class DoubleEliminationGrid : Grid
     /// <param name="isWinner">Whether this is a winner bracket.</param>
     private void FillGridWithPlayers(List<Set> sets, Color color, bool isWinner)
     {
+        if (sets.Count == 0)
+        {
+            return;
+        }
         var groupedSets = sets.First().Round > -1
             ? sets.GroupBy(set => set.Round).OrderBy(g => g.Key).ToList()
             : sets.GroupBy(set => set.Round).OrderBy(g => -g.Key).ToList();

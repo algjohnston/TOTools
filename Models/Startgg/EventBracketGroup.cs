@@ -92,7 +92,7 @@ public class EventBracketGroup
         {
             throw new ArgumentException("Invalid phase group type; expected DOUBLE_ELIMINATION");
         }
-        
+
         Dictionary<string, Set> bracketSets = new Dictionary<string, Set>();
         foreach (var set in phaseGroup.Sets)
         {
@@ -100,38 +100,16 @@ public class EventBracketGroup
             bracketSets[wrappedSet.Id] = wrappedSet;
             FillDoubleEliminationSet(wrappedSet);
         }
-        
-        List<string> preRequisiteSets = [];
-        foreach (var set in bracketSets.Values)
-        {
-            var firstPrereq = set.PrevTopId;
-            if (bracketSets.TryGetValue(firstPrereq, out var firstPrereqSet))
-            {
-                if (!(firstPrereqSet.Round >= 0 && set.Round < 0))
-                {
-                    preRequisiteSets.Add(firstPrereq);
-                }
-            }
-
-            var secondPrereq = set.PrevBottomId;
-            if (bracketSets.TryGetValue(secondPrereq, out var secondPrereqSet))
-            {
-                if (!(secondPrereqSet.Round >= 0 && set.Round < 0))
-                {
-                    preRequisiteSets.Add(secondPrereq);
-                }
-            }
-        }
 
         List<Set> finalWinnerSets = [];
         foreach (var set in bracketSets.Values)
         {
-            if (!preRequisiteSets.Contains(set.Id) && set.Round >= 0)
+            if (set.NextSet == null)
             {
                 finalWinnerSets.Add(_allBracketSets[set.Id]);
             }
         }
-
+        
         _doubleEliminationWinners.Add(
             finalWinnerSets.First().DisplayIdentifier,
             finalWinnerSets
