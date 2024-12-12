@@ -12,6 +12,7 @@ public class Set
     public string? Player2 { get; private set; }
     public readonly int Round;
     public readonly string DisplayIdentifier;
+    public readonly string ActualDisplayIdentifier;
     public readonly string PrevTopId;
     public readonly string PrevBottomId;
     public readonly string Id;
@@ -62,7 +63,8 @@ public class Set
         Player1 = player1Entrant?.Name;
         Player2 =player2Entrant?.Name;
         Round = setType.Round;
-        DisplayIdentifier = setType.PhaseGroup.DisplayIdentifier+ ": Phase #" + setType.PhaseGroup.Phase.PhaseOrder;
+        DisplayIdentifier = setType.PhaseGroup.DisplayIdentifier + ": Phase #" + setType.PhaseGroup.Phase.PhaseOrder;
+        ActualDisplayIdentifier = setType.PhaseGroup.DisplayIdentifier;
         PrevTopId = firstSlot.PrereqId;
         PrevBottomId = lastSlot.PrereqId;
         Id = setType.Id;

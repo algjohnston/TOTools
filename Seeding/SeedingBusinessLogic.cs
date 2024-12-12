@@ -148,7 +148,6 @@ public class SeedingBusinessLogic(
         {
             // TODO display an error
         }
-
         return phaseGroups;
     }
 

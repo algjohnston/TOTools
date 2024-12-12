@@ -18,7 +18,7 @@ public partial class SeedGeneratorPage : ContentPage, IOnPlayerAdded
     {
         InitializeComponent();
         AttendeeLinkEntry.Text = // For testing
-            "tournament/between-2-lakes-67-a-madison-super-smash-bros-tournament/event/ultimate-singles";
+            "tournament/la-mechita-2024-torneo-feria-esports-zona-retro-y-m/event/ultimate-singles";
         HandlerChanged += OnHandlerChanged;
     }
 
@@ -36,11 +36,11 @@ public partial class SeedGeneratorPage : ContentPage, IOnPlayerAdded
         BindingContext = _seedingBusinessLogic;
     }
 
-    private readonly SemaphoreSlim semaphore = new(1, 1);
+    private readonly SemaphoreSlim _semaphore = new(1, 1);
 
     private async void OnSubmitButtonClicked(object? sender, EventArgs e)
     {
-        if (!await semaphore.WaitAsync(0))
+        if (!await _semaphore.WaitAsync(0))
         {
             return;
         }
@@ -74,7 +74,7 @@ public partial class SeedGeneratorPage : ContentPage, IOnPlayerAdded
         }
         finally
         {
-            semaphore.Release();
+            _semaphore.Release();
         }
     }
 

@@ -22,7 +22,7 @@ public class DoubleEliminationGrid : Grid
 {
     
     private IOnSetsSwapped _onSetsSwapped;
-    
+
     /// <summary>
     /// Creates a double elimination grid.
     /// </summary>
@@ -33,6 +33,7 @@ public class DoubleEliminationGrid : Grid
     /// <param name="color">
     /// The color of the lines and the text in the bracket.
     /// </param>
+    /// <param name="onSetsSwapped">Called when two sets in the bracket are swapped.</param>
     /// <param name="isWinnerBracket">Whether this is a winner bracket.</param>
     public DoubleEliminationGrid(List<Set> sets, Color color, IOnSetsSwapped onSetsSwapped, bool isWinnerBracket)
     {
@@ -61,8 +62,10 @@ public class DoubleEliminationGrid : Grid
         // |name--|
         // |      |--name
         // |name--|
-        var firstRowSets = groupedSets.First().ToList();
-        var numberOfRows = firstRowSets.Count * 2 - 1;
+        var maxGroupSize = sets
+            .GroupBy(set => set.Round)
+            .Max(group => group.Count());
+        var numberOfRows = maxGroupSize * 2 - 1;
         for (var row = 0; row < numberOfRows; row++)
         {
             RowDefinitions.Add(
@@ -85,6 +88,7 @@ public class DoubleEliminationGrid : Grid
         }
 
         List<int> previousColumnRows = [];
+        var firstRowSets = groupedSets.First().ToList();
         for (
             var currentPlayerNumber = 0;
             currentPlayerNumber < firstRowSets.Count;
@@ -156,9 +160,14 @@ public class DoubleEliminationGrid : Grid
             {
                 // Add the winner's name to the next column
                 int rowPositionForWinnerNames;
+                var rowRatio = winnerSetGroup.Count() / previousColumnRows.Count;
                 if (previousColumnRows.Count == winnerSetGroup.Count())
                 {
                     rowPositionForWinnerNames = previousColumnRows[row];
+                }
+                else if (previousColumnRows.Count < winnerSetGroup.Count())
+                {
+                    rowPositionForWinnerNames = previousColumnRows[row / rowRatio] + row;
                 }
                 else
                 {
@@ -181,27 +190,54 @@ public class DoubleEliminationGrid : Grid
                 );
                 currentColumnRows.Add(rowPositionForWinnerNames);
 
-                // Add the lines between the last row and 
-                var rowPositionForLines = previousColumnRows.Count == winnerSetGroup.Count()
-                    ? previousColumnRows[row]
-                    : previousColumnRows[row * 2];
-                var rowSpanForLines = previousColumnRows.Count == winnerSetGroup.Count()
-                    ? 1
-                    : (previousColumnRows[row * 2 + 1] - previousColumnRows[row * 2]) + 1;
-
-                var matchDrawable = new DoubleEliminationDrawable(color, rowSpanForLines);
-                var graphicsView = new GraphicsView
+                // Add the lines between the last row and this row
+                if (previousColumnRows.Count < winnerSetGroup.Count())
                 {
-                    Drawable = matchDrawable,
-                    HorizontalOptions = LayoutOptions.Center,
-                    VerticalOptions = LayoutOptions.Center
-                };
-                this.AddWithSpan(
-                    graphicsView,
-                    rowPositionForLines,
-                    currentWinnerColumn - 1,
-                    rowSpanForLines
-                );
+                    var previousRow = previousColumnRows[row / rowRatio];
+                    if (row == previousRow)
+                    {
+                        const int rowSpanForLines = 1;
+                        var matchDrawable = new DoubleEliminationDrawable(color, rowSpanForLines);
+                        var graphicsView = new GraphicsView
+                        {
+                            Drawable = matchDrawable,
+                            HorizontalOptions = LayoutOptions.Center,
+                            VerticalOptions = LayoutOptions.Center
+                        };
+                        this.AddWithSpan(
+                            graphicsView,
+                            previousRow,
+                            currentWinnerColumn - 1,
+                            rowSpanForLines
+                        );
+                    }
+                }
+                else
+                {
+                    var rowPositionForLines = previousColumnRows.Count == winnerSetGroup.Count()
+                        ? previousColumnRows[row]
+                        : previousColumnRows[row * 2];
+
+
+                    var rowSpanForLines = previousColumnRows.Count == winnerSetGroup.Count()
+                        ? 1
+                        : (previousColumnRows[row * 2 + 1] - previousColumnRows[row * 2]) + 1;
+
+                    var matchDrawable = new DoubleEliminationDrawable(color, rowSpanForLines);
+                    var graphicsView = new GraphicsView
+                    {
+                        Drawable = matchDrawable,
+                        HorizontalOptions = LayoutOptions.Center,
+                        VerticalOptions = LayoutOptions.Center
+                    };
+                    this.AddWithSpan(
+                        graphicsView,
+                        rowPositionForLines,
+                        currentWinnerColumn - 1,
+                        rowSpanForLines
+                    );
+                }
+
                 row++;
             }
 

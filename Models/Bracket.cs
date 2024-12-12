@@ -12,15 +12,13 @@ public class Bracket(BracketType bracketType, List<Set> sets)
 {
     public BracketType BracketType { get; } = bracketType;
     private List<Set> Sets { get; } = sets;
-
+    
     public static WinnerAndLoserBracketSets GetWinnerAndLoserBracketSets(Bracket doubleEliminationBracket)
     {
-        HashSet<Set> winners = [];
+        var winners = doubleEliminationBracket.Sets.ToHashSet();
         HashSet<Set> losers = [];
-
-        var winner = doubleEliminationBracket.Sets.First();
-        winners.Add(winner);
-        List<Set> currentSets = [winner];
+        var currentSets = winners.ToList();
+        
         while (currentSets.Count > 0)
         {
             var currentSet = currentSets.First();
