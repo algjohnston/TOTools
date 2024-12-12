@@ -18,6 +18,7 @@ public class EventTable : ITable<Event, long, Event>
     private const string EndDateTimeColumn = "end_date_time";
     private const string LatitudeColumn = "latitude";
     private const string LongitudeColumn = "longitude";
+    private const string LinkColumn = "link";
 
     private const int IdColumnNumber = 0;
     private const int NameColumnNumber = 1;
@@ -26,6 +27,7 @@ public class EventTable : ITable<Event, long, Event>
     private const int EndDateTimeColumnNumber = 4;
     private const int LatitudeColumnNumber = 5;
     private const int LongitudeColumnNumber = 6;
+    private const int LinkColumnNumber = 7;
 
     private readonly ObservableCollection<Event> _events = [];
 
@@ -41,7 +43,8 @@ public class EventTable : ITable<Event, long, Event>
             $"{StartDateTimeColumn} TIMESTAMPTZ, " +
             $"{EndDateTimeColumn} TIMESTAMPTZ, " +
             $"{LatitudeColumn} DOUBLE PRECISION, " +
-            $"{LongitudeColumn} DOUBLE PRECISION" +
+            $"{LongitudeColumn} DOUBLE PRECISION, " +
+            $"{LinkColumn} TEXT" +
             ")";
         DatabaseUtil.CreateTable(createTableStatement);
     }
@@ -71,7 +74,8 @@ public class EventTable : ITable<Event, long, Event>
             $"{StartDateTimeColumn} = @start_datetime, " +
             $"{EndDateTimeColumn} = @end_datetime, " +
             $"{LatitudeColumn} = @lat, " +
-            $"{LongitudeColumn} = @long " +
+            $"{LongitudeColumn} = @long, " +
+            $"{LinkColumn} = @link " +
             $"WHERE {IdColumn} = @id;";
         command.Parameters.AddWithValue("id", toUpdate.EventId);
         command.Parameters.AddWithValue("name", toUpdate.EventName);
@@ -80,6 +84,7 @@ public class EventTable : ITable<Event, long, Event>
         command.Parameters.AddWithValue("end_datetime", toUpdate.EndDateTime);
         command.Parameters.AddWithValue("lat", toUpdate.Latitude);
         command.Parameters.AddWithValue("long", toUpdate.Longitude);
+        command.Parameters.AddWithValue("link", toUpdate.Link);
 
         var numAffected = command.ExecuteNonQuery();
         if (numAffected > 0)
@@ -94,7 +99,7 @@ public class EventTable : ITable<Event, long, Event>
         command.Connection = DatabaseUtil.GetDatabaseConnection();
         command.CommandText =
             $"INSERT INTO {TableName} (" +
-            $"{IdColumn}, {NameColumn}, {LocationColumn}, {StartDateTimeColumn}, {EndDateTimeColumn}, {LatitudeColumn}, {LongitudeColumn}" +
+            $"{IdColumn}, {NameColumn}, {LocationColumn}, {StartDateTimeColumn}, {EndDateTimeColumn}, {LatitudeColumn}, {LongitudeColumn}, {LinkColumn}" +
             $") VALUES " +
             $"(@id, @name, @location, @start_datetime, @end_datetime, @lat, @long)";
         command.Parameters.AddWithValue("id", toInsert.EventId);
@@ -104,6 +109,7 @@ public class EventTable : ITable<Event, long, Event>
         command.Parameters.AddWithValue("end_datetime", toInsert.EndDateTime);
         command.Parameters.AddWithValue("lat", toInsert.Latitude);
         command.Parameters.AddWithValue("long", toInsert.Longitude);
+        command.Parameters.AddWithValue("link", toInsert.Link);
         command.ExecuteNonQuery();
         SelectAll();
     }
@@ -120,7 +126,7 @@ public class EventTable : ITable<Event, long, Event>
     {
         _events.Clear();
         using var command = new NpgsqlCommand(
-            $"SELECT {IdColumn}, {NameColumn}, {LocationColumn}, {StartDateTimeColumn}, {EndDateTimeColumn}, {LatitudeColumn}, {LongitudeColumn}  FROM {TableName}",
+            $"SELECT {IdColumn}, {NameColumn}, {LocationColumn}, {StartDateTimeColumn}, {EndDateTimeColumn}, {LatitudeColumn}, {LongitudeColumn}, {LinkColumn} FROM {TableName}",
             DatabaseUtil.GetDatabaseConnection()
         );
         using var reader = command.ExecuteReader();
@@ -133,7 +139,8 @@ public class EventTable : ITable<Event, long, Event>
             var endDateTime = reader.GetDateTime(EndDateTimeColumnNumber);
             var latitude = reader.GetDouble(LatitudeColumnNumber);
             var longitude = reader.GetDouble(LongitudeColumnNumber);
-            Event eventToAdd = new(id, name, location, startDateTime, endDateTime, latitude, longitude);
+            var link = reader.GetString(LinkColumnNumber);
+            Event eventToAdd = new(id, name, location, startDateTime, endDateTime, latitude, longitude, link);
             _events.Add(eventToAdd);
         }
 

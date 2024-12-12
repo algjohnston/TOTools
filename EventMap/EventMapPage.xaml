@@ -9,15 +9,30 @@
     <ContentPage.Content>
 
         <Grid x:Name="EventMapGrid"
-              ColumnDefinitions="*"
+              ColumnDefinitions="*, *"
               RowDefinitions="*, auto"
               Margin="16, 16, 16, 64">
             
-            <maui:MapControl x:Name="MapControl"/>
+            <maui:MapControl 
+                x:Name="MapControl"
+                Grid.ColumnSpan="2"
+                Grid.Row="0"/>
             
             <Button Text="View All Events"
                     Clicked="OnViewAllEventsButtonClicked"
                     Grid.Row="1"
+                    Grid.Column="0"
+                    TextColor="Black"
+                    BackgroundColor="#eebf6d"
+                    FontSize="Large"
+                    FontFamily="GoboldBold"
+                    HorizontalOptions="Center"
+                    Margin="0, 16, 0, 0"/>
+            
+            <Button Text="Add Event"
+                    Clicked="OnAddEventButtonClicked"
+                    Grid.Row="1"
+                    Grid.Column="1"
                     TextColor="Black"
                     BackgroundColor="#eebf6d"
                     FontSize="Large"

@@ -18,7 +18,8 @@ public class Event(
     DateTime startDateTime,
     DateTime endDateTime,
     double latitude,
-    double longitude)
+    double longitude,
+    string link)
 {
     public long EventId { get; } = eventId;
     public string EventName { get; } = eventName;
@@ -29,4 +30,5 @@ public class Event(
     public string FormattedEndDateTime => EndDateTime.ToString("g");
     public double Latitude { get; } = latitude;
     public double Longitude { get; } = longitude;
+    public string Link { get; set; } = link;
 }
