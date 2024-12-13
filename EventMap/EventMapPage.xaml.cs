@@ -29,7 +29,7 @@ public partial class EventMapPage : ContentPage
     
     private static readonly IStyle pointStyle = new SymbolStyle {
         SymbolScale = 0.5d,
-        Fill = new(Color.Orange)
+        Fill = new(Color.FromRgba(238,191, 109, 255))
     };
 
     private async void OnHandlerChanged(object? sender, EventArgs e)
