@@ -8,10 +8,41 @@ public class Set
     public string? Player1Id { get; private set; }
     public string? Player2Id { get; private set; }
 
-    public string? Player1DisplayName { get; }
-    public string? Player2DisplayName { get; }
-    public string? Player1Tag { get; private set; }
-    public string? Player2Tag { get; private set; }
+    public string? Player1DisplayName { get; private set; }
+    public string? Player2DisplayName { get; private set; }
+
+    private string? _player1Tag;
+
+    public string? Player1Tag
+    {
+        get => _player1Tag;
+        private set
+        {
+            if (value == null)
+            {
+                return;
+            }
+            _player1Tag = value;
+            Player1DisplayName = _player1Tag[(!_player1Tag.Contains('|') ? 0 : _player1Tag.IndexOf('|') + 1)..];
+        }
+    }
+
+    private string? _player2Tag;
+
+    public string? Player2Tag
+    {
+        get => _player2Tag;
+        private set
+        {
+            if (value == null)
+            {
+                return;
+            }
+            _player2Tag = value;
+            Player2DisplayName = _player2Tag[(!_player2Tag.Contains('|') ? 0 : _player2Tag.IndexOf('|') + 1)..];
+        }
+    }  
+    
     public readonly int Round;
     public readonly string DisplayIdentifier;
     public readonly string ActualDisplayIdentifier;
