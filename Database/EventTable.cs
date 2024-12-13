@@ -101,7 +101,7 @@ public class EventTable : ITable<Event, long, Event>
             $"INSERT INTO {TableName} (" +
             $"{IdColumn}, {NameColumn}, {LocationColumn}, {StartDateTimeColumn}, {EndDateTimeColumn}, {LatitudeColumn}, {LongitudeColumn}, {LinkColumn}" +
             $") VALUES " +
-            $"(@id, @name, @location, @start_datetime, @end_datetime, @lat, @long)";
+            $"(@id, @name, @location, @start_datetime, @end_datetime, @lat, @long, @link)";
         command.Parameters.AddWithValue("id", toInsert.EventId);
         command.Parameters.AddWithValue("name", toInsert.EventName);
         command.Parameters.AddWithValue("location", toInsert.Location);

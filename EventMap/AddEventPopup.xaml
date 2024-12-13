@@ -56,15 +56,19 @@
 
             <Button Text="Cancel"
                     Clicked="OnCancelButtonClicked"
-                    BackgroundColor="#E74C3C"
-                    TextColor="White"
+                    FontSize="Large"
+                    FontFamily="GoboldPro"
+                    BackgroundColor="#eebf6d"
+                    TextColor="Black"
                     CornerRadius="10" 
                     WidthRequest="100" />
 
             <Button Text="OK"
                     Clicked="OnOkButtonClicked"
-                    BackgroundColor="#2ECC71"
-                    TextColor="White"
+                    FontSize="Large"
+                    FontFamily="GoboldPro"
+                    BackgroundColor="#eebf6d"
+                    TextColor="Black"
                     CornerRadius="10" 
                     WidthRequest="100" />
         </HorizontalStackLayout>

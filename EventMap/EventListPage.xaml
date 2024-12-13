@@ -34,14 +34,6 @@
 								   FontFamily="RalewayRegular"
 								   TextColor="AntiqueWhite"
 								   FontAttributes="Bold" />
-                            <Label Text="{Binding FormattedStartDateTime}"
-                                   FontSize="14"
-								   FontFamily="RalewayRegular"
-								   TextColor="AntiqueWhite" />
-                            <Label Text="{Binding FormattedEndDateTime}"
-                                   FontSize="14"
-								   FontFamily="RalewayRegular"
-								   TextColor="AntiqueWhite" />
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
