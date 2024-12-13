@@ -54,6 +54,7 @@ public class EventBusinessLogic(EventTable eventTable)
     public void RemoveEvent(Event eventToRemove)
     {
         eventTable.Delete(eventToRemove.EventId);
+        Events.Remove(eventToRemove);
         RemovePin(eventToRemove);
     }
 

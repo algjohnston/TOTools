@@ -2,12 +2,15 @@ using CommunityToolkit.Maui.Views;
 using Mapsui;
 using Mapsui.Extensions;
 using Mapsui.Layers;
+using Mapsui.Layers.AnimatedLayers;
 using Mapsui.Nts;
 using Mapsui.Projections;
 using Mapsui.Styles;
 using Mapsui.Widgets;
 using Mapsui.Widgets.ButtonWidgets;
 using Mapsui.Widgets.ScaleBar;
+using TOTools.Models;
+using Color = Mapsui.Styles.Color;
 
 namespace TOTools.EventMap;
 
@@ -17,11 +20,17 @@ namespace TOTools.EventMap;
 public partial class EventMapPage : ContentPage
 {
     private EventBusinessLogic? _eventBusinessLogic;
+    private WritableLayer eventLayer = new() { Style = null };
     public EventMapPage()
     {
         InitializeComponent();
         HandlerChanged += OnHandlerChanged;
     }
+    
+    private static readonly IStyle pointStyle = new SymbolStyle {
+        SymbolScale = 0.5d,
+        Fill = new(Color.Orange)
+    };
 
     private async void OnHandlerChanged(object? sender, EventArgs e)
     {
@@ -77,37 +86,27 @@ public partial class EventMapPage : ContentPage
             Mapsui.Animations.Easing.CubicOut
         );
 
-        // Add pins
-        var layer = new GenericCollectionLayer<List<IFeature>>
-        {
-            Style = SymbolStyles.CreatePinStyle()
-        }; ;
-        map.Layers.Add(layer);
+        map.Layers.Add(eventLayer);
+        UpdateEvents();
+    }
 
-        map.Info += (_, _) =>
+    private void UpdateEvents()
+    {
+        eventLayer.Clear();
+        foreach (Event eventToAdd in _eventBusinessLogic.Events)
         {
-            _eventBusinessLogic!.Events.CollectionChanged += (_, _) =>
-            {
-                // TODO drop pin on location
-                // Currently does not work
-                layer.Features.Clear();
-                foreach (var eventItem in _eventBusinessLogic!.Events)
-                {
-                    var mercatorPoint = SphericalMercator.FromLonLat(eventItem.Longitude, eventItem.Latitude)
-                        .ToMPoint();
-                    layer.Features.Add(
-                        new GeometryFeature
-                        {
-                            Geometry = new NetTopologySuite.Geometries.Point(
-                                mercatorPoint.X,
-                                mercatorPoint.Y
-                            )
-                        }
-                    );
-                    layer.DataHasChanged();
-                }
-            };
-        };
+            eventLayer.Add(CreatePoint(eventToAdd));
+        }
+    }
+
+    private PointFeature CreatePoint(Event eventToAdd)
+    {
+        MPoint point = new(eventToAdd.Longitude, eventToAdd.Latitude);
+        point = SphericalMercator.FromLonLat(point.X, point.Y).ToMPoint();
+
+        PointFeature feature = new(point);
+        feature.Styles.Add(pointStyle);
+        return feature;
     }
 
     protected override void OnAppearing()
