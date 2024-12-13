@@ -40,6 +40,7 @@
                 WidthRequest="200" />
             
             <Label Text="Winner:"
+				   TextColor="AntiqueWhite"
                    FontSize="24"
                    VerticalOptions="Center" />
 
@@ -83,16 +84,16 @@
             <Button Text="Cancel"
                     Clicked="OnCancelButtonClicked"
                     FontSize="Large"
-                    FontFamily="GoboldPro"
-                    BackgroundColor="#eebf6d"
-                    TextColor="Black"
+                    FontFamily="GoboldBold"
+					TextColor="#fbefdb"
+                    BackgroundColor="#643f00"
                     CornerRadius="10" 
                     WidthRequest="100" />
 
             <Button Text="OK"
                     Clicked="OnOkButtonClicked"
                     FontSize="Large"
-                    FontFamily="GoboldPro"
+                    FontFamily="GoboldBold"
                     BackgroundColor="#eebf6d"
                     TextColor="Black"
                     CornerRadius="10" 
