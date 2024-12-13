@@ -57,7 +57,10 @@ public partial class MatchSchedulerPage : ContentPage, INewTimeSubmitted
 
     private void OnStartButtonClicked(object? sender, EventArgs e)
     {
-        if (_schedulerBusinessLogic?.SelectedMatch == null) return;
+        if (_schedulerBusinessLogic?.SelectedMatch == null)
+        {
+            return;
+        }
         _schedulerBusinessLogic.SelectedMatch.MatchStartTime = DateTime.Now;
         _schedulerBusinessLogic.SelectedMatch.IsInProgress = true;
 

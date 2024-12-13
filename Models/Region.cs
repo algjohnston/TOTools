@@ -16,6 +16,36 @@ public enum Region
 
 public static class RegionHelper
 {
+
+    public static Color GetRegionColor(this Region region)
+    {
+        switch (region)
+        {
+            case Region.Milwaukee:
+                return Colors.Red;
+                break;
+            case Region.Madison:
+                return Colors.Orange;
+                break;
+            case Region.Norcen:
+                return Colors.Yellow;
+                break;
+            case Region.West:
+                return Colors.Green;
+                break;
+            case Region.Whitewater:
+                return Colors.Blue;
+                break;
+            case Region.OutOfState:
+                return Colors.Purple;
+                break;
+            case Region.Unknown:
+                return Colors.Grey;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(region), region, null);
+        }
+    }
     public static List<string> RegionStrings { get; } = GetRegionStrings();
 
     /// <summary>

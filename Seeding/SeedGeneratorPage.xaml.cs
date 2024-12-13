@@ -18,7 +18,7 @@ public partial class SeedGeneratorPage : ContentPage, IOnPlayerAdded
     {
         InitializeComponent();
         AttendeeLinkEntry.Text = // For testing
-            "tournament/la-mechita-2024-torneo-feria-esports-zona-retro-y-m/event/ultimate-singles";
+            "https://www.start.gg/tournament/between-2-lakes-67-a-madison-super-smash-bros-tournament/event/ultimate-singles/overview";
         HandlerChanged += OnHandlerChanged;
     }
 

@@ -17,7 +17,7 @@ public class SchedulerBusinessLogic(
     [
         // For testing
         new(
-            "tournament/la-mechita-2024-torneo-feria-esports-zona-retro-y-m/event/ultimate-singles",
+            "tournament/between-2-lakes-67-a-madison-super-smash-bros-tournament/event/ultimate-singles",
             DateTime.Now,
             3)
     ];

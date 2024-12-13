@@ -20,6 +20,7 @@
             <CollectionView
                 x:Name="SeedingListView"
                 IsGrouped="True"
+                CanReorderItems="True"
                 ItemsSource="{Binding PlayerTierGroups}">
 
                 <CollectionView.GroupHeaderTemplate>
@@ -47,7 +48,12 @@
                             FontFamily="RalewayRegular"
                             TextColor="AntiqueWhite"
 							FontAttributes="Bold"
-							FontSize="21"/>
+							FontSize="21">
+                            <Label.GestureRecognizers>
+                                <DragGestureRecognizer DragStarting="OnDragPlayerStarting"/>
+                                <DropGestureRecognizer Drop="OnDropPlayer"/>
+                            </Label.GestureRecognizers>
+                        </Label>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
 

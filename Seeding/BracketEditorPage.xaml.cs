@@ -45,6 +45,7 @@ public partial class BracketEditorPage : ContentPage, IOnSetsSwapped
                 HeightRequest = screenHeight,
                 WidthRequest = screenWidth,
                 Content = new DoubleEliminationGrid(
+                    _seedingBusinessLogic.Players,
                     winnerAndLoserBracketSets.WinnerSets,
                     Colors.AntiqueWhite,
                     this, 
@@ -55,6 +56,7 @@ public partial class BracketEditorPage : ContentPage, IOnSetsSwapped
                 HeightRequest = screenHeight,
                 WidthRequest = screenWidth,
                 Content = new DoubleEliminationGrid(
+                    _seedingBusinessLogic.Players,
                     winnerAndLoserBracketSets.LoserSets,
                     Colors.AntiqueWhite,
                     this, false)

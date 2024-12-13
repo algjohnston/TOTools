@@ -11,7 +11,7 @@ namespace TOTools.Seeding;
 public partial class SeedingListPage : ContentPage
 {
     private SeedingBusinessLogic? _seedingBusinessLogic;
-    
+
     public ObservableCollection<PlayerTierGroup> PlayerTierGroups { get; } = [];
 
     public SeedingListPage()
@@ -29,6 +29,7 @@ public partial class SeedingListPage : ContentPage
         {
             return;
         }
+
         // Need to make sure the players have been loaded
         await _seedingBusinessLogic.PlayerLoadTask;
         PopulateTiers();
@@ -41,6 +42,7 @@ public partial class SeedingListPage : ContentPage
         {
             return;
         }
+
         await _seedingBusinessLogic.PlayerLoadTask;
         PopulateTiers();
     }
@@ -56,7 +58,7 @@ public partial class SeedingListPage : ContentPage
         var groupedPlayers = players
             .GroupBy(p => p.PlayerTier)
             .ToDictionary(p => p.Key, p => p.ToList());
-        
+
         // Populate each tier group
         foreach (Tier tier in Enum.GetValues(typeof(Tier)))
         {
@@ -67,6 +69,7 @@ public partial class SeedingListPage : ContentPage
                 PlayerTierGroups.Add(new PlayerTierGroup(tierString, []));
                 continue;
             }
+
             // Add the player groups to their respective tier group
             var currentTierGroup = new PlayerTierGroup(tierString, playerGroup);
             currentTierGroup.Sort();
@@ -94,7 +97,7 @@ public partial class SeedingListPage : ContentPage
         SeedingListView.ItemsSource = null;
         SeedingListView.ItemsSource = PlayerTierGroups;
     }
-    
+
     private void OnDragTierGroupStarting(object? sender, DragStartingEventArgs e)
     {
         if (sender is not DragGestureRecognizer { BindingContext: PlayerTierGroup playerGroup }) return;
@@ -106,16 +109,64 @@ public partial class SeedingListPage : ContentPage
     {
         if (sender is not DropGestureRecognizer { BindingContext: PlayerTierGroup destinationPlayerGroup }) return;
         var sourceGroup = (PlayerTierGroup)e.Data.Properties["TierGroup"];
-        
+
         var sourceIndex = PlayerTierGroups.IndexOf(sourceGroup);
         var destinationIndex = PlayerTierGroups.IndexOf(destinationPlayerGroup);
         if (sourceIndex == destinationIndex)
         {
             return;
         }
-        
+
         PlayerTierGroups.Move(sourceIndex, destinationIndex);
         // Needed to update the list this way because the CollectionView can not handle the above code
+        SeedingListView.ItemsSource = null;
+        SeedingListView.ItemsSource = PlayerTierGroups;
+    }
+
+    private void OnDragPlayerStarting(object sender, DragStartingEventArgs e)
+    {
+        if (sender is DragGestureRecognizer { BindingContext: Player player })
+        {
+            e.Data.Properties["Player"] = player;
+            e.Data.Text = player.FormattedPlayerForList; // Optional: Use for feedback during drag
+        }
+    }
+
+    private void OnDropPlayer(object sender, DropEventArgs e)
+    {
+        if (e.Data.Properties["Player"] is not Player targetPlayer)
+        {
+            return;
+        }
+
+        if (sender is not DropGestureRecognizer { BindingContext: Player player })
+        {
+            return;
+        }
+
+
+        var sourceGroup = PlayerTierGroups.FirstOrDefault(g => g.Contains(player));
+        var targetGroup = PlayerTierGroups.FirstOrDefault(g => g.Contains(targetPlayer));
+        if (sourceGroup == null || targetGroup == null)
+        {
+            return;
+        }
+
+        if (sourceGroup != targetGroup)
+        {
+            sourceGroup.Remove(player);
+            targetGroup.Remove(targetPlayer);
+            sourceGroup.Add(targetPlayer);
+            targetGroup.Add(player);
+            sourceGroup.Sort();
+            targetGroup.Sort();
+        }
+        else
+        {
+            (player.PlayerRanking, targetPlayer.PlayerRanking) = (targetPlayer.PlayerRanking, player.PlayerRanking);
+        }
+
+        // Update CollectionView's ItemsSource (refresh UI)
         SeedingListView.ItemsSource = null;
         SeedingListView.ItemsSource = PlayerTierGroups;
     }

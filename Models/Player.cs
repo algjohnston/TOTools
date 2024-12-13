@@ -19,7 +19,7 @@ public class Player(string startggId, string tag, Region region, Tier tier, int 
 
     public Tier PlayerTier { get; } = tier;
 
-    public int PlayerRanking { get; } = ranking;
+    public int PlayerRanking { get; set; } = ranking;
 
     public string FormattedPlayer => $"{StarttggId} : {PlayerTag}: {PlayerRegion} : {PlayerTier} : {PlayerRanking}";
 

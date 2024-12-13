@@ -1,4 +1,6 @@
-﻿using TOTools.Models.Startgg;
+﻿using System.Collections.ObjectModel;
+using TOTools.Models;
+using TOTools.Models.Startgg;
 
 namespace TOTools.Seeding;
 
@@ -35,10 +37,10 @@ public class DoubleEliminationGrid : Grid
     /// </param>
     /// <param name="onSetsSwapped">Called when two sets in the bracket are swapped.</param>
     /// <param name="isWinnerBracket">Whether this is a winner bracket.</param>
-    public DoubleEliminationGrid(List<Set> sets, Color color, IOnSetsSwapped onSetsSwapped, bool isWinnerBracket)
+    public DoubleEliminationGrid(ObservableCollection<Player> allPlayers, List<Set> sets, Color color, IOnSetsSwapped onSetsSwapped, bool isWinnerBracket)
     {
         _onSetsSwapped = onSetsSwapped;
-        FillGridWithPlayers(sets, color, isWinnerBracket);
+        FillGridWithPlayers(allPlayers, sets, color, isWinnerBracket);
     }
 
     /// <summary>
@@ -49,7 +51,7 @@ public class DoubleEliminationGrid : Grid
     ///     The color of the lines and the text in the bracket.
     /// </param>
     /// <param name="isWinner">Whether this is a winner bracket.</param>
-    private void FillGridWithPlayers(List<Set> sets, Color color, bool isWinner)
+    private void FillGridWithPlayers(ObservableCollection<Player> allPlayers, List<Set> sets, Color color, bool isWinner)
     {
         if (sets.Count == 0)
         {
@@ -100,12 +102,42 @@ public class DoubleEliminationGrid : Grid
         {
             // TODO autoscale text?
             var currentSet = firstRowSets[currentPlayerNumber];
+            var player1Color = allPlayers
+                .First(player => player.StarttggId == currentSet.Player1Id)
+                .PlayerRegion.GetRegionColor();
+            var player2Color = allPlayers
+                .First(player => player.StarttggId == currentSet.Player2Id)
+                .PlayerRegion.GetRegionColor();
             var playerLabel = new Label
             {
-                Text = currentSet.Identifier + ": " + currentSet.Player1 + "vs ." + currentSet.Player2,
-                TextColor = color,
                 HorizontalOptions = LayoutOptions.Center,
-                VerticalOptions = LayoutOptions.Center
+                VerticalOptions = LayoutOptions.Center,
+                FormattedText = new FormattedString
+                {
+                    Spans =
+                    {
+                        new Span
+                        {
+                            Text = $"{currentSet.Identifier}: ",
+                            TextColor = color
+                        },
+                        new Span
+                        {
+                            Text = currentSet.Player1,
+                            TextColor = player1Color
+                        },
+                        new Span
+                        {
+                            Text = " vs. ",
+                            TextColor = color 
+                        },
+                        new Span
+                        {
+                            Text = currentSet.Player2,
+                            TextColor = player2Color
+                        }
+                    }
+                }
             };
 
             // TODO Do not allow dragging if the set has a winner
@@ -180,15 +212,45 @@ public class DoubleEliminationGrid : Grid
                 }
 
                 // TODO autoscale text?
-                var winnerLabel = new Label
+                var player1Color = allPlayers
+                    .First(player => player.StarttggId == currentSet.Player1Id)
+                    .PlayerRegion.GetRegionColor();
+                var player2Color = allPlayers
+                    .First(player => player.StarttggId == currentSet.Player2Id)
+                    .PlayerRegion.GetRegionColor();
+                var playerLabel = new Label
                 {
-                    Text = currentSet.Identifier + ": " + currentSet.Player1 + "vs ." + currentSet.Player2,
-                    TextColor = color,
                     HorizontalOptions = LayoutOptions.Center,
-                    VerticalOptions = LayoutOptions.Center
+                    VerticalOptions = LayoutOptions.Center,
+                    FormattedText = new FormattedString
+                    {
+                        Spans =
+                        {
+                            new Span
+                            {
+                                Text = $"{currentSet.Identifier}: ",
+                                TextColor = color
+                            },
+                            new Span
+                            {
+                                Text = currentSet.Player1,
+                                TextColor = player1Color
+                            },
+                            new Span
+                            {
+                                Text = " vs. ",
+                                TextColor = color 
+                            },
+                            new Span
+                            {
+                                Text = currentSet.Player2,
+                                TextColor = player2Color
+                            }
+                        }
+                    }
                 };
                 this.Add(
-                    winnerLabel,
+                    playerLabel,
                     currentWinnerColumn,
                     rowPositionForWinnerNames
                 );
