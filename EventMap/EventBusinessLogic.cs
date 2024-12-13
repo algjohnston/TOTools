@@ -47,7 +47,6 @@ public class EventBusinessLogic(EventTable eventTable)
             venueLocation.Longitude, eventLink);
         eventTable.Insert(eventToAdd);
         Events.Add(eventToAdd);
-        AddPin(eventToAdd);
     }
 
 
@@ -55,17 +54,8 @@ public class EventBusinessLogic(EventTable eventTable)
     {
         eventTable.Delete(eventToRemove.EventId);
         Events.Remove(eventToRemove);
-        RemovePin(eventToRemove);
     }
-
-    private void AddPin(Event eventToAdd)
-    {
-        
-    }
-
-    private void RemovePin(Event eventToRemove)
-    {
-        
-    }
+    
+    
     
 }

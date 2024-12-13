@@ -17,27 +17,43 @@
                 x:Name="MapControl"
                 Grid.ColumnSpan="2"
                 Grid.Row="0"/>
-            
+                
             <Button Text="View All Events"
                     Clicked="OnViewAllEventsButtonClicked"
                     Grid.Row="1"
                     Grid.Column="0"
+                    Grid.ColumnSpan="2"
                     TextColor="Black"
                     BackgroundColor="#eebf6d"
-                    FontSize="Large"
+                    FontSize="16"
                     FontFamily="GoboldBold"
                     HorizontalOptions="Center"
+                    VerticalOptions="End"
                     Margin="0, 16, 0, 0"/>
             
             <Button Text="Add Event"
                     Clicked="OnAddEventButtonClicked"
                     Grid.Row="1"
-                    Grid.Column="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
                     TextColor="Black"
                     BackgroundColor="#eebf6d"
-                    FontSize="Large"
+                    FontSize="16"
                     FontFamily="GoboldBold"
-                    HorizontalOptions="Center"
+                    HorizontalOptions="End"
+                    VerticalOptions="End"
+                    Margin="0, 16, 0, 0"/>
+            
+            <Button Text="Remove Event"
+                    Clicked="OnRemoveEventButtonClicked"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    TextColor="Black"
+                    BackgroundColor="#eebf6d"
+                    FontSize="16"
+                    FontFamily="GoboldBold"
+                    HorizontalOptions="Start"
                     Margin="0, 16, 0, 0"/>
         </Grid>
 

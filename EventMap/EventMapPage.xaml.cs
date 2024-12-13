@@ -171,5 +171,14 @@ public partial class EventMapPage : ContentPage
                 )
             );
     }
+
+    private async void OnRemoveEventButtonClicked(object? sender, EventArgs e)
+    {
+        await this.ShowPopupAsync(
+            new DeleteEventPopup(
+                _eventBusinessLogic
+            )
+        );
+    }
     
 }

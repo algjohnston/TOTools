@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="TOTools.EventMap.DeleteEventPopup">
+    <toolkit:Popup.Resources />
+    
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
+          ColumnDefinitions="*,*"
+          Padding="20" BackgroundColor="#262626"
+          WidthRequest="300"
+          HeightRequest="300">
+
+        <!-- Title -->
+        <Label Grid.Row="0" 
+               Grid.ColumnSpan="2"
+               Text="Enter Details" 
+               FontSize="24" 
+               TextColor="AntiqueWhite"
+               HorizontalOptions="Center"
+               Margin="0,10"/>
+        
+        <VerticalStackLayout 
+            Grid.Row="1" 
+            Grid.ColumnSpan="2"
+            Spacing="10"
+            VerticalOptions="Center">
+               
+            <Entry x:Name="NameEntry"
+                   Placeholder="Event Name"
+                   WidthRequest="200"
+                   VerticalOptions="Center"
+                   TextColor="AntiqueWhite" />
+        </VerticalStackLayout>
+        
+        <!-- Cancel and Submit Buttons -->
+        <HorizontalStackLayout 
+            Grid.Row="5" 
+            Grid.ColumnSpan="2" 
+            Spacing="10" 
+            HorizontalOptions="Center"
+            Margin="0,20,0,0">
+
+            <Button Text="Cancel"
+                    Clicked="OnCancelButtonClicked"
+                    FontSize="Large"
+                    FontFamily="GoboldBold"
+                    BackgroundColor="#643f00"
+                    TextColor="#fbefdb"
+                    CornerRadius="10" 
+                    WidthRequest="100" />
+
+            <Button Text="OK"
+                    Clicked="OnOkButtonClicked"
+                    FontSize="Large"
+                    FontFamily="GoboldBold"
+                    BackgroundColor="#eebf6d"
+                    TextColor="Black"
+                    CornerRadius="10" 
+                    WidthRequest="100" />
+        </HorizontalStackLayout>
+        
+    </Grid>
+
+</toolkit:Popup>

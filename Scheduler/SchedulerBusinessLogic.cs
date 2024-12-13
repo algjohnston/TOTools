@@ -240,8 +240,10 @@ public class SchedulerBusinessLogic(
         var id = match.SetId;
         if (id == null)
         {
-            return;
+            return; 
         }
         EventBrackets[eventName].RecordWinner(winner, id);
+        
     }
+    
 }

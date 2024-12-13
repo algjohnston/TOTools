@@ -195,4 +195,5 @@ public partial class MatchSchedulerPage : ContentPage, INewTimeSubmitted
         MatchList.ItemsSource = null;
         MatchList.ItemsSource = _schedulerBusinessLogic.FutureMatches;
     }
+    
 }
