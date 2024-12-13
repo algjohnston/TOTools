@@ -26,8 +26,8 @@ public class RoundRobinGrid : Grid
     private void FillGridWithPlayers(List<Set> sets, Color color)
     {
         // Gets a list of unique players
-        var playerNames = sets.Select(set => set.Player1).ToList();
-        playerNames.AddRange(sets.Select(set => set.Player2));
+        var playerNames = sets.Select(set => set.Player1DisplayName).ToList();
+        playerNames.AddRange(sets.Select(set => set.Player2DisplayName));
         var uniquePlayers = playerNames.Distinct().ToList();
 
         // Set up the row and columns

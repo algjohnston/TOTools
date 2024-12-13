@@ -4,12 +4,14 @@ namespace TOTools.Models.Startgg;
 
 public class Set
 {
-
     // Startgg variables
     public string? Player1Id { get; private set; }
     public string? Player2Id { get; private set; }
-    public string? Player1 { get; private set; }
-    public string? Player2 { get; private set; }
+
+    public string? Player1DisplayName { get; }
+    public string? Player2DisplayName { get; }
+    public string? Player1Tag { get; private set; }
+    public string? Player2Tag { get; private set; }
     public readonly int Round;
     public readonly string DisplayIdentifier;
     public readonly string ActualDisplayIdentifier;
@@ -18,35 +20,36 @@ public class Set
     public readonly string Id;
     public readonly string Identifier;
     private string? _winnerId;
-    
+
     // Custom variables
     public Set? NextSet { get; set; }
     public Set? PrevTop { get; set; }
     public Set? PrevBottom { get; set; }
-    
+
     public string? Winner
     {
         get
         {
             if (_winnerId == Player1Id)
             {
-                return Player1;
+                return Player1Tag;
             }
 
-            return _winnerId == Player2Id ? Player2 : null;
+            return _winnerId == Player2Id ? Player2Tag : null;
         }
         set
         {
-            if (value == Player1)
+            if (value == Player1Tag)
             {
                 _winnerId = Player1Id;
-            } else if (value == Player2)
+            }
+            else if (value == Player2Tag)
             {
                 _winnerId = Player2Id;
             }
         }
     }
-    
+
     /// <summary>
     /// A wrapper class for the SetType returned by startgg.
     /// Includes fields to construct a double elimination bracket and allows for player reassignment.
@@ -60,8 +63,18 @@ public class Set
         var player2Entrant = lastSlot.Entrant;
         Player1Id = player1Entrant?.Id;
         Player2Id = player2Entrant?.Id;
-        Player1 = player1Entrant?.Name;
-        Player2 =player2Entrant?.Name;
+        Player1Tag = player1Entrant?.Name;
+        Player2Tag = player2Entrant?.Name;
+        if (Player1Tag != null)
+        {
+            Player1DisplayName = Player1Tag[(Player1Tag.IndexOf('|') == -1 ? 0 : Player1Tag.IndexOf('|') + 1)..];
+        }
+
+        if (Player2Tag != null)
+        {
+            Player2DisplayName = Player2Tag[(Player2Tag.IndexOf('|') == -1 ? 0 : Player2Tag.IndexOf('|') + 1)..];
+        }
+
         Round = setType.Round;
         DisplayIdentifier = setType.PhaseGroup.DisplayIdentifier + ": Phase #" + setType.PhaseGroup.Phase.PhaseOrder;
         ActualDisplayIdentifier = setType.PhaseGroup.DisplayIdentifier;
@@ -74,8 +87,8 @@ public class Set
 
     public void SwapPlayerWith(Set set)
     {
-        (Player1, set.Player1) = (set.Player1, Player1);
-        (Player2, set.Player2) = (set.Player2, Player2);
+        (Player1Tag, set.Player1Tag) = (set.Player1Tag, Player1Tag);
+        (Player2Tag, set.Player2Tag) = (set.Player2Tag, Player2Tag);
         (Player1Id, set.Player1Id) = (set.Player1Id, Player1Id);
         (Player2Id, set.Player2Id) = (set.Player2Id, Player2Id);
     }

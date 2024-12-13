@@ -237,7 +237,7 @@ public class SeedingBusinessLogic(
                 unknownPlayers.Add(
                     new Player(
                         set.Value.Player1Id,
-                        set.Value.Player1,
+                        set.Value.Player1Tag,
                         Region.Unknown,
                         Tier.Unknown,
                         -1
@@ -250,7 +250,7 @@ public class SeedingBusinessLogic(
                 unknownPlayers.Add(
                     new Player(
                         set.Value.Player2Id,
-                        set.Value.Player2,
+                        set.Value.Player2Tag,
                         Region.Unknown,
                         Tier.Unknown,
                         -1

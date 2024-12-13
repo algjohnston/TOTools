@@ -37,8 +37,8 @@ internal class RoundRobinDrawable(List<string> uniquePlayers, List<Set> sets, Co
         // Fill the winner names
         foreach (var set in sets)
         {
-            var rowIndex = uniquePlayers.IndexOf(set.Player1);
-            var colIndex = uniquePlayers.IndexOf(set.Player2);
+            var rowIndex = uniquePlayers.IndexOf(set.Player1DisplayName);
+            var colIndex = uniquePlayers.IndexOf(set.Player2DisplayName);
             var x = (colIndex * columnWidth);
             var y = (rowIndex * rowHeight);
             var fillOnly = rowIndex == colIndex;

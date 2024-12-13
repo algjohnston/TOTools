@@ -123,7 +123,7 @@ public class DoubleEliminationGrid : Grid
                         },
                         new Span
                         {
-                            Text = currentSet.Player1,
+                            Text = currentSet.Player1DisplayName,
                             TextColor = player1Color
                         },
                         new Span
@@ -133,7 +133,7 @@ public class DoubleEliminationGrid : Grid
                         },
                         new Span
                         {
-                            Text = currentSet.Player2,
+                            Text = currentSet.Player2DisplayName,
                             TextColor = player2Color
                         }
                     }
@@ -170,7 +170,7 @@ public class DoubleEliminationGrid : Grid
                         return;
                     }
 
-                    (playerLabel.Text, label.Text) = (label.Text, playerLabel.Text);
+                    (playerLabel.FormattedText, label.FormattedText) = (label.FormattedText, playerLabel.FormattedText);
                     currentSet.SwapPlayerWith(set);
                     _onSetsSwapped.Swapped(currentSet, set);
                 };
@@ -233,7 +233,7 @@ public class DoubleEliminationGrid : Grid
                             },
                             new Span
                             {
-                                Text = currentSet.Player1,
+                                Text = currentSet.Player1DisplayName,
                                 TextColor = player1Color
                             },
                             new Span
@@ -243,7 +243,7 @@ public class DoubleEliminationGrid : Grid
                             },
                             new Span
                             {
-                                Text = currentSet.Player2,
+                                Text = currentSet.Player2DisplayName,
                                 TextColor = player2Color
                             }
                         }

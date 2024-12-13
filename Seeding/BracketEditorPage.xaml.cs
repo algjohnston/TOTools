@@ -34,16 +34,16 @@ public partial class BracketEditorPage : ContentPage, IOnSetsSwapped
             return;
         }
 
-        var screenHeight = DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density;
-        var screenWidth = DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
+        var height = 1.5 * DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density;
+        var width = 1.5 * DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
         if (bracket.BracketType == BracketType.DoubleElimination)
         {
             // Add the double elimination bracket
             var winnerAndLoserBracketSets = Bracket.GetWinnerAndLoserBracketSets(bracket);
             var winnersBracket = new ContentView
             {
-                HeightRequest = screenHeight,
-                WidthRequest = screenWidth,
+                HeightRequest = height,
+                WidthRequest = width,
                 Content = new DoubleEliminationGrid(
                     _seedingBusinessLogic.Players,
                     winnerAndLoserBracketSets.WinnerSets,
@@ -53,8 +53,8 @@ public partial class BracketEditorPage : ContentPage, IOnSetsSwapped
             };
             var losersBracket = new ContentView
             {
-                HeightRequest = screenHeight,
-                WidthRequest = screenWidth,
+                HeightRequest = height,
+                WidthRequest = width,
                 Content = new DoubleEliminationGrid(
                     _seedingBusinessLogic.Players,
                     winnerAndLoserBracketSets.LoserSets,
@@ -69,8 +69,8 @@ public partial class BracketEditorPage : ContentPage, IOnSetsSwapped
             // Add the round-robin bracket
             var roundRobinBrackets = new ContentView
             {
-                HeightRequest = screenHeight,
-                WidthRequest = screenWidth,
+                HeightRequest = height,
+                WidthRequest = width,
                 Content = new RoundRobinGrid(Bracket.GetRoundRobinSets(bracket), Colors.AntiqueWhite)
             };
             BracketStackLayout.Children.Add(roundRobinBrackets);
