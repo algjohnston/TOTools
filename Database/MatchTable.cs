@@ -34,8 +34,8 @@ public class MatchTable : ITable<PastMatch, long, Match>
             "IF NOT EXISTS " +
             $"{MatchTableName} (" +
             $"{MatchIdColumn} BIGSERIAL PRIMARY KEY, " +
-            $"{Player1IdColumn} TEXT REFERENCES players(startgg_id), " +
-            $"{Player2IdColumn} TEXT REFERENCES players(startgg_id), " +
+            $"{Player1IdColumn} TEXT, " +
+            $"{Player2IdColumn} TEXT, " +
             $"{MatchTimeColumn} BIGINT, " +
             $"{GameNameColumn} INT, " +
             $"{IsBestOfFiveColumn} BOOL " +
@@ -72,10 +72,10 @@ public class MatchTable : ITable<PastMatch, long, Match>
             $"{IsBestOfFiveColumn} = @is_best_of_five, " +
             $"WHERE {MatchIdColumn} = @match_id;";
         command.Parameters.AddWithValue("match_id", match.MatchId);
-        command.Parameters.AddWithValue("player_1_id", match.Player1);
-        command.Parameters.AddWithValue("player_2_id", match.Player2);
+        command.Parameters.AddWithValue("player_1_id", match.Player1Id);
+        command.Parameters.AddWithValue("player_2_id", match.Player2Id);
         command.Parameters.AddWithValue("match_time", match.MatchTime);
-        command.Parameters.AddWithValue("game_name", match.GameName);
+        command.Parameters.AddWithValue("game_name", (int)match.GameName);
         command.Parameters.AddWithValue("is_best_of_five", match.IsBestOfFive);
 
         var numAffected = command.ExecuteNonQuery();
@@ -94,12 +94,12 @@ public class MatchTable : ITable<PastMatch, long, Match>
             $"INSERT INTO {MatchTableName} (" +
             $"{MatchIdColumn}, {Player1IdColumn}, {Player2IdColumn}, {MatchTimeColumn}, {GameNameColumn}" +
             $") VALUES " +
-            $"(@name, @location, @start_datetime, @end_datetime, @game, @is_best_of_five)";
-        command.Parameters.AddWithValue("player_1_id", toInsert.Player1);
-        command.Parameters.AddWithValue("player_2_id", toInsert.Player2);
+            $"(@player_1_id, @player_2_id, @match_time, @game, @is_best_of_five)";
+        command.Parameters.AddWithValue("player_1_id", toInsert.Player1Id);
+        command.Parameters.AddWithValue("player_2_id", toInsert.Player2Id);
         command.Parameters.AddWithValue("match_time", toInsert.MatchTime);
-        command.Parameters.AddWithValue("game", toInsert.GameName);
-        command.Parameters.AddWithValue("is_best_of_five", toInsert.IsBestOfFive);
+        command.Parameters.AddWithValue("game", (int)toInsert.GameName);
+        command.Parameters.AddWithValue("is_best_of_five", toInsert);
         command.ExecuteNonQuery();
         SelectAll();
     }

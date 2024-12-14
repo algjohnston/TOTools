@@ -1,4 +1,6 @@
-﻿namespace TOTools.Models;
+﻿using TOTools.StartggAPI;
+
+namespace TOTools.Models;
 
 /// <summary>
 /// Alexander Johnston
@@ -16,17 +18,21 @@
 /// <param name="isBestOfFive"> Whether the match is BO5 or BO3.</param>
 public class Match(
     string? id,
-    string player1, 
-    string player2, 
+    EntrantType player1, 
+    EntrantType player2, 
     long timeInSeconds, 
     Game game, 
-    bool isBestOfFive
+    bool isBestOfFive = true
     )
 {
-    
-    public string Player1 { get; } = player1;
 
-    public string Player2 { get; } = player2;
+    public string Player1Id { get; } = player1.Id;
+
+    public string Player2Id { get; } = player2.Id;
+
+    public string Player1 { get; } = player1.Name;
+
+    public string Player2 { get; } = player2.Name;
 
     public long TimeInSeconds { get; set; } = timeInSeconds;
 

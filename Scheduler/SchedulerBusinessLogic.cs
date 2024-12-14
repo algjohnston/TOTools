@@ -177,8 +177,8 @@ public class SchedulerBusinessLogic(
         var futureMatches = sortedMatchParticipants
             .Select(kvp => new Match(
                 kvp.Key.Id,
-                kvp.Key.Slots[0].Entrant!.Name,
-                kvp.Key.Slots[1].Entrant!.Name,
+                kvp.Key.Slots[0].Entrant!,
+                kvp.Key.Slots[1].Entrant!,
                 kvp.Value,
                 Game.Unknown,
                 true
@@ -243,7 +243,7 @@ public class SchedulerBusinessLogic(
             return; 
         }
         EventBrackets[eventName].RecordWinner(winner, id);
-        
+        matchTable.Insert(match);
     }
     
 }

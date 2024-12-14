@@ -40,7 +40,7 @@ public partial class MatchSchedulerPage : ContentPage, INewTimeSubmitted
         if (_schedulerBusinessLogic?.SelectedMatch != null)
         {
             var selectedMatch = _schedulerBusinessLogic.SelectedMatch;
-            var eventMatchGroup = FindEventGroupOfMatch(selectedMatch);
+            var (i, eventMatchGroup) = FindEventGroupOfMatch(selectedMatch);
             if (eventMatchGroup == null)
             {
                 return;
@@ -52,6 +52,7 @@ public partial class MatchSchedulerPage : ContentPage, INewTimeSubmitted
                     _schedulerBusinessLogic
                     )
             );
+            eventMatchGroup.RemoveAt(i);
         }
     }
 
@@ -154,7 +155,7 @@ public partial class MatchSchedulerPage : ContentPage, INewTimeSubmitted
             return;
         }
         
-        var eventMatchGroup = FindEventGroupOfMatch(selectedMatch);
+        var (i, eventMatchGroup) = FindEventGroupOfMatch(selectedMatch);
         if (eventMatchGroup == null)
         {
             return;
@@ -162,11 +163,11 @@ public partial class MatchSchedulerPage : ContentPage, INewTimeSubmitted
         Navigation.PushAsync(new ChangeEventTimePage(eventMatchGroup, this));
     }
 
-    private EventMatchGroup? FindEventGroupOfMatch(Match selectedMatch)
+    private (int, EventMatchGroup?) FindEventGroupOfMatch(Match selectedMatch)
     {
         if (_schedulerBusinessLogic == null)
         {
-            return null;
+            return (-1, null);
         }
         
         EventMatchGroup? eventMatchGroup = null;
@@ -178,7 +179,7 @@ public partial class MatchSchedulerPage : ContentPage, INewTimeSubmitted
                 break;
             }
         }
-        return eventMatchGroup;
+        return (eventMatchGroup?.IndexOf(selectedMatch)?? -1, eventMatchGroup);
     }
 
     /// <summary>
