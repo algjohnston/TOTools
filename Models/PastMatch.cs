@@ -15,7 +15,7 @@ namespace TOTools.Models;
 /// </param>
 /// <param name="game">The game that was played</param>
 /// <param name="isBestOfFive"> Whether the match was BO5 or BO3.</param>
-public class PastMatch(long id, string player1, string player2, long timeInSeconds, Game game, bool isBestOfFive)
+public class PastMatch(long id, string player1, string player2, long timeInSeconds, Game game, bool isBestOfFive = true)
     : Match(null, 
         new EntrantType{ Id="-1", Name=player1 }, 
         new EntrantType{ Id="-1", Name=player2 }, 

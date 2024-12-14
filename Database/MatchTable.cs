@@ -92,14 +92,14 @@ public class MatchTable : ITable<PastMatch, long, Match>
         command.Connection = connection;
         command.CommandText =
             $"INSERT INTO {MatchTableName} (" +
-            $"{MatchIdColumn}, {Player1IdColumn}, {Player2IdColumn}, {MatchTimeColumn}, {GameNameColumn}" +
+            $"{Player1IdColumn}, {Player2IdColumn}, {MatchTimeColumn}, {GameNameColumn}, {IsBestOfFiveColumn}" +
             $") VALUES " +
             $"(@player_1_id, @player_2_id, @match_time, @game, @is_best_of_five)";
         command.Parameters.AddWithValue("player_1_id", toInsert.Player1Id);
         command.Parameters.AddWithValue("player_2_id", toInsert.Player2Id);
-        command.Parameters.AddWithValue("match_time", toInsert.MatchTime);
+        command.Parameters.AddWithValue("match_time", toInsert.TimeInSeconds);
         command.Parameters.AddWithValue("game", (int)toInsert.GameName);
-        command.Parameters.AddWithValue("is_best_of_five", toInsert);
+        command.Parameters.AddWithValue("is_best_of_five", toInsert.IsBestOfFive);
         command.ExecuteNonQuery();
         SelectAll();
     }

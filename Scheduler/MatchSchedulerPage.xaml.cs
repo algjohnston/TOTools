@@ -53,6 +53,9 @@ public partial class MatchSchedulerPage : ContentPage, INewTimeSubmitted
                     )
             );
             eventMatchGroup.RemoveAt(i);
+            // Forces a reload of the events
+            MatchList.ItemsSource = null;
+            MatchList.ItemsSource = _schedulerBusinessLogic.FutureMatches;
         }
     }
 
